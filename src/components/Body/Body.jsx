@@ -88,7 +88,9 @@ const Body = (props) => {
     }, [streamData])
 
     React.useEffect(() => {
-        dispatch(getFilterMovies(endpoint))
+        if (endpoint !== '') {
+            dispatch(getFilterMovies(endpoint))
+        }
     }, [endpoint])
 
     const handleChange = (e) => {
