@@ -76,9 +76,9 @@ const Body = (props) => {
         }
         else {
             setIsFiltering(true)
-            setTotalData(filteredData)
+            // setTotalData(filteredData)
         }
-    }, [genreFilter, streamFilter, yearFilter, filteredData])
+    }, [genreFilter, streamFilter, yearFilter])
 
     React.useEffect(() => {
         setGenreList(genreData.genres)
@@ -114,15 +114,13 @@ const Body = (props) => {
     React.useEffect(() => {
         if (isFiltering) {
             setTotalData(filteredData)
-        } else {
-            setTotalData(data)
-            setCount(data.length)
         }
-    }, [isFiltering, data])
+    }, [isFiltering])
 
     const handleChangeFilter = (event) => {
         setFilterOpenChecked(false)
         event.persist();
+        setDefaultPage(1)
         switch (event.target.id) {
             case "stream":
                 const streamValue = event.target.value === 'All' ? 'All' : streamList.filter(a => a.site === event.target.value)[0].key
@@ -201,6 +199,7 @@ const Body = (props) => {
     React.useEffect(() => {
         setFilteredData(filtered.movies)
         setCount(filtered.count)
+        setDisplayData(filtered.movies)
     }, [filtered])
 
     const changeBody = (e, v) => { console.log(v) }
@@ -216,13 +215,12 @@ const Body = (props) => {
 
     React.useEffect(() => {
         setTotalData(data)
+        setCount(data.length)
     }, [data])
     const nextPage = (e, v) => {
         setDefaultPage(v)
         if (isFiltering) {
-            console.log('here')
             setEndPoint(`?page=${v}&release_date=${yearFilter === 'All' ? '' : yearFilter}&genre=${genreFilter === 'All' ? '' : genreFilter}&streaming=${streamFilter === 'All' ? '' : streamFilter}`)
-            setDisplayData(filteredData)
         } else {
             setDisplayData(totalData.slice((v - 1) * 10, v * 10))
         }
