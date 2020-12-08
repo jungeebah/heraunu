@@ -12,7 +12,15 @@ import { getFilterMovies, filterMovieSelector } from './movieFilterSlice';
 
 const useStyles = makeStyles((theme) => ({
     pagination: {
+        [theme.breakpoints.down('xs')]: {
+            paddingLeft: theme.spacing(4)
+        },
         paddingLeft: theme.spacing(2) - 1,
+    },
+    paginationSpacing: {
+        [theme.breakpoints.down('xs')]: {
+            paddingLeft: theme.spacing(5)
+        }
     },
     content: {
         marginTop: theme.spacing(7) + 1,
@@ -241,7 +249,7 @@ const Body = (props) => {
                         <div></div>}
                 </Grid>
             </Grid>
-            <Grid container spacing={2} justify="flex-end">
+            <Grid container spacing={2} justify="flex-end" >
                 {count > 10 ?
                     <Grid item xs={9} sm={5} lg={3} >
                         <Pagination

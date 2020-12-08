@@ -15,7 +15,7 @@ const useStyles = makeStyles((theme) => ({
     paper: {
         [theme.breakpoints.down("sm")]: {
             width: theme.spacing(18),
-            height: theme.spacing(25) + 2,
+            height: theme.spacing(26) + 2,
         },
         width: theme.spacing(22),
         height: theme.spacing(34),
