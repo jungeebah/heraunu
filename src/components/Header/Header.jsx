@@ -22,12 +22,30 @@ const useStyles = makeStyles((theme) => ({
     menuButton: {
         marginRight: theme.spacing(2),
     },
+    titleButton: {
+        // [theme.breakpoints.down('sm')]: {
+        //     marginLeft: -theme.spacing(3),
+        //     marginRight: theme.spacing(5),
+        // },
+        // [theme.breakpoints.between(['sm', 'md'])]: {
+        //     marginLeft: -theme.spacing(3),
+        //     marginRight: theme.spacing(9),
+        // }
+    },
     title: {
         flexGrow: 1,
         justifyContent: 'left',
         [theme.breakpoints.up('sm')]: {
             display: 'block',
         },
+        [theme.breakpoints.down('sm')]: {
+            marginLeft: -theme.spacing(3),
+            marginRight: theme.spacing(5),
+        },
+        [theme.breakpoints.between(['sm', 'md'])]: {
+            marginLeft: -theme.spacing(3),
+            marginRight: theme.spacing(9),
+        }
     },
     search: {
         position: 'relative',
@@ -122,49 +140,53 @@ const Header = (props) => {
                                 />
                             </div>
                         </Grow>
-                        <AppBar position="fixed" className={classes.appbar}>
-                            <Toolbar>
-                                <IconButton
-                                    edge="start"
-                                    className={classes.menuButton}
-                                    color="inherit"
-                                    aria-label="menu"
-                                    onClick={props.toggleDrawer(true)}
-                                >
-                                    <MenuIcon />
-                                </IconButton>
-                                <IconButton
-                                    color="inherit"
-                                    onClick={(e, v) => { console.log(e) }}
-                                    disableRipple={true}
-                                    className={classes.title}>
-                                    <Typography variant="h6" edge="center" >
-                                        Heraunu
-                                </Typography>
-                                </IconButton>
-                                <div>
-                                    <IconButton color="inherit" onClick={handleChange}>
-                                        <SearchIcon />
+                        <div className={classes.root}>
+                            <AppBar position="fixed">
+                                <Toolbar>
+                                    <IconButton
+                                        edge="start"
+                                        className={classes.menuButton}
+                                        color="inherit"
+                                        aria-label="menu"
+                                        onClick={props.toggleDrawer(true)}
+                                    >
+                                        <MenuIcon />
                                     </IconButton>
-                                </div>
-                                <IconButton
-                                    edge="end"
-                                    className={classes.menuButton}
-                                    color="inherit"
-                                    aria-label="theme"
-                                    onClick={props.handleChangeTheme}
-                                >
-                                    {props.theme ? <Brightness5Icon /> : <Brightness4Icon />}
-                                </IconButton>
-                                <Switch
-                                    name={switchName.charAt(0)}
-                                    handleChange={handleSwitchChange}
-                                    switchState={switchState}
+                                    <IconButton
+                                        // className={classes.titleButton}
+                                        color="inherit"
+                                        onClick={(e, v) => { console.log(e) }}
+                                        disableRipple={true}
+                                        className={classes.title}
+                                    >
+                                        <Typography variant="h6" edge="center" >
+                                            Heraunu
+                                </Typography>
+                                    </IconButton>
+                                    <div className={classes.root}>
+                                        <IconButton color="inherit" onClick={handleChange}>
+                                            <SearchIcon />
+                                        </IconButton>
+                                        <IconButton
+                                            edge="end"
+                                            className={classes.menuButton}
+                                            color="inherit"
+                                            aria-label="theme"
+                                            onClick={props.handleChangeTheme}
+                                        >
+                                            {props.theme ? <Brightness5Icon /> : <Brightness4Icon />}
+                                        </IconButton>
+                                        <Switch
+                                            name={switchName.charAt(0)}
+                                            handleChange={handleSwitchChange}
+                                            switchState={switchState}
 
-                                />
-                            </Toolbar>
-                        </AppBar>
-                    </div>
+                                        />
+                                    </div>
+                                </Toolbar>
+                            </AppBar>
+                        </div>
+                    </div >
 
                     :
                     <div className={classes.root}>
@@ -179,6 +201,7 @@ const Header = (props) => {
                                     <MenuIcon />
                                 </IconButton>
                                 <IconButton
+                                    // className={classes.titleButton}
                                     className={classes.title}
                                     color="inherit" onClick={(e, v) => { console.log(e) }}
                                     disableRipple={true}
@@ -186,8 +209,7 @@ const Header = (props) => {
                                     style={{ backgroundColor: 'transparent' }} >
                                     <Typography variant="h6" noWrap>
                                         Heraunu
-
-          </Typography>
+                                    </Typography>
                                 </IconButton>
                                 <IconButton
                                     edge="end"
@@ -218,7 +240,7 @@ const Header = (props) => {
                     </div>
             }
 
-        </div>);
+        </div >);
 }
 
 
@@ -228,7 +250,7 @@ const Header = (props) => {
 // import Toolbar from "@material-ui/core/Toolbar";
 // import Switch from '../Switch/Switch';
 // import Typography from "@material-ui/core/Typography";
-// import { makeStyles, useTheme } from "@material-ui/core/styles";
+// import {makeStyles, useTheme} from "@material-ui/core/styles";
 // import MenuIcon from "@material-ui/icons/Menu";
 // import Brightness5Icon from "@material-ui/icons/Brightness5";
 // import Brightness4Icon from "@material-ui/icons/Brightness4";
