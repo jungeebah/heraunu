@@ -15,9 +15,6 @@ const useStyles = makeStyles((theme) => ({
         justifyContent: 'flex-end'
     },
     pagination: {
-        // [theme.breakpoints.down('xs')]: {
-        //     paddingLeft: theme.spacing(4)
-        // },
         paddingLeft: theme.spacing(2) - 1,
     },
     paginationSpacing: {
@@ -117,9 +114,8 @@ const Body = (props) => {
     }
 
     React.useEffect(() => {
-        if (isFiltering) {
-            setTotalData(filteredData)
-        }
+        isFiltering ? setTotalData(filteredData) : setTotalData(data)
+
     }, [isFiltering])
 
     const handleChangeFilter = (event) => {
@@ -227,7 +223,8 @@ const Body = (props) => {
         if (isFiltering) {
             setEndPoint(`?page=${v}&release_date=${yearFilter === 'All' ? '' : yearFilter}&genre=${genreFilter === 'All' ? '' : genreFilter}&streaming=${streamFilter === 'All' ? '' : streamFilter}`)
         } else {
-            setDisplayData(totalData.slice((v - 1) * 10, v * 10))
+            console.log(totalData)
+            setDisplayData(data.slice((v - 1) * 10, v * 10))
         }
     }
 
