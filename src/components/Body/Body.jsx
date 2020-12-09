@@ -13,6 +13,7 @@ import { genreDataSelector } from '../Filter/genreDataSlice';
 import { streamDataSelector } from '../Filter/streamDataSlice';
 import { makeStyles, useTheme } from "@material-ui/core/styles";
 import { getFilterMovies, filterMovieSelector } from './movieFilterSlice';
+import About from '../About/About'
 
 const drawerWidth = 180;
 const useStyles = makeStyles((theme) => ({
@@ -347,15 +348,7 @@ const Body = (props) => {
     )
 
     const renderAbout = (
-        <Paper elevation={0} className={classes.about}>
-            <Typography variant="body">
-                A web app designed for Nepali movie lovers and for people who want to discover and watch Nepali Movies. The platform
-                collects data from various points over the internet to produce the collection. We are simply aggregating the content in
-                a one platform. We do intent to curate the data in future if the usage of the site grows.
-                Hope you will love it and enjoy Movies as we do.
-                F.Y.I We don't own any material presented here and are presenting movies which are already open to public.
-              </Typography>
-        </Paper>
+        <About />
     )
 
     return (

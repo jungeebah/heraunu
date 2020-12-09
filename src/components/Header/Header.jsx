@@ -31,7 +31,11 @@ const useStyles = makeStyles((theme) => ({
         [theme.breakpoints.up('sm')]: {
             display: 'block',
         },
-        [theme.breakpoints.down('sm')]: {
+        [theme.breakpoints.down('xs')]: {
+            marginLeft: -theme.spacing(3),
+            marginRight: theme.spacing(3) + 4,
+        },
+        [theme.breakpoints.between(['xs', 'sm'])]: {
             marginLeft: -theme.spacing(3),
             marginRight: theme.spacing(5),
         },

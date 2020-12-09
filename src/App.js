@@ -29,6 +29,16 @@ const useStyles = makeStyles((theme) => ({
 
 function App() {
   const dark = createMuiTheme({
+    breakpoints: {
+      values: {
+        xs: 0,
+        es: 380,
+        sm: 600,
+        md: 960,
+        lg: 1280,
+        xl: 1920,
+      },
+    },
     palette: {
       type: "dark",
     },
@@ -51,6 +61,16 @@ function App() {
     }
   });
   const light = createMuiTheme({
+    breakpoints: {
+      values: {
+        xs: 0,
+        es: 380,
+        sm: 600,
+        md: 960,
+        lg: 1280,
+        xl: 1920,
+      },
+    },
     palette: {
       common: {
         black: "#1e1e1e",
