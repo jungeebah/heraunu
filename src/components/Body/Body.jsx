@@ -11,10 +11,13 @@ import { makeStyles, useTheme } from "@material-ui/core/styles";
 import { getFilterMovies, filterMovieSelector } from './movieFilterSlice';
 
 const useStyles = makeStyles((theme) => ({
+    ul: {
+        justifyContent: 'flex-end'
+    },
     pagination: {
-        [theme.breakpoints.down('xs')]: {
-            paddingLeft: theme.spacing(4)
-        },
+        // [theme.breakpoints.down('xs')]: {
+        //     paddingLeft: theme.spacing(4)
+        // },
         paddingLeft: theme.spacing(2) - 1,
     },
     paginationSpacing: {
@@ -254,6 +257,9 @@ const Body = (props) => {
                     <Grid item xs={9} sm={5} lg={3} >
                         <Pagination
                             className={classes.pagination}
+                            classes={{
+                                ul: classes.ul
+                            }}
                             count={count % 10 === 0 ? count / 10 : Math.floor(count / 10) + 1}
                             page={defaultPage}
                             siblingCount={0}
