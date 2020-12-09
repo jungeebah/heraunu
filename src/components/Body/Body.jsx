@@ -113,9 +113,11 @@ const Body = (props) => {
             setStreamFilter('All')
             setGenreFilter('All')
             setYearFilter('All')
+            setDefaultPage(1)
             setTotalData(data)
             setCount(data.length)
             setPageSection('Home')
+            setFilterChipList([])
         }
     }, [bodyReset])
 
@@ -268,7 +270,10 @@ const Body = (props) => {
     React.useEffect(() => {
         setTotalData(data)
         setCount(data.length)
+        setIsFiltering(false)
+        setFilterChipList([])
     }, [data])
+
     const nextPage = (e, v) => {
         setDefaultPage(v)
         if (isFiltering) {
