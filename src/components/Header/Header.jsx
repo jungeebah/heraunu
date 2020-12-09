@@ -19,18 +19,11 @@ const useStyles = makeStyles((theme) => ({
     root: {
         flexGrow: 1,
     },
+    appbar: {
+        zIndex: theme.zIndex.drawer + 1,
+    },
     menuButton: {
         marginRight: theme.spacing(2),
-    },
-    titleButton: {
-        // [theme.breakpoints.down('sm')]: {
-        //     marginLeft: -theme.spacing(3),
-        //     marginRight: theme.spacing(5),
-        // },
-        // [theme.breakpoints.between(['sm', 'md'])]: {
-        //     marginLeft: -theme.spacing(3),
-        //     marginRight: theme.spacing(9),
-        // }
     },
     title: {
         flexGrow: 1,
@@ -97,6 +90,7 @@ const useStyles = makeStyles((theme) => ({
 const Header = (props) => {
     const classes = useStyles();
     const {
+        homeReset,
         option,
         handleMobileSwitch,
         selectedMobile,
@@ -141,7 +135,7 @@ const Header = (props) => {
                             </div>
                         </Grow>
                         <div className={classes.root}>
-                            <AppBar position="fixed">
+                            <AppBar position="fixed" className={classes.appbar}>
                                 <Toolbar>
                                     <IconButton
                                         edge="start"
@@ -155,7 +149,7 @@ const Header = (props) => {
                                     <IconButton
                                         // className={classes.titleButton}
                                         color="inherit"
-                                        onClick={(e, v) => { console.log(e) }}
+                                        onClick={homeReset}
                                         disableRipple={true}
                                         className={classes.title}
                                     >
@@ -190,7 +184,7 @@ const Header = (props) => {
 
                     :
                     <div className={classes.root}>
-                        <AppBar position="static">
+                        <AppBar position="fixed" className={classes.appbar}>
                             <Toolbar>
                                 <IconButton
                                     edge="start"
@@ -203,7 +197,7 @@ const Header = (props) => {
                                 <IconButton
                                     // className={classes.titleButton}
                                     className={classes.title}
-                                    color="inherit" onClick={(e, v) => { console.log(e) }}
+                                    color="inherit" onClick={homeReset}
                                     disableRipple={true}
                                     disableFocusRipple={true}
                                     style={{ backgroundColor: 'transparent' }} >

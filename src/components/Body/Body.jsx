@@ -1,8 +1,12 @@
 import React from 'react';
+import clsx from "clsx";
 import Grid from "@material-ui/core/Grid";
 import DisplayCard from '../DisplayCard/DisplayCard'
 import Filter from '../Filter/Filter';
+import MenuDrawer from "../MenuDrawer/MenuDrawer";
 import Pagination from '@material-ui/lab/Pagination';
+import Paper from '@material-ui/core/Paper';
+import Typography from '@material-ui/core/Typography'
 import useMediaQuery from "@material-ui/core/useMediaQuery";
 import { useSelector, useDispatch } from 'react-redux';
 import { genreDataSelector } from '../Filter/genreDataSlice';
@@ -10,9 +14,21 @@ import { streamDataSelector } from '../Filter/streamDataSlice';
 import { makeStyles, useTheme } from "@material-ui/core/styles";
 import { getFilterMovies, filterMovieSelector } from './movieFilterSlice';
 
+const drawerWidth = 180;
 const useStyles = makeStyles((theme) => ({
+    snackBar: {
+        zIndex: "10000",
+    },
     ul: {
         justifyContent: 'flex-end'
+    },
+    drawerHeader: {
+        display: "flex",
+        alignItems: "center",
+        padding: theme.spacing(0, 1),
+        // necessary for content to be below app bar
+        ...theme.mixins.toolbar,
+        justifyContent: "flex-start",
     },
     pagination: {
         paddingLeft: theme.spacing(2) - 1,
@@ -24,8 +40,8 @@ const useStyles = makeStyles((theme) => ({
     },
     content: {
         marginTop: theme.spacing(7) + 1,
-        [theme.breakpoints.up("sm")]: {
-            marginTop: 4,
+        [theme.breakpoints.down("sm")]: {
+            marginTop: theme.spacing(4),
         },
         flexGrow: 1,
         padding: theme.spacing(3),
@@ -37,7 +53,23 @@ const useStyles = makeStyles((theme) => ({
             marginLeft: 0,
         },
         marginLeft: theme.spacing(8) + 1,
-    }
+    },
+    contentShift: {
+        transition: theme.transitions.create("margin", {
+            easing: theme.transitions.easing.easeOut,
+            duration: theme.transitions.duration.enteringScreen,
+        }),
+        marginLeft: drawerWidth,
+    },
+    warning: {
+        width: "100%",
+        "& > * + *": {
+            marginTop: theme.spacing(2),
+        },
+    },
+    about: {
+        padding: theme.spacing(2, 2, 2, 2),
+    },
 }))
 const currentYear = new Date().getFullYear();
 const range = (start, stop, step) =>
@@ -47,9 +79,11 @@ const yearList = ["All", ...rangeYear];
 
 const Body = (props) => {
     const theme = useTheme();
-    const { switchName, data } = props
+    const { switchName, data, bodyReset, setBodyReset } = props
     const [totalData, setTotalData] = React.useState(data)
     const [defaultPage, setDefaultPage] = React.useState(1)
+
+    const [menuDrawerOpen, setMenuDrawerOpen] = React.useState(false);
 
     const [count, setCount] = React.useState(0)
     const genreData = useSelector(genreDataSelector);
@@ -69,6 +103,20 @@ const Body = (props) => {
     const [genreFilter, setGenreFilter] = React.useState('All')
     const [streamFilter, setStreamFilter] = React.useState('All')
     const [yearFilter, setYearFilter] = React.useState('All')
+    const mobile = useMediaQuery(theme.breakpoints.down("xs"));
+
+    const [pageSection, setPageSection] = React.useState('Home')
+
+    React.useEffect(() => {
+        if (bodyReset) {
+            setStreamFilter('All')
+            setGenreFilter('All')
+            setYearFilter('All')
+            setTotalData(data)
+            setCount(data.length)
+            setPageSection('Home')
+        }
+    }, [bodyReset])
 
     React.useEffect(() => {
         if (genreFilter === 'All' && streamFilter === 'All' && yearFilter === 'All') {
@@ -122,6 +170,7 @@ const Body = (props) => {
         setFilterOpenChecked(false)
         event.persist();
         setDefaultPage(1)
+        setBodyReset(false)
         switch (event.target.id) {
             case "stream":
                 const streamValue = event.target.value === 'All' ? 'All' : streamList.filter(a => a.site === event.target.value)[0].key
@@ -204,6 +253,7 @@ const Body = (props) => {
     }, [filtered])
 
     const changeBody = (e, v) => { console.log(v) }
+
     React.useEffect(() => {
         if (count > 0 && defaultPage * 10 > count) {
             const finalPage = count % 10 === 0 ? count / 10 : Math.floor(count / 10) + 1
@@ -228,8 +278,12 @@ const Body = (props) => {
         }
     }
 
-    return (
-        <div className={classes.content}>
+    const changeTitle = (title) => {
+        setPageSection(title)
+    };
+
+    const renderHome = (
+        <div >
             <Grid container spacing={2}>
                 <Grid item xs={12}>
                     {switchName === 'Movies' ?
@@ -290,6 +344,46 @@ const Body = (props) => {
                 }
             </Grid >
         </div >
+    )
+
+    const renderAbout = (
+        <Paper elevation={0} className={classes.about}>
+            <Typography variant="body">
+                A web app designed for Nepali movie lovers and for people who want to discover and watch Nepali Movies. The platform
+                collects data from various points over the internet to produce the collection. We are simply aggregating the content in
+                a one platform. We do intent to curate the data in future if the usage of the site grows.
+                Hope you will love it and enjoy Movies as we do.
+                F.Y.I We don't own any material presented here and are presenting movies which are already open to public.
+              </Typography>
+        </Paper>
+    )
+
+    return (
+        <div>
+            <MenuDrawer
+                changeTitle={changeTitle}
+                open={menuDrawerOpen}
+                setOpen={setMenuDrawerOpen}
+                drawerwidth={drawerWidth}
+                mobileDrawer={props.mobileDrawer}
+                toggleDrawer={props.toggleDrawer}
+            />
+            <main
+                className={clsx(classes.content, {
+                    [classes.contentShift]: mobile ? false : menuDrawerOpen,
+                })}
+            >
+                {
+                    pageSection === 'About' ?
+                        renderAbout
+                        : pageSection === 'individual' ?
+                            <div></div>
+                            :
+                            renderHome
+                }
+
+            </main>
+        </div>
     )
 }
 

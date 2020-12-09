@@ -105,6 +105,7 @@ function App() {
   const keyMovie = useSelector(allmovieSelector);
   const [movies, setMovies] = React.useState([]);
   const [artist, setArtist] = React.useState([]);
+  const [bodyReset, setBodyReset] = React.useState([false])
   const [openLabel, setOpenLabel] = React.useState(false);
   React.useEffect(() => { setMovies(keyMovie.allmovies) }, [keyMovie])
   React.useEffect(() => { setArtist(keyArtist.allActors) }, [keyArtist])
@@ -115,9 +116,26 @@ function App() {
   const [data, setData] = React.useState([movies]);
   const [option, setOption] = React.useState('');
   const [darkTheme, setDarkTheme] = React.useState(false);
+  const [mobileDrawer, setMobileDrawer] = React.useState(false);
+
+  const toggleDrawer = (open) => (event) => {
+    if (
+      event &&
+      event.type === "keydown" &&
+      (event.key === "Tab" || event.key === "Shift")
+    ) {
+      return;
+    }
+    setMobileDrawer(open);
+  };
+
   const handleChangeTheme = () => {
     setDarkTheme(!darkTheme);
   };
+
+  const homeReset = (e) => {
+    setBodyReset(true)
+  }
   const handleMobileSwitch = (event) => {
     event.target.value === 10 ? setSwitchState(false) : setSwitchState(true)
     setOption(event.target.value);
@@ -127,7 +145,7 @@ function App() {
   const selectedMobile = (e, v) => {
     setOpenLabel(false);
     const new_Array = []
-    console.log(v)
+
     if (v) {
       new_Array.push(v)
       setData(new_Array)
@@ -179,6 +197,7 @@ function App() {
       <Grid container className={classes.grid}>
         <Grid item xs={12}>
           <Header
+            homeReset={homeReset}
             handleChangeTheme={handleChangeTheme}
             theme={darkTheme}
             handleSwitchChange={handleSwitchChange}
@@ -192,6 +211,7 @@ function App() {
             setOpenLabel={setOpenLabel}
             option={option}
             handleMobileSwitch={handleMobileSwitch}
+            toggleDrawer={toggleDrawer}
           />
         </Grid>
         <Grid item xs={12}>
@@ -199,7 +219,12 @@ function App() {
             <div>
               <Body
                 switchName={switchName}
-                data={data} />
+                data={data}
+                bodyReset={bodyReset}
+                setBodyReset={setBodyReset}
+                mobileDrawer={mobileDrawer}
+                toggleDrawer={toggleDrawer}
+              />
             </div>
           </Paper>
         </Grid>
