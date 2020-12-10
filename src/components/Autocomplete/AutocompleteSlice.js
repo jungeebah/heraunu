@@ -18,7 +18,7 @@ const initialState = {
 
 export const getallMovie = createAsyncThunk('movie/getallMovie',
     () => {
-        return fetch(`https://healthy-system-267921.uc.r.appspot.com/api/allMovie`, requestOptions)
+        return fetch(`https://healthy-system-267921.uc.r.appspot.com/api/allMovie/`, requestOptions)
             .then(response => {
                 if (!response.ok) throw Error(response.statusText);
                 return response.json()

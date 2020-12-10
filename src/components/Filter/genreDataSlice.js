@@ -18,7 +18,7 @@ const initialState = {
 
 export const getGenreDataKey = createAsyncThunk('movie/getGenreKey',
     () => {
-        return fetch(`https://healthy-system-267921.uc.r.appspot.com/api/genreKey`, requestOptions)
+        return fetch(`https://healthy-system-267921.uc.r.appspot.com/api/genreKey/`, requestOptions)
             .then(response => {
                 if (!response.ok) throw Error(response.statusText);
                 return response.json()

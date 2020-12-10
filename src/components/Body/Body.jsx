@@ -153,13 +153,13 @@ const Body = (props) => {
             chips.filter((chip) => chip.value !== chipToDelete.value)
         );
         if (chipToDelete.key === "G") {
-            setEndPoint(`?page=${1}&release_date=${yearFilter === 'All' ? '' : yearFilter}&genre=&streaming=${streamFilter === 'All' ? '' : streamFilter}`);
+            setEndPoint(`/?page=${1}&release_date=${yearFilter === 'All' ? '' : yearFilter}&genre=&streaming=${streamFilter === 'All' ? '' : streamFilter}`);
             setGenreFilter("All");
         } else if (chipToDelete.key === "S") {
-            setEndPoint(`?page=${1}&release_date=${yearFilter === 'All' ? '' : yearFilter}&genre=${genreFilter === 'All' ? '' : genreFilter}&streaming=`);
+            setEndPoint(`/?page=${1}&release_date=${yearFilter === 'All' ? '' : yearFilter}&genre=${genreFilter === 'All' ? '' : genreFilter}&streaming=`);
             setStreamFilter('All')
         } else if (chipToDelete.key === 'Y') {
-            setEndPoint(`?page=${1}&release_date=&genre=${genreFilter === 'All' ? '' : genreFilter}&streaming=${streamFilter === 'All' ? '' : streamFilter}`);
+            setEndPoint(`/?page=${1}&release_date=&genre=${genreFilter === 'All' ? '' : genreFilter}&streaming=${streamFilter === 'All' ? '' : streamFilter}`);
             setYearFilter("All");
         }
     }
@@ -196,7 +196,7 @@ const Body = (props) => {
                     }
                 }
                 setStreamFilter(streamValue)
-                setEndPoint(`?page=${1}&release_date=${yearFilter === 'All' ? '' : yearFilter}&genre=${genreFilter === 'All' ? '' : genreFilter}&streaming=${streamValue === 'All' ? '' : streamValue}`)
+                setEndPoint(`/?page=${1}&release_date=${yearFilter === 'All' ? '' : yearFilter}&genre=${genreFilter === 'All' ? '' : genreFilter}&streaming=${streamValue === 'All' ? '' : streamValue}`)
                 break;
             case "genre":
                 const genreValue = event.target.value === 'All' ? 'All' : genreList.filter(a => a.name === event.target.value)[0].key
@@ -220,7 +220,7 @@ const Body = (props) => {
                     }
                 }
                 setGenreFilter(genreValue);
-                setEndPoint(`?page=${1}&release_date=${yearFilter === 'All' ? '' : yearFilter}&genre=${genreValue === 'All' ? '' : genreValue}&streaming=${streamFilter === 'All' ? '' : streamFilter}`)
+                setEndPoint(`/?page=${1}&release_date=${yearFilter === 'All' ? '' : yearFilter}&genre=${genreValue === 'All' ? '' : genreValue}&streaming=${streamFilter === 'All' ? '' : streamFilter}`)
                 break;
             case "year":
                 if (event.target.value === 'All') {
@@ -242,7 +242,7 @@ const Body = (props) => {
                 }
 
                 setYearFilter(event.target.value);
-                setEndPoint(`?page=${1}&release_date=${event.target.value === 'All' ? '' : event.target.value}&genre=${genreFilter === 'All' ? '' : genreFilter}&streaming=${streamFilter === 'All' ? '' : streamFilter}`)
+                setEndPoint(`/?page=${1}&release_date=${event.target.value === 'All' ? '' : event.target.value}&genre=${genreFilter === 'All' ? '' : genreFilter}&streaming=${streamFilter === 'All' ? '' : streamFilter}`)
                 break;
             default:
                 break;
@@ -277,7 +277,7 @@ const Body = (props) => {
     const nextPage = (e, v) => {
         setDefaultPage(v)
         if (isFiltering) {
-            setEndPoint(`?page=${v}&release_date=${yearFilter === 'All' ? '' : yearFilter}&genre=${genreFilter === 'All' ? '' : genreFilter}&streaming=${streamFilter === 'All' ? '' : streamFilter}`)
+            setEndPoint(`/?page=${v}&release_date=${yearFilter === 'All' ? '' : yearFilter}&genre=${genreFilter === 'All' ? '' : genreFilter}&streaming=${streamFilter === 'All' ? '' : streamFilter}`)
         } else {
             console.log(totalData)
             setDisplayData(data.slice((v - 1) * 10, v * 10))
