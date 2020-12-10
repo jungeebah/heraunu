@@ -5,14 +5,14 @@ import DisplayCard from '../DisplayCard/DisplayCard'
 import Filter from '../Filter/Filter';
 import MenuDrawer from "../MenuDrawer/MenuDrawer";
 import Pagination from '@material-ui/lab/Pagination';
-import Paper from '@material-ui/core/Paper';
-import Typography from '@material-ui/core/Typography'
+import IndividualPage from '../IndividualPage/IndividualPage';
 import useMediaQuery from "@material-ui/core/useMediaQuery";
 import { useSelector, useDispatch } from 'react-redux';
 import { genreDataSelector } from '../Filter/genreDataSlice';
 import { streamDataSelector } from '../Filter/streamDataSlice';
 import { makeStyles, useTheme } from "@material-ui/core/styles";
 import { getFilterMovies, filterMovieSelector } from './movieFilterSlice';
+import { getIndividualMovie, invalidateIndividualMovie } from './individual'
 import About from '../About/About'
 
 const drawerWidth = 180;
@@ -83,6 +83,7 @@ const Body = (props) => {
     const { switchName, data, bodyReset, setBodyReset } = props
     const [totalData, setTotalData] = React.useState(data)
     const [defaultPage, setDefaultPage] = React.useState(1)
+    const [individualImage, setIndividualImage] = React.useState('')
 
     const [menuDrawerOpen, setMenuDrawerOpen] = React.useState(false);
 
@@ -255,7 +256,12 @@ const Body = (props) => {
         setDisplayData(filtered.movies)
     }, [filtered])
 
-    const changeBody = (e, v) => { console.log(v) }
+    const changeBody = (e, v, test) => {
+        setIndividualImage(test)
+        dispatch(invalidateIndividualMovie())
+        dispatch(getIndividualMovie(v))
+        setPageSection('individual')
+    }
 
     React.useEffect(() => {
         if (count > 0 && defaultPage * 10 > count) {
@@ -279,7 +285,6 @@ const Body = (props) => {
         if (isFiltering) {
             setEndPoint(`/?page=${v}&release_date=${yearFilter === 'All' ? '' : yearFilter}&genre=${genreFilter === 'All' ? '' : genreFilter}&streaming=${streamFilter === 'All' ? '' : streamFilter}`)
         } else {
-            console.log(totalData)
             setDisplayData(data.slice((v - 1) * 10, v * 10))
         }
     }
@@ -334,13 +339,14 @@ const Body = (props) => {
                 {displayData.map((item, index) => (
                     <Grid item xs={6} sm={4} lg={3} xl={2} key={index}>
                         <DisplayCard
-                            url={
+                            url={item.url ? item.url.replace('youtubes', 'movies') :
                                 switchName === 'Movies'
                                     ?
-                                    `https://healthy-system-267921.uc.r.appspot.com/api/youtubes/${item.key}`
+                                    `https://healthy-system-267921.uc.r.appspot.com/api/movies/${item.key}/`
                                     :
-                                    `https://healthy-system-267921.uc.r.appspot.com/api/persons/${item.key}`
+                                    `https://healthy-system-267921.uc.r.appspot.com/api/persons/${item.key}/`
                             }
+
                             key={index}
                             movie={item}
                             changeBody={changeBody}
@@ -354,6 +360,10 @@ const Body = (props) => {
 
     const renderAbout = (
         <About />
+    )
+
+    const renderIndi = (
+        <IndividualPage image={individualImage} />
     )
 
     return (
@@ -375,7 +385,7 @@ const Body = (props) => {
                     pageSection === 'About' ?
                         renderAbout
                         : pageSection === 'individual' ?
-                            <div></div>
+                            renderIndi
                             :
                             renderHome
                 }

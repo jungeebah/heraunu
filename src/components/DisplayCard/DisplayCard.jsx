@@ -59,7 +59,7 @@ const DisplayCard = (props) => {
             <Card
                 className={classes.paper}
             >
-                <CardActionArea onClick={(e) => changeBody(e, url)}>
+                <CardActionArea onClick={(e) => changeBody(e, url, movie.image || movie.video_thumbnail)}>
                     <CardMedia
                         component="img"
                         className={classes.card}
