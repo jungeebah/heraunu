@@ -4,7 +4,8 @@ import allActorReducer from '../components/Autocomplete/allActorSlice';
 import genreDataReducer from '../components/Filter/genreDataSlice';
 import streamDataReducer from '../components/Filter/streamDataSlice';
 import filterMovieReducer from '../components/Body/movieFilterSlice';
-import individualMovieReducer from '../components/Body/individual'
+import individualMovieReducer from '../components/Body/individual';
+import actorReducer from '../components/Body/indiPersonSlice';
 
 export default configureStore({
   reducer: {
@@ -14,5 +15,6 @@ export default configureStore({
     streamData: streamDataReducer,
     filterMovies: filterMovieReducer,
     individualMovie: individualMovieReducer,
+    actor: actorReducer,
   },
 });

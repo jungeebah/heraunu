@@ -47,7 +47,6 @@ const About = () => {
                 </Grid>
                 <Grid item xs={12} sm={6}>
                     <Grid container
-                        container
                         direction="column"
                         justify="space-between"
                         alignItems="center">

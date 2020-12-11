@@ -12,7 +12,8 @@ import { genreDataSelector } from '../Filter/genreDataSlice';
 import { streamDataSelector } from '../Filter/streamDataSlice';
 import { makeStyles, useTheme } from "@material-ui/core/styles";
 import { getFilterMovies, filterMovieSelector } from './movieFilterSlice';
-import { getIndividualMovie, invalidateIndividualMovie } from './individual'
+import { getIndividualMovie, invalidateIndividualMovie } from './individual';
+import { getActor, invalidateActor } from './indiPersonSlice';
 import About from '../About/About'
 
 const drawerWidth = 180;
@@ -106,6 +107,7 @@ const Body = (props) => {
     const [streamFilter, setStreamFilter] = React.useState('All')
     const [yearFilter, setYearFilter] = React.useState('All')
     const mobile = useMediaQuery(theme.breakpoints.down("xs"));
+    const [dataType, setDataType] = React.useState('movie')
 
     const [pageSection, setPageSection] = React.useState('Home')
 
@@ -256,12 +258,19 @@ const Body = (props) => {
         setDisplayData(filtered.movies)
     }, [filtered])
 
-    const changeBody = (e, v, test) => {
+    const changeBody = (e, v, image) => {
         setBodyReset(false)
-        setIndividualImage(test)
-        dispatch(invalidateIndividualMovie())
-        dispatch(getIndividualMovie(v))
+        setIndividualImage(image)
         setPageSection('individual')
+        if (v.includes('persons')) {
+            setDataType('person')
+            dispatch(invalidateActor)
+            dispatch(getActor(v))
+        } else {
+            setDataType('movie')
+            dispatch(invalidateIndividualMovie())
+            dispatch(getIndividualMovie(v))
+        }
     }
 
     React.useEffect(() => {
@@ -364,7 +373,7 @@ const Body = (props) => {
     )
 
     const renderIndi = (
-        <IndividualPage image={individualImage} />
+        <IndividualPage image={individualImage} dataType={dataType} changeBody={changeBody} />
     )
 
     return (

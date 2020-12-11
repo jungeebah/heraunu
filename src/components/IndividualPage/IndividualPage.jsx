@@ -11,10 +11,11 @@ import Chip from '@material-ui/core/Chip';
 import Button from '@material-ui/core/Button'
 import IconButton from '@material-ui/core/IconButton'
 import ButtonGroup from '@material-ui/core/ButtonGroup'
-import YouTubeIcon from '@material-ui/icons/YouTube';
+import { actorSelector } from '../Body/indiPersonSlice';
 import useMediaQuery from "@material-ui/core/useMediaQuery";
 import { individualMovieSelector } from '../Body/individual';
 import { useSelector } from 'react-redux';
+import DisplayCard from '../DisplayCard/DisplayCard'
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -59,6 +60,14 @@ const useStyles = makeStyles((theme) => ({
     fontSizeLarge: {
         fontSize: '10rem'
     },
+    actorMovie: {
+        [theme.breakpoints.only("sm")]: {
+            padding: theme.spacing(2),
+        },
+        [theme.breakpoints.up("md")]: {
+            padding: theme.spacing(4, 2, 2, 2),
+        },
+    },
     image: props => ({
         background: `url(${props.image})`,
         [theme.breakpoints.up('sm')]: {
@@ -77,7 +86,6 @@ const useStyles = makeStyles((theme) => ({
             width: '140px',
             height: '200px',
         },
-
         backgroundSize: '100%',
         backgroundPosition: 'center',
         backgroundRepeat: "no-repeat",
@@ -87,9 +95,10 @@ const useStyles = makeStyles((theme) => ({
 const IndvidualPage = (props) => {
     const theme = useTheme();
     const individualMovieData = useSelector(individualMovieSelector)
+    const individualPerson = useSelector(actorSelector)
     const [movie, setMovie] = React.useState(null)
+    const [person, setPerson] = React.useState(null)
     const classes = useStyles(props)
-    const [dataType, setDataType] = React.useState('movie')
     const [youtubeLocation, setYoutubeLocation] = React.useState('')
     const medium = useMediaQuery(theme.breakpoints.down('sm'));
     const large = useMediaQuery(theme.breakpoints.up("md"));
@@ -117,6 +126,8 @@ const IndvidualPage = (props) => {
             case ('Video Pasal'):
                 window.open('https://videopasal.com/', '_blank')
                 break;
+            default:
+                break;
         }
 
     }
@@ -126,11 +137,15 @@ const IndvidualPage = (props) => {
     }, [individualMovieData])
 
     React.useEffect(() => {
+        setPerson(individualPerson)
+    }, [individualPerson])
+
+    React.useEffect(() => {
         if (movie) {
             setYoutubeLocation(movie.location)
         }
-
     }, [movie])
+
     const movieData = movie ? (
         <Grid item xs={12} sm={6}>
             <div className={classes.plot}>
@@ -219,6 +234,64 @@ const IndvidualPage = (props) => {
     )
     ) : [< div ></div>]
 
+    const renderPerson = person ? (
+        <Grid container
+            direction="column"
+            justify="space-between"
+            spacing={2}>
+            <Grid item xs={12} >
+                <Grid container
+                    direction="row"
+                    justify="flex-start"
+                    alignItems="flex-end"
+                >
+                    <Grid item xs={6} sm={5} lg={4}>
+                        <Paper style={{ backgroundSize: '100%' }}
+                            className={classes.image}
+                            color="primary">
+                        </Paper>
+                    </Grid>
+                    <Grid item xs={6} sm={7} lg={8}>
+                        <Grid
+                            container
+                            direction="row"
+                        >
+                            <Grid xs={12}>
+                                <Typography variant='h6'>
+                                    {person.name}
+                                </Typography>
+                            </Grid>
+                        </Grid>
+                    </Grid>
+                </Grid>
+            </Grid>
+            <Grid item xs={12}>
+                <Paper className={classes.actorMovie} elevation={0}>
+                    <Grid container
+                        direction="row"
+                        alignItems="flex-end"
+                        spacing={2}>
+                        <Grid item xs={12}>
+                            <Typography variant={medium ? "subtitle1" : "h4"}>
+                                Movies
+                    </Typography>
+                        </Grid>
+                        {person.movies.map((item, index) => (
+                            <Grid item xs={6} sm={4} lg={3} xl={2} key={index}>
+                                <DisplayCard
+                                    changeBody={props.changeBody}
+                                    movie={item}
+                                    url={`https://healthy-system-267921.uc.r.appspot.com/api/movies/${item.movie_id}/`}
+                                    key={index}
+                                />
+                            </Grid>
+                        ))}
+                    </Grid>
+                </Paper>
+            </Grid>
+        </Grid>
+    ) : <div></div>
+
     const renderMovie = movie ? (
         <Grid container
             direction="column"
@@ -279,6 +352,7 @@ const IndvidualPage = (props) => {
             <Grid item xs={12}>
                 <div className={classes.casting}>
                     <Cast
+                        changeBody={props.changeBody}
                         actor={movie.actor}
                     />
                 </div>
@@ -288,7 +362,7 @@ const IndvidualPage = (props) => {
 
     return (
         <div className={classes.root}>
-            {movie ? renderMovie : <div></div>}
+            {props.dataType === 'movie' ? renderMovie : renderPerson}
         </div>
     )
 
