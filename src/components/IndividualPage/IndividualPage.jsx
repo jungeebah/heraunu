@@ -21,8 +21,8 @@ const useStyles = makeStyles((theme) => ({
             marginTop: theme.spacing(4),
         },
     },
-    cast: {
-        // marginTop: theme.spacing(3)
+    casting: {
+        marginTop: theme.spacing(3)
     },
     buttonYear: {
         borderRadius: theme.spacing(1),
@@ -142,7 +142,7 @@ const IndvidualPage = (props) => {
         </Grid>
     ) : <div></div>
 
-    const movieStreaming = movie ? (<Paper className={classes.streaming}>
+    const movieStreaming = movie ? (<Paper elevation={0} className={classes.streaming}>
         <Typography variant={large ? "h6" : "body1"} display="block" gutterBottom className={classes.streamingData}>
             Streaming
                 </Typography>
@@ -153,6 +153,7 @@ const IndvidualPage = (props) => {
                 item === 'youtube' ?
                     <IconButton>
                         <YouTubeIcon
+                            style={{ fontSize: large ? 100 : 60 }}
                             rel="noopener noreferrer"
                             onClick={() => openYoutube(youtubeLocation)}
                             classes={{ fontSizeLarge: classes.fontSizeLarge }}
@@ -253,7 +254,7 @@ const IndvidualPage = (props) => {
             </Grid>
 
             <Grid item xs={12}>
-                <div className={classes.cast}>
+                <div className={classes.casting}>
                     <Cast
                         actor={movie.actor}
                     />
