@@ -303,7 +303,7 @@ const IndvidualPage = (props) => {
                     alignItems="flex-end"
                 >
                     <Grid item xs={6} sm={5} lg={4}>
-                        <Paper
+                        <Paper style={{ backgroundSize: '100%' }}
                             className={classes.image}
                             color="primary">
                         </Paper>
