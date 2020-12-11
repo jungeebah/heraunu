@@ -347,7 +347,7 @@ const Body = (props) => {
             </Grid>
             <Grid container spacing={2}>
                 {displayData.map((item, index) => (
-                    <Grid item xs={6} sm={4} lg={3} xl={2} key={index}>
+                    <Grid item xs={6} sm={4} md={3} xl={2} key={index}>
                         <DisplayCard
                             url={item.url ? item.url.replace('youtubes', 'movies') :
                                 switchName === 'Movies'

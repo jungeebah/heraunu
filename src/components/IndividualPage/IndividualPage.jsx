@@ -277,7 +277,7 @@ const IndvidualPage = (props) => {
                     </Typography>
                         </Grid>
                         {person.movies.map((item, index) => (
-                            <Grid item xs={6} sm={4} lg={3} xl={2} key={index}>
+                            <Grid item xs={6} sm={4} md={3} xl={2} key={index}>
                                 <DisplayCard
                                     changeBody={props.changeBody}
                                     movie={item}
