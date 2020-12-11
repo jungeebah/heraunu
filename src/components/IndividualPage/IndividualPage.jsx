@@ -22,7 +22,7 @@ const useStyles = makeStyles((theme) => ({
         },
     },
     cast: {
-        marginTop: theme.spacing(3)
+        // marginTop: theme.spacing(3)
     },
     buttonYear: {
         borderRadius: theme.spacing(1),
@@ -53,6 +53,9 @@ const useStyles = makeStyles((theme) => ({
     sizeSmall: {
         fontSize: '0.75rem',
         // fontFamily: ''
+    },
+    fontSizeLarge: {
+        fontSize: '10rem'
     },
     image: props => ({
         background: `url(${props.image})`,
@@ -138,7 +141,9 @@ const IndvidualPage = (props) => {
             {movie.playing ? movie.playing.map((item, index) => (
                 item === 'youtube' ?
                     <IconButton>
-                        <YouTubeIcon fontSize={large ? "large" : "default"} />
+                        <YouTubeIcon
+                            classes={{ fontSizeLarge: classes.fontSizeLarge }}
+                            fontSize={large ? "large" : "default"} />
                     </IconButton> :
                     <Typography
                         variant="body1"
@@ -231,7 +236,7 @@ const IndvidualPage = (props) => {
                 moviePlot
             }
             <Grid item xs={12}>
-                {movie.playing !== [''] ? movieStreaming : <div></div>}
+                {movie.playing[0] !== '' ? movieStreaming : <div></div>}
             </Grid>
 
             <Grid item xs={12}>
