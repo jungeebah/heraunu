@@ -88,12 +88,23 @@ const IndvidualPage = (props) => {
     const [movie, setMovie] = React.useState(null)
     const classes = useStyles(props)
     const [dataType, setDataType] = React.useState('movie')
+    const [youtubeLocation, setYoutubeLocation] = React.useState('')
     const medium = useMediaQuery(theme.breakpoints.down('sm'));
     const large = useMediaQuery(theme.breakpoints.up("md"));
-    console.log(movie)
+
+    const openYoutube = (e) => {
+        window.open(e, "_blank")
+    }
     React.useEffect(() => {
         setMovie(individualMovieData.movie)
     }, [individualMovieData])
+
+    React.useEffect(() => {
+        if (movie) {
+            setYoutubeLocation(movie.location)
+        }
+
+    }, [movie])
     const movieData = movie ? (
         <Grid item xs={12} sm={6}>
             <div className={classes.plot}>
@@ -142,6 +153,8 @@ const IndvidualPage = (props) => {
                 item === 'youtube' ?
                     <IconButton>
                         <YouTubeIcon
+                            rel="noopener noreferrer"
+                            onClick={() => openYoutube(youtubeLocation)}
                             classes={{ fontSizeLarge: classes.fontSizeLarge }}
                             fontSize={large ? "large" : "default"} />
                     </IconButton> :
