@@ -6,6 +6,8 @@ import { makeStyles, useTheme } from "@material-ui/core/styles";
 import PropTypes from "prop-types";
 import Box from '@material-ui/core/Box'
 import Cast from '../Cast/Cast'
+import OndemandVideoIcon from '@material-ui/icons/OndemandVideo';
+import Chip from '@material-ui/core/Chip';
 import Button from '@material-ui/core/Button'
 import IconButton from '@material-ui/core/IconButton'
 import ButtonGroup from '@material-ui/core/ButtonGroup'
@@ -92,9 +94,33 @@ const IndvidualPage = (props) => {
     const medium = useMediaQuery(theme.breakpoints.down('sm'));
     const large = useMediaQuery(theme.breakpoints.up("md"));
 
-    const openYoutube = (e) => {
-        window.open(e, "_blank")
+    const openYoutube = (e, item) => {
+        switch (item) {
+            case ('Youtube'):
+                window.open(e, "_blank")
+                break;
+            case ('Hamro Movie'):
+                window.open('https://hamromovie.com/', "_blank")
+                break;
+            case ('Cinemaghar'):
+                window.open('https://cinema-ghar.com/', "_blank")
+                break;
+            case ('Itune'):
+                window.open('https://itunes.apple.com/', "_blank")
+                break;
+            case ('Netflix'):
+                window.open('https://www.netflix.com/', "_blank")
+                break;
+            case ('Prime'):
+                window.open('https://www.amazon.com/Prime-Video', '_blank')
+                break;
+            case ('Video Pasal'):
+                window.open('https://videopasal.com/', '_blank')
+                break;
+        }
+
     }
+
     React.useEffect(() => {
         setMovie(individualMovieData.movie)
     }, [individualMovieData])
@@ -147,26 +173,23 @@ const IndvidualPage = (props) => {
             Streaming
                 </Typography>
         <Grid container
-            direction="row"
-            alignItems='flex-start'>
+            ddirection="row"
+            justify="flex-start"
+            alignItems="center"
+
+        >
             {movie.playing ? movie.playing.map((item, index) => (
-                item === 'youtube' ?
-                    <IconButton>
-                        <YouTubeIcon
-                            style={{ fontSize: large ? 100 : 60 }}
-                            rel="noopener noreferrer"
-                            onClick={() => openYoutube(youtubeLocation)}
-                            classes={{ fontSizeLarge: classes.fontSizeLarge }}
-                            fontSize={large ? "large" : "default"} />
-                    </IconButton> :
-                    <Typography
-                        variant="body1"
-                        display="block"
-                        gutterBottom
-                        className={classes.plot}
-                        key={index}>
-                        {item}
-                    </Typography>
+                <Grid item xs={6} sm={3} lg={2}>
+                    <Chip
+                        key={index}
+                        rel="noopener noreferrer"
+                        onClick={() => openYoutube(youtubeLocation, item)}
+                        icon={<OndemandVideoIcon />}
+                        label={item}
+                        clickable
+                        color="secondary"
+                    />
+                </Grid>
             )) : <div></div>}
         </Grid>
     </Paper>) : <div></div>
