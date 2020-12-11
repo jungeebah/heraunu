@@ -167,7 +167,7 @@ const Body = (props) => {
 
     React.useEffect(() => {
         isFiltering ? setTotalData(filteredData) : setTotalData(data)
-
+        setBodyReset(false)
     }, [isFiltering])
 
     const handleChangeFilter = (event) => {
@@ -257,6 +257,7 @@ const Body = (props) => {
     }, [filtered])
 
     const changeBody = (e, v, test) => {
+        setBodyReset(false)
         setIndividualImage(test)
         dispatch(invalidateIndividualMovie())
         dispatch(getIndividualMovie(v))
