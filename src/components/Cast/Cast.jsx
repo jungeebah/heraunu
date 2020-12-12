@@ -9,13 +9,12 @@ import Paper from "@material-ui/core/Paper";
 import useMediaQuery from "@material-ui/core/useMediaQuery";
 import { makeStyles, useTheme } from "@material-ui/core/styles";
 import Skeleton from "@material-ui/lab/Skeleton";
-import PersonIcon from "@material-ui/icons/Person";
 import ArrowBackIosIcon from "@material-ui/icons/ArrowBackIos";
 import ArrowForwardIosIcon from "@material-ui/icons/ArrowForwardIos";
 import IconButton from "@material-ui/core/IconButton";
 import PropTypes from "prop-types";
+import Image from './image.jpg';
 import Grid from "@material-ui/core/Grid";
-import clsx from "clsx";
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -157,7 +156,7 @@ const Cast = (props) => {
     const smallScreen = useMediaQuery(theme.breakpoints.down("sm"));
     const md = useMediaQuery(theme.breakpoints.down("md"));
     const xlarge = useMediaQuery(theme.breakpoints.up("xl"));
-    const column = mobile ? 3.5 : md ? 4.5 : xlarge ? 8.5 : 5.5;
+    const column = mobile ? 3.5 : md ? 5.5 : xlarge ? 8.5 : 5.5;
     const skeleton = (
         <div>
             <Skeleton variant="rect" width={210} height={118} />
@@ -165,16 +164,16 @@ const Cast = (props) => {
     );
     const { actor } = props;
     const classes = useStyles();
-    const noImage = (
-        <Paper
-            className={clsx(classes.noImage, {
-                [classes.menuDrawerNoImage]: props.menuDrawerOpen,
-                [classes.menuNotDrawnNoImage]: !props.menuDrawerOpen,
-            })}
-        >
-            <PersonIcon className={classes.icon} />
-        </Paper>
-    );
+    // const noImage = (
+    //     <Paper
+    //         className={clsx(classes.noImage, {
+    //             [classes.menuDrawerNoImage]: props.menuDrawerOpen,
+    //             [classes.menuNotDrawnNoImage]: !props.menuDrawerOpen,
+    //         })}
+    //     >
+    //         <PersonIcon className={classes.icon} />
+    //     </Paper>
+    // );
     const scrollRight = () => {
         movieScrollBox.current.scrollLeft += 200;
         setleftArrow(true);
@@ -251,19 +250,17 @@ const Cast = (props) => {
                                                     props.changeBody(e, `https://healthy-system-267921.uc.r.appspot.com/api/persons/${item.id}/`, item.image);
                                                 }}
                                             >
-                                                {item.image === null ? (
-                                                    noImage
-                                                ) : (
-                                                        <CardMedia
-                                                            key={item}
-                                                            classes={{
-                                                                img: classes.image,
-                                                            }}
-                                                            component="img"
-                                                            image={item.image}
-                                                            title={item.name}
-                                                        ></CardMedia>
-                                                    )}
+
+                                                <CardMedia
+                                                    key={item}
+                                                    classes={{
+                                                        img: classes.image,
+                                                    }}
+                                                    component="img"
+                                                    image={item.image || Image}
+                                                    title={item.name}
+                                                ></CardMedia>
+
                                             </CardActionArea>
                                         </Card>
                                         <Typography
