@@ -264,7 +264,7 @@ const Body = (props) => {
         setPageSection('individual')
         if (v.includes('persons')) {
             setDataType('person')
-            dispatch(invalidateActor)
+            dispatch(invalidateActor())
             dispatch(getActor(v))
         } else {
             setDataType('movie')

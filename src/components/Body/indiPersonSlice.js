@@ -14,7 +14,7 @@ const initialState = {
     url: 0,
     name: null,
     image: null,
-    movies: [],
+    movies: null,
     status: 'idle',
     error: null
 }

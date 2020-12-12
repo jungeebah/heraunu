@@ -127,6 +127,7 @@ function App() {
   const [option, setOption] = React.useState('');
   const [darkTheme, setDarkTheme] = React.useState(false);
   const [mobileDrawer, setMobileDrawer] = React.useState(false);
+  const [mobileSearchGrow, setMobileSearchGrow] = React.useState(false);
 
   const toggleDrawer = (open) => (event) => {
     if (
@@ -146,6 +147,12 @@ function App() {
   const homeReset = (e) => {
     setBodyReset(true)
   }
+
+  const handleChangeSearchMobileDispaly = () => {
+    setMobileSearchGrow((prev) => !prev);
+    switchName === 'Movies' ? setData(movies) : setData(artist)
+  };
+
   const handleMobileSwitch = (event) => {
     event.target.value === 10 ? setSwitchState(false) : setSwitchState(true)
     setOption(event.target.value);
@@ -155,7 +162,7 @@ function App() {
   const selectedMobile = (e, v) => {
     setOpenLabel(false);
     const new_Array = []
-
+    setBodyReset(true)
     if (v) {
       new_Array.push(v)
       setData(new_Array)
@@ -166,6 +173,7 @@ function App() {
   };
   const selected = (e, v) => {
     setOpenLabel(false);
+    setBodyReset(true)
     const new_Array = []
     if (v) {
       new_Array.push(v)
@@ -207,6 +215,8 @@ function App() {
       <Grid container className={classes.grid}>
         <Grid item xs={12}>
           <Header
+            mobileSearchGrow={mobileSearchGrow}
+            handleChange={handleChangeSearchMobileDispaly}
             homeReset={homeReset}
             handleChangeTheme={handleChangeTheme}
             theme={darkTheme}

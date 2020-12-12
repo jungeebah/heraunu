@@ -84,7 +84,7 @@ const useStyles = makeStyles((theme) => ({
         },
     },
     mobileAuto: {
-        position: "absolute",
+        position: "fixed",
         width: "100%",
         maxHeight: "56px",
         zIndex: theme.zIndex.drawer + 4,
@@ -105,14 +105,11 @@ const Header = (props) => {
         setInput,
         switchName,
         selected,
-        switchState
+        switchState,
+        mobileSearchGrow
     } = props;
     const theme = useTheme();
     const mobile = useMediaQuery(theme.breakpoints.down("xs"));
-    const [mobileSearchGrow, setMobileSearchGrow] = React.useState(false);
-    const handleChange = () => {
-        setMobileSearchGrow((prev) => !prev);
-    };
 
     return (
         <div>
@@ -133,7 +130,7 @@ const Header = (props) => {
                                     selected={selected}
                                     openLabel={openLabel}
                                     switched={switchName}
-                                    handleChange={handleChange}
+                                    handleChange={props.handleChange}
                                     handleMobileSwitch={handleMobileSwitch}
                                 />
                             </div>
@@ -162,7 +159,7 @@ const Header = (props) => {
                                 </Typography>
                                     </IconButton>
                                     <div className={classes.root}>
-                                        <IconButton color="inherit" onClick={handleChange}>
+                                        <IconButton color="inherit" onClick={props.handleChange}>
                                             <SearchIcon />
                                         </IconButton>
                                         <IconButton

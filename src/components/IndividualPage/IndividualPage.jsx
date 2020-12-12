@@ -8,6 +8,7 @@ import Box from '@material-ui/core/Box'
 import Cast from '../Cast/Cast'
 import OndemandVideoIcon from '@material-ui/icons/OndemandVideo';
 import Chip from '@material-ui/core/Chip';
+import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button'
 import IconButton from '@material-ui/core/IconButton'
 import ButtonGroup from '@material-ui/core/ButtonGroup'
@@ -153,7 +154,7 @@ const IndvidualPage = (props) => {
                     direction="row"
                     alignItems='flex-start'>
                     <Grid item xs={2} md={2} lg={2}>
-                        {movie.release_date ? <IconButton
+                        {movie.release_date ? new Date(movie.release_date).getFullYear() + 1 !== 2030 ? <IconButton
                             className={classes.buttonYear}
                             classes={{ sizeSmall: classes.sizeSmall }}
                             variant='text'
@@ -163,6 +164,8 @@ const IndvidualPage = (props) => {
                         </IconButton>
                             :
                             <Typography variant="caption" display="block" gutterBottom>
+                                NA
+                    </Typography> : <Typography variant="caption" display="block" gutterBottom>
                                 NA
                     </Typography>}
                     </Grid>
@@ -223,6 +226,19 @@ const IndvidualPage = (props) => {
             </div>
         </Grid>
     ) : <div></div>
+
+    const imdbRating = movie ? movie.imdb_rating ? (
+        <div className={classes.streaming}>
+            <Grid item xs={12} lg={12}>
+                <Chip
+                    color="secondary"
+                    avatar={<Avatar>{movie.imdb_rating}</Avatar>}
+                    label="IMDB Rating"
+                    size={large ? "medium" : "small"} />
+            </Grid>
+        </div>
+    ) : <div></div> : <div></div>
+
     const genre = movie ? movie.genre.map((item, index) => (
         <Button
             classes={{ textSizeSmall: classes.textSizeSmall }}
@@ -276,7 +292,7 @@ const IndvidualPage = (props) => {
                                 Movies
                     </Typography>
                         </Grid>
-                        {person.movies.map((item, index) => (
+                        {person.movies ? person.movies.map((item, index) => (
                             <Grid item xs={6} sm={4} md={3} xl={2} key={index}>
                                 <DisplayCard
                                     changeBody={props.changeBody}
@@ -285,12 +301,14 @@ const IndvidualPage = (props) => {
                                     key={index}
                                 />
                             </Grid>
-                        ))}
+                        )) : <div></div>}
                     </Grid>
                 </Paper>
             </Grid>
         </Grid>
-    ) : <div></div>
+    ) : <div>
+
+        </div>
 
     const renderMovie = movie ? (
         <Grid container
@@ -314,16 +332,17 @@ const IndvidualPage = (props) => {
                             direction="row"
                         >
                             <Grid xs={12}>
-                                <Typography variant='h6'>
+                                <Typography variant={large ? 'h3' : 'h6'}>
                                     {movie.name}
                                 </Typography>
                             </Grid>
                             <Grid xs={12}>
+                                {large ?
+                                    imdbRating : <div></div>
+                                }
                                 <ButtonGroup
-
                                     size={large ? "large" : medium ? "small" : "medium"}
                                     variant="text"
-
                                     aria-label="text primary button group"
                                 >
                                     {genre.map(item => item)}
@@ -339,6 +358,9 @@ const IndvidualPage = (props) => {
                     </Grid>
                 </Grid>
             </Grid>
+            {large ?
+                <div></div> : imdbRating
+            }
             {large ? <div></div> :
                 movieData
             }
