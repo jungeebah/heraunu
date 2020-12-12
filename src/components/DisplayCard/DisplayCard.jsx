@@ -63,7 +63,7 @@ const DisplayCard = (props) => {
                     <CardMedia
                         component="img"
                         className={classes.card}
-                        image={movie.image || movie.video_thumbnail}
+                        image={movie.image || movie.video_thumbnail || 'https://storage.googleapis.com/heraunu/no-image-movie.jpg'}
                         title={movie.name}
                     ></CardMedia>
 
