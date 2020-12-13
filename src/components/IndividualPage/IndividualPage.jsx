@@ -149,7 +149,7 @@ const IndvidualPage = (props) => {
 
     const movieData = movie ? (
         <Grid item xs={12} sm={6}>
-            <div className={classes.plot}>
+            <div>
                 <Grid container
                     direction="row"
                     alignItems='flex-start'>
@@ -194,10 +194,9 @@ const IndvidualPage = (props) => {
             ddirection="row"
             justify="flex-start"
             alignItems="center"
-
         >
             {movie.playing ? movie.playing.map((item, index) => (
-                <Grid item xs={6} sm={3} lg={2}>
+                <Grid item xs={5} sm={3} md={2} lg={2}>
                     <Chip
                         key={index}
                         rel="noopener noreferrer"
@@ -216,10 +215,10 @@ const IndvidualPage = (props) => {
             <div className={classes.cast}>
                 <Paper color='secondary'
                     elevation={0}>
-                    <Typography variant={large ? "h6" : "body1"} display="block" gutterBottom className={classes.plot}>
+                    <Typography variant={large ? "h6" : "body1"} display="block" gutterBottom>
                         Plot
                     </Typography>
-                    <Typography variant={large ? "body1" : "caption"} display="block" gutterBottom className={classes.plot}>
+                    <Typography variant={large ? "body1" : "caption"} display="block" gutterBottom >
                         {movie.plot || 'NA'}
                     </Typography>
                 </Paper>
@@ -320,13 +319,13 @@ const IndvidualPage = (props) => {
                     justify="flex-start"
                     alignItems="flex-end"
                 >
-                    <Grid item xs={6} sm={5} lg={4}>
+                    <Grid item xs={6} sm={5} md={4}>
                         <Paper style={{ backgroundSize: '100%' }}
                             className={classes.image}
                             color="primary">
                         </Paper>
                     </Grid>
-                    <Grid item xs={6} sm={7} lg={8}>
+                    <Grid item xs={6} sm={7} md={8}>
                         <Grid
                             container
                             direction="row"
