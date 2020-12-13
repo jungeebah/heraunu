@@ -2,6 +2,7 @@
   "name": "heraunu",
   "version": "0.1.0",
   "private": true,
+  "main": "public/electron.js",
   "dependencies": {
     "@material-ui/core": "^4.11.0",
     "@material-ui/icons": "^4.9.1",
@@ -13,12 +14,14 @@
     "@testing-library/react": "^9.3.2",
     "@testing-library/user-event": "^7.1.2",
     "downshift": "^6.0.6",
+    "electron-is-dev": "^1.2.0",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "react-redux": "^7.2.1",
     "react-scripts": "3.4.3"
   },
   "scripts": {
+    "electron-dev": "concurrently \"BROWSER=none yarn start\" \"wait-on http://localhost:3000 && electron .\"",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
@@ -51,9 +54,13 @@
     "@storybook/node-logger": "^6.1.10",
     "@storybook/preset-create-react-app": "^3.1.5",
     "@storybook/react": "^6.1.10",
+    "concurrently": "^5.3.0",
+    "electron": "^11.1.0",
+    "electron-builder": "^22.9.1",
     "enzyme": "^3.11.0",
     "enzyme-adapter-react-16": "^1.15.3",
     "prettier": "^2.1.1",
-    "react-is": "^16.13.1"
+    "react-is": "^16.13.1",
+    "wait-on": "^5.2.0"
   }
 }
