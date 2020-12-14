@@ -15,6 +15,7 @@ import { getFilterMovies, filterMovieSelector } from './movieFilterSlice';
 import { getIndividualMovie, invalidateIndividualMovie } from './individual';
 import { getActor, invalidateActor } from './indiPersonSlice';
 import About from '../About/About'
+import SkeletonDisplay from '../SkeletonDisplay/SkeletonDisplay'
 
 const drawerWidth = 180;
 const useStyles = makeStyles((theme) => ({
@@ -109,6 +110,7 @@ const Body = (props) => {
     const mobile = useMediaQuery(theme.breakpoints.down("xs"));
     const [dataType, setDataType] = React.useState('movie')
 
+    const skeletonItem = [...Array(10).keys()]
     const [pageSection, setPageSection] = React.useState('Home')
 
     React.useEffect(() => {
@@ -346,8 +348,8 @@ const Body = (props) => {
                     </Grid>}
             </Grid>
             <Grid container spacing={2}>
-                {displayData.map((item, index) => (
-                    <Grid item xs={6} sm={4} md={3} xl={2} key={index}>
+                {displayData.length > 1 ? displayData.map((item, index) => (
+                    <Grid item xs={6} sm={4} md={3} xl={2} key={item.key}>
                         <DisplayCard
                             url={item.url ? item.url.replace('youtubes', 'movies') :
                                 switchName === 'Movies'
@@ -362,7 +364,13 @@ const Body = (props) => {
                             changeBody={changeBody}
                         />
                     </Grid >
-                ))
+                )) :
+
+                    skeletonItem.map((item) => (
+                        <Grid item xs={6} sm={4} md={3} xl={2} key={item}>
+                            <SkeletonDisplay />
+                        </Grid>))
+
                 }
             </Grid >
         </div >

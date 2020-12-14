@@ -1,6 +1,7 @@
 import React from 'react';
 import Grid from "@material-ui/core/Grid";
 import Paper from '@material-ui/core/Paper';
+import Skeleton from '@material-ui/lab/Skeleton';
 import Typography from '@material-ui/core/Typography'
 import { makeStyles, useTheme } from "@material-ui/core/styles";
 import PropTypes from "prop-types";
@@ -17,6 +18,8 @@ import useMediaQuery from "@material-ui/core/useMediaQuery";
 import { individualMovieSelector } from '../Body/individual';
 import { useSelector } from 'react-redux';
 import DisplayCard from '../DisplayCard/DisplayCard'
+import SkeletonDisplay from '../SkeletonDisplay/SkeletonDisplay';
+
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -103,6 +106,8 @@ const IndvidualPage = (props) => {
     const [youtubeLocation, setYoutubeLocation] = React.useState('')
     const medium = useMediaQuery(theme.breakpoints.down('sm'));
     const large = useMediaQuery(theme.breakpoints.up("md"));
+    const skeletonItem = [...Array(10).keys()]
+
 
     const openYoutube = (e, item) => {
         switch (item) {
@@ -272,9 +277,10 @@ const IndvidualPage = (props) => {
                             direction="row"
                         >
                             <Grid xs={12}>
-                                <Typography variant='h6'>
+                                {person.name ? <Typography variant='h6'>
                                     {person.name}
-                                </Typography>
+                                </Typography> :
+                                    <Skeleton variant="wave" height={20} width="60%" />}
                             </Grid>
                         </Grid>
                     </Grid>
@@ -291,16 +297,21 @@ const IndvidualPage = (props) => {
                                 Movies
                     </Typography>
                         </Grid>
-                        {person.movies ? person.movies.map((item, index) => (
-                            <Grid item xs={6} sm={4} md={3} xl={2} key={index}>
+                        {person.movies ? person.movies.map((item) => (
+                            <Grid item xs={6} sm={4} md={3} xl={2} key={item.movie_id}>
                                 <DisplayCard
                                     changeBody={props.changeBody}
                                     movie={item}
                                     url={`https://api.heraunu.com/api/movies/${item.movie_id}/`}
-                                    key={index}
+                                    key={item.movie_id}
                                 />
                             </Grid>
-                        )) : <div></div>}
+                        )) :
+                            skeletonItem.map((item) => (
+                                <Grid item xs={6} sm={4} md={3} xl={2} key={item}>
+                                    <SkeletonDisplay />
+                                </Grid>
+                            ))}
                     </Grid>
                 </Paper>
             </Grid>
