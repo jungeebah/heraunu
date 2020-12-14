@@ -238,21 +238,21 @@ const Cast = (props) => {
                         >
                             {actor
                                 ? actor.map((item, index) => (
-                                    <GridListTile key={index}>
+                                    <GridListTile key={item.id}>
                                         <Card
                                             elevation={6}
                                             className={classes.card}
-                                            key={`card${index}`}
+                                            key={`card${item.id}`}
                                         >
                                             <CardActionArea
-                                                key={index}
+                                                key={item.id}
                                                 onClick={(e) => {
                                                     props.changeBody(e, `https://api.heraunu.com/api/persons/${item.id}/`, item.image);
                                                 }}
                                             >
 
                                                 <CardMedia
-                                                    key={item}
+                                                    key={item.id}
                                                     classes={{
                                                         img: classes.image,
                                                     }}
