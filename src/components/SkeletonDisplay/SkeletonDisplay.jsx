@@ -34,7 +34,6 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const SkeletonDisplay = () => {
-    const theme = useTheme();
     const classes = useStyles();
     return (
         <div>
