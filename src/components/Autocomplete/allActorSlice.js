@@ -18,7 +18,7 @@ const initialState = {
 
 export const getAllActor = createAsyncThunk('movie/getAllActor',
     () => {
-        return fetch('https://healthy-system-267921.uc.r.appspot.com/api/allPerson/', requestOptions)
+        return fetch('https://api.heraunu.com/api/allPerson/', requestOptions)
             .then(response => {
                 if (!response.ok) throw Error(response.statusText);
                 return response.json()

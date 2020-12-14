@@ -247,7 +247,7 @@ const Cast = (props) => {
                                             <CardActionArea
                                                 key={index}
                                                 onClick={(e) => {
-                                                    props.changeBody(e, `https://healthy-system-267921.uc.r.appspot.com/api/persons/${item.id}/`, item.image);
+                                                    props.changeBody(e, `https://api.heraunu.com/api/persons/${item.id}/`, item.image);
                                                 }}
                                             >
 

@@ -18,7 +18,7 @@ const initialState = {
 
 export const getStreamDataKey = createAsyncThunk('movie/getStreamKey',
     () => {
-        return fetch(`https://healthy-system-267921.uc.r.appspot.com/api/streamKey/`, requestOptions)
+        return fetch(`https://api.heraunu.com/api/streamKey/`, requestOptions)
             .then(response => {
                 if (!response.ok) throw Error(response.statusText);
                 return response.json()

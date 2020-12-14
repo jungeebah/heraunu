@@ -352,9 +352,9 @@ const Body = (props) => {
                             url={item.url ? item.url.replace('youtubes', 'movies') :
                                 switchName === 'Movies'
                                     ?
-                                    `https://healthy-system-267921.uc.r.appspot.com/api/movies/${item.key}/`
+                                    `https://api.heraunu.com/api/movies/${item.key}/`
                                     :
-                                    `https://healthy-system-267921.uc.r.appspot.com/api/persons/${item.key}/`
+                                    `https://api.heraunu.com/api/persons/${item.key}/`
                             }
 
                             key={index}

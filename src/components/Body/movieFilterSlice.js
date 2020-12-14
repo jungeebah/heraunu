@@ -22,7 +22,7 @@ const initialState = {
 
 export const getFilterMovies = createAsyncThunk('movie/getFilterMovies',
     (endpoint) => {
-        return fetch(`https://healthy-system-267921.uc.r.appspot.com/api/movies${endpoint}`, requestOptions)
+        return fetch(`https://api.heraunu.com/api/movies${endpoint}`, requestOptions)
             .then(response => {
                 if (!response.ok) throw Error(response.statusText);
                 return response.json()

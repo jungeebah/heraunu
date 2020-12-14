@@ -296,7 +296,7 @@ const IndvidualPage = (props) => {
                                 <DisplayCard
                                     changeBody={props.changeBody}
                                     movie={item}
-                                    url={`https://healthy-system-267921.uc.r.appspot.com/api/movies/${item.movie_id}/`}
+                                    url={`https://api.heraunu.com/api/movies/${item.movie_id}/`}
                                     key={index}
                                 />
                             </Grid>
@@ -395,7 +395,7 @@ IndvidualPage.propsType = {
 
 IndvidualPage.defaultProps = {
     movie: {
-        url: "https://healthy-system-267921.uc.r.appspot.com/api/youtubes/1802/",
+        url: "https://api.heraunu.com/api/youtubes/1802/",
         playing: [
             "youtube", "cinemaghar"
         ],
@@ -454,12 +454,12 @@ IndvidualPage.defaultProps = {
         video_thumbnail: null,
         youtube: null,
         role: [
-            "https://healthy-system-267921.uc.r.appspot.com/api/roles/8060/",
-            "https://healthy-system-267921.uc.r.appspot.com/api/roles/8061/",
-            "https://healthy-system-267921.uc.r.appspot.com/api/roles/8062/"
+            "https://api.heraunu.com/api/roles/8060/",
+            "https://api.heraunu.com/api/roles/8061/",
+            "https://api.heraunu.com/api/roles/8062/"
         ],
         streaming: [
-            "https://healthy-system-267921.uc.r.appspot.com/api/streamKey/8/"
+            "https://api.heraunu.com/api/streamKey/8/"
         ]
     }
 }
