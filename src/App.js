@@ -9,6 +9,7 @@ import Body from './components/Body/Body'
 import Paper from "@material-ui/core/Paper";
 import { useDispatch, useSelector } from 'react-redux';
 import { getallMovie, allmovieSelector } from './components/Autocomplete/AutocompleteSlice';
+import { getallYoutube } from './components/Body/allYoutubeSlice';
 import { getAllActor, allPersonSelector } from './components/Autocomplete/allActorSlice';
 import { getGenreDataKey } from './components/Filter/genreDataSlice';
 import { getStreamDataKey } from './components/Filter/streamDataSlice';
@@ -205,11 +206,13 @@ function App() {
   }
   const dispatch = useDispatch();
   React.useEffect(() => {
+    dispatch(getallYoutube())
     dispatch(getallMovie())
     dispatch(getAllActor())
     dispatch(getGenreDataKey())
     dispatch(getStreamDataKey())
   }, [dispatch])
+
   return (
     <ThemeProvider theme={darkTheme ? dark : light}>
       <Grid container className={classes.grid}>

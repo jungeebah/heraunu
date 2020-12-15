@@ -1,5 +1,5 @@
 import React from "react";
-import { makeStyles, useTheme } from "@material-ui/core/styles";
+import { makeStyles } from "@material-ui/core/styles";
 import Card from "@material-ui/core/Card";
 import Skeleton from '@material-ui/lab/Skeleton';
 
@@ -34,7 +34,6 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const SkeletonDisplay = () => {
-    const theme = useTheme();
     const classes = useStyles();
     return (
         <div>

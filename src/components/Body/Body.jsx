@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import clsx from "clsx";
 import Grid from "@material-ui/core/Grid";
 import DisplayCard from '../DisplayCard/DisplayCard'
@@ -9,6 +9,7 @@ import IndividualPage from '../IndividualPage/IndividualPage';
 import useMediaQuery from "@material-ui/core/useMediaQuery";
 import { useSelector, useDispatch } from 'react-redux';
 import { genreDataSelector } from '../Filter/genreDataSlice';
+import { allYoutubeSelector } from '../Body/allYoutubeSlice';
 import { streamDataSelector } from '../Filter/streamDataSlice';
 import { makeStyles, useTheme } from "@material-ui/core/styles";
 import { getFilterMovies, filterMovieSelector } from './movieFilterSlice';
@@ -90,6 +91,8 @@ const Body = (props) => {
     const [menuDrawerOpen, setMenuDrawerOpen] = React.useState(false);
 
     const [count, setCount] = React.useState(0)
+    const youtubeData = useSelector(allYoutubeSelector);
+    const [youtube, setYoutube] = useState([])
     const genreData = useSelector(genreDataSelector);
     const streamData = useSelector(streamDataSelector);
     const [genreList, setGenreList] = React.useState([])
@@ -112,6 +115,10 @@ const Body = (props) => {
 
     const skeletonItem = [...Array(10).keys()]
     const [pageSection, setPageSection] = React.useState('Home')
+
+    React.useEffect(() => {
+        setYoutube(youtubeData.allmovies)
+    }, [youtubeData])
 
     React.useEffect(() => {
         if (bodyReset) {
@@ -285,6 +292,7 @@ const Body = (props) => {
         }
     }, [totalData, defaultPage])
 
+
     React.useEffect(() => {
         setTotalData(data)
         setCount(data.length)
@@ -303,6 +311,18 @@ const Body = (props) => {
 
     const changeTitle = (title) => {
         setPageSection(title)
+        if (title === 'Youtube') {
+            setTotalData(youtube)
+            setCount(youtube.length)
+            setIsFiltering(false)
+            setFilterChipList([])
+        }
+        else if (title === 'Home') {
+            setTotalData(data)
+            setCount(data.length)
+            setIsFiltering(false)
+            setFilterChipList([])
+        }
     };
 
     const renderHome = (
@@ -376,6 +396,51 @@ const Body = (props) => {
         </div >
     )
 
+    const renderYoutube = (
+        <div >
+            <Grid container spacing={2} justify="flex-end" >
+                {count > 10 ?
+                    <Grid item xs={9} sm={5} lg={3} >
+                        <Pagination
+                            className={classes.pagination}
+                            classes={{
+                                ul: classes.ul
+                            }}
+                            count={count % 10 === 0 ? count / 10 : Math.floor(count / 10) + 1}
+                            page={defaultPage}
+                            siblingCount={0}
+                            variant="outlined"
+                            size={large ? "large" : "small"}
+                            shape="rounded"
+                            onChange={nextPage}
+                        />
+                    </Grid>
+                    : <Grid item xs={9} sm={5} lg={3}>
+                        <div></div>
+                    </Grid>}
+            </Grid>
+            <Grid container spacing={2}>
+                {displayData.length > 0 ? displayData.map((item, index) => (
+                    <Grid item xs={6} sm={4} md={3} xl={2} key={item.key}>
+                        <DisplayCard
+                            url={`https://api.heraunu.com/api/movies/${item.key}/`}
+                            key={index}
+                            movie={item}
+                            changeBody={changeBody}
+                        />
+                    </Grid >
+                )) :
+
+                    skeletonItem.map((item) => (
+                        <Grid item xs={6} sm={4} md={3} xl={2} key={item}>
+                            <SkeletonDisplay />
+                        </Grid>))
+
+                }
+            </Grid >
+        </div>
+    )
+
     const renderAbout = (
         <About />
     )
@@ -404,8 +469,10 @@ const Body = (props) => {
                         renderAbout
                         : pageSection === 'individual' ?
                             renderIndi
-                            :
-                            renderHome
+                            : pageSection === 'Youtube' ?
+                                renderYoutube
+                                :
+                                renderHome
                 }
 
             </main>

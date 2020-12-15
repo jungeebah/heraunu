@@ -13,6 +13,7 @@ import useMediaQuery from "@material-ui/core/useMediaQuery";
 import SwipeableDrawer from "@material-ui/core/SwipeableDrawer";
 import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
 import ChevronRightIcon from "@material-ui/icons/ChevronRight";
+import YouTubeIcon from '@material-ui/icons/YouTube';
 import HomeIcon from "@material-ui/icons/Home";
 import InfoIcon from "@material-ui/icons/Info";
 
@@ -69,10 +70,11 @@ const MenuDrawer = (props) => {
     const handleDrawerClose = (e) => {
         setOpen(false);
     };
-    const menuItems = ["Home", "About"];
+    const menuItems = ["Home", "About", "Youtube"];
     const menuIcons = [
         <HomeIcon />,
         <InfoIcon />,
+        <YouTubeIcon />
     ];
     const classes = useStyles();
     const theme = useTheme();

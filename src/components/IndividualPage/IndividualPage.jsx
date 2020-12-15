@@ -64,6 +64,13 @@ const useStyles = makeStyles((theme) => ({
     fontSizeLarge: {
         fontSize: '10rem'
     },
+    streamChip: {
+        [theme.breakpoints.up('lg')]: {
+            'div:not(:first-child)': {
+                marginLeft: '-50px'
+            }
+        }
+    },
     actorMovie: {
         [theme.breakpoints.only("sm")]: {
             padding: theme.spacing(2),
@@ -196,14 +203,14 @@ const IndvidualPage = (props) => {
             Streaming
                 </Typography>
         <Grid container
-            ddirection="row"
+            direction="row"
             justify="flex-start"
             alignItems="center"
         >
-            {movie.playing ? movie.playing.map((item, index) => (
-                <Grid item xs={5} sm={3} md={2} lg={2}>
+            {movie.playing ? movie.playing.map((item) => (
+                <Grid item xs={5} sm={3} md={2} lg={2} xl={1}>
                     <Chip
-                        key={index}
+                        key={item}
                         rel="noopener noreferrer"
                         onClick={() => openYoutube(youtubeLocation, item)}
                         icon={<OndemandVideoIcon />}
