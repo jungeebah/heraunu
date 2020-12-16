@@ -368,7 +368,7 @@ const Body = (props) => {
                     </Grid>}
             </Grid>
             <Grid container spacing={2}>
-                {displayData.length > 0 ? displayData.map((item, index) => (
+                {displayData.length > 0 ? displayData.map((item) => (
                     <Grid item xs={6} sm={4} md={3} xl={2} key={item.key}>
                         <DisplayCard
                             url={item.url ? item.url.replace('youtubes', 'movies') :
@@ -379,7 +379,7 @@ const Body = (props) => {
                                     `https://api.heraunu.com/api/persons/${item.key}/`
                             }
 
-                            key={index}
+                            key={item.key}
                             movie={item}
                             changeBody={changeBody}
                         />
