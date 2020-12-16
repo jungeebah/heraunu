@@ -133,7 +133,7 @@ const IndvidualPage = (props) => {
                 window.open('https://videopasal.com/', '_blank')
                 break;
             case ('Iflix'):
-                windows.open('https://www.iflix.com/np/en/browse', '_blank')
+                window.open('https://www.iflix.com/np/en/browse', '_blank')
                 break;
             default:
                 break;
