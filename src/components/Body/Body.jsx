@@ -12,7 +12,7 @@ import { genreDataSelector } from '../Filter/genreDataSlice';
 import { allYoutubeSelector } from '../Body/allYoutubeSlice';
 import { streamDataSelector } from '../Filter/streamDataSlice';
 import { makeStyles, useTheme } from "@material-ui/core/styles";
-import { getFilterMovies, filterMovieSelector } from './movieFilterSlice';
+import { getFilterMovies, filterMovieSelector, invalidateFilterMovie } from './movieFilterSlice';
 import { getIndividualMovie, invalidateIndividualMovie } from './individual';
 import { getActor, invalidateActor } from './indiPersonSlice';
 import About from '../About/About'
@@ -303,6 +303,7 @@ const Body = (props) => {
     const nextPage = (e, v) => {
         setDefaultPage(v)
         if (isFiltering) {
+            dispatch(invalidateFilterMovie())
             setEndPoint(`/?page=${v}&release_date=${yearFilter === 'All' ? '' : yearFilter}&genre=${genreFilter === 'All' ? '' : genreFilter}&streaming=${streamFilter === 'All' ? '' : streamFilter}`)
         } else {
             setDisplayData(data.slice((v - 1) * 10, v * 10))
