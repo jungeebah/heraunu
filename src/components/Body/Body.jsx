@@ -34,13 +34,11 @@ const useStyles = makeStyles((theme) => ({
         ...theme.mixins.toolbar,
         justifyContent: "flex-start",
     },
-    pagination: {
-        paddingLeft: theme.spacing(2) - 1,
-    },
-    paginationSpacing: {
-        [theme.breakpoints.down('xs')]: {
-            paddingLeft: theme.spacing(5)
-        }
+    youtube: {
+        [theme.breakpoints.down("xs")]: {
+            marginTop: theme.spacing(1),
+        },
+        marginTop: theme.spacing(2) + 3,
     },
     content: {
         marginTop: theme.spacing(7) + 1,
@@ -351,7 +349,6 @@ const Body = (props) => {
                 {count > 10 ?
                     <Grid item xs={9} sm={5} lg={3} >
                         <Pagination
-                            className={classes.pagination}
                             classes={{
                                 ul: classes.ul
                             }}
@@ -398,12 +395,11 @@ const Body = (props) => {
     )
 
     const renderYoutube = (
-        <div >
+        <div className={classes.youtube}>
             <Grid container spacing={2} justify="flex-end" >
                 {count > 10 ?
                     <Grid item xs={9} sm={5} lg={3} >
                         <Pagination
-                            className={classes.pagination}
                             classes={{
                                 ul: classes.ul
                             }}
