@@ -147,6 +147,7 @@ function App() {
 
   const homeReset = (e) => {
     setBodyReset(true)
+    switchName === 'Movies' ? setData(movies) : setData(artist)
   }
 
   const handleChangeSearchMobileDispaly = () => {

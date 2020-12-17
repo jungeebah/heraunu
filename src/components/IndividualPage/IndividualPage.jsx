@@ -334,13 +334,13 @@ const IndvidualPage = (props) => {
                     justify="flex-start"
                     alignItems="flex-end"
                 >
-                    <Grid item xs={6} sm={5} md={4}>
+                    <Grid item xs={6} sm={5} md={props.menuDrawerOpen ? 5 : 4}>
                         <Paper style={{ backgroundSize: '100%' }}
                             className={classes.image}
                             color="primary">
                         </Paper>
                     </Grid>
-                    <Grid item xs={6} sm={7} md={8}>
+                    <Grid item xs={6} sm={7} md={props.menuDrawerOpen ? 7 : 8}>
                         <Grid
                             container
                             direction="row"
