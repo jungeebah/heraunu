@@ -443,7 +443,7 @@ const Body = (props) => {
     )
 
     const renderIndi = (
-        <IndividualPage image={individualImage} dataType={dataType} changeBody={changeBody} />
+        <IndividualPage image={individualImage} dataType={dataType} changeBody={changeBody} menuDrawerOpen={menuDrawerOpen} />
     )
 
     return (
