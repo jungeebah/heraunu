@@ -64,13 +64,6 @@ const useStyles = makeStyles((theme) => ({
     fontSizeLarge: {
         fontSize: '10rem'
     },
-    streamChip: {
-        [theme.breakpoints.up('lg')]: {
-            'div:not(:first-child)': {
-                marginLeft: '-50px'
-            }
-        }
-    },
     actorMovie: {
         [theme.breakpoints.only("sm")]: {
             padding: theme.spacing(2),
@@ -127,17 +120,20 @@ const IndvidualPage = (props) => {
             case ('Cinemaghar'):
                 window.open('https://cinema-ghar.com/', "_blank")
                 break;
-            case ('Itune'):
+            case ('itune'):
                 window.open('https://itunes.apple.com/', "_blank")
                 break;
             case ('Netflix'):
                 window.open('https://www.netflix.com/', "_blank")
                 break;
             case ('Prime'):
-                window.open('https://www.amazon.com/Prime-Video', '_blank')
+                window.open('https://www.amazon.com/Movies-Nepali-Prime-Video/s?rh=n%3A2858905011%2Cp_n_feature_ten_browse-bin%3A13413562011', '_blank')
                 break;
             case ('Video Pasal'):
                 window.open('https://videopasal.com/', '_blank')
+                break;
+            case ('Iflix'):
+                window.open('https://www.iflix.com/np/en/browse', '_blank')
                 break;
             default:
                 break;
@@ -203,14 +199,15 @@ const IndvidualPage = (props) => {
             Streaming
                 </Typography>
         <Grid container
-            direction="row"
+            ddirection="row"
             justify="flex-start"
             alignItems="center"
+            spacing={2}
         >
-            {movie.playing ? movie.playing.map((item) => (
-                <Grid item xs={5} sm={3} md={2} lg={2} xl={1}>
+            {movie.playing ? movie.playing.map((item, index) => (
+                <Grid item xs={5} sm={3} md={2} lg={2}>
                     <Chip
-                        key={item}
+                        key={index}
                         rel="noopener noreferrer"
                         onClick={() => openYoutube(youtubeLocation, item)}
                         icon={<OndemandVideoIcon />}

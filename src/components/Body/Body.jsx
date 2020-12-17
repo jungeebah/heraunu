@@ -12,7 +12,7 @@ import { genreDataSelector } from '../Filter/genreDataSlice';
 import { allYoutubeSelector } from '../Body/allYoutubeSlice';
 import { streamDataSelector } from '../Filter/streamDataSlice';
 import { makeStyles, useTheme } from "@material-ui/core/styles";
-import { getFilterMovies, filterMovieSelector } from './movieFilterSlice';
+import { getFilterMovies, filterMovieSelector, invalidateFilterMovie } from './movieFilterSlice';
 import { getIndividualMovie, invalidateIndividualMovie } from './individual';
 import { getActor, invalidateActor } from './indiPersonSlice';
 import About from '../About/About'
@@ -34,13 +34,11 @@ const useStyles = makeStyles((theme) => ({
         ...theme.mixins.toolbar,
         justifyContent: "flex-start",
     },
-    pagination: {
-        paddingLeft: theme.spacing(2) - 1,
-    },
-    paginationSpacing: {
-        [theme.breakpoints.down('xs')]: {
-            paddingLeft: theme.spacing(5)
-        }
+    youtube: {
+        [theme.breakpoints.down("xs")]: {
+            marginTop: theme.spacing(1),
+        },
+        marginTop: theme.spacing(2) + 3,
     },
     content: {
         marginTop: theme.spacing(7) + 1,
@@ -303,6 +301,7 @@ const Body = (props) => {
     const nextPage = (e, v) => {
         setDefaultPage(v)
         if (isFiltering) {
+            dispatch(invalidateFilterMovie())
             setEndPoint(`/?page=${v}&release_date=${yearFilter === 'All' ? '' : yearFilter}&genre=${genreFilter === 'All' ? '' : genreFilter}&streaming=${streamFilter === 'All' ? '' : streamFilter}`)
         } else {
             setDisplayData(data.slice((v - 1) * 10, v * 10))
@@ -350,7 +349,6 @@ const Body = (props) => {
                 {count > 10 ?
                     <Grid item xs={9} sm={5} lg={3} >
                         <Pagination
-                            className={classes.pagination}
                             classes={{
                                 ul: classes.ul
                             }}
@@ -368,7 +366,7 @@ const Body = (props) => {
                     </Grid>}
             </Grid>
             <Grid container spacing={2}>
-                {displayData.length > 0 ? displayData.map((item, index) => (
+                {displayData.length > 0 ? displayData.map((item) => (
                     <Grid item xs={6} sm={4} md={3} xl={2} key={item.key}>
                         <DisplayCard
                             url={item.url ? item.url.replace('youtubes', 'movies') :
@@ -379,7 +377,7 @@ const Body = (props) => {
                                     `https://api.heraunu.com/api/persons/${item.key}/`
                             }
 
-                            key={index}
+                            key={item.key}
                             movie={item}
                             changeBody={changeBody}
                         />
@@ -397,12 +395,11 @@ const Body = (props) => {
     )
 
     const renderYoutube = (
-        <div >
+        <div className={classes.youtube}>
             <Grid container spacing={2} justify="flex-end" >
                 {count > 10 ?
                     <Grid item xs={9} sm={5} lg={3} >
                         <Pagination
-                            className={classes.pagination}
                             classes={{
                                 ul: classes.ul
                             }}
