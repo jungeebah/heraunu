@@ -120,14 +120,14 @@ const IndvidualPage = (props) => {
             case ('Cinemaghar'):
                 window.open('https://cinema-ghar.com/', "_blank")
                 break;
-            case ('Itune'):
+            case ('itune'):
                 window.open('https://itunes.apple.com/', "_blank")
                 break;
             case ('Netflix'):
                 window.open('https://www.netflix.com/', "_blank")
                 break;
             case ('Prime'):
-                window.open('https://www.amazon.com/Prime-Video', '_blank')
+                window.open('https://www.amazon.com/Movies-Nepali-Prime-Video/s?rh=n%3A2858905011%2Cp_n_feature_ten_browse-bin%3A13413562011', '_blank')
                 break;
             case ('Video Pasal'):
                 window.open('https://videopasal.com/', '_blank')
@@ -202,6 +202,7 @@ const IndvidualPage = (props) => {
             ddirection="row"
             justify="flex-start"
             alignItems="center"
+            spacing={2}
         >
             {movie.playing ? movie.playing.map((item, index) => (
                 <Grid item xs={5} sm={3} md={2} lg={2}>

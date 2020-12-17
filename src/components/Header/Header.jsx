@@ -17,6 +17,9 @@ import useMediaQuery from "@material-ui/core/useMediaQuery";
 
 const useStyles = makeStyles((theme) => ({
     root: {
+        [theme.breakpoints.down('xs')]: {
+            flexGrow: 0,
+        },
         flexGrow: 1,
     },
     appbar: {
@@ -158,7 +161,7 @@ const Header = (props) => {
                                             Heraunu
                                 </Typography>
                                     </IconButton>
-                                    <div className={classes.root}>
+                                    <div className={classes.root} justify="flex-end">
                                         <IconButton color="inherit" onClick={props.handleChange}>
                                             <SearchIcon />
                                         </IconButton>
