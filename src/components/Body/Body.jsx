@@ -317,6 +317,10 @@ const Body = (props) => {
             setFilterChipList([])
         }
         else if (title === 'Home') {
+            setStreamFilter('All')
+            setGenreFilter('All')
+            setYearFilter('All')
+            setDefaultPage(1)
             setTotalData(data)
             setCount(data.length)
             setIsFiltering(false)
