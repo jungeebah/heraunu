@@ -397,7 +397,7 @@ const IndvidualPage = (props) => {
                     />
                 </div>
             </Grid>
-            {movie.collection ? <Grid item xs={12}>
+            {movie.collection.length > 1 ? <Grid item xs={12}>
                 <div className={classes.casting}>
                     <Collections
                         changeBody={props.changeBody}
