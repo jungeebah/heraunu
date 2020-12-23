@@ -146,7 +146,7 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-const Cast = (props) => {
+const Collections = (props) => {
     const theme = useTheme();
     const movieScrollBox = React.useRef();
     const [leftArrow, setleftArrow] = React.useState(false);
@@ -164,16 +164,6 @@ const Cast = (props) => {
     );
     const { actor } = props;
     const classes = useStyles();
-    // const noImage = (
-    //     <Paper
-    //         className={clsx(classes.noImage, {
-    //             [classes.menuDrawerNoImage]: props.menuDrawerOpen,
-    //             [classes.menuNotDrawnNoImage]: !props.menuDrawerOpen,
-    //         })}
-    //     >
-    //         <PersonIcon className={classes.icon} />
-    //     </Paper>
-    // );
     const scrollRight = () => {
         movieScrollBox.current.scrollLeft += 200;
         setleftArrow(true);
@@ -207,7 +197,7 @@ const Cast = (props) => {
     );
     return (
         <Paper elevation={0} className={classes.root}>
-            <Typography variant={smallScreen ? "h6" : "h3"}>Cast</Typography>
+            <Typography variant={smallScreen ? "h6" : "h3"}>Collections</Typography>
             <div className={classes.gridRoot}>
                 <Grid container spacing={0}>
                     <Grid item xs={1} classes={{ "grid-xs-1": classes.flexXs }}>
@@ -247,7 +237,7 @@ const Cast = (props) => {
                                             <CardActionArea
                                                 key={item.id}
                                                 onClick={(e) => {
-                                                    props.changeBody(e, `https://api.heraunu.com/api/persons/${item.id}/`, item.image);
+                                                    props.changeBody(e, `https://api.heraunu.com/api/movies/${item.id}/`, item.image);
                                                 }}
                                             >
 
@@ -299,12 +289,12 @@ const Cast = (props) => {
         </Paper>
     );
 };
-Cast.propsType = {
+Collections.propsType = {
     actor: PropTypes.array,
     actorClick: PropTypes.array,
 };
 
-Cast.defaultProps = {
+Collections.defaultProps = {
     actor: [
         {
             name: "Reecha Sharma",
@@ -373,4 +363,4 @@ Cast.defaultProps = {
     ],
     actorClick: () => { },
 };
-export default Cast;
+export default Collections;

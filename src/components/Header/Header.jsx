@@ -17,8 +17,10 @@ import useMediaQuery from "@material-ui/core/useMediaQuery";
 
 const useStyles = makeStyles((theme) => ({
     root: {
+
         [theme.breakpoints.down('xs')]: {
             flexGrow: 0,
+            marginRight: -theme.spacing(2) - 2,
         },
         flexGrow: 1,
     },
@@ -35,8 +37,8 @@ const useStyles = makeStyles((theme) => ({
             display: 'block',
         },
         [theme.breakpoints.down('xs')]: {
-            marginLeft: -theme.spacing(3),
-            marginRight: theme.spacing(3) + 4,
+            marginLeft: -theme.spacing(4) - 2,
+            marginRight: theme.spacing(1) + 1,
         },
         [theme.breakpoints.between(['xs', 'sm'])]: {
             marginLeft: -theme.spacing(3),
@@ -175,7 +177,7 @@ const Header = (props) => {
                                             {props.theme ? <Brightness5Icon /> : <Brightness4Icon />}
                                         </IconButton>
                                         <Switch
-                                            name={switchName.charAt(0)}
+                                            name={switchName}
                                             handleChange={handleSwitchChange}
                                             switchState={switchState}
 
