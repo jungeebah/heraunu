@@ -7,6 +7,7 @@ import { makeStyles, useTheme } from "@material-ui/core/styles";
 import PropTypes from "prop-types";
 import Box from '@material-ui/core/Box'
 import Cast from '../Cast/Cast'
+import Collections from '../Collections/collections'
 import OndemandVideoIcon from '@material-ui/icons/OndemandVideo';
 import Chip from '@material-ui/core/Chip';
 import Avatar from '@material-ui/core/Avatar';
@@ -30,6 +31,9 @@ const useStyles = makeStyles((theme) => ({
     },
     casting: {
         marginTop: theme.spacing(3)
+    },
+    info: {
+        marginTop: '4px',
     },
     buttonYear: {
         borderRadius: theme.spacing(1),
@@ -157,7 +161,7 @@ const IndvidualPage = (props) => {
 
     const movieData = movie ? (
         <Grid item xs={12} sm={6}>
-            <div>
+            <div className={classes.info}>
                 <Grid container
                     direction="row"
                     alignItems='flex-start'>
@@ -393,6 +397,16 @@ const IndvidualPage = (props) => {
                     />
                 </div>
             </Grid>
+            {movie.collection ? <Grid item xs={12}>
+                <div className={classes.casting}>
+                    <Collections
+                        changeBody={props.changeBody}
+                        actor={movie.collection}
+                    />
+                </div>
+            </Grid> : <div></div>
+            }
+
         </Grid>
     ) : <div></div>
 

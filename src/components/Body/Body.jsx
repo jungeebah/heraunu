@@ -40,6 +40,10 @@ const useStyles = makeStyles((theme) => ({
         },
         marginTop: theme.spacing(2) + 3,
     },
+    mainMovie: {
+        display: 'flex',
+        justifyContent: 'center'
+    },
     content: {
         marginTop: theme.spacing(7) + 1,
         [theme.breakpoints.down("sm")]: {
@@ -371,7 +375,7 @@ const Body = (props) => {
             </Grid>
             <Grid container spacing={2}>
                 {displayData.length > 0 ? displayData.map((item) => (
-                    <Grid item xs={6} sm={4} md={3} xl={2} key={item.key}>
+                    <Grid item xs={6} sm={4} md={3} xl={2} key={item.key} className={classes.mainMovie}>
                         <DisplayCard
                             url={item.url ? item.url.replace('youtubes', 'movies') :
                                 switchName === 'Movies'
@@ -389,7 +393,7 @@ const Body = (props) => {
                 )) :
 
                     skeletonItem.map((item) => (
-                        <Grid item xs={6} sm={4} md={3} xl={2} key={item}>
+                        <Grid item xs={6} sm={4} md={3} xl={2} key={item} className={classes.mainMovie}>
                             <SkeletonDisplay />
                         </Grid>))
 
