@@ -426,7 +426,7 @@ const Body = (props) => {
             </Grid>
             <Grid container spacing={2}>
                 {displayData.length > 0 ? displayData.map((item, index) => (
-                    <Grid item xs={6} sm={4} md={3} xl={2} key={item.key}>
+                    <Grid item xs={6} sm={4} md={3} xl={2} key={item.key} className={classes.mainMovie}>
                         <DisplayCard
                             url={`https://api.heraunu.com/api/movies/${item.key}/`}
                             key={index}
