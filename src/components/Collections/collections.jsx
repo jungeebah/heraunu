@@ -154,7 +154,7 @@ const Collections = (props) => {
     const smallScreen = useMediaQuery(theme.breakpoints.down("sm"));
     const md = useMediaQuery(theme.breakpoints.down("md"));
     const xlarge = useMediaQuery(theme.breakpoints.up("xl"));
-    const column = mobile ? 3.5 : smallScreen ? 3.5 : md ? 5.5 : xlarge ? 8.5 : 5.5;
+    const column = mobile ? 3.5 : smallScreen ? 4.5 : md ? 5.5 : xlarge ? 8.5 : 5.5;
     const skeleton = (
         <div>
             <Skeleton variant="rect" width={210} height={118} />
