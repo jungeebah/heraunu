@@ -70,11 +70,11 @@ const MenuDrawer = (props) => {
     const handleDrawerClose = (e) => {
         setOpen(false);
     };
-    const menuItems = ["Home", "About", "Youtube"];
+    const menuItems = ["Home", "Youtube", "About"];
     const menuIcons = [
         <HomeIcon />,
-        <InfoIcon />,
-        <YouTubeIcon />
+        <YouTubeIcon />,
+        <InfoIcon />
     ];
     const classes = useStyles();
     const theme = useTheme();

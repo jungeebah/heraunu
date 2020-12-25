@@ -13,13 +13,12 @@ import Chip from '@material-ui/core/Chip';
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button'
 import IconButton from '@material-ui/core/IconButton'
-import ButtonGroup from '@material-ui/core/ButtonGroup'
 import { actorSelector } from '../Body/indiPersonSlice';
 import useMediaQuery from "@material-ui/core/useMediaQuery";
 import { individualMovieSelector } from '../Body/individual';
 import { useSelector } from 'react-redux';
-import DisplayCard from '../DisplayCard/DisplayCard'
 import SkeletonDisplay from '../SkeletonDisplay/SkeletonDisplay';
+import SimpleTabs from './movieTab'
 
 
 const useStyles = makeStyles((theme) => ({
@@ -29,11 +28,46 @@ const useStyles = makeStyles((theme) => ({
             marginTop: theme.spacing(4),
         },
     },
+    movieName: {
+        paddingTop: theme.spacing(1),
+    },
+    genre: {
+        marginTop: -theme.spacing(2) + 5,
+        marginLeft: '4px',
+    },
+    genreItem: {
+        textTransform: 'capitalize',
+        fontSize: '0.75rem',
+        paddingRight: '0px',
+        marginLeft: -theme.spacing(1) - 4,
+    },
     casting: {
-        marginTop: theme.spacing(3)
+        marginTop: theme.spacing(1),
+    },
+    noGenreInfo: {
+        marginTop: '4px',
     },
     info: {
-        marginTop: '4px',
+        marginLeft: '4px',
+        marginTop: -theme.spacing(2) + 6,
+    },
+    ratingOPen: {
+        marginLeft: theme.spacing(3)
+    },
+    rating: {
+        [theme.breakpoints.up("sm")]: {
+            marginLeft: '10px',
+        },
+        marginLeft: -theme.spacing(1) + 2,
+    },
+    timeOpen: {
+        marginLeft: theme.spacing(4),
+    },
+    time: {
+        [theme.breakpoints.up("sm")]: {
+            marginLeft: '8px',
+        },
+        marginLeft: -theme.spacing(4),
     },
     buttonYear: {
         borderRadius: theme.spacing(1),
@@ -47,16 +81,28 @@ const useStyles = makeStyles((theme) => ({
         borderWidth: "1px",
     },
     plot: {
-        [theme.breakpoints.up('md')]: {
-            padding: '0px'
-        },
-        padding: theme.spacing(1)
+        marginTop: theme.spacing(1),
+    },
+    plotItem: {
+        marginTop: ' -5px',
+        paddingLeft: '12px',
+    },
+    director: {
+        textTransform: 'capitalize',
+        fontSize: '0.75rem',
+        paddingRight: '0px',
+        marginLeft: -theme.spacing(1) - 4,
+    },
+    directorTag: {
+        marginTop: '-13px',
+        fontSize: '0.75rem',
     },
     streaming: {
-        marginTop: theme.spacing(1)
+        marginTop: theme.spacing(1),
     },
     streamingData: {
-        padding: theme.spacing(1)
+        paddingLeft: '12px',
+        // padding: theme.spacing(1)
     },
     paper: {
         marginTop: theme.spacing(1),
@@ -70,17 +116,18 @@ const useStyles = makeStyles((theme) => ({
     },
     actorMovie: {
         [theme.breakpoints.only("sm")]: {
-            padding: theme.spacing(2),
+            paddingTop: theme.spacing(1),
         },
         [theme.breakpoints.up("md")]: {
             padding: theme.spacing(4, 2, 2, 2),
         },
     },
     image: props => ({
+        borderRadius: theme.spacing(2),
         background: `url(${props.image})`,
         [theme.breakpoints.up('sm')]: {
-            height: '250px',
-            width: '200px',
+            height: '323px',
+            width: '216px',
         },
         [theme.breakpoints.up('md')]: {
             height: '400px',
@@ -91,8 +138,8 @@ const useStyles = makeStyles((theme) => ({
             width: '367px',
         },
         [theme.breakpoints.down('xs')]: {
-            width: '140px',
-            height: '200px',
+            width: '200px',
+            height: '300px',
         },
         backgroundSize: '100%',
         backgroundPosition: 'center',
@@ -161,7 +208,7 @@ const IndvidualPage = (props) => {
 
     const movieData = movie ? (
         <Grid item xs={12} sm={6}>
-            <div className={classes.info}>
+            <div className={movie.genre.length > 0 ? classes.info : classes.noGenreInfo}>
                 <Grid container
                     direction="row"
                     alignItems='flex-start'>
@@ -182,13 +229,13 @@ const IndvidualPage = (props) => {
                     </Typography>}
                     </Grid>
                     <Grid item xs={2} md={1} lg={2}>
-                        <Box className={classes.box}>
+                        <Box className={props.menuDrawerOpen ? classes.ratingOPen : classes.rating}>
                             <Typography variant="caption" display="block" gutterBottom>
                                 {movie.rating || 'NA'}
                             </Typography>
                         </Box>
                     </Grid>
-                    <Grid item xs={2} md={2} lg={2}>
+                    <Grid item xs={2} md={2} lg={2} className={props.menuDrawerOpen ? classes.timeOpen : classes.time}>
                         <Typography variant="caption" display="block" gutterBottom>
                             {movie.length || 'NA'}
                         </Typography>
@@ -198,20 +245,46 @@ const IndvidualPage = (props) => {
         </Grid>
     ) : <div></div>
 
+    const movieDirector = movie ? (
+        <div className={classes.streamingData}>
+            { movie.director.length > 0 ? movie.director.map((item) =>
+            (<Grid container direction="row">
+                <Grid item xs={6}>
+                    <Grid container key={item.id}>
+                        <Grid item xs={12} key={item.id}>
+                            <Button
+                                className={classes.director}
+                                onClick={(e) => props.changeBody(e, `https://api.heraunu.com/api/persons/${item.id}/`, item.image)}
+                            >{item.name}
+                            </Button>
+                        </Grid>
+                        <Grid item xs={12} key={item.id}>
+                            <Typography varaint="caption" className={classes.directorTag}>
+                                Director
+                        </Typography>
+                        </Grid>
+                    </Grid>
+                </Grid>
+            </Grid>
+            )) : <div></div>}
+        </div>
+    ) : <div></div>
+
     const movieStreaming = movie ? (<Paper elevation={0} className={classes.streaming}>
-        <Typography variant={large ? "h6" : "body1"} display="block" gutterBottom className={classes.streamingData}>
+        <Typography variant={large ? "h6" : "body1"} display="block" gutterBottom>
             Streaming
                 </Typography>
         <Grid container
-            ddirection="row"
+            direction="row"
             justify="flex-start"
             alignItems="center"
             spacing={2}
+            className={classes.streamingData}
         >
-            {movie.playing ? movie.playing.map((item, index) => (
+            {movie.playing ? movie.playing.map((item) => (
                 <Grid item xs={5} sm={3} md={2} lg={2}>
                     <Chip
-                        key={index}
+                        key={item}
                         rel="noopener noreferrer"
                         onClick={() => openYoutube(youtubeLocation, item)}
                         icon={<OndemandVideoIcon />}
@@ -223,18 +296,20 @@ const IndvidualPage = (props) => {
             )) : <div></div>}
         </Grid>
     </Paper>) : <div></div>
+
     const moviePlot = movie ? (
         <Grid item xs={12} lg={12}>
-            <div className={classes.cast}>
+            <div className={classes.plot}>
                 <Paper color='secondary'
                     elevation={0}>
                     <Typography variant={large ? "h6" : "body1"} display="block" gutterBottom>
-                        Plot
+                        Overview
                     </Typography>
-                    <Typography variant={large ? "body1" : "caption"} display="block" gutterBottom >
+                    <Typography variant={large ? "body1" : "caption"} display="block" gutterBottom className={classes.plotItem}>
                         {movie.plot || 'NA'}
                     </Typography>
                 </Paper>
+                {movie.director.length > 0 ? movieDirector : <div></div>}
             </div>
         </Grid>
     ) : <div></div>
@@ -251,10 +326,11 @@ const IndvidualPage = (props) => {
         </div>
     ) : <div></div> : <div></div>
 
-    const genre = movie ? movie.genre.map((item, index) => (
+    const genre = movie ? movie.genre.slice(0, 3).map((item) => (
         <Button
             classes={{ textSizeSmall: classes.textSizeSmall }}
-            key={index}
+            className={classes.genreItem}
+            key={item.name}
         >
             {item.name}
         </Button>
@@ -273,13 +349,13 @@ const IndvidualPage = (props) => {
                     justify="flex-start"
                     alignItems="flex-end"
                 >
-                    <Grid item xs={6} sm={5} lg={props.menuDrawerOpen ? 5 : 4}>
+                    <Grid item xs={6} sm={props.menuDrawerOpen ? 7 : 5} lg={props.menuDrawerOpen ? 5 : 4}>
                         <Paper style={{ backgroundSize: '100%' }}
                             className={classes.image}
                             color="primary">
                         </Paper>
                     </Grid>
-                    <Grid item xs={6} sm={7} lg={props.menuDrawerOpen ? 7 : 8}>
+                    <Grid item xs={12} sm={props.menuDrawerOpen ? 5 : 7} lg={props.menuDrawerOpen ? 7 : 8}>
                         <Grid
                             container
                             direction="row"
@@ -305,7 +381,17 @@ const IndvidualPage = (props) => {
                                 Movies
                     </Typography>
                         </Grid>
-                        {person.movies ? person.movies.map((item) => (
+                        {person.movies ?
+                            <Grid item xs={12}>
+                                <SimpleTabs movies={person.movies} changeBody={props.changeBody} />
+                            </Grid>
+                            :
+                            skeletonItem.map((item) => (
+                                <Grid item xs={6} sm={4} md={3} xl={2} key={item}>
+                                    <SkeletonDisplay />
+                                </Grid>
+                            ))}
+                        {/* {person.movies ? person.movies.map((item) => (
                             <Grid item xs={6} sm={4} md={3} xl={2} key={item.movie_id}>
                                 <DisplayCard
                                     changeBody={props.changeBody}
@@ -315,11 +401,7 @@ const IndvidualPage = (props) => {
                                 />
                             </Grid>
                         )) :
-                            skeletonItem.map((item) => (
-                                <Grid item xs={6} sm={4} md={3} xl={2} key={item}>
-                                    <SkeletonDisplay />
-                                </Grid>
-                            ))}
+                            } */}
                     </Grid>
                 </Paper>
             </Grid>
@@ -338,36 +420,30 @@ const IndvidualPage = (props) => {
                     justify="flex-start"
                     alignItems="flex-end"
                 >
-                    <Grid item xs={6} sm={5} md={props.menuDrawerOpen ? 5 : 4}>
+                    <Grid item xs={12} sm={props.menuDrawerOpen ? 5 : 4} md={props.menuDrawerOpen ? 5 : 4}>
                         <Paper style={{ backgroundSize: '100%' }}
                             className={classes.image}
+                            elevation={5}
                             color="primary">
                         </Paper>
                     </Grid>
-                    <Grid item xs={6} sm={7} md={props.menuDrawerOpen ? 7 : 8}>
+                    <Grid item xs={12} sm={props.menuDrawerOpen ? 7 : 8} md={props.menuDrawerOpen ? 7 : 8}>
                         <Grid
                             container
                             direction="row"
+                            className={classes.movieName}
                         >
                             <Grid xs={12}>
                                 <Typography variant={large ? 'h3' : 'h6'}>
                                     {movie.name}
                                 </Typography>
                             </Grid>
-                            <Grid xs={12}>
+                            <Grid xs={12} className={classes.genre}>
                                 {large ?
                                     imdbRating : <div></div>
                                 }
-                                <ButtonGroup
-                                    size={large ? "large" : medium ? "small" : "medium"}
-                                    variant="text"
-                                    aria-label="text primary button group"
-                                >
-                                    {genre.map(item => item)}
-                                </ButtonGroup>
-                                {large ?
-                                    movieData : <div></div>
-                                }
+                                {genre.map(item => item)}
+                                {movieData}
                                 {large ?
                                     moviePlot : <div></div>
                                 }
@@ -378,9 +454,6 @@ const IndvidualPage = (props) => {
             </Grid>
             {large ?
                 <div></div> : imdbRating
-            }
-            {large ? <div></div> :
-                movieData
             }
             {large ? <div></div> :
                 moviePlot
