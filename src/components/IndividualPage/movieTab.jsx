@@ -87,7 +87,14 @@ function TabPanel(props) {
 }
 const SimpleTabs = (props) => {
     const { movies } = props
+    const roleTypes = ['cast', 'producer', 'director', 'writer']
     const [value, setValue] = React.useState(0);
+    const [tabs, setTabs] = React.useState([])
+
+    React.useEffect(() => {
+        console.log(movies)
+        setTabs(roleTypes.filter(item => movies.filter(a => a.role.includes(item)).length > 0))
+    }, [movies])
 
     const handleChange = (event, newValue) => {
         setValue(newValue);
@@ -104,67 +111,30 @@ const SimpleTabs = (props) => {
                 scrollButtons="on"
                 indicatorColor="primary"
             >
-                <Tab classes={tabItemStyles} label={'Cast'} {...a11yProps(0)} />
+                {tabs.map((item, index) => (
+                    <Tab classes={tabItemStyles} label={item} {...a11yProps(index)} />
+                ))}
+                {/* <Tab classes={tabItemStyles} label={'Cast'} {...a11yProps(0)} />
                 <Tab classes={tabItemStyles} label={'Direction'}  {...a11yProps(1)} />
                 <Tab classes={tabItemStyles} label={'Production'}  {...a11yProps(2)} />
-                <Tab classes={tabItemStyles} label={'Writing'}  {...a11yProps(3)} />
+                <Tab classes={tabItemStyles} label={'Writing'}  {...a11yProps(3)} /> */}
             </Tabs>
-            <TabPanel value={value} index={0}>
-                <Grid container spacing={2}>
-                    {movies.filter(item => item.role.includes('cast')).map(item =>
-                        <Grid item xs={6} sm={4} md={3} xl={2} key={item.movie_id}>
-                            <DisplayCard
-                                changeBody={props.changeBody}
-                                movie={item}
-                                url={`https://api.heraunu.com/api/movies/${item.movie_id}/`}
-                                key={item.movie_id}
-                            />
-                        </Grid>
-                    )}
-                </Grid>
-            </TabPanel>
-            <TabPanel value={value} index={1}>
-                <Grid container spacing={2}>
-                    {movies.filter(item => item.role.includes('director')).map(item =>
-                        <Grid item xs={6} sm={4} md={3} xl={2} key={item.movie_id}>
-                            <DisplayCard
-                                changeBody={props.changeBody}
-                                movie={item}
-                                url={`https://api.heraunu.com/api/movies/${item.movie_id}/`}
-                                key={item.movie_id}
-                            />
-                        </Grid>
-                    )}
-                </Grid>
-            </TabPanel>
-            <TabPanel value={value} index={2}>
-                <Grid container spacing={2}>
-                    {movies.filter(item => item.role.includes('producer')).map(item =>
-                        <Grid item xs={6} sm={4} md={3} xl={2} key={item.movie_id}>
-                            <DisplayCard
-                                changeBody={props.changeBody}
-                                movie={item}
-                                url={`https://api.heraunu.com/api/movies/${item.movie_id}/`}
-                                key={item.movie_id}
-                            />
-                        </Grid>
-                    )}
-                </Grid>
-            </TabPanel>
-            <TabPanel value={value} index={3}>
-                <Grid container spacing={2}>
-                    {movies.filter(item => item.role.includes('writer')).map(item =>
-                        <Grid item xs={6} sm={4} md={3} xl={2} key={item.movie_id}>
-                            <DisplayCard
-                                changeBody={props.changeBody}
-                                movie={item}
-                                url={`https://api.heraunu.com/api/movies/${item.movie_id}/`}
-                                key={item.movie_id}
-                            />
-                        </Grid>
-                    )}
-                </Grid>
-            </TabPanel>
+            {tabs.map((role, index) => (
+                <TabPanel value={value} index={index}>
+                    <Grid container spacing={2}>
+                        {movies.filter(item => item.role.includes(role)).map(item =>
+                            <Grid item xs={6} sm={4} md={3} xl={2} key={item.movie_id}>
+                                <DisplayCard
+                                    changeBody={props.changeBody}
+                                    movie={item}
+                                    url={`https://api.heraunu.com/api/movies/${item.movie_id}/`}
+                                    key={item.movie_id}
+                                />
+                            </Grid>
+                        )}
+                    </Grid>
+                </TabPanel>
+            ))}
 
         </div>
     );
