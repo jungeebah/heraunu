@@ -17,8 +17,8 @@ import { actorSelector } from '../Body/indiPersonSlice';
 import useMediaQuery from "@material-ui/core/useMediaQuery";
 import { individualMovieSelector } from '../Body/individual';
 import { useSelector } from 'react-redux';
-import DisplayCard from '../DisplayCard/DisplayCard'
 import SkeletonDisplay from '../SkeletonDisplay/SkeletonDisplay';
+import SimpleTabs from './movieTab'
 
 
 const useStyles = makeStyles((theme) => ({
@@ -43,6 +43,9 @@ const useStyles = makeStyles((theme) => ({
     },
     casting: {
         marginTop: theme.spacing(1),
+    },
+    noGenreInfo: {
+        marginTop: '4px',
     },
     info: {
         marginLeft: '4px',
@@ -205,7 +208,7 @@ const IndvidualPage = (props) => {
 
     const movieData = movie ? (
         <Grid item xs={12} sm={6}>
-            <div className={classes.info}>
+            <div className={movie.genre.length > 0 ? classes.info : classes.noGenreInfo}>
                 <Grid container
                     direction="row"
                     alignItems='flex-start'>
@@ -245,20 +248,25 @@ const IndvidualPage = (props) => {
     const movieDirector = movie ? (
         <div className={classes.streamingData}>
             { movie.director.length > 0 ? movie.director.map((item) =>
-            (<Grid container key={item.id}>
-                <Grid item xs={12} key={item.id}>
-                    <Button
-                        className={classes.director}
-                        onClick={(e) => props.changeBody(e, `https://api.heraunu.com/api/persons/${item.id}/`, item.image)}
-                    >{item.name}
-                    </Button>
-                </Grid>
-                <Grid item xs={12} key={item.id}>
-                    <Typography varaint="caption" className={classes.directorTag}>
-                        Director
+            (<Grid container direction="row">
+                <Grid item xs={6}>
+                    <Grid container key={item.id}>
+                        <Grid item xs={12} key={item.id}>
+                            <Button
+                                className={classes.director}
+                                onClick={(e) => props.changeBody(e, `https://api.heraunu.com/api/persons/${item.id}/`, item.image)}
+                            >{item.name}
+                            </Button>
+                        </Grid>
+                        <Grid item xs={12} key={item.id}>
+                            <Typography varaint="caption" className={classes.directorTag}>
+                                Director
                         </Typography>
+                        </Grid>
+                    </Grid>
                 </Grid>
-            </Grid>)) : <div></div>}
+            </Grid>
+            )) : <div></div>}
         </div>
     ) : <div></div>
 
@@ -373,7 +381,17 @@ const IndvidualPage = (props) => {
                                 Movies
                     </Typography>
                         </Grid>
-                        {person.movies ? person.movies.map((item) => (
+                        {person.movies ?
+                            <Grid item xs={12}>
+                                <SimpleTabs movies={person.movies} changeBody={props.changeBody} />
+                            </Grid>
+                            :
+                            skeletonItem.map((item) => (
+                                <Grid item xs={6} sm={4} md={3} xl={2} key={item}>
+                                    <SkeletonDisplay />
+                                </Grid>
+                            ))}
+                        {/* {person.movies ? person.movies.map((item) => (
                             <Grid item xs={6} sm={4} md={3} xl={2} key={item.movie_id}>
                                 <DisplayCard
                                     changeBody={props.changeBody}
@@ -383,11 +401,7 @@ const IndvidualPage = (props) => {
                                 />
                             </Grid>
                         )) :
-                            skeletonItem.map((item) => (
-                                <Grid item xs={6} sm={4} md={3} xl={2} key={item}>
-                                    <SkeletonDisplay />
-                                </Grid>
-                            ))}
+                            } */}
                     </Grid>
                 </Paper>
             </Grid>
@@ -406,14 +420,14 @@ const IndvidualPage = (props) => {
                     justify="flex-start"
                     alignItems="flex-end"
                 >
-                    <Grid item xs={12} sm={props.menuDrawerOpen ? 7 : 5} md={props.menuDrawerOpen ? 5 : 4}>
+                    <Grid item xs={12} sm={props.menuDrawerOpen ? 5 : 4} md={props.menuDrawerOpen ? 5 : 4}>
                         <Paper style={{ backgroundSize: '100%' }}
                             className={classes.image}
                             elevation={5}
                             color="primary">
                         </Paper>
                     </Grid>
-                    <Grid item xs={12} sm={props.menuDrawerOpen ? 5 : 7} md={props.menuDrawerOpen ? 7 : 8}>
+                    <Grid item xs={12} sm={props.menuDrawerOpen ? 7 : 8} md={props.menuDrawerOpen ? 7 : 8}>
                         <Grid
                             container
                             direction="row"
