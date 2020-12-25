@@ -1,55 +1,3 @@
-// import React from 'react';
-// import PropTypes from 'prop-types';
-// import { makeStyles } from '@material-ui/core/styles';
-// import AppBar from '@material-ui/core/AppBar';
-// import Tabs from '@material-ui/core/Tabs';
-// import Tab from '@material-ui/core/Tab';
-
-
-// TabPanel.propTypes = {
-//     children: PropTypes.node,
-//     index: PropTypes.any.isRequired,
-//     value: PropTypes.any.isRequired,
-// };
-
-
-// const useStyles = makeStyles((theme) => ({
-//     root: {
-//         flexGrow: 1,
-//         backgroundColor: theme.palette.background.paper,
-//     },
-// }));
-
-// export default function SimpleTabs() {
-//     const classes = useStyles();
-//     const [value, setValue] = React.useState(0);
-
-//     const handleChange = (event, newValue) => {
-//         setValue(newValue);
-//     };
-
-//     return (
-//         <div className={classes.root}>
-//             <AppBar position="static">
-//                 <Tabs value={value} onChange={handleChange} aria-label="simple tabs example">
-//                     <Tab label="Item One" {...a11yProps(0)} />
-//                     <Tab label="Item Two" {...a11yProps(1)} />
-//                     <Tab label="Item Three" {...a11yProps(2)} />
-//                 </Tabs>
-//             </AppBar>
-//         <TabPanel value={value} index={0}>
-//             Item One
-//   </TabPanel>
-//         <TabPanel value={value} index={1}>
-//             Item Two
-//   </TabPanel>
-//         <TabPanel value={value} index={2}>
-//             Item Three
-//   </TabPanel>
-//         </div>
-//     );
-// }
-
 import React from 'react';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
@@ -58,6 +6,15 @@ import Box from '@material-ui/core/Box';
 import Grid from '@material-ui/core/Grid';
 import DisplayCard from '../DisplayCard/DisplayCard';
 import { pillTabsStylesHook } from '@mui-treasury/styles/tabs';
+import { makeStyles } from '@material-ui/core/styles';
+
+const useStyles = makeStyles((theme) => ({
+    root: {
+        [theme.breakpoints.down('xs')]: {
+            marginLeft: -theme.spacing(2) - 3,
+        },
+    },
+}));
 
 function a11yProps(index) {
     return {
@@ -68,7 +25,6 @@ function a11yProps(index) {
 
 function TabPanel(props) {
     const { children, value, index, ...other } = props;
-
     return (
         <div
             role="tabpanel"
@@ -86,13 +42,13 @@ function TabPanel(props) {
     );
 }
 const SimpleTabs = (props) => {
+    const classes = useStyles();
     const { movies } = props
     const roleTypes = ['cast', 'producer', 'director', 'writer']
     const [value, setValue] = React.useState(0);
     const [tabs, setTabs] = React.useState([])
 
     React.useEffect(() => {
-        console.log(movies)
         setTabs(roleTypes.filter(item => movies.filter(a => a.role.includes(item)).length > 0))
     }, [movies])
 
@@ -102,7 +58,7 @@ const SimpleTabs = (props) => {
     const tabsStyles = pillTabsStylesHook.useTabs();
     const tabItemStyles = pillTabsStylesHook.useTabItem();
     return (
-        <div>
+        <div className={classes.root}>
             <Tabs
                 classes={tabsStyles}
                 value={value}
@@ -114,10 +70,6 @@ const SimpleTabs = (props) => {
                 {tabs.map((item, index) => (
                     <Tab classes={tabItemStyles} label={item} {...a11yProps(index)} />
                 ))}
-                {/* <Tab classes={tabItemStyles} label={'Cast'} {...a11yProps(0)} />
-                <Tab classes={tabItemStyles} label={'Direction'}  {...a11yProps(1)} />
-                <Tab classes={tabItemStyles} label={'Production'}  {...a11yProps(2)} />
-                <Tab classes={tabItemStyles} label={'Writing'}  {...a11yProps(3)} /> */}
             </Tabs>
             {tabs.map((role, index) => (
                 <TabPanel value={value} index={index}>
@@ -135,7 +87,6 @@ const SimpleTabs = (props) => {
                     </Grid>
                 </TabPanel>
             ))}
-
         </div>
     );
 };

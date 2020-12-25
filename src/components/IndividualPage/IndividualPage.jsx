@@ -116,7 +116,7 @@ const useStyles = makeStyles((theme) => ({
     },
     actorMovie: {
         [theme.breakpoints.only("sm")]: {
-            padding: theme.spacing(2),
+            paddingTop: theme.spacing(1),
         },
         [theme.breakpoints.up("md")]: {
             padding: theme.spacing(4, 2, 2, 2),
