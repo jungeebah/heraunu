@@ -248,17 +248,17 @@ const IndvidualPage = (props) => {
     const movieDirector = movie ? (
         <div className={classes.streamingData}>
             { movie.director.length > 0 ? movie.director.map((item) =>
-            (<Grid container direction="row">
-                <Grid item xs={6}>
-                    <Grid container key={item.id}>
-                        <Grid item xs={12} key={item.id}>
+            (<Grid container direction="row" key={item.id}>
+                <Grid item xs={6} key={'level1-' + item.id}>
+                    <Grid container key={'level2-' + item.id}>
+                        <Grid item xs={12} key={'level3-' + item.id}>
                             <Button
                                 className={classes.director}
                                 onClick={(e) => props.changeBody(e, `https://api.heraunu.com/api/persons/${item.id}/`, item.image)}
                             >{item.name}
                             </Button>
                         </Grid>
-                        <Grid item xs={12} key={item.id}>
+                        <Grid item xs={12} key={'level4-' + item.id}>
                             <Typography varaint="caption" className={classes.directorTag}>
                                 Director
                         </Typography>
@@ -266,8 +266,9 @@ const IndvidualPage = (props) => {
                     </Grid>
                 </Grid>
             </Grid>
-            )) : <div></div>}
-        </div>
+            )) : <div></div>
+            }
+        </div >
     ) : <div></div>
 
     const movieStreaming = movie ? (<Paper elevation={0} className={classes.streaming}>
@@ -282,7 +283,7 @@ const IndvidualPage = (props) => {
             className={classes.streamingData}
         >
             {movie.playing ? movie.playing.map((item) => (
-                <Grid item xs={5} sm={3} md={2} lg={2}>
+                <Grid item xs={5} sm={3} md={2} lg={2} key={item}>
                     <Chip
                         key={item}
                         rel="noopener noreferrer"
@@ -360,7 +361,7 @@ const IndvidualPage = (props) => {
                             container
                             direction="row"
                         >
-                            <Grid xs={12}>
+                            <Grid item xs={12}>
                                 {person.name ? <Typography variant='h6'>
                                     {person.name}
                                 </Typography> :
@@ -433,12 +434,12 @@ const IndvidualPage = (props) => {
                             direction="row"
                             className={classes.movieName}
                         >
-                            <Grid xs={12}>
+                            <Grid item xs={12}>
                                 <Typography variant={large ? 'h3' : 'h6'}>
                                     {movie.name}
                                 </Typography>
                             </Grid>
-                            <Grid xs={12} className={classes.genre}>
+                            <Grid item xs={12} className={classes.genre}>
                                 {large ?
                                     imdbRating : <div></div>
                                 }

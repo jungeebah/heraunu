@@ -5,11 +5,12 @@ import DisplayCard from '../DisplayCard/DisplayCard'
 import Filter from '../Filter/Filter';
 import MenuDrawer from "../MenuDrawer/MenuDrawer";
 import Pagination from '@material-ui/lab/Pagination';
+import YoutubeFilter from '../youtube_filter/youtube_filter';
 import IndividualPage from '../IndividualPage/IndividualPage';
 import useMediaQuery from "@material-ui/core/useMediaQuery";
 import { useSelector, useDispatch } from 'react-redux';
 import { genreDataSelector } from '../Filter/genreDataSlice';
-import { allYoutubeSelector } from '../Body/allYoutubeSlice';
+import { allYoutubeSelector, getallYoutube, invalidateAllYoutube } from '../Body/allYoutubeSlice';
 import { streamDataSelector } from '../Filter/streamDataSlice';
 import { makeStyles, useTheme } from "@material-ui/core/styles";
 import { getFilterMovies, filterMovieSelector, invalidateFilterMovie } from './movieFilterSlice';
@@ -113,7 +114,20 @@ const Body = (props) => {
     const [streamFilter, setStreamFilter] = React.useState('All')
     const [yearFilter, setYearFilter] = React.useState('All')
     const mobile = useMediaQuery(theme.breakpoints.down("xs"));
-    const [dataType, setDataType] = React.useState('movie')
+    const [dataType, setDataType] = React.useState('movie');
+    const [primary, setPrimary] = React.useState(0);
+
+    const sortYoutubePressed = (e, index) => {
+        setPrimary(index)
+        invalidateAllYoutube()
+        if (index === 0) {
+            dispatch(getallYoutube('-youtube__video_date'))
+        } else {
+            dispatch(getallYoutube('-youtube__views'))
+
+        }
+
+    }
 
     const skeletonItem = [...Array(10).keys()]
     const [pageSection, setPageSection] = React.useState('Home')
@@ -121,6 +135,10 @@ const Body = (props) => {
     React.useEffect(() => {
         setYoutube(youtubeData.allmovies)
     }, [youtubeData])
+
+    React.useEffect(() => {
+        if (pageSection === 'Youtube') { setTotalData(youtube) }
+    }, [youtube])
 
     React.useEffect(() => {
         if (bodyReset) {
@@ -375,7 +393,7 @@ const Body = (props) => {
             </Grid>
             <Grid container spacing={2}>
                 {displayData.length > 0 ? displayData.map((item) => (
-                    <Grid item xs={6} sm={4} md={3} xl={2} key={item.key} className={classes.mainMovie}>
+                    <Grid item xs={6} sm={4} md={3} xl={2} key={'level1' + item.key} className={classes.mainMovie}>
                         <DisplayCard
                             url={item.url ? item.url.replace('youtubes', 'movies') :
                                 switchName === 'Movies'
@@ -394,7 +412,7 @@ const Body = (props) => {
 
                     skeletonItem.map((item) => (
                         <Grid item xs={6} sm={4} md={3} xl={2} key={item} className={classes.mainMovie}>
-                            <SkeletonDisplay />
+                            <SkeletonDisplay key={item} />
                         </Grid>))
 
                 }
@@ -405,6 +423,9 @@ const Body = (props) => {
     const renderYoutube = (
         <div className={classes.youtube}>
             <Grid container spacing={2} justify="flex-end" >
+                <Grid item xs={12}>
+                    <YoutubeFilter primary={primary} sortPressed={sortYoutubePressed} />
+                </Grid>
                 {count > 10 ?
                     <Grid item xs={9} sm={5} lg={3} >
                         <Pagination
@@ -425,11 +446,11 @@ const Body = (props) => {
                     </Grid>}
             </Grid>
             <Grid container spacing={2}>
-                {displayData.length > 0 ? displayData.map((item, index) => (
-                    <Grid item xs={6} sm={4} md={3} xl={2} key={item.key} className={classes.mainMovie}>
+                {displayData.length > 0 ? displayData.map((item) => (
+                    <Grid item xs={6} sm={4} md={3} xl={2} key={'level1' + item.key} className={classes.mainMovie}>
                         <DisplayCard
                             url={`https://api.heraunu.com/api/movies/${item.key}/`}
-                            key={index}
+                            key={item.key}
                             movie={item}
                             changeBody={changeBody}
                         />
