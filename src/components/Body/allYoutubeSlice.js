@@ -17,8 +17,8 @@ const initialState = {
 }
 
 export const getallYoutube = createAsyncThunk('movie/getallYoutube',
-    () => {
-        return fetch(`https://api.heraunu.com/api/allYoutube/`, requestOptions)
+    (filter) => {
+        return fetch(`https://api.heraunu.com/api/allYoutube/?ordering=${filter}`, requestOptions)
             .then(response => {
                 if (!response.ok) throw Error(response.statusText);
                 return response.json()
