@@ -322,6 +322,7 @@ const Body = (props) => {
 
     const nextPage = (e, v) => {
         setDefaultPage(v)
+
         if (isFiltering) {
             dispatch(invalidateFilterMovie())
             setEndPoint(`/?page=${v}&release_date=${yearFilter === 'All' ? '' : yearFilter}&genre=${genreFilter === 'All' ? '' : genreFilter}&streaming=${streamFilter === 'All' ? '' : streamFilter}`)
@@ -393,7 +394,7 @@ const Body = (props) => {
             </Grid>
             <Grid container spacing={2}>
                 {displayData.length > 0 ? displayData.map((item) => (
-                    <Grid item xs={6} sm={4} md={3} xl={2} key={'level1' + item.key} className={classes.mainMovie}>
+                    <Grid item xs={6} sm={4} md={3} xl={2} key={item.key} className={classes.mainMovie}>
                         <DisplayCard
                             url={item.url ? item.url.replace('youtubes', 'movies') :
                                 switchName === 'Movies'

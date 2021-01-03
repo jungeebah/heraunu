@@ -365,7 +365,7 @@ const IndvidualPage = (props) => {
                                 {person.name ? <Typography variant='h6'>
                                     {person.name}
                                 </Typography> :
-                                    <Skeleton variant="wave" height={20} width="60%" />}
+                                    <Skeleton variant="rect" height={20} width="60%" />}
                             </Grid>
                         </Grid>
                     </Grid>
