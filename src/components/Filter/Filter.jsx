@@ -152,7 +152,7 @@ const Filter = (props) => {
                                 SelectProps={{
                                     native: true,
                                 }}
-                                helperText="Genre"
+                                helperText="Year"
                                 variant="outlined"
                             >
                                 {yearList.map((option, index) => (
@@ -173,7 +173,7 @@ const Filter = (props) => {
                                 SelectProps={{
                                     native: true,
                                 }}
-                                helperText="Genre"
+                                helperText="Streaming"
                                 variant="outlined"
                             >
                                 {streams.map((option, index) => (
