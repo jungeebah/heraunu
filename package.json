@@ -13,6 +13,8 @@
     "@testing-library/react": "^9.3.2",
     "@testing-library/user-event": "^7.1.2",
     "downshift": "^6.0.6",
+    "emailjs-com": "^2.6.4",
+    "material-ui-popup-state": "^1.7.1",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "react-redux": "^7.2.1",

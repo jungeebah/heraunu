@@ -1,10 +1,11 @@
 import React from 'react';
 import Grid from "@material-ui/core/Grid";
 import Paper from '@material-ui/core/Paper';
-import Typography from '@material-ui/core/Typography'
-import Image from './desk.png'
+import Typography from '@material-ui/core/Typography';
+import Image from './desk.png';
 import { makeStyles, useTheme } from "@material-ui/core/styles";
 import useMediaQuery from "@material-ui/core/useMediaQuery";
+import ContactForm from './contactForm/contactForm';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -29,6 +30,8 @@ const useStyles = makeStyles((theme) => ({
 const About = () => {
     const theme = useTheme()
     const mobile = useMediaQuery(theme.breakpoints.down("xs"));
+    const large = useMediaQuery(theme.breakpoints.up("lg"));
+
     const classes = useStyles();
     return (
         <div>
@@ -40,7 +43,6 @@ const About = () => {
                     <Paper
                         elevation={0}
                         className={classes.image}
-                        // style={styles.image}
                         color='primary'>
 
                     </Paper>
@@ -56,17 +58,21 @@ const About = () => {
                     </Typography>
                         </Grid>
                         <Grid item xs={12}>
-                            <Typography variant='body2'>
+                            <Typography variant={large ? 'h6' : 'body2'}>
                                 A web app born out of covid and love for Nepali movies. Heraunu is designed to be a one stop center for
-                                viewing information on Nepali movies. We have collected data from different sites and aggregated into this website
+                                viewing information on Nepali movies. We collect data from different sites and aggregated them to this website
                                 for viewing ease. As of now it's just a side project therefore many things are whacky, some stuff are hacked in place and
-                                the data needs a lot more care and love. If the platform survives than I intend to curate and nourish it in upcoming future.
+                                the data needs a lot more care and love. If the platform survives than we intend to slowly work on creating a better nepali movie consuming site.
                     </Typography>
                         </Grid>
+
+                    </Grid>
+                    <Grid item xs={12}>
+                        <ContactForm />
                     </Grid>
                 </Grid>
             </Grid>
-        </div>
+        </div >
     )
 }
 
