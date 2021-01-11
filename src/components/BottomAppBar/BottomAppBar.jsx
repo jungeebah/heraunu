@@ -1,4 +1,5 @@
 import React from 'react';
+import Link from 'next/link';
 import { makeStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
@@ -43,51 +44,58 @@ export default function BottomAppBar() {
                         alignItems="center">
                         <Grid item>
                             <Grid item xs container direction="row" spacing={3}>
-                                <IconButton edge="start" color="inherit" aria-label="open drawer">
-                                    <Grid item xs>
-                                        <HomeIcon />
-                                        <Typography className={classes.iconLabel}>
-                                            Home
+                                <Link href="/">
+                                    <IconButton edge="start" color="inherit" aria-label="open drawer">
+                                        <Grid item xs>
+                                            <HomeIcon />
+                                            <Typography className={classes.iconLabel}>
+                                                Home
                                         </Typography>
-                                    </Grid>
-                                </IconButton>
+                                        </Grid>
+                                    </IconButton>
+                                </Link>
                             </Grid>
                         </Grid>
                         <Grid item>
                             <Grid item xs container direction="row" spacing={3}>
-                                <IconButton edge="start" color="inherit" aria-label="open drawer">
-                                    <Grid item xs>
-                                        <MovieIcon />
-                                        <Typography className={classes.iconLabel}>
-                                            Movies
+                                <Link href="/movies">
+                                    <IconButton edge="start" color="inherit" aria-label="open drawer">
+                                        <Grid item xs>
+                                            <MovieIcon />
+                                            <Typography className={classes.iconLabel}>
+                                                Movies
                                 </Typography>
-                                    </Grid>
-                                </IconButton>
+                                        </Grid>
+                                    </IconButton>
+                                </Link>
                             </Grid>
                         </Grid>
                         <Grid item>
                             <Grid item xs container direction="row" spacing={3}>
-                                <IconButton edge="start" color="inherit" aria-label="open drawer">
-                                    <Grid item xs>
-                                        <PersonIcon />
-                                        <Typography className={classes.iconLabel}>
-                                            Actors
+                                <Link href="/actors">
+                                    <IconButton edge="start" color="inherit" aria-label="open drawer">
+                                        <Grid item xs>
+                                            <PersonIcon />
+                                            <Typography className={classes.iconLabel}>
+                                                Actors
                                 </Typography>
-                                    </Grid>
-                                </IconButton>
+                                        </Grid>
+                                    </IconButton>
+                                </Link>
                             </Grid>
                         </Grid>
                         <Grid item>
                             <Grid item xs container direction="row" spacing={3}>
-                                <IconButton color="inherit">
-                                    <Grid item xs>
-
-                                        <YouTubeIcon />
-                                        <Typography className={classes.iconLabel}>
-                                            Youtube
+                                <Link href="/youtube">
+                                    <IconButton color="inherit">
+                                        <Grid item xs>
+                                            <YouTubeIcon />
+                                            <Typography className={classes.iconLabel}>
+                                                Youtube
                                 </Typography>
-                                    </Grid>
-                                </IconButton>
+                                        </Grid>
+                                    </IconButton>
+                                </Link>
                             </Grid>
                         </Grid>
                         {/* <Grid item>

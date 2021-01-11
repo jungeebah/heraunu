@@ -1,4 +1,5 @@
 import React from 'react';
+import Link from 'next/link';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import IconButton from '@material-ui/core/IconButton';
@@ -114,11 +115,13 @@ export default function Header(props) {
                     <Toolbar>
                         <div className={classes.title}>
                             <Tooltip title="Home">
-                                <IconButton >
-                                    <Typography variant="h6" noWrap color="secondary">
-                                        Heraunu
+                                <Link href="/">
+                                    <IconButton >
+                                        <Typography variant="h6" noWrap color="secondary">
+                                            Heraunu
                         </Typography>
-                                </IconButton>
+                                    </IconButton>
+                                </Link>
                             </Tooltip>
                         </div>
                         <div className={classes.search}>
