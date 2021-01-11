@@ -92,27 +92,14 @@ export default function BottomAppBar() {
                                             <YouTubeIcon />
                                             <Typography className={classes.iconLabel}>
                                                 Youtube
-                                </Typography>
+                                            </Typography>
                                         </Grid>
                                     </IconButton>
                                 </Link>
                             </Grid>
                         </Grid>
-                        {/* <Grid item>
-                            <Grid item xs container direction="row" spacing={3}>
-                                <IconButton edge="end" color="inherit">
-                                    <Grid item xs>
-                                        <Icon>ondemand_video</Icon>
-                                        <Typography className={classes.iconLabel}>
-                                            Streaming
-                                        </Typography>
-                                    </Grid>
-                                </IconButton>
-                            </Grid>
-                        </Grid> */}
                     </Grid>
                 </Toolbar>
-
             </AppBar>
         </div>
     );

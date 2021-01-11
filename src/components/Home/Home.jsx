@@ -9,7 +9,10 @@ const useStyles = makeStyles((theme) => ({
         marginTop: theme.spacing(3)
     },
     slider: {
-        marginTop: theme.spacing(1)
+        marginTop: theme.spacing(2) + 4,
+        [theme.breakpoints.up('xs')]: {
+            marginTop: theme.spacing(4)
+        },
     },
 }))
 
@@ -24,22 +27,34 @@ const Home = (props) => {
     return (
         <div className={classes.root}>
             <Grid container>
-                <Slider
-                    displayData={displayData}
-                    name={'MOVIES'}
-                    url='/movies' />
-                <Slider
-                    displayData={displayPerson}
-                    name={'ACTORS'}
+                <Grid item xs={12}>
+
+                    <Slider
+                        displayData={displayData}
+                        name={'MOVIES'}
+                        url='/movies'
+                        className={classes.slider} />
+                </Grid>
+                <Grid item
                     className={classes.slider}
-                    url='/actors'
-                />
-                <Slider
-                    displayData={displayYoutube}
-                    name={'YOUTUBE'}
-                    className={classes.slider}
-                    url='/youtube'
-                />
+                    xs={12}>
+
+                    <Slider
+                        displayData={displayPerson}
+                        name={'ACTORS'}
+                        className={classes.slider}
+                        url='/actors'
+                    />
+                </Grid>
+                <Grid item xs={12}
+                    className={classes.slider}>
+                    <Slider
+                        displayData={displayYoutube}
+                        name={'YOUTUBE'}
+
+                        url='/youtube'
+                    />
+                </Grid>
             </Grid>
         </div>
     )

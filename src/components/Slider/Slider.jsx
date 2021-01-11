@@ -11,6 +11,11 @@ import { makeStyles, useTheme } from "@material-ui/core/styles";
 const useStyles = makeStyles((theme) => ({
     title: {
         marginLeft: theme.spacing(2) + 2
+    },
+    seeAll: {
+        fontSize: '0.75rem',
+        fontWeight: '700',
+        color: theme.palette.primary.light
     }
 }))
 
@@ -21,11 +26,12 @@ const Carousel = (props) => {
         0: { items: 3 },
         400: { items: 3.4 },
         568: { items: 6 },
+        800: { items: 6.5 },
         1024: { items: 6 },
     };
     const itemsMovies = displayData.map(movie => <SliderImage movie={movie} />)
     return (
-        <Grid item xs={12}>
+        <div>
             <Grid
                 container
                 direction="row"
@@ -35,8 +41,8 @@ const Carousel = (props) => {
                     {name}
                 </Typography>
                 <Link href={url} passHref={true}>
-                    <IconButton>
-                        <Typography >
+                    <IconButton >
+                        <Typography className={classes.seeAll}>
                             SEE ALL
                         </Typography>
                     </IconButton>
@@ -51,7 +57,8 @@ const Carousel = (props) => {
                 disableDotsControls={true}
                 disableButtonsControls={true}
             />
-        </Grid>
+
+        </div >
 
     )
 };

@@ -13,12 +13,15 @@ const useStyles = makeStyles((theme) => ({
         padding: '0'
     },
     image: {
-        borderRadius: theme.spacing(1) - 4,
+        borderRadius: theme.spacing(1) - 6,
         // boxShadow: theme.shadows[4],
     },
     text: {
-        fontSize: '0.75rem'
-    }
+        fontSize: '0.75rem',
+        fontWeight: '400',
+        color: theme.palette.text.primary
+    },
+    
 }))
 
 const SliderImage = (props) => {

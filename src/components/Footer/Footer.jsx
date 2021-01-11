@@ -10,6 +10,9 @@ import Grid from '@material-ui/core/Grid'
 const useStyles = makeStyles((theme) => ({
     footer: {
         marginBottom: '50px',
+        [theme.breakpoints.up('xs')]: {
+            marginBottom: '65px'
+        },
         marginTop: 'calc(5% + 10px)',
         paddingLeft: theme.spacing(2)
     },
