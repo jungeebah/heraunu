@@ -1,5 +1,5 @@
 {
-  "name": "learn-starter",
+  "name": "heraunu",
   "version": "0.1.0",
   "private": true,
   "scripts": {
@@ -7,18 +7,17 @@
     "build": "next build",
     "start": "next start",
     "storybook": "start-storybook -p 6006",
-    "build-storybook": "build-storybook",
-    "deploy": "firebase deploy --only functions,hosting"
+    "build-storybook": "build-storybook"
   },
   "dependencies": {
     "@material-ui/core": "^4.11.2",
     "@material-ui/icons": "^4.11.2",
     "@material-ui/lab": "^4.0.0-alpha.57",
     "@reduxjs/toolkit": "^1.5.0",
-    "next": "^10.0.0",
-    "react": "16.13.1",
+    "next": "10.0.5",
+    "react": "17.0.1",
     "react-alice-carousel": "^2.2.0",
-    "react-dom": "16.13.1",
+    "react-dom": "17.0.1",
     "react-redux": "^7.2.2"
   },
   "devDependencies": {
@@ -27,7 +26,6 @@
     "@storybook/addon-essentials": "^6.1.11",
     "@storybook/addon-links": "^6.1.11",
     "@storybook/react": "^6.1.11",
-    "babel-loader": "^8.2.2",
-    "url-loader": "^4.1.1"
+    "babel-loader": "^8.2.2"
   }
 }
