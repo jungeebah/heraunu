@@ -1,13 +1,21 @@
 import React from "react";
 import TextField from "@material-ui/core/TextField";
 import Autocomplete from "@material-ui/lab/Autocomplete";
-import { useSelector } from 'react-redux';
-import { allmovieSelector } from './AutocompleteSlice';
-import { allPersonSelector } from './allActorSlice'
 import { makeStyles } from "@material-ui/core/styles";
 
 const useStyles = makeStyles(
     (theme) => ({
+        root: {
+            [theme.breakpoints.down('xs')]: {
+                width: '200px'
+            },
+            width: '300px'
+        },
+
+        inputRoot: {
+
+            borderRadius: theme.spacing(3)
+        },
         input: {
             [theme.breakpoints.down("xs")]: {
                 fontSize: "0.87em",
@@ -34,32 +42,22 @@ const useStyles = makeStyles(
 );
 
 const AutoComplete = (props) => {
-    const { width, switched, openLabel, selected, setOpenLabel } = props;
-    const autoCompleteState = useSelector(allmovieSelector);
-    const autoCompletePerson = useSelector(allPersonSelector);
-    const [allMovies, setAllMovies] = React.useState([])
-    const [allPerson, setAllPerson] = React.useState([])
+    const { width, switched, openLabel, selected, setOpenLabel, allPersonsData, allMoviesData } = props;
     const classes = useStyles();
-    React.useEffect(() => {
-        setAllMovies(autoCompleteState.allmovies)
-    },
-        [autoCompleteState])
-    React.useEffect(() => {
-        setAllPerson(autoCompletePerson.allActors)
-    },
-        [autoCompletePerson])
+
     const defaultProps = {
-        options: switched === 'Movies' || switched === 'M' ? allMovies : allPerson,
+        options: switched === 'Movies' ? allMoviesData : allPersonsData,
         getOptionLabel: (option) => option.name,
     };
     return (
-        <div style={{ width: width }}>
+        <div className={classes.root}>
             <Autocomplete
                 classes={{
                     option: classes.option,
                     listbox: classes.listbox,
                     groupUl: classes.groupUl,
                     input: classes.input,
+                    inputRoot: classes.inputRoot,
                 }}
                 {...defaultProps}
                 open={openLabel}

@@ -4,9 +4,6 @@ import Autocomplete from "@material-ui/lab/Autocomplete";
 import { makeStyles, withStyles } from "@material-ui/core/styles";
 import CloseIcon from "@material-ui/icons/Close";
 import IconButton from "@material-ui/core/IconButton";
-import { useSelector } from 'react-redux';
-import { allmovieSelector } from '../AutocompleteSlice';
-import { allPersonSelector } from '../allActorSlice';
 import MenuItem from '@material-ui/core/MenuItem';
 import Select from '@material-ui/core/Select';
 import InputBase from '@material-ui/core/InputBase';
@@ -90,23 +87,10 @@ const useStyles = makeStyles(
 );
 
 const MobileAutocomplete = (props) => {
-    const autoCompleteState = useSelector(allmovieSelector);
-    const autoCompletePerson = useSelector(allPersonSelector);
-    const [allMovies, setAllMovies] = React.useState([])
-    const [allPerson, setAllPerson] = React.useState([])
-    const { switched, openLabel, selectedMobile, setOpenLabel, handleMobileSwitch, option } = props;
-
-    React.useEffect(() => {
-        setAllMovies(autoCompleteState.allmovies)
-    },
-        [autoCompleteState, allMovies])
-    React.useEffect(() => {
-        setAllPerson(autoCompletePerson.allActors)
-    },
-        [autoCompletePerson])
+    const { switched, openLabel, selectedMobile, setOpenLabel, option, allPersonsData, allMoviesData } = props;
     const classes = useStyles();
     const defaultProps = {
-        options: switched === 'Movies' || switched === 'M' ? allMovies : allPerson,
+        options: switched === 'Movies' ? allMoviesData : allPersonsData,
         getOptionLabel: (option) => option.name,
     };
     return (
@@ -118,7 +102,7 @@ const MobileAutocomplete = (props) => {
                         labelId="content-label"
                         id="content-select"
                         value={option || 0}
-                        onChange={handleMobileSwitch}
+                        onChange={props.handleMobileSwitch}
                         input={<BootstrapInput />}
                     >
                         <MenuItem value={0}>
@@ -136,7 +120,7 @@ const MobileAutocomplete = (props) => {
                         }}
                         {...defaultProps}
                         open={openLabel}
-                        id="search-box"
+                        id="mobile-search-box"
                         onChange={selectedMobile}
                         clearOnEscape
                         onClose={(e, r) => {
@@ -145,7 +129,7 @@ const MobileAutocomplete = (props) => {
                         renderInput={(params) => (
                             <TextField
                                 {...params}
-                                label={switched === 'Movies' ? 'Movie' : 'Actor'}
+                                label={switched}
                                 variant="outlined"
                                 color="secondary"
                                 size="small"
@@ -159,7 +143,7 @@ const MobileAutocomplete = (props) => {
                     />
                 </Grid>
                 <Grid item xs={2}>
-                    <IconButton className={classes.close} onClick={props.handleChange}>
+                    <IconButton className={classes.close} onClick={props.mobileClose}>
                         <CloseIcon />
                     </IconButton>
                 </Grid>

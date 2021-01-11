@@ -1,3 +1,4 @@
+
 import React from "react";
 import useMediaQuery from "@material-ui/core/useMediaQuery";
 import { makeStyles, useTheme } from "@material-ui/core/styles";
@@ -19,7 +20,7 @@ const useStyles = makeStyles((theme) => ({
         },
         width: theme.spacing(22),
         height: theme.spacing(34),
-        boxShadow: theme.shadows[10],
+        boxShadow: theme.shadows[4],
     },
     card: {
         [theme.breakpoints.down("sm")]: {
@@ -29,7 +30,6 @@ const useStyles = makeStyles((theme) => ({
         width: theme.spacing(18),
         height: theme.spacing(26),
         margin: theme.spacing(1, 0, 0, 2),
-        boxShadow: theme.shadows[10],
     },
     media: {
         width: 152,
@@ -59,7 +59,9 @@ const DisplayCard = (props) => {
             <Card
                 className={classes.paper}
             >
-                <CardActionArea onClick={(e) => changeBody(e, url, movie.image || movie.video_thumbnail)}>
+                <CardActionArea
+                // onClick={(e) => changeBody(e, url, movie.image || movie.video_thumbnail)}
+                >
                     <CardMedia
                         component="img"
                         className={classes.card}

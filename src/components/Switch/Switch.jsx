@@ -1,9 +1,16 @@
 import React from 'react';
-import { withStyles, useTheme } from '@material-ui/core/styles';
+import { withStyles, useTheme, makeStyles } from '@material-ui/core/styles';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Switch from '@material-ui/core/Switch';
 import useMediaQuery from "@material-ui/core/useMediaQuery";
 
+const useStyles = makeStyles((theme) => ({
+    label: {
+        [theme.breakpoints.down('xs')]: {
+            marginRight: '-4px'
+        },
+    },
+}))
 
 const IOSSwitch = withStyles((theme) => ({
     root: {
@@ -18,6 +25,7 @@ const IOSSwitch = withStyles((theme) => ({
         padding: 0,
         margin: theme.spacing(1),
     },
+
     switchBase: {
         padding: 1,
         '&$checked': {
@@ -62,6 +70,7 @@ const IOSSwitch = withStyles((theme) => ({
                 thumb: classes.thumb,
                 track: classes.track,
                 checked: classes.checked,
+
             }}
             {...props}
         />
@@ -72,8 +81,9 @@ const IOSSwitch = withStyles((theme) => ({
 
 export default function CustomizedSwitches(props) {
     const theme = useTheme();
+    const classes = useStyles();
     const mobile = useMediaQuery(theme.breakpoints.down("xs"));
-    const { switchState, name, handleChange } = props;
+    const { switchState, name, handleSwitchChange } = props;
 
 
     // const handleChange = (event) => {
@@ -83,7 +93,8 @@ export default function CustomizedSwitches(props) {
     return (
 
         <FormControlLabel
-            control={<IOSSwitch size={mobile ? "small" : "medium"} checked={switchState} onChange={handleChange} name="checkedB" />}
+            className={classes.label}
+            control={<IOSSwitch size={mobile ? "small" : "medium"} checked={switchState} onChange={handleSwitchChange} name="checkedB" />}
             label={name}
         />
 
