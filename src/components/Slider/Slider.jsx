@@ -1,4 +1,5 @@
 import React from 'react';
+import Link from 'next/link';
 import SliderImage from '../SliderImage/SliderImage'
 import AliceCarousel from 'react-alice-carousel';
 import IconButton from '@material-ui/core/IconButton';
@@ -14,7 +15,7 @@ const useStyles = makeStyles((theme) => ({
 }))
 
 const Carousel = (props) => {
-    const { displayData, name } = props
+    const { displayData, name, url } = props
     const classes = useStyles()
     const responsive = {
         0: { items: 3 },
@@ -33,11 +34,13 @@ const Carousel = (props) => {
                 <Typography className={classes.title} color="secondary" variant='subtitle2'>
                     {name}
                 </Typography>
-                <IconButton>
-                    <Typography >
-                        SEE ALL
+                <Link href={url} passHref={true}>
+                    <IconButton>
+                        <Typography >
+                            SEE ALL
                         </Typography>
-                </IconButton>
+                    </IconButton>
+                </Link>
             </Grid>
             <AliceCarousel
                 mouseTracking

@@ -26,16 +26,20 @@ const Home = (props) => {
             <Grid container>
                 <Slider
                     displayData={displayData}
-                    name={'MOVIES'} />
+                    name={'MOVIES'}
+                    url='/movies' />
                 <Slider
                     displayData={displayPerson}
                     name={'ACTORS'}
                     className={classes.slider}
+                    url='/actors'
                 />
                 <Slider
                     displayData={displayYoutube}
                     name={'YOUTUBE'}
-                    className={classes.slider} />
+                    className={classes.slider}
+                    url='/youtube'
+                />
             </Grid>
         </div>
     )
