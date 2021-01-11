@@ -30,7 +30,8 @@ const Home = (props) => {
                 <Slider
                     displayData={displayPerson}
                     name={'ACTORS'}
-                    className={classes.slider} />
+                    className={classes.slider}
+                />
                 <Slider
                     displayData={displayYoutube}
                     name={'YOUTUBE'}

@@ -18,38 +18,38 @@ const Carousel = (props) => {
     const classes = useStyles()
     const responsive = {
         0: { items: 3 },
+        400: { items: 3.4 },
         568: { items: 6 },
-        1024: { items: 3 },
+        1024: { items: 6 },
     };
     const itemsMovies = displayData.map(movie => <SliderImage movie={movie} />)
     return (
-        <Grid container>
-            <Grid item xs={12}>
-                <Grid
-                    container
-                    direction="row"
-                    justify="space-between"
-                    alignItems="center">
-                    <Typography className={classes.title} color="secondary" variant='subtitle2'>
-                        {name}
-                    </Typography>
-                    <IconButton>
-                        <Typography >
-                            SEE ALL
+        <Grid item xs={12}>
+            <Grid
+                container
+                direction="row"
+                justify="space-between"
+                alignItems="center">
+                <Typography className={classes.title} color="secondary" variant='subtitle2'>
+                    {name}
+                </Typography>
+                <IconButton>
+                    <Typography >
+                        SEE ALL
                         </Typography>
-                    </IconButton>
-                </Grid>
-                <AliceCarousel
-                    mouseTracking
-                    items={itemsMovies}
-                    paddingLeft={20}
-                    paddingRight={50}
-                    responsive={responsive}
-                    disableDotsControls={true}
-                    disableButtonsControls={true}
-                />
+                </IconButton>
             </Grid>
-        </Grid  >
+            <AliceCarousel
+                mouseTracking
+                items={itemsMovies}
+                paddingLeft={20}
+                paddingRight={50}
+                responsive={responsive}
+                disableDotsControls={true}
+                disableButtonsControls={true}
+            />
+        </Grid>
+
     )
 };
 
