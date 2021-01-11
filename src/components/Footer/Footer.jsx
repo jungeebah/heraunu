@@ -1,7 +1,8 @@
 import React from 'react';
 import Paper from '@material-ui/core/Paper';
 import Icon from '@material-ui/core/Icon'
-import Typography from '@material-ui/core/Typography'
+import Typography from '@material-ui/core/Typography';
+import Link from 'next/link';
 import { makeStyles, useTheme } from "@material-ui/core/styles";
 import IconButton from '@material-ui/core/IconButton';
 import Grid from '@material-ui/core/Grid'
@@ -49,9 +50,11 @@ const Footer = () => {
             </Typography>
                 </Grid>
                 <Grid item>
-                    <IconButton className={classes.media}>
-                        <Icon>facebook</Icon>
-                    </IconButton>
+                    <Link href="https://www.facebook.com/Heraunu-104094554972237" passHref={true}>
+                        <IconButton className={classes.media}>
+                            <Icon>facebook</Icon>
+                        </IconButton>
+                    </Link>
                 </Grid>
             </Grid>
         </Paper >

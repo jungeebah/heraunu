@@ -9,12 +9,12 @@ import { makeStyles, useTheme } from "@material-ui/core/styles";
 const useStyles = makeStyles((theme) => ({
     root: {
         borderRadius: theme.spacing(1) - 4,
-        boxShadow: theme.shadows[0],
+        // boxShadow: theme.shadows[0],
         padding: '0'
     },
     image: {
         borderRadius: theme.spacing(1) - 4,
-
+        // boxShadow: theme.shadows[4],
     },
     text: {
         fontSize: '0.75rem'
