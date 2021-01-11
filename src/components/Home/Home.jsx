@@ -7,7 +7,10 @@ import useMediaQuery from "@material-ui/core/useMediaQuery";
 const useStyles = makeStyles((theme) => ({
     root: {
         marginTop: theme.spacing(3)
-    }
+    },
+    slider: {
+        marginTop: theme.spacing(1)
+    },
 }))
 
 const Home = (props) => {
@@ -21,9 +24,17 @@ const Home = (props) => {
     return (
         <div className={classes.root}>
             <Grid container>
-                <Slider displayData={displayData} name={'MOVIES'} />
-                <Slider displayData={displayPerson} name={'ACTORS'} />
-                <Slider displayData={displayYoutube} name={'YOUTUBE'} />
+                <Slider
+                    displayData={displayData}
+                    name={'MOVIES'} />
+                <Slider
+                    displayData={displayPerson}
+                    name={'ACTORS'}
+                    className={classes.slider} />
+                <Slider
+                    displayData={displayYoutube}
+                    name={'YOUTUBE'}
+                    className={classes.slider} />
             </Grid>
         </div>
     )

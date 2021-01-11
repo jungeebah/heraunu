@@ -42,7 +42,7 @@ const useStyles = makeStyles(
 );
 
 const AutoComplete = (props) => {
-    const { width, switched, openLabel, selected, setOpenLabel, allPersonsData, allMoviesData } = props;
+    const {  switched, openLabel, selected, setOpenLabel, allPersonsData, allMoviesData } = props;
     const classes = useStyles();
 
     const defaultProps = {

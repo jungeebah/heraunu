@@ -9,7 +9,7 @@ import { makeStyles, useTheme } from "@material-ui/core/styles";
 
 const useStyles = makeStyles((theme) => ({
     title: {
-        marginLeft: theme.spacing(1)
+        marginLeft: theme.spacing(2) + 2
     }
 }))
 
@@ -30,7 +30,7 @@ const Carousel = (props) => {
                     direction="row"
                     justify="space-between"
                     alignItems="center">
-                    <Typography className={classes.title} color="secondary">
+                    <Typography className={classes.title} color="secondary" variant='subtitle2'>
                         {name}
                     </Typography>
                     <IconButton>

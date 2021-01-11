@@ -8,13 +8,16 @@ import { makeStyles, useTheme } from "@material-ui/core/styles";
 
 const useStyles = makeStyles((theme) => ({
     root: {
-        borderRadius: theme.spacing(1),
-        boxShadow: theme.shadows[1],
+        borderRadius: theme.spacing(1) - 4,
+        boxShadow: theme.shadows[0],
         padding: '0'
     },
     image: {
-        borderRadius: theme.spacing(1),
+        borderRadius: theme.spacing(1) - 4,
 
+    },
+    text: {
+        fontSize: '0.75rem'
     }
 }))
 
@@ -29,7 +32,7 @@ const SliderImage = (props) => {
             <Grid container
                 direction="column"
                 justify="center"
-                alignItems="center">
+            >
                 <Grid item>
                     <Image
                         className={classes.image}
@@ -40,7 +43,7 @@ const SliderImage = (props) => {
                     />
                 </Grid>
                 <Grid item>
-                    <Typography varaint={mobile ? 'caption' : 'subtitle'} align="left">
+                    <Typography className={classes.text} align="left">
                         {movie.name}
                     </Typography>
                 </Grid>
