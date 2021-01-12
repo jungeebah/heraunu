@@ -38,7 +38,7 @@ const useStyles = makeStyles((theme) => ({
 const Carousel = (props) => {
     const theme = useTheme();
     const large = useMediaQuery(theme.breakpoints.up("md"));
-    const { displayData, name, url } = props
+    const { displayData, name, url,individual } = props
     const classes = useStyles()
     const responsive = {
         0: { items: 3 },
@@ -48,7 +48,7 @@ const Carousel = (props) => {
         900: { items: 4 },
         1024: { items: 5 },
     };
-    const itemsMovies = displayData.map(movie => <SliderImage movie={movie} url={url} />)
+    const itemsMovies = displayData.map(movie => <SliderImage movie={movie} individual={individual} />)
     return (
         <div>
             <Grid
