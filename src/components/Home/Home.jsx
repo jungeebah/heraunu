@@ -28,7 +28,6 @@ const Home = (props) => {
         <div className={classes.root}>
             <Grid container>
                 <Grid item xs={12}>
-
                     <Slider
                         displayData={displayData}
                         name={'MOVIES'}

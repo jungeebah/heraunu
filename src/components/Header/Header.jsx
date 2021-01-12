@@ -4,10 +4,11 @@ import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import IconButton from '@material-ui/core/IconButton';
 import Typography from '@material-ui/core/Typography';
-import { fade, makeStyles } from '@material-ui/core/styles';
+import { fade, makeStyles, useTheme } from '@material-ui/core/styles';
 import Brightness5Icon from "@material-ui/icons/Brightness5";
 import Brightness4Icon from "@material-ui/icons/Brightness4";
 import Tooltip from '@material-ui/core/Tooltip';
+import useMediaQuery from "@material-ui/core/useMediaQuery";
 import Autocomplete from '../Autocomplete/Autocomplete'
 
 
@@ -20,7 +21,10 @@ const useStyles = makeStyles((theme) => ({
         [theme.breakpoints.down('xs')]: {
             marginLeft: -theme.spacing(1) - 4
         },
-        marginLeft: -theme.spacing(2) - 1
+        marginLeft: -theme.spacing(2) - 1,
+        [theme.breakpoints.up('lg')]: {
+            marginLeft: theme.spacing(4)
+        },
     },
     icons: {
         marginLeft: 0,
@@ -88,6 +92,8 @@ export default function Header(props) {
     const [openLabel, setOpenLabel] = React.useState(false);
     const [input, setInput] = React.useState('')
     const classes = useStyles();
+    const theme = useTheme();
+    const large = useMediaQuery(theme.breakpoints.down("lg"));
 
     const mobileSearchClose = (e) => {
         setMobileSearchGrow(false)
@@ -115,11 +121,11 @@ export default function Header(props) {
                     <Toolbar>
                         <div className={classes.title}>
                             <Tooltip title="Home">
-                                <Link href="/">
+                                <Link href="/" shallow={true}>
                                     <IconButton >
-                                        <Typography variant="h6" noWrap color="secondary">
+                                        <Typography variant={large ? "h5" : "h6"} noWrap color="secondary">
                                             Heraunu
-                        </Typography>
+                                        </Typography>
                                     </IconButton>
                                 </Link>
                             </Tooltip>

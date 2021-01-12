@@ -9,12 +9,21 @@ import Grid from '@material-ui/core/Grid'
 
 const useStyles = makeStyles((theme) => ({
     footer: {
-        marginBottom: '50px',
-        [theme.breakpoints.up('xs')]: {
+        [theme.breakpoints.down('xs')]: {
+            marginBottom: '50px',
+        },
+        [theme.breakpoints.between('xs', 'md')]: {
             marginBottom: '65px'
         },
+        [theme.breakpoints.up('lg')]: {
+            marginBottom: '0'
+        },
         marginTop: 'calc(5% + 10px)',
-        paddingLeft: theme.spacing(2)
+        paddingLeft: theme.spacing(2),
+
+        [theme.breakpoints.up('lg')]: {
+            paddingLeft: theme.spacing(9) - 2,
+        }
     },
     button: {
         color: theme.palette.text.primary,
@@ -25,6 +34,15 @@ const useStyles = makeStyles((theme) => ({
         color: theme.palette.text.primary,
         fontSize: '0.75rem',
         padding: theme.spacing(0, 1, 1),
+        [theme.breakpoints.up('lg')]: {
+            padding: theme.spacing(0, 3, 1),
+        },
+        [theme.breakpoints.down('xs')]: {
+            padding: theme.spacing(0, 2, 1),
+        },
+        [theme.breakpoints.down('md')]: {
+            padding: theme.spacing(0, 3, 1),
+        },
     }
 }))
 

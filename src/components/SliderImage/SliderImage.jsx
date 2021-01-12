@@ -9,24 +9,26 @@ import { makeStyles, useTheme } from "@material-ui/core/styles";
 const useStyles = makeStyles((theme) => ({
     root: {
         borderRadius: theme.spacing(1) - 4,
-        // boxShadow: theme.shadows[0],
         padding: '0'
     },
     image: {
         borderRadius: theme.spacing(1) - 6,
-        // boxShadow: theme.shadows[4],
+        boxShadow: theme.shadows[4],
     },
     text: {
+        [theme.breakpoints.up('md')]: {
+            fontSize: '1rem',
+        },
         fontSize: '0.75rem',
         fontWeight: '400',
         color: theme.palette.text.primary
     },
-    
+
 }))
 
 const SliderImage = (props) => {
     const theme = useTheme();
-    const mobile = useMediaQuery(theme.breakpoints.down("xs"));
+    const large = useMediaQuery(theme.breakpoints.up("md"));
     const classes = useStyles();
     const { movie } = props
 
@@ -41,8 +43,8 @@ const SliderImage = (props) => {
                         className={classes.image}
                         src={movie.image}
                         alt={movie.name}
-                        width={92}
-                        height={137}
+                        width={large ? 211 : 92}
+                        height={large ? 314 : 137}
                     />
                 </Grid>
                 <Grid item>
