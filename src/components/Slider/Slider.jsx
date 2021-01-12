@@ -45,7 +45,7 @@ const Carousel = (props) => {
         400: { items: 3.4 },
         568: { items: 5 },
         700: { items: 6.5 },
-        800: { items: 4 },
+        900: { items: 4 },
         1024: { items: 5 },
     };
     const itemsMovies = displayData.map(movie => <SliderImage movie={movie} />)
