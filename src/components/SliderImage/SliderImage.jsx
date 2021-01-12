@@ -1,5 +1,6 @@
 import React from 'react';
 import Image from 'next/image';
+import Link from 'next/link';
 import IconButton from '@material-ui/core/IconButton';
 import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
@@ -33,27 +34,29 @@ const SliderImage = (props) => {
     const { movie } = props
 
     return (
-        <IconButton className={classes.root}>
-            <Grid container
-                direction="column"
-                justify="center"
-            >
-                <Grid item>
-                    <Image
-                        className={classes.image}
-                        src={movie.image}
-                        alt={movie.name}
-                        width={large ? 211 : 92}
-                        height={large ? 314 : 137}
-                    />
+        <Link href={`/movies/${movie.key}`}>
+            <IconButton className={classes.root}>
+                <Grid container
+                    direction="column"
+                    justify="center"
+                >
+                    <Grid item>
+                        <Image
+                            className={classes.image}
+                            src={movie.image}
+                            alt={movie.name}
+                            width={large ? 211 : 92}
+                            height={large ? 314 : 137}
+                        />
+                    </Grid>
+                    <Grid item>
+                        <Typography className={classes.text} align="left">
+                            {movie.name}
+                        </Typography>
+                    </Grid>
                 </Grid>
-                <Grid item>
-                    <Typography className={classes.text} align="left">
-                        {movie.name}
-                    </Typography>
-                </Grid>
-            </Grid>
-        </IconButton>
+            </IconButton>
+        </Link>
     )
 }
 
