@@ -22,7 +22,7 @@ const useStyles = makeStyles((theme) => ({
             marginLeft: -theme.spacing(1) - 4
         },
         marginLeft: -theme.spacing(2) - 1,
-        [theme.breakpoints.up('lg')]: {
+        [theme.breakpoints.up('md')]: {
             marginLeft: theme.spacing(4)
         },
     },

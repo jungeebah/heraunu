@@ -12,7 +12,7 @@ import { makeStyles, useTheme } from "@material-ui/core/styles";
 const useStyles = makeStyles((theme) => ({
     title: {
         marginLeft: theme.spacing(2) + 2,
-        [theme.breakpoints.up('lg')]: {
+        [theme.breakpoints.up('md')]: {
             marginLeft: theme.spacing(9) - 2
         },
     },
