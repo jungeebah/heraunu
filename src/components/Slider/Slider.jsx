@@ -48,7 +48,7 @@ const Carousel = (props) => {
         900: { items: 4 },
         1024: { items: 5 },
     };
-    const itemsMovies = displayData.map(movie => <SliderImage movie={movie} />)
+    const itemsMovies = displayData.map(movie => <SliderImage movie={movie} url={url} />)
     return (
         <div>
             <Grid

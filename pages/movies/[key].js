@@ -10,7 +10,6 @@ var requestOptions = {
 };
 
 export default function movie({ movieInfo }) {
-    // const result = movieInfo['results']
     return (
         <div>
             {movieInfo.name}

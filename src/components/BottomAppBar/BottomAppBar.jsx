@@ -72,7 +72,7 @@ export default function BottomAppBar() {
                         </Grid>
                         <Grid item>
                             <Grid item xs container direction="row" spacing={3}>
-                                <Link href="/actors">
+                                <Link href="/persons">
                                     <IconButton edge="start" color="inherit" aria-label="open drawer">
                                         <Grid item xs>
                                             <PersonIcon />

@@ -42,7 +42,7 @@ const Home = (props) => {
                         displayData={displayPerson}
                         name={'ACTORS'}
                         className={classes.slider}
-                        url='/actors'
+                        url='/persons'
                     />
                 </Grid>
                 <Grid item xs={12}

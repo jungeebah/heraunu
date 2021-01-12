@@ -31,10 +31,10 @@ const SliderImage = (props) => {
     const theme = useTheme();
     const large = useMediaQuery(theme.breakpoints.up("md"));
     const classes = useStyles();
-    const { movie } = props
+    const { movie, url } = props
 
     return (
-        <Link href={`/movies/${movie.key}`}>
+        <Link href={`${url}/${movie.key}`}>
             <IconButton className={classes.root}>
                 <Grid container
                     direction="column"
