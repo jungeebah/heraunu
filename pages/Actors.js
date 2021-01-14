@@ -15,7 +15,7 @@ const useStyles = makeStyles((theme) => ({
     }
 }))
 
-const persons = () => {
+const Actors = () => {
     const person = useSelector(allPersonSelector);
     const classes = useStyles();
     const personList = person.allActors
@@ -24,7 +24,7 @@ const persons = () => {
         <div className={classes.persons}>
             <div >
                 <Typography variant='h6' color="secondary">
-                    Persons
+                    Actors
                 </Typography>
                 <Grid container spacing={2}>
                     {displayData.map(items => (
@@ -37,4 +37,4 @@ const persons = () => {
         </div >
     )
 }
-export default persons
+export default Actors
