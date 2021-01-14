@@ -13,7 +13,7 @@ import useMediaQuery from "@material-ui/core/useMediaQuery";
 import Autocomplete from '../Autocomplete/Autocomplete'
 import { allmovieSelector } from '../../../lib/slice/allMovies';
 import { allPersonSelector } from '../../../lib/slice/allPerson';
-
+import MenuIcon from '@material-ui/icons/Menu';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -27,6 +27,9 @@ const useStyles = makeStyles((theme) => ({
         marginLeft: -theme.spacing(2) - 1,
         [theme.breakpoints.up('md')]: {
             marginLeft: theme.spacing(4)
+        },
+        [theme.breakpoints.up('lg')]: {
+            marginLeft: -theme.spacing(3)
         },
     },
     icons: {
@@ -85,6 +88,14 @@ const useStyles = makeStyles((theme) => ({
             },
         },
     },
+    menuButton: {
+        [theme.breakpoints.up('lg')]: {
+            display: 'block',
+            marginRight: theme.spacing(2),
+        },
+        display: 'none'
+
+    },
 }));
 
 export default function Header(props) {
@@ -103,6 +114,7 @@ export default function Header(props) {
     const theme = useTheme();
     const large = useMediaQuery(theme.breakpoints.down("lg"));
 
+
     // const [mobileSearchGrow, setMobileSearchGrow] = React.useState(true);
     const handleChangeTheme = (e) => {
         props.setDarkTheme(!props.darkTheme)
@@ -116,6 +128,18 @@ export default function Header(props) {
             <div className={classes.root}>
                 <AppBar position="fixed">
                     <Toolbar>
+                        <Tooltip title="Menu">
+                            <div className={classes.menuButton}>
+                                <IconButton
+                                    edge="start"
+                                    color="inherit"
+                                    aria-label="menu"
+                                    onClick={props.handleDrawerClose}
+                                >
+                                    <MenuIcon />
+                                </IconButton>
+                            </div>
+                        </Tooltip>
                         <div className={classes.title}>
                             <Tooltip title="Home">
                                 <Link href="/" shallow={true}>

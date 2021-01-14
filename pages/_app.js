@@ -10,6 +10,8 @@ import BottomAppBar from '../src/components/BottomAppBar/BottomAppBar'
 import Footer from '../src/components/Footer/Footer';
 import useMediaQuery from "@material-ui/core/useMediaQuery";
 import MenuDrawer from "../src/components/MenuDrawer/MenuDrawer";
+import OpenMenu from '../src/components/MenuDrawer/OpenMenu';
+import Backdrop from '@material-ui/core/Backdrop';
 import { Provider } from 'react-redux'
 import store from '../store'
 import {
@@ -19,15 +21,23 @@ import {
 const useStyles = makeStyles((theme) => ({
     appbar: {
         zIndex: theme.zIndex.drawer + 1,
-    }
+    },
+    backdrop: {
+        zIndex: theme.zIndex.drawer + 1,
+        color: '#fff',
+    },
 }))
 
 const MyApp = (props) => {
+    const [open, setOpen] = React.useState(false)
     const { Component, pageProps } = props
     const theme = useTheme();
     const classes = useStyles();
     const medium = useMediaQuery(theme.breakpoints.up("lg"));
     const [darkTheme, setDarkTheme] = React.useState(false);
+    const handleDrawerClose = () => {
+        setOpen(!open)
+    }
     React.useEffect(() => {
         // Remove the server-side injected CSS.
         const jssStyles = document.querySelector('#jss-server-side');
@@ -47,12 +57,19 @@ const MyApp = (props) => {
                     <CssBaseline />
                     <div className={classes.appbar}>
                         <Header
+                            handleDrawerClose={handleDrawerClose}
                             setDarkTheme={setDarkTheme}
                             darkTheme={darkTheme}
                         />
                     </div>
-                    {medium && <MenuDrawer
-                    />}
+                    {medium &&
+                        <div>
+                            <MenuDrawer />
+                            <Backdrop open={open} className={classes.backdrop}>
+                                <OpenMenu handleDrawerClose={handleDrawerClose} />
+                            </Backdrop>
+                        </div>
+                    }
                     <Component {...pageProps} />
                     <Footer />
                     <BottomAppBar />

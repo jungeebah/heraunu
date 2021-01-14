@@ -30,12 +30,11 @@ const useStyles = makeStyles((theme) => ({
         flexShrink: 0,
         whiteSpace: "nowrap",
         top: '64px',
+        width: drawerWidth,
         transition: theme.transitions.create("width", {
             easing: theme.transitions.easing.sharp,
-            duration: theme.transitions.duration.leavingScreen,
+            duration: theme.transitions.duration.enteringScreen,
         }),
-        overflowX: "hidden",
-        width: theme.spacing(8) + 1,
     },
     toolbar: {
         display: "flex",
@@ -47,7 +46,8 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-const MenuDrawer = (props) => {
+const OpenMenu = (props) => {
+    const { handleDrawerClose } = props
     const menuItems = ["Home", "Movies", "Actors", "Youtube"];
     const menuLinks = ['/', '/movies', '/persons', '/youtube']
     const menuIcons = [
@@ -60,6 +60,13 @@ const MenuDrawer = (props) => {
 
     const drawerList = (
         <div role="presentation">
+            <div>
+                <div className={classes.toolbar}>
+                    <IconButton onClick={handleDrawerClose}>
+                        <ChevronLeftIcon />
+                    </IconButton>
+                </div>
+            </div>
             <List>
                 {menuItems.map((text, index) => (
                     <Link href={menuLinks[index]}>
@@ -90,13 +97,13 @@ const MenuDrawer = (props) => {
     );
 };
 
-MenuDrawer.propsType = {
+OpenMenu.propsType = {
     mobileDrawer: PropTypes.bool,
     toggleDrawer: PropTypes.func,
 };
-MenuDrawer.defaultProps = {
+OpenMenu.defaultProps = {
     mobileDrawer: true,
     toggleDrawer: () => { },
 };
 
-export default MenuDrawer;
+export default OpenMenu;
