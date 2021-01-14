@@ -38,15 +38,17 @@ const useStyles = makeStyles((theme) => ({
 const Carousel = (props) => {
     const theme = useTheme();
     const large = useMediaQuery(theme.breakpoints.up("md"));
-    const { displayData, name, url,individual } = props
+    const { displayData, name, url, individual } = props
     const classes = useStyles()
     const responsive = {
-        0: { items: 3 },
+        0: { items: 2 },
+        332: { items: 3 },
         400: { items: 3.4 },
         568: { items: 5 },
         700: { items: 6.5 },
         900: { items: 4 },
-        1024: { items: 5 },
+        1024: { items: 4 },
+        1135: { items: 7 }
     };
     const itemsMovies = displayData.map(movie => <SliderImage movie={movie} individual={individual} />)
     return (

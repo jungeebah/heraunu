@@ -7,7 +7,10 @@ import Layout from '../src/components/Layout/Layout'
 import DarkTheme from '../src/components/Theme/DarkTheme';
 import LightTheme from '../src/components/Theme/LightTheme';
 import BottomAppBar from '../src/components/BottomAppBar/BottomAppBar'
-import Footer from '../src/components/Footer/Footer'
+import Footer from '../src/components/Footer/Footer';
+
+import { Provider } from 'react-redux'
+import store from '../store'
 import {
     ThemeProvider,
 } from "@material-ui/core/styles";
@@ -22,19 +25,9 @@ var requestOptions = {
     headers: myHeaders,
 };
 
-// This function gets called at build time
-MyApp.getInitialProps = async (appContext) => {
-    // calls page's `getInitialProps` and fills `appProps.pageProps`
-    const appProps = await App.getInitialProps(appContext);
-    // Call an external API endpoint to get posts
-    const res = await fetch('https://api.heraunu.com/api/allMovie/', requestOptions)
-    const personRes = await fetch('https://api.heraunu.com/api/allPerson/', requestOptions)
-    const allPersons = await personRes.json()
-    const allMovies = await res.json()
-    return { ...appProps, allMovies: allMovies, allPersons: allPersons }
 
-}
-export default function MyApp(props) {
+const MyApp = (props) => {
+    
     const { Component, pageProps, allMovies, allPersons } = props
     const [darkTheme, setDarkTheme] = React.useState(false);
     const [switchState, setSwitchState] = React.useState(true);
@@ -72,25 +65,53 @@ export default function MyApp(props) {
                 <title>Heraunu</title>
                 <meta name="viewport" content="minimum-scale=1, initial-scale=1, width=device-width" />
             </Head>
-            <ThemeProvider theme={darkTheme ? DarkTheme : LightTheme}>
-                <CssBaseline />
-                <Header
-                    switchName={switchName}
-                    setSwitchName={setSwitchName}
-                    setDarkTheme={setDarkTheme}
-                    darkTheme={darkTheme}
-                    handleSwitchChange={handleSwitchChange}
-                    switchState={switchState}
-                    allPersons={allPersons}
-                    allMovies={allMovies}
-                    handleMobileSwitch={handleMobileSwitch}
-                    option={option}
-                />
-                <Component {...pageProps} />
-                <Footer />
-                <BottomAppBar />
-            </ThemeProvider>
+            <Provider store={store}>
+                <ThemeProvider theme={darkTheme ? DarkTheme : LightTheme}>
+                    <CssBaseline />
+                    <Header
+                        switchName={switchName}
+                        setSwitchName={setSwitchName}
+                        setDarkTheme={setDarkTheme}
+                        darkTheme={darkTheme}
+                        handleSwitchChange={handleSwitchChange}
+                        switchState={switchState}
+                        allPersons={allPersons}
+                        allMovies={allMovies}
+                        handleMobileSwitch={handleMobileSwitch}
+                        option={option}
+                    />
+                    <Component {...pageProps} />
+                    <Footer />
+                    <BottomAppBar />
+                </ThemeProvider>
+            </Provider>
+
         </React.Fragment >
     );
 }
+
+// This function gets called at build time
+MyApp.getInitialProps = async (appContext) => {
+
+    const appProps = await App.getInitialProps(appContext);
+    console.log('..loading')
+    if (!appContext.Component.getInitialProps) {
+
+        console.log('...twice loading')
+        console.log(appContext.Component.getInitialProps)
+        // calls page's `getInitialProps` and fills `appProps.pageProps`
+        // Call an external API endpoint to get posts
+        const res = await fetch('https://api.heraunu.com/api/allMovie/', requestOptions)
+        const personRes = await fetch('https://api.heraunu.com/api/allPerson/', requestOptions)
+        const allPersons = await personRes.json()
+        const allMovies = await res.json()
+        return { ...appProps, allMovies: allMovies, allPersons: allPersons }
+    }
+    else {
+        return { ...appProps }
+    }
+
+}
+
+export default MyApp
 

@@ -1,4 +1,8 @@
 import Home from '../src/components/Home/Home'
+import { getallMovie } from '../lib/slice/allMovies';
+import { getAllActor } from '../lib/slice/allPerson';
+import { getallYoutube } from '../lib/slice/allYoutube';
+import { useDispatch } from 'react-redux';
 
 const token = process.env.REACT_APP_Token
 
@@ -12,6 +16,10 @@ var requestOptions = {
 };
 
 function Index(props) {
+  const dispatch = useDispatch();
+  dispatch(getallYoutube('-youtube__video_date'))
+  dispatch(getallMovie())
+  dispatch(getAllActor())
   const { movies, persons, youtube } = props
   return (
     <div>
