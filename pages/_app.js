@@ -87,10 +87,10 @@ const MyApp = (props) => {
 //         const personRes = await fetch('https://api.heraunu.com/api/allPerson/', requestOptions)
 //         const allPersons = await personRes.json()
 //         const allMovies = await res.json()
-//         return { ...appProps, allMovies: allMovies, allPersons: allPersons }
+//         return {...appProps, allMovies: allMovies, allPersons: allPersons }
 //     }
 //     else {
-//         return { ...appProps }
+//         return {...appProps}
 //     }
 
 // }
