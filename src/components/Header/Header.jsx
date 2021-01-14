@@ -94,7 +94,7 @@ export default function Header(props) {
     const [artist, setArtist] = React.useState([]);
     React.useEffect(() => { setMovies(keyMovie.allmovies) }, [keyMovie])
     React.useEffect(() => { setArtist(keyArtist.allActors) }, [keyArtist])
-    const { switchName} = props
+    const { switchName } = props
     const allPersonsData = artist
     const allMoviesData = movies
     const [openLabel, setOpenLabel] = React.useState(false);
@@ -114,7 +114,7 @@ export default function Header(props) {
     return (
         <div>
             <div className={classes.root}>
-                <AppBar position="static">
+                <AppBar position="fixed">
                     <Toolbar>
                         <div className={classes.title}>
                             <Tooltip title="Home">

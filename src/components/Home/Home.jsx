@@ -6,7 +6,10 @@ import useMediaQuery from "@material-ui/core/useMediaQuery";
 
 const useStyles = makeStyles((theme) => ({
     root: {
-        marginTop: theme.spacing(3)
+        marginTop: theme.spacing(10),
+        [theme.breakpoints.up('lg')]: {
+            marginTop: theme.spacing(13)
+        },
     },
     slider: {
         marginTop: theme.spacing(2) + 4,
