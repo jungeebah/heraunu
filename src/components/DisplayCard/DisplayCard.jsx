@@ -1,103 +1,69 @@
-
-import React from "react";
+import React from 'react';
+import Image from 'next/image';
+import Link from 'next/link';
+import IconButton from '@material-ui/core/IconButton';
+import Typography from '@material-ui/core/Typography';
+import Grid from '@material-ui/core/Grid';
 import useMediaQuery from "@material-ui/core/useMediaQuery";
 import { makeStyles, useTheme } from "@material-ui/core/styles";
-import PropTypes from "prop-types";
-import CardActionArea from "@material-ui/core/CardActionArea";
-import Card from "@material-ui/core/Card";
-import CardMedia from "@material-ui/core/CardMedia";
-import Typography from "@material-ui/core/Typography";
-
-const titleCase = (str) => {
-    return str.replace(/\w\S*/g, (t) => { return t.charAt(0).toUpperCase() + t.substr(1).toLowerCase() });
-}
 
 const useStyles = makeStyles((theme) => ({
-    paper: {
-        [theme.breakpoints.down("sm")]: {
-            width: theme.spacing(18),
-            height: theme.spacing(26) + 2,
-        },
-        width: theme.spacing(22),
-        height: theme.spacing(34),
+    root: {
+        borderRadius: theme.spacing(1) - 4,
+        padding: '0'
+    },
+    images: {
         boxShadow: theme.shadows[4],
+        outline: 0
     },
-    card: {
-        [theme.breakpoints.down("sm")]: {
-            width: theme.spacing(14),
-            height: theme.spacing(19),
-        },
-        width: theme.spacing(18),
-        height: theme.spacing(26),
-        margin: theme.spacing(1, 0, 0, 2),
-    },
-    media: {
-        width: 152,
-    },
-    title: {
-        textAlign: "left",
-        padding: theme.spacing(1, 1, 0, 2),
-    },
-    fab: {
-        position: "relative",
-        [theme.breakpoints.down("sm")]: {
-            bottom: theme.spacing(6),
-            left: theme.spacing(8),
-        },
-        bottom: theme.spacing(6),
-        left: theme.spacing(14),
-    },
-}));
+    image: {
+        borderRadius: theme.spacing(1) - 6,
 
-const DisplayCard = (props) => {
-    const { movie, changeBody, url } = props
+    },
+    text: {
+        [theme.breakpoints.up('md')]: {
+            fontSize: '1rem',
+        },
+        fontSize: '0.75rem',
+        fontWeight: '700',
+        color: theme.palette.text.primary
+    },
+
+}))
+
+const SliderImage = (props) => {
     const theme = useTheme();
-    const smallScreen = useMediaQuery(theme.breakpoints.down("sm"));
+    const large = useMediaQuery(theme.breakpoints.up("md"));
     const classes = useStyles();
+    const { movie, individual } = props
+
     return (
-        <div>
-            <Card
-                className={classes.paper}
-            >
-                <CardActionArea
-                // onClick={(e) => changeBody(e, url, movie.image || movie.video_thumbnail)}
+        <Link href={{ pathname: individual, query: { key: movie.key } }}>
+            <IconButton className={classes.root}>
+                <Grid container
+                    direction="column"
+                    justify="center"
                 >
-                    <CardMedia
-                        component="img"
-                        className={classes.card}
-                        image={movie.image || movie.video_thumbnail || 'https://storage.googleapis.com/heraunu/no-image-movie.jpg'}
-                        title={movie.name}
-                    ></CardMedia>
+                    <Grid item>
 
-                    <Typography
-                        variant={smallScreen ? "subtitle2" : "body1"}
-                        className={classes.title}
-                    >
-                        {movie.name ? titleCase(movie.name) : movie.name}
-                    </Typography>
-                </CardActionArea>
-            </Card>
-        </div>
-    );
-};
+                        <Image
+                            className={classes.image}
+                            src={movie.image}
+                            alt={movie.name}
+                            width={large ? 211 : 92}
+                            height={large ? 314 : 137}
+                        />
 
-DisplayCard.propsType = {
-    image: PropTypes.string,
-    movie: PropTypes.string,
-    cardClick: PropTypes.func,
-    fabClick: PropTypes.func,
-};
+                    </Grid>
+                    <Grid item>
+                        <Typography className={classes.text} align="left">
+                            {movie.name}
+                        </Typography>
+                    </Grid>
+                </Grid>
+            </IconButton>
+        </Link>
+    )
+}
 
-DisplayCard.defaultProps = {
-    image:
-        "https://i.ytimg.com/vi_webp/cUGktGiicCE/maxresdefault.webp",
-    movie: "Loot",
-    cardClick: () => {
-        console.log("pressed");
-    },
-    fabClick: () => {
-        console.log("fab clicked");
-    },
-};
-
-export default DisplayCard;
+export default SliderImage;

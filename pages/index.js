@@ -2,8 +2,7 @@ import Home from '../src/components/Home/Home'
 import { getallMovie, allmovieSelector } from '../lib/slice/allMovies';
 import { getAllActor } from '../lib/slice/allPerson';
 import { getallYoutube } from '../lib/slice/allYoutube';
-import { useDispatch } from 'react-redux';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector  } from 'react-redux';
 
 
 

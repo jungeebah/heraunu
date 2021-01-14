@@ -1,24 +1,19 @@
 
 import React from "react";
 import PropTypes from "prop-types";
-import clsx from "clsx";
 import Link from 'next/link';
-import Backdrop from '@material-ui/core/Backdrop';
+import Grid from '@material-ui/core/Grid';
 import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemText from "@material-ui/core/ListItemText";
 import Drawer from "@material-ui/core/Drawer";
 import ListItemIcon from "@material-ui/core/ListItemIcon";
-import IconButton from "@material-ui/core/IconButton";
 import { makeStyles, useTheme } from "@material-ui/core/styles";
-import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
-import ChevronRightIcon from "@material-ui/icons/ChevronRight";
 import MovieIcon from '@material-ui/icons/Movie';
 import PersonIcon from '@material-ui/icons/Person';
 import HomeIcon from '@material-ui/icons/Home';
 import YouTubeIcon from '@material-ui/icons/YouTube';
 
-const drawerWidth = 180;
 const useStyles = makeStyles((theme) => ({
     // necessary for content to be below app bar
     content: {
@@ -60,16 +55,26 @@ const MenuDrawer = (props) => {
 
     const drawerList = (
         <div role="presentation">
-            <List>
-                {menuItems.map((text, index) => (
-                    <Link href={menuLinks[index]}>
-                        <ListItem button key={text}>
-                            <ListItemIcon>{menuIcons[index]}</ListItemIcon>
-                            <ListItemText primary={text} />
-                        </ListItem>
-                    </Link>
-                ))}
-            </List>
+            <Grid
+                container
+                direction="column"
+                alignItems="center"
+                justify="center"
+                style={{ minHeight: '10vh' }}
+            >
+                <List>
+                    {menuItems.map((text, index) => (
+                        <Grid item>
+                            <Link href={menuLinks[index]}>
+                                <ListItem button key={text}>
+                                    <ListItemIcon>{menuIcons[index]}</ListItemIcon>
+                                    <ListItemText primary={text} />
+                                </ListItem>
+                            </Link>
+                        </Grid>
+                    ))}
+                </List>
+            </Grid>
         </div >
     );
     return (
