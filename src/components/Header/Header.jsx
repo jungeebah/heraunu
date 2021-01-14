@@ -8,8 +8,11 @@ import { fade, makeStyles, useTheme } from '@material-ui/core/styles';
 import Brightness5Icon from "@material-ui/icons/Brightness5";
 import Brightness4Icon from "@material-ui/icons/Brightness4";
 import Tooltip from '@material-ui/core/Tooltip';
+import { useSelector } from 'react-redux';
 import useMediaQuery from "@material-ui/core/useMediaQuery";
 import Autocomplete from '../Autocomplete/Autocomplete'
+import { allmovieSelector } from '../../../lib/slice/allMovies';
+import { allPersonSelector } from '../../../lib/slice/allPerson';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -85,33 +88,27 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function Header(props) {
-    const { allPersons, allMovies, switchName, setSwitchName } = props
-    const [mobileSearchGrow, setMobileSearchGrow] = React.useState(false);
-    const allPersonsData = allPersons['results']
-    const allMoviesData = allMovies['results']
+    const keyArtist = useSelector(allPersonSelector);
+    const keyMovie = useSelector(allmovieSelector);
+    const [movies, setMovies] = React.useState([]);
+    const [artist, setArtist] = React.useState([]);
+    React.useEffect(() => { setMovies(keyMovie.allmovies) }, [keyMovie])
+    React.useEffect(() => { setArtist(keyArtist.allActors) }, [keyArtist])
+    const { switchName} = props
+    const allPersonsData = artist
+    const allMoviesData = movies
     const [openLabel, setOpenLabel] = React.useState(false);
     const [input, setInput] = React.useState('')
     const classes = useStyles();
     const theme = useTheme();
     const large = useMediaQuery(theme.breakpoints.down("lg"));
 
-    const mobileSearchClose = (e) => {
-        setMobileSearchGrow(false)
-    }
     // const [mobileSearchGrow, setMobileSearchGrow] = React.useState(true);
     const handleChangeTheme = (e) => {
         props.setDarkTheme(!props.darkTheme)
     }
 
     const selected = (e, v) => {
-        setOpenLabel(false);
-    };
-
-    const handleMobileSearch = (e) => {
-        setMobileSearchGrow(!mobileSearchGrow)
-    }
-
-    const selectedMobile = (e, v) => {
         setOpenLabel(false);
     };
     return (
@@ -137,7 +134,6 @@ export default function Header(props) {
                                 setOpenLabel={setOpenLabel}
                                 selected={selected}
                                 openLabel={openLabel}
-                                switched={switchName}
                                 inputValue={input}
                                 setInput={setInput} />
                         </div>

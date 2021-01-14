@@ -42,11 +42,11 @@ const useStyles = makeStyles(
 );
 
 const AutoComplete = (props) => {
-    const {  switched, openLabel, selected, setOpenLabel, allPersonsData, allMoviesData } = props;
+    const {openLabel, selected, setOpenLabel, allPersonsData, allMoviesData } = props;
     const classes = useStyles();
 
     const defaultProps = {
-        options: switched === 'Movies' ? allMoviesData : allPersonsData,
+        options: [...allMoviesData, ...allPersonsData],
         getOptionLabel: (option) => option.name,
     };
     return (
@@ -70,7 +70,7 @@ const AutoComplete = (props) => {
                 renderInput={(params) => (
                     <TextField
                         {...params}
-                        label={switched}
+                        label="Movie + Artist"
                         variant="outlined"
                         color="secondary"
                         size="small"

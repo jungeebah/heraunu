@@ -19,30 +19,8 @@ import {
 
 
 const MyApp = (props) => {
-
-    const { Component, pageProps, allMovies, allPersons } = props
+    const { Component, pageProps } = props
     const [darkTheme, setDarkTheme] = React.useState(false);
-    const [switchState, setSwitchState] = React.useState(true);
-    const [switchName, setSwitchName] = React.useState('Movies')
-    const [option, setOption] = React.useState('');
-    const handleSwitchChange = (e) => {
-        setSwitchState(!switchState)
-        if (switchState) {
-            setSwitchName('Actors')
-            setSwitchName('Actor')
-            setOption(10)
-        } else {
-            setSwitchName('Movie')
-            setSwitchName('Movies')
-            setOption(0)
-        }
-    }
-
-    const handleMobileSwitch = (event) => {
-        event.target.value === 10 ? setSwitchState(false) : setSwitchState(true)
-        setOption(event.target.value);
-        event.target.value === 0 ? setSwitchName('Movies') : setSwitchName('Actors')
-    }
     React.useEffect(() => {
         // Remove the server-side injected CSS.
         const jssStyles = document.querySelector('#jss-server-side');
@@ -61,16 +39,8 @@ const MyApp = (props) => {
                 <ThemeProvider theme={darkTheme ? DarkTheme : LightTheme}>
                     <CssBaseline />
                     <Header
-                        switchName={switchName}
-                        setSwitchName={setSwitchName}
                         setDarkTheme={setDarkTheme}
                         darkTheme={darkTheme}
-                        handleSwitchChange={handleSwitchChange}
-                        switchState={switchState}
-                        allPersons={allPersons}
-                        allMovies={allMovies}
-                        handleMobileSwitch={handleMobileSwitch}
-                        option={option}
                     />
                     <Component {...pageProps} />
                     <Footer />
@@ -83,36 +53,36 @@ const MyApp = (props) => {
 }
 
 // This function gets called at build time
-MyApp.getInitialProps = async (appContext) => {
-    // export default Blog
-    const token = process.env.NEXT_PUBLIC_Token
-    var myHeaders = new Headers();
-    myHeaders.append("Authorization", `Token ${token}`);
+// MyApp.getInitialProps = async (appContext) => {
+//     // export default Blog
+//     const token = process.env.NEXT_PUBLIC_Token
+//     var myHeaders = new Headers();
+//     myHeaders.append("Authorization", `Token ${token}`);
 
-    var requestOptions = {
-        method: 'GET',
-        headers: myHeaders,
-    };
+//     var requestOptions = {
+//         method: 'GET',
+//         headers: myHeaders,
+//     };
 
-    const appProps = await App.getInitialProps(appContext);
-    console.log('..loading')
-    if (!appContext.Component.getInitialProps) {
+//     const appProps = await App.getInitialProps(appContext);
+//     console.log('..loading')
+//     if (!appContext.Component.getInitialProps) {
 
-        console.log('...twice loading')
-        console.log(appContext.Component.getInitialProps)
-        // calls page's `getInitialProps` and fills `appProps.pageProps`
-        // Call an external API endpoint to get posts
-        const res = await fetch('https://api.heraunu.com/api/allMovie/', requestOptions)
-        const personRes = await fetch('https://api.heraunu.com/api/allPerson/', requestOptions)
-        const allPersons = await personRes.json()
-        const allMovies = await res.json()
-        return { ...appProps, allMovies: allMovies, allPersons: allPersons }
-    }
-    else {
-        return { ...appProps }
-    }
+//         console.log('...twice loading')
+//         console.log(appContext.Component.getInitialProps)
+//         // calls page's `getInitialProps` and fills `appProps.pageProps`
+//         // Call an external API endpoint to get posts
+//         const res = await fetch('https://api.heraunu.com/api/allMovie/', requestOptions)
+//         const personRes = await fetch('https://api.heraunu.com/api/allPerson/', requestOptions)
+//         const allPersons = await personRes.json()
+//         const allMovies = await res.json()
+//         return { ...appProps, allMovies: allMovies, allPersons: allPersons }
+//     }
+//     else {
+//         return { ...appProps }
+//     }
 
-}
+// }
 
 export default MyApp
 

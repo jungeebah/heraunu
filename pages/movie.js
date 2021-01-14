@@ -1,15 +1,3 @@
-import fetch from 'isomorphic-unfetch';
-
-
-const token = process.env.NEXT_PUBLIC_Token
-var myHeaders = new Headers();
-myHeaders.append("Authorization", `Token ${token}`);
-
-var requestOptions = {
-    method: 'GET',
-    headers: myHeaders,
-};
-
 
 const Movie = ({ movieInfo }) => {
     // const router = useRouter()
@@ -26,6 +14,14 @@ const Movie = ({ movieInfo }) => {
 
 export async function getServerSideProps({ query }) {
     const { key } = query
+    const token = process.env.NEXT_PUBLIC_Token
+    var myHeaders = new Headers();
+    myHeaders.append("Authorization", `Token ${token}`);
+
+    var requestOptions = {
+        method: 'GET',
+        headers: myHeaders,
+    };
     // Call an external API endpoint to get posts
     const res = await fetch(`https://api.heraunu.com/api/movies/${key}/?release_date=&genre=&streaming=`, requestOptions)
     const movieInfo = await res.json()
