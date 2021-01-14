@@ -1,4 +1,4 @@
-const token = process.env.REACT_APP_Token
+const token = process.env.NEXT_PUBLIC_Token
 var myHeaders = new Headers();
 myHeaders.append("Authorization", `Token ${token}`);
 
@@ -18,6 +18,7 @@ const Person = ({ personInfo }) => {
 
 export async function getServerSideProps({ query }) {
     const { key } = query
+    console.log(token)
     // Call an external API endpoint to get posts
     const res = await fetch(`https://api.heraunu.com/api/persons/${key}/`, requestOptions)
     const personInfo = await res.json()

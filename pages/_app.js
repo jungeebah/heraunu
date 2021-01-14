@@ -15,19 +15,11 @@ import {
     ThemeProvider,
 } from "@material-ui/core/styles";
 
-// export default Blog
-const token = process.env.REACT_APP_Token
-var myHeaders = new Headers();
-myHeaders.append("Authorization", `Token ${token}`);
 
-var requestOptions = {
-    method: 'GET',
-    headers: myHeaders,
-};
 
 
 const MyApp = (props) => {
-    
+
     const { Component, pageProps, allMovies, allPersons } = props
     const [darkTheme, setDarkTheme] = React.useState(false);
     const [switchState, setSwitchState] = React.useState(true);
@@ -92,6 +84,15 @@ const MyApp = (props) => {
 
 // This function gets called at build time
 MyApp.getInitialProps = async (appContext) => {
+    // export default Blog
+    const token = process.env.NEXT_PUBLIC_Token
+    var myHeaders = new Headers();
+    myHeaders.append("Authorization", `Token ${token}`);
+
+    var requestOptions = {
+        method: 'GET',
+        headers: myHeaders,
+    };
 
     const appProps = await App.getInitialProps(appContext);
     console.log('..loading')
