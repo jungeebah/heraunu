@@ -179,7 +179,7 @@ const Carousel = (props) => {
                     ref={movieScrollBox}
                     mouseTracking
                     items={itemsMovies}
-                    paddingLeft={large ? 50 : 20}
+                    paddingLeft={medium ? 70 : 20}
                     paddingRight={50}
                     responsive={responsive}
                     disableDotsControls={true}

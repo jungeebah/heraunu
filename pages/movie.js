@@ -388,25 +388,6 @@ const Movie = () => {
             <Grid item xs={12}>
                 {movie.playing[0] !== '' ? movieStreaming : <div></div>}
             </Grid>
-
-            {/* <Grid item xs={12}>
-                <div className={classes.casting}>
-                    <Cast
-                        changeBody={props.changeBody}
-                        actor={movie.actor}
-                    />
-                </div>
-            </Grid> */}
-            {/* {movie.collection.length > 1 ? <Grid item xs={12}>
-                <div className={classes.casting}>
-                    <Collections
-                        changeBody={props.changeBody}
-                        actor={movie.collection}
-                    />
-                </div>
-            </Grid> : <div></div>
-            } */}
-
         </Grid>
     ) : <div></div>
     return (
