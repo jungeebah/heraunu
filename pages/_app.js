@@ -80,37 +80,6 @@ const MyApp = (props) => {
     );
 }
 
-// This function gets called at build time
-// MyApp.getInitialProps = async (appContext) => {
-//     // export default Blog
-//     const token = process.env.NEXT_PUBLIC_Token
-//     var myHeaders = new Headers();
-//     myHeaders.append("Authorization", `Token ${token}`);
-
-//     var requestOptions = {
-//         method: 'GET',
-//         headers: myHeaders,
-//     };
-
-//     const appProps = await App.getInitialProps(appContext);
-//     console.log('..loading')
-//     if (!appContext.Component.getInitialProps) {
-
-//         console.log('...twice loading')
-//         console.log(appContext.Component.getInitialProps)
-//         // calls page's `getInitialProps` and fills `appProps.pageProps`
-//         // Call an external API endpoint to get posts
-//         const res = await fetch('https://api.heraunu.com/api/allMovie/', requestOptions)
-//         const personRes = await fetch('https://api.heraunu.com/api/allPerson/', requestOptions)
-//         const allPersons = await personRes.json()
-//         const allMovies = await res.json()
-//         return {...appProps, allMovies: allMovies, allPersons: allPersons }
-//     }
-//     else {
-//         return {...appProps}
-//     }
-
-// }
 
 export default MyApp
 

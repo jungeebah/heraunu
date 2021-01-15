@@ -27,9 +27,9 @@ const useStyles = makeStyles((theme) => ({
 }))
 
 const youtube = () => {
-    const youtube = useSelector(allYoutubeSelector);
+    const youtubeData = useSelector(allYoutubeSelector);
     const classes = useStyles();
-    const youtubeList = youtube.allmovies
+    const youtubeList = youtubeData.allmovies
     const [displayData, setDisplayData] = useState(youtubeList.slice(0, 10))
     const totalYoutube = youtubeList.length
     const nextPage = (e, v) => {
