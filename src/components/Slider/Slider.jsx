@@ -97,9 +97,6 @@ const useStyles = makeStyles((theme) => ({
 const Carousel = (props) => {
     const theme = useTheme();
     const movieScrollBox = React.useRef();
-    const [showRight, setShowRight] = useState(false)
-    const [showLeft, setShowLeft] = useState(true)
-    const [activeIndex, setActiveIndex] = useState(0);
     const medium = useMediaQuery(theme.breakpoints.up("md"));
     const large = useMediaQuery(theme.breakpoints.up("lg"));
     const { displayData, name, url, individual } = props
@@ -189,41 +186,6 @@ const Carousel = (props) => {
                     disableButtonsControls={true}
                 />
             }
-            {/* <Grid container spacing={0}>
-                <Grid item xs={1} classes={{ "grid-xs-1": classes.flexXs }}>
-                    <Paper
-                        className={
-
-                            classes.arrowLeft
-                        }
-                        elevaion={0}
-                    >
-                        {arrowForward}
-                    </Paper>
-                </Grid>
-                <Grid item xs={11}>
-                    <AliceCarousel
-                        ref={movieScrollBox}
-                        mouseTracking
-                        items={itemsMovies}
-                        paddingLeft={large ? 50 : 20}
-                        paddingRight={50}
-                        activeIndex={activeIndex}
-                        responsive={responsive}
-                        disableDotsControls={true}
-                        disableButtonsControls={true}
-                    />
-                </Grid>
-                <Grid item xs={1} classes={{ "grid-xs-1": classes.flexXs }}>
-                    <Paper
-                        className={
-                            classes.arrow
-                        }
-                    >
-                        {arrowBack}
-                    </Paper>
-                </Grid>
-            </Grid> */}
         </div >
 
     )
