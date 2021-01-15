@@ -49,7 +49,7 @@ const useStyles = makeStyles((theme) => ({
 const OpenMenu = (props) => {
     const { handleDrawerClose } = props
     const menuItems = ["Home", "Movies", "Actors", "Youtube"];
-    const menuLinks = ['/', '/movies', '/persons', '/youtube']
+    const menuLinks = ['/', '/movies', '/actors', '/youtube']
     const menuIcons = [
         <HomeIcon />,
         <MovieIcon />,

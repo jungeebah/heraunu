@@ -3,7 +3,6 @@ import Link from 'next/link';
 import { makeStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
-import Icon from '@material-ui/core/Icon';
 import IconButton from '@material-ui/core/IconButton';
 import MovieIcon from '@material-ui/icons/Movie';
 import PersonIcon from '@material-ui/icons/Person';
@@ -72,7 +71,7 @@ export default function BottomAppBar() {
                         </Grid>
                         <Grid item>
                             <Grid item xs container direction="row" spacing={3}>
-                                <Link href="/persons">
+                                <Link href="/actors">
                                     <IconButton edge="start" color="inherit" aria-label="open drawer">
                                         <Grid item xs>
                                             <PersonIcon />

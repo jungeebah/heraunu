@@ -53,13 +53,15 @@ const Footer = () => {
             <Typography variant="h6">
                 Heraunu
             </Typography>
-            <IconButton className={classes.button}>
-                <div >
-                    <Typography variant="caption">
-                        About Us
+            <Link href="/about">
+                <IconButton className={classes.button}>
+                    <div >
+                        <Typography variant="caption">
+                            About Us
             </Typography>
-                </div>
-            </IconButton>
+                    </div>
+                </IconButton>
+            </Link>
             <Grid
                 container
                 direction="row"

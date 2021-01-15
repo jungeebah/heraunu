@@ -44,7 +44,7 @@ const useStyles = makeStyles((theme) => ({
 
 const MenuDrawer = (props) => {
     const menuItems = ["Home", "Movies", "Actors", "Youtube"];
-    const menuLinks = ['/', '/movies', '/persons', '/youtube']
+    const menuLinks = ['/', '/movies', '/actors', '/youtube']
     const menuIcons = [
         <HomeIcon />,
         <MovieIcon />,
