@@ -2,6 +2,7 @@ import { makeStyles, useTheme } from "@material-ui/core/styles";
 import { getIndividualMovie, individualMovieSelector, invalidateIndividualMovie } from '../lib/slice/individualMovie';
 import { useDispatch, useSelector } from 'react-redux';
 import React from 'react';
+
 import Image from 'next/image';
 import { useRouter } from 'next/router';
 import Grid from "@material-ui/core/Grid";
@@ -32,11 +33,18 @@ const useStyles = makeStyles((theme) => ({
     image: {
         borderRadius: theme.spacing(1) - 4
     },
+    noDataYear: {
+        paddingRight: theme.spacing(2) - 4
+    },
     root: {
         marginTop: theme.spacing(7) + 1,
         [theme.breakpoints.down("sm")]: {
             marginTop: theme.spacing(4),
         },
+    },
+    genreButton: {
+        borderWidth: '1px',
+        paddingRight: theme.spacing(2),
     },
     movieName: {
         paddingTop: theme.spacing(1),
@@ -47,9 +55,9 @@ const useStyles = makeStyles((theme) => ({
     },
     genreItem: {
         textTransform: 'capitalize',
-        fontSize: '0.75rem',
-        paddingRight: '0px',
-        marginLeft: -theme.spacing(1) - 4,
+        borderColor: theme.palette.primary.main,
+        borderRadius: theme.spacing(1),
+        border: '1px'
     },
     casting: {
         marginTop: theme.spacing(1),
@@ -69,6 +77,7 @@ const useStyles = makeStyles((theme) => ({
             marginLeft: '10px',
         },
         marginLeft: -theme.spacing(1) + 2,
+        marginRight: theme.spacing(2) - 4
     },
     timeOpen: {
         marginLeft: theme.spacing(4),
@@ -81,7 +90,8 @@ const useStyles = makeStyles((theme) => ({
     },
     buttonYear: {
         borderRadius: theme.spacing(1),
-        padding: "0px",
+        paddingRight: "12px",
+        paddingTop: '0px',
         paddingBottom: '4px'
     },
     textSizeSmall: {
@@ -147,7 +157,7 @@ const Movie = () => {
         dispatch(getIndividualMovie(key))
     }, [])
     React.useEffect(() => {
-        if (moviesData.movie) {
+        if (moviesData.movie.name === name) {
             setMovie(moviesData.movie)
         }
     }, [moviesData])
@@ -186,6 +196,97 @@ const Movie = () => {
         }
 
     }
+
+    const movieInfo = movie
+        ? (
+            <Box display="flex" flexDirection="row">
+                <Box >
+                    {movie.release_date ? new Date(movie.release_date).getFullYear() + 1 !== 2030 ?
+                        <IconButton edge="start" className={classes.buttonYear}>
+                            <Typography variant="caption" color="textPrimary">
+                                {new Date(movie.release_date).getFullYear() + 1}
+                            </Typography>
+                        </IconButton>
+                        :
+                        <Typography variant="caption" display="block" gutterBottom className={classes.noDataYear}>
+                            NA
+                    </Typography> : <Typography variant="caption" display="block" gutterBottom className={classes.noDataYear}>
+                            NA
+                    </Typography>}
+                </Box>
+                <Box className={classes.rating}>
+                    <Typography
+                        variant="caption"
+                        display="block" gutterBottom>
+                        {movie.rating || 'NA'}
+                    </Typography>
+                </Box>
+                <Box>
+                    <Typography variant="caption" display="block" gutterBottom>
+                        {movie.length || 'NA'}
+                    </Typography>
+                </Box>
+
+            </Box >
+        ) :
+        <div></div>
+    const movieDirector = movie ? (
+        <div className={classes.streamingData}>
+            { movie.director.length > 0 ? movie.director.map((item) =>
+            (<Grid container direction="row" key={item.id}>
+                <Grid item xs={6} key={'level1-' + item.id}>
+                    <Grid container key={'level2-' + item.id}>
+                        <Grid item xs={12} key={'level3-' + item.id}>
+                            <Button
+                                className={classes.director}
+                                onClick={(e) => props.changeBody(e, `https://api.heraunu.com/api/persons/${item.id}/`, item.image)}
+                            >{item.name}
+                            </Button>
+                        </Grid>
+                        <Grid item xs={12} key={'level4-' + item.id}>
+                            <Typography varaint="caption" className={classes.directorTag}>
+                                Director
+                            </Typography>
+                        </Grid>
+                    </Grid>
+                </Grid>
+            </Grid>
+            )) : <div></div>
+            }
+        </div >
+    ) : <div></div>
+
+    const moviePlot = movie ? (
+        <Grid item xs={12} lg={12}>
+            <div className={classes.plot}>
+                <Box>
+                    <Typography variant={large ? "h6" : "body1"} display="block" gutterBottom>
+                        Overview
+                        </Typography>
+                    <Typography variant={large ? "body1" : "caption"} display="block" gutterBottom className={classes.plotItem}>
+                        {movie.plot || 'NA'}
+                    </Typography>
+                </Box>
+                {movie.director.length > 0 ? movieDirector : <div></div>}
+            </div>
+        </Grid>
+    ) : <div></div>
+
+    const genre = movie ? movie.genre.slice(0, 3).map((item) => (
+        <Box p={0} key={item}>
+            <IconButton className={classes.genreButton} edge="start"
+                size="small" >
+                <Typography variant="caption" >
+                    <Box border={1} borderRadius={5} p='2px' fontWeight={500}>
+                        {item.name}
+                    </Box>
+                </Typography>
+            </IconButton>
+        </Box>
+
+    )
+    ) : [< div ></div>]
+
     const renderMovie = movie ? (
         <Grid container
             direction="column"
@@ -206,6 +307,16 @@ const Movie = () => {
                             height={323}
                             width={216}
                         />
+                    </Grid>
+                    <Grid item xs={12} sm={7} lg={8}>
+                        <Typography variant='h6'>
+                            {movie.name}
+                        </Typography>
+                        {movieInfo}
+                        <Box display="flex" flexDirection="row">
+                            {genre.map(item => item)}
+                        </Box>
+                        {moviePlot}
                     </Grid>
                 </Grid>
             </Grid>
