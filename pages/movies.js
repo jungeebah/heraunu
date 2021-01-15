@@ -54,7 +54,7 @@ const movies = () => {
                 justifyContent="center"
                 display="flex">
                 <Pagination
-                    count={totalMovies}
+                    count={totalMovies % 10 === 0 ? totalMovies / 10 : Math.floor(totalMovies / 10) + 1}
                     variant="outlined"
                     shape="rounded"
                     size="small"

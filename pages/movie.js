@@ -2,6 +2,7 @@ import { makeStyles, useTheme } from "@material-ui/core/styles";
 import { getIndividualMovie, individualMovieSelector, invalidateIndividualMovie } from '../lib/slice/individualMovie';
 import { useDispatch, useSelector } from 'react-redux';
 import React from 'react';
+import Image from 'next/image';
 import { useRouter } from 'next/router';
 import Grid from "@material-ui/core/Grid";
 import Paper from '@material-ui/core/Paper';
@@ -23,10 +24,13 @@ const useStyles = makeStyles((theme) => ({
             marginLeft: theme.spacing(3) - 4
         },
         [theme.breakpoints.up('md')]: {
-            marginLeft: theme.spacing(9) - 2,
+            padding: theme.spacing(9) - 2,
         },
 
         marginTop: theme.spacing(9) - 2
+    },
+    image: {
+        borderRadius: theme.spacing(1) - 4
     },
     root: {
         marginTop: theme.spacing(7) + 1,
@@ -128,50 +132,29 @@ const useStyles = makeStyles((theme) => ({
             padding: theme.spacing(4, 2, 2, 2),
         },
     },
-    image: data => (console.log(data), {
-
-        borderRadius: theme.spacing(2),
-        background: `url(${data.image})`,
-        [theme.breakpoints.up('sm')]: {
-            height: '323px',
-            width: '216px',
-        },
-        [theme.breakpoints.up('md')]: {
-            height: '400px',
-            width: '300px',
-        },
-        [theme.breakpoints.up('lg')]: {
-            height: '545px',
-            width: '367px',
-        },
-        [theme.breakpoints.down('xs')]: {
-            width: '200px',
-            height: '300px',
-        },
-        backgroundSize: '100%',
-        backgroundPosition: 'center',
-        backgroundRepeat: "no-repeat",
-    }),
 }));
 
 const Movie = () => {
-    const dispatch = useDispatch();
     const theme = useTheme();
     const router = useRouter()
+    const dispatch = useDispatch();
     const { key, name, image } = router.query
-    const [movie, setMovie] = React.useState()
+    const [movie, setMovie] = React.useState(null)
     const moviesData = useSelector(individualMovieSelector);
     React.useEffect(() => {
         dispatch(invalidateIndividualMovie())
+        setMovie(null)
         dispatch(getIndividualMovie(key))
     }, [])
     React.useEffect(() => {
-        setMovie(moviesData.movie)
+        if (moviesData.movie) {
+            setMovie(moviesData.movie)
+        }
     }, [moviesData])
-    const classes = useStyles({ image })
+    const classes = useStyles()
     const medium = useMediaQuery(theme.breakpoints.down('sm'));
     const large = useMediaQuery(theme.breakpoints.up("md"));
-
+    console.log(moviesData)
     const openYoutube = (e, item) => {
         switch (item) {
             case ('Youtube'):
@@ -203,190 +186,28 @@ const Movie = () => {
         }
 
     }
-
-    const movieData = movie ? (
-        <Grid item xs={12} sm={6}>
-            <div className={movie.genre.length > 0 ? classes.info : classes.noGenreInfo}>
-                <Grid container
-                    direction="row"
-                    alignItems='flex-start'>
-                    <Grid item xs={2} md={2} lg={2}>
-                        {movie.release_date ? new Date(movie.release_date).getFullYear() + 1 !== 2030 ? <IconButton
-                            className={classes.buttonYear}
-                            classes={{ sizeSmall: classes.sizeSmall }}
-                            variant='text'
-                            size="small"
-                        >
-                            {new Date(movie.release_date).getFullYear() + 1}
-                        </IconButton>
-                            :
-                            <Typography variant="caption" display="block" gutterBottom>
-                                NA
-                    </Typography> : <Typography variant="caption" display="block" gutterBottom>
-                                NA
-                    </Typography>}
-                    </Grid>
-                    <Grid item xs={2} md={1} lg={2}>
-                        <Box className={classes.rating}>
-                            <Typography variant="caption" display="block" gutterBottom>
-                                {movie.rating || 'NA'}
-                            </Typography>
-                        </Box>
-                    </Grid>
-                    <Grid item xs={2} md={2} lg={2} className={classes.time}>
-                        <Typography variant="caption" display="block" gutterBottom>
-                            {movie.length || 'NA'}
-                        </Typography>
-                    </Grid>
-                </Grid>
-            </div>
-        </Grid>
-    ) : <div></div>
-
-    const movieDirector = movie ? (
-        <div className={classes.streamingData}>
-            { movie.director.length > 0 ? movie.director.map((item) =>
-            (<Grid container direction="row" key={item.id}>
-                <Grid item xs={6} key={'level1-' + item.id}>
-                    <Grid container key={'level2-' + item.id}>
-                        <Grid item xs={12} key={'level3-' + item.id}>
-                            <Button
-                                className={classes.director}
-                            // onClick={(e) => prop s.changeBody(e, `https://api.heraunu.com/api/persons/${item.id}/`, item.image)}
-                            >{item.name}
-                            </Button>
-                        </Grid>
-                        <Grid item xs={12} key={'level4-' + item.id}>
-                            <Typography varaint="caption" className={classes.directorTag}>
-                                Director
-                        </Typography>
-                        </Grid>
-                    </Grid>
-                </Grid>
-            </Grid>
-            )) : <div></div>
-            }
-        </div >
-    ) : <div></div>
-
-    const movieStreaming = movie ? (<Paper elevation={0} className={classes.streaming}>
-        <Typography variant={large ? "h6" : "body1"} display="block" gutterBottom>
-            Streaming
-                </Typography>
-        <Grid container
-            direction="row"
-            justify="flex-start"
-            alignItems="center"
-            spacing={2}
-            className={classes.streamingData}
-        >
-            {movie.playing ? movie.playing.map((item) => (
-                <Grid item xs={5} sm={3} md={2} lg={2} key={item}>
-                    <Chip
-                        key={item}
-                        rel="noopener noreferrer"
-                        onClick={() => openYoutube(movie.location, item)}
-                        icon={<OndemandVideoIcon />}
-                        label={item}
-                        clickable
-                        color="secondary"
-                    />
-                </Grid>
-            )) : <div></div>}
-        </Grid>
-    </Paper>) : <div></div>
-
-    const moviePlot = movie ? (
-        <Grid item xs={12} lg={12}>
-            <div className={classes.plot}>
-                <Paper color='secondary'
-                    elevation={0}>
-                    <Typography variant={large ? "h6" : "body1"} display="block" gutterBottom>
-                        Overview
-                    </Typography>
-                    <Typography variant={large ? "body1" : "caption"} display="block" gutterBottom className={classes.plotItem}>
-                        {movie.plot || 'NA'}
-                    </Typography>
-                </Paper>
-                {movie.director.length > 0 ? movieDirector : <div></div>}
-            </div>
-        </Grid>
-    ) : <div></div>
-
-    const imdbRating = movie ? movie.imdb_rating ? (
-        <div className={classes.streaming}>
-            <Grid item xs={12} lg={12}>
-                <Chip
-                    color="secondary"
-                    avatar={<Avatar>{movie.imdb_rating}</Avatar>}
-                    label="IMDB Rating"
-                    size={large ? "medium" : "small"} />
-            </Grid>
-        </div>
-    ) : <div></div> : <div></div>
-
-    const genre = movie ? movie.genre.slice(0, 3).map((item) => (
-        <Button
-            classes={{ textSizeSmall: classes.textSizeSmall }}
-            className={classes.genreItem}
-            key={item.name}
-        >
-            {item.name}
-        </Button>
-
-    )
-    ) : [< div ></div>]
-
     const renderMovie = movie ? (
         <Grid container
             direction="column"
-            justify="space-between">
+            justify="space-between"
+            spacing={2}>
             <Grid item xs={12} >
                 <Grid container
                     direction="row"
                     justify="flex-start"
                     alignItems="flex-end"
                 >
-                    <Grid item xs={12} sm={4} md={4}>
-                        <Paper style={{ backgroundSize: '100%' }}
+                    <Grid item xs={6} sm={5} lg={4}>
+                        <Image
                             className={classes.image}
-                            elevation={5}
-                            color="primary">
-                        </Paper>
-                    </Grid>
-                    <Grid item xs={12} sm={8} md={8}>
-                        <Grid
-                            container
-                            direction="row"
-                            className={classes.movieName}
-                        >
-                            <Grid item xs={12}>
-                                <Typography variant={large ? 'h3' : 'h6'}>
-                                    {movie.name}
-                                </Typography>
-                            </Grid>
-                            <Grid item xs={12} className={classes.genre}>
-                                {large ?
-                                    imdbRating : <div></div>
-                                }
-                                {genre.map(item => item)}
-                                {movieData}
-                                {large ?
-                                    moviePlot : <div></div>
-                                }
-                            </Grid>
-                        </Grid>
+                            key={movie.key}
+                            src={image}
+                            alt={movie.name}
+                            height={323}
+                            width={216}
+                        />
                     </Grid>
                 </Grid>
-            </Grid>
-            {large ?
-                <div></div> : imdbRating
-            }
-            {large ? <div></div> :
-                moviePlot
-            }
-            <Grid item xs={12}>
-                {movie.playing[0] !== '' ? movieStreaming : <div></div>}
             </Grid>
         </Grid>
     ) : <div></div>

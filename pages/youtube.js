@@ -53,7 +53,7 @@ const youtube = () => {
                 justifyContent="center"
                 display="flex">
                 <Pagination
-                    count={totalYoutube}
+                    count={totalYoutube % 10 === 0 ? totalYoutube / 10 : Math.floor(totalYoutube / 10) + 1}
                     variant="outlined"
                     shape="rounded"
                     size="small"

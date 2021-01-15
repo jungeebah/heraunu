@@ -55,7 +55,7 @@ const actors = () => {
                 justifyContent="center"
                 display="flex">
                 <Pagination
-                    count={totalPerson}
+                    count={totalPerson % 10 === 0 ? totalPerson / 10 : Math.floor(totalPerson / 10) + 1}
                     variant="outlined"
                     shape="rounded"
                     size="small"
