@@ -42,7 +42,7 @@ const useStyles = makeStyles(
 );
 
 const AutoComplete = (props) => {
-    const {openLabel, selected, setOpenLabel, allPersonsData, allMoviesData } = props;
+    const { openLabel, selected, setOpenLabel, allPersonsData, allMoviesData } = props;
     const classes = useStyles();
 
     const defaultProps = {
@@ -70,7 +70,7 @@ const AutoComplete = (props) => {
                 renderInput={(params) => (
                     <TextField
                         {...params}
-                        label="Movie + Artist"
+                        label="Search..."
                         variant="outlined"
                         color="secondary"
                         size="small"

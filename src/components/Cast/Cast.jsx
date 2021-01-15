@@ -25,7 +25,7 @@ const useStyles = makeStyles((theme) => ({
         paddingTop: theme.spacing(3),
     },
     image: {
-        boxShadow: theme.shadows[2],
+        // boxShadow: theme.shadows[0],
     },
     card: {
         borderRadius: 12,
@@ -219,13 +219,13 @@ const Cast = (props) => {
                             ref={movieScrollBox}
                             spacing={mobile ? 8 : xlarge ? 20 : 15}
                             className={classes.gridList}
-                            cellHeight={mobile ? 170 : ipad ? 220 : xlarge ? 350 : 320}
+                            cellHeight={mobile ? 170 : ipad ? 240 : xlarge ? 350 : 320}
                             cols={column}
                         >
                             {actor
                                 ? actor.map((item) => (
                                     <GridListTile key={item.id}>
-                                        <Link href={{ pathname: '/actors', query: { key: item.id, name: item.name, image: item.image } }}>
+                                        <Link href={{ pathname: '/person', query: { key: item.id, name: item.name, image: item.image } }}>
                                             <Card
                                                 elevation={6}
                                                 className={classes.card}

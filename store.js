@@ -3,6 +3,7 @@ import individualMovieReducer from './lib/slice/individualMovie'
 import allMovieReducer from './lib/slice/allMovies'
 import allActorReducer from './lib/slice/allPerson';
 import allYoutubeReducer from './lib/slice/allYoutube';
+import actorReducer from './lib/slice/individualPerson'
 
 export default configureStore({
     reducer: {
@@ -10,6 +11,7 @@ export default configureStore({
         allActors: allActorReducer,
         allYoutube: allYoutubeReducer,
         individualMovie: individualMovieReducer,
+        actor: actorReducer,
     },
     devTools: true,
 })

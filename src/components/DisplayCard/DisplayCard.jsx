@@ -37,16 +37,16 @@ const DisplayCard = (props) => {
     const classes = useStyles();
     const { movie, individual } = props
     const image = movie.image || movie.video_thumbnail
+    const key = movie.key || movie.movie_id
 
     return (
-        <Link href={{ pathname: individual, query: { key: movie.key, name: movie.name, image: image } }}>
+        <Link href={{ pathname: individual, query: { key: key, name: movie.name, image: image } }}>
             <IconButton className={classes.root}>
                 <Grid container
                     direction="column"
                     justify="center"
                 >
                     <Grid item>
-
                         <Image
                             className={classes.image}
                             src={movie.image}
