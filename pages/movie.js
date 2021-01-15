@@ -2,8 +2,8 @@ import { makeStyles, useTheme } from "@material-ui/core/styles";
 import { getIndividualMovie, individualMovieSelector, invalidateIndividualMovie } from '../lib/slice/individualMovie';
 import { useDispatch, useSelector } from 'react-redux';
 import React from 'react';
-
 import Image from 'next/image';
+import Cast from '../src/components/Cast/Cast'
 import { useRouter } from 'next/router';
 import Grid from "@material-ui/core/Grid";
 import Paper from '@material-ui/core/Paper';
@@ -157,14 +157,13 @@ const Movie = () => {
         dispatch(getIndividualMovie(key))
     }, [])
     React.useEffect(() => {
-        if (moviesData.movie.name === name) {
+        if (moviesData.movie && moviesData.movie.name === name) {
             setMovie(moviesData.movie)
         }
     }, [moviesData])
     const classes = useStyles()
     const medium = useMediaQuery(theme.breakpoints.down('sm'));
     const large = useMediaQuery(theme.breakpoints.up("md"));
-    console.log(moviesData)
     const openYoutube = (e, item) => {
         switch (item) {
             case ('Youtube'):
@@ -196,6 +195,44 @@ const Movie = () => {
         }
 
     }
+
+    const imdbRating = movie ? movie.imdb_rating ? (
+        <div className={classes.streaming}>
+            <Grid item xs={12} lg={12}>
+                <Chip
+                    avatar={<Avatar>{movie.imdb_rating}</Avatar>}
+                    label="IMDB Rating"
+                    size={large ? "medium" : "small"} />
+            </Grid>
+        </div>
+    ) : <div></div> : <div></div>
+
+    const movieStreaming = movie ? (
+        <Box className={classes.streaming}>
+            <Typography variant={large ? "h6" : "body1"} display="block" gutterBottom>
+                Streaming
+                </Typography>
+            <Grid container
+                direction="row"
+                justify="flex-start"
+                alignItems="center"
+                spacing={2}
+                className={classes.streamingData}
+            >
+                {movie.playing ? movie.playing.map((item) => (
+                    <Grid item xs={5} sm={3} md={2} lg={2} key={item}>
+                        <Chip
+                            key={item}
+                            rel="noopener noreferrer"
+                            onClick={() => openYoutube(youtubeLocation, item)}
+                            icon={<OndemandVideoIcon />}
+                            label={item}
+                            clickable
+                        />
+                    </Grid>
+                )) : <div></div>}
+            </Grid>
+        </Box>) : <div></div>
 
     const movieInfo = movie
         ? (
@@ -319,6 +356,19 @@ const Movie = () => {
                         {moviePlot}
                     </Grid>
                 </Grid>
+            </Grid>
+            <Grid item xs={12}>
+                {imdbRating}
+            </Grid>
+            <Grid item xs={12}>
+                {movieStreaming}
+            </Grid>
+            <Grid item xs={12}>
+                <div className={classes.casting}>
+                    <Cast
+                        actor={movie.actor}
+                    />
+                </div>
             </Grid>
         </Grid>
     ) : <div></div>
