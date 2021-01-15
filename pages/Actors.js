@@ -27,7 +27,7 @@ const useStyles = makeStyles((theme) => ({
     }
 }))
 
-const Actors = () => {
+const actors = () => {
     const person = useSelector(allPersonSelector);
     const classes = useStyles();
     const personList = person.allActors
@@ -63,4 +63,4 @@ const Actors = () => {
         </div >
     )
 }
-export default Actors
+export default actors
