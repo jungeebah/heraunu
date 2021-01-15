@@ -78,7 +78,7 @@ const SimpleTabs = (props) => {
                 <TabPanel value={value} index={index}>
                     <Grid container spacing={2}>
                         {movies.filter(item => item.role.includes(role)).map(item =>
-                            <Grid item xs={6} sm={4} md={3} xl={2} key={item.movie_id}>
+                            <Grid item xs={4} sm={2} md={3} xl={2} key={item.movie_id}>
                                 <DisplayCard movie={item} individual='/movie' />
                             </Grid>
                         )}
