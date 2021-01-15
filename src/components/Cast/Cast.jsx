@@ -25,7 +25,7 @@ const useStyles = makeStyles((theme) => ({
         paddingTop: theme.spacing(3),
     },
     image: {
-        boxShadow: theme.shadows[10],
+        boxShadow: theme.shadows[2],
     },
     card: {
         borderRadius: 12,
