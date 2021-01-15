@@ -26,7 +26,6 @@ const Home = (props) => {
     const displayYoutube = youtube['results'].slice(0, 10)
     const theme = useTheme();
     const classes = useStyles();
-    const mobile = useMediaQuery(theme.breakpoints.down("xs"));
     return (
         <div className={classes.root}>
             <Grid container>
@@ -46,7 +45,7 @@ const Home = (props) => {
                         displayData={displayPerson}
                         name={'ACTORS'}
                         className={classes.slider}
-                        url='/persons'
+                        url='/actors'
                         individual='/person'
                     />
                 </Grid>
