@@ -32,9 +32,9 @@ const SliderImage = (props) => {
     const large = useMediaQuery(theme.breakpoints.up("md"));
     const classes = useStyles();
     const { movie, individual } = props
-
+    const image = movie.image || movie.video_thumbnail
     return (
-        <Link href={{ pathname: individual, query: { key: movie.key } }}>
+        <Link href={{ pathname: individual, query: { key: movie.key, name: movie.name, image: image } }}>
             <IconButton className={classes.root}>
                 <Grid container
                     direction="column"

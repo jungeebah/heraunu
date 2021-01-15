@@ -1,5 +1,6 @@
 import { allPersonSelector } from '../lib/slice/allPerson';
 import { useSelector } from 'react-redux';
+
 import { useState } from 'react'
 import Typography from '@material-ui/core/Typography'
 import { makeStyles, useTheme } from "@material-ui/core/styles";
@@ -45,7 +46,7 @@ const actors = () => {
                 <Grid container spacing={2}>
                     {displayData.map(items => (
                         <Grid item xs={4} sm={2} md={3} xl={2} key={items.key} >
-                            <DisplayCard movie={items} />
+                            <DisplayCard movie={items} individual='/person' />
                         </Grid>
                     ))}
                 </Grid>

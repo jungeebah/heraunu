@@ -31,14 +31,15 @@ const useStyles = makeStyles((theme) => ({
 
 }))
 
-const SliderImage = (props) => {
+const DisplayCard = (props) => {
     const theme = useTheme();
     const large = useMediaQuery(theme.breakpoints.up("md"));
     const classes = useStyles();
     const { movie, individual } = props
+    const image = movie.image || movie.video_thumbnail
 
     return (
-        <Link href={{ pathname: individual, query: { key: movie.key } }}>
+        <Link href={{ pathname: individual, query: { key: movie.key, name: movie.name, image: image } }}>
             <IconButton className={classes.root}>
                 <Grid container
                     direction="column"
@@ -66,4 +67,4 @@ const SliderImage = (props) => {
     )
 }
 
-export default SliderImage;
+export default DisplayCard;
