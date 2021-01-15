@@ -43,7 +43,7 @@ const youtube = () => {
                 </Typography>
                 <Grid container spacing={2}>
                     {displayData.map(items => (
-                        <Grid item xs={4} sm={4} md={3} xl={2} key={items.key} >
+                        <Grid item xs={4} sm={2} md={3} xl={2} key={items.key} >
                             <DisplayCard movie={items} />
                         </Grid>
                     ))}
