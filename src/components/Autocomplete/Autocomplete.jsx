@@ -48,11 +48,14 @@ const AutoComplete = (props) => {
     const classes = useStyles();
 
     const selected = (e, v) => {
-        const image = v.image || v.video_thumbnail || '/image.jpg'
-        if (v.item === 'Movie') {
-            router.push({ pathname: '/movie', query: { key: v.key, name: v.name, image: image } })
-        } else {
-            router.push({ pathname: '/person', query: { key: v.key, name: v.name, image: image } })
+        if (v) {
+            const image = v.image || v.video_thumbnail || '/image.jpg'
+            if (v.item === 'Movie') {
+                var type = '/movie'
+            } else {
+                var type = '/person'
+            }
+            router.push({ pathname: '/search', query: { key: v.key, name: v.name, image: image, type: type } })
         }
     }
 

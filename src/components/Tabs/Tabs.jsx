@@ -65,9 +65,21 @@ const SimpleTabs = (props) => {
     React.useEffect(() => {
         if (totalMovies > 10) {
             setDisplayPagination(true)
-            setDisplayData(movies.slice(0, 10))
         }
     }, [])
+
+    React.useEffect(() => {
+        setDisplayData(movies.filter(item => item.role.includes(tabs[value])).slice(0, 10))
+        const defaultMovie = movies.filter(items => items.role.includes(tabs[value]))
+        if (defaultMovie.length < 10) {
+            setDisplayPagination(false)
+            setDisplayData(defaultMovie)
+        } else {
+            setDisplayData(defaultMovie.slice(0, 10))
+            setTotalMovies(defaultMovie.length)
+            setDisplayPagination(true)
+        }
+    }, [tabs])
 
     React.useEffect(() => {
         setTabs(roleTypes.filter(item => movies.filter(a => a.role.includes(item)).length > 0))

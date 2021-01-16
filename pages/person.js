@@ -54,26 +54,6 @@ const useStyles = makeStyles((theme) => ({
         [theme.breakpoints.up('xs')]: {
             marginBottom: theme.spacing(10)
         },
-        // background: `url(${props.image})`,
-        // [theme.breakpoints.up('sm')]: {
-        //     height: '323px',
-        //     width: '216px',
-        // },
-        // [theme.breakpoints.up('md')]: {
-        //     height: '400px',
-        //     width: '300px',
-        // },
-        // [theme.breakpoints.up('lg')]: {
-        //     height: '545px',
-        //     width: '367px',
-        // },
-        // [theme.breakpoints.down('xs')]: {
-        //     width: '200px',
-        //     height: '300px',
-        // },
-        // backgroundSize: '100%',
-        // backgroundPosition: 'center',
-        // backgroundRepeat: "no-repeat",
     },
 }))
 const Person = () => {
@@ -82,13 +62,13 @@ const Person = () => {
     const router = useRouter()
     const dispatch = useDispatch();
     const individualPerson = useSelector(actorSelector)
+
     var { key, name, image } = router.query
     if (image === 'None') {
         image = '/image.jpg'
     }
     const [person, setPerson] = React.useState(null)
-    const medium = useMediaQuery(theme.breakpoints.down('sm'));
-    const large = useMediaQuery(theme.breakpoints.up("md"));
+    const large = useMediaQuery(theme.breakpoints.up("lg"));
     const skeletonItem = [...Array(10).keys()]
     React.useEffect(() => {
         dispatch(invalidateActor())
@@ -118,8 +98,8 @@ const Person = () => {
                             key={person.id}
                             src={image || '/image.jpg'}
                             alt={person.name}
-                            height={323}
-                            width={216}
+                            height={large ? 545 : 323}
+                            width={large ? 367 : 216}
                         />
                     </Grid>
                     <Grid item xs={12} sm={7} lg={8}>
@@ -145,11 +125,6 @@ const Person = () => {
                         direction="row"
                         alignItems="flex-end"
                         spacing={2}>
-                        {/* <Grid item xs={12}>
-                            <Typography variant={medium ? "subtitle1" : "h4"}>
-                                Movies
-                    </Typography>
-                        </Grid> */}
                         {person.movies ?
                             <Grid item xs={12}>
                                 <SimpleTabs movies={person.movies} />
