@@ -2,6 +2,7 @@ import React from "react";
 import TextField from "@material-ui/core/TextField";
 import Autocomplete from "@material-ui/lab/Autocomplete";
 import { makeStyles } from "@material-ui/core/styles";
+import { useRouter } from 'next/router';
 
 const useStyles = makeStyles(
     (theme) => ({
@@ -42,8 +43,18 @@ const useStyles = makeStyles(
 );
 
 const AutoComplete = (props) => {
-    const { openLabel, selected, setOpenLabel, allPersonsData, allMoviesData } = props;
+    const router = useRouter()
+    const { openLabel, setOpenLabel, allPersonsData, allMoviesData } = props;
     const classes = useStyles();
+
+    const selected = (e, v) => {
+        const image = v.image || v.video_thumbnail || '/image.jpg'
+        if (v.item === 'Movie') {
+            router.push({ pathname: '/movie', query: { key: v.key, name: v.name, image: image } })
+        } else {
+            router.push({ pathname: '/person', query: { key: v.key, name: v.name, image: image } })
+        }
+    }
 
     const defaultProps = {
         options: [...allMoviesData, ...allPersonsData],
