@@ -1,7 +1,6 @@
 
 import React from 'react';
 import Grid from "@material-ui/core/Grid";
-import Paper from '@material-ui/core/Paper';
 import Box from '@material-ui/core/Box'
 import Skeleton from '@material-ui/lab/Skeleton';
 import Typography from '@material-ui/core/Typography'
@@ -13,7 +12,6 @@ import SimpleTabs from '../src/components/Tabs/Tabs'
 import { actorSelector, invalidateActor, getActor } from '../lib/slice/individualPerson';
 import useMediaQuery from "@material-ui/core/useMediaQuery";
 import { useDispatch, useSelector } from 'react-redux';
-import { CheckBox } from '@material-ui/icons';
 
 const useStyles = makeStyles((theme) => ({
     person: {
@@ -77,7 +75,10 @@ const Person = () => {
     const router = useRouter()
     const dispatch = useDispatch();
     const individualPerson = useSelector(actorSelector)
-    const { key, name, image } = router.query
+    var { key, name, image } = router.query
+    if (image === 'None') {
+        image = '/image.jpg'
+    }
     const [person, setPerson] = React.useState(null)
     const medium = useMediaQuery(theme.breakpoints.down('sm'));
     const large = useMediaQuery(theme.breakpoints.up("md"));
@@ -108,7 +109,7 @@ const Person = () => {
                         <Image
                             className={classes.image}
                             key={person.id}
-                            src={image}
+                            src={image || '/image.jpg'}
                             alt={person.name}
                             height={323}
                             width={216}

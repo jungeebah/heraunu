@@ -1,6 +1,7 @@
 import React from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
+import Box from '@material-ui/core/Box'
 import IconButton from '@material-ui/core/IconButton';
 import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
@@ -33,6 +34,9 @@ const SliderImage = (props) => {
     const classes = useStyles();
     const { movie, individual } = props
     const image = movie.image || movie.video_thumbnail
+    if (image === 'None') {
+        image = '/image.jpg'
+    }
     return (
         <Link href={{ pathname: individual, query: { key: movie.key, name: movie.name, image: image } }}>
             <IconButton className={classes.root}>
@@ -41,13 +45,18 @@ const SliderImage = (props) => {
                     justify="center"
                 >
                     <Grid item>
-                        <Image
-                            className={classes.image}
-                            src={movie.image}
-                            alt={movie.name}
+                        <Box
+                            boxShadow={2}
                             width={large ? 211 : 92}
-                            height={large ? 314 : 137}
-                        />
+                            height={large ? 314 : 137}>
+                            <Image
+                                className={classes.image}
+                                src={image || '/image.jpg'}
+                                alt={movie.name}
+                                width={large ? 211 : 92}
+                                height={large ? 314 : 137}
+                            />
+                        </Box>
                     </Grid>
                     <Grid item>
                         <Typography className={classes.text} align="left">

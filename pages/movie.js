@@ -6,14 +6,12 @@ import Image from 'next/image';
 import Cast from '../src/components/Cast/Cast'
 import { useRouter } from 'next/router';
 import Grid from "@material-ui/core/Grid";
-import Paper from '@material-ui/core/Paper';
 import OndemandVideoIcon from '@material-ui/icons/OndemandVideo';
 import Chip from '@material-ui/core/Chip';
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button'
 import IconButton from '@material-ui/core/IconButton'
 import Box from '@material-ui/core/Box';
-import Link from 'next/link';
 import Typography from '@material-ui/core/Typography';
 import useMediaQuery from "@material-ui/core/useMediaQuery";
 
@@ -167,6 +165,7 @@ const Movie = () => {
     const classes = useStyles()
     const medium = useMediaQuery(theme.breakpoints.down('sm'));
     const large = useMediaQuery(theme.breakpoints.up("md"));
+    const xlarge = useMediaQuery(theme.breakpoints.up("lg"));
     const openYoutube = (e, item) => {
         switch (item) {
             case ('Youtube'):
@@ -223,7 +222,7 @@ const Movie = () => {
                 className={classes.streamingData}
             >
                 {movie.playing ? movie.playing.map((item) => (
-                    <Grid item xs={5} sm={3} md={2} lg={2} key={item}>
+                    <Grid item xs={4} sm={3} md={2} lg={2} key={item}>
                         <Chip
                             key={item}
                             rel="noopener noreferrer"
@@ -338,17 +337,17 @@ const Movie = () => {
                     justify="flex-start"
                     alignItems="flex-end"
                 >
-                    <Grid item xs={6} sm={5} lg={4}>
+                    <Grid item xs={6} sm={4} lg={4}>
                         <Image
                             className={classes.image}
                             key={movie.key}
                             src={image}
                             alt={movie.name}
-                            height={323}
-                            width={216}
+                            height={xlarge ? 545 : 323}
+                            width={xlarge ? 367 : 216}
                         />
                     </Grid>
-                    <Grid item xs={12} sm={7} lg={8}>
+                    <Grid item xs={12} sm={8} lg={8}>
                         <Typography variant='h6'>
                             {movie.name}
                         </Typography>

@@ -36,7 +36,10 @@ const DisplayCard = (props) => {
     const large = useMediaQuery(theme.breakpoints.up("md"));
     const classes = useStyles();
     const { movie, individual } = props
-    const image = movie.image || movie.video_thumbnail
+    var image = movie.image || movie.video_thumbnail
+    if (image === 'None') {
+        image = '/image.jpg'
+    }
     const key = movie.key || movie.movie_id
 
     return (
@@ -49,7 +52,7 @@ const DisplayCard = (props) => {
                     <Grid item>
                         <Image
                             className={classes.image}
-                            src={movie.image}
+                            src={image || '/image.jpg'}
                             alt={movie.name}
                             width={large ? 211 : 92}
                             height={large ? 314 : 137}
