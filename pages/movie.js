@@ -13,6 +13,7 @@ import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button'
 import IconButton from '@material-ui/core/IconButton'
 import Box from '@material-ui/core/Box';
+import Link from 'next/link';
 import Typography from '@material-ui/core/Typography';
 import useMediaQuery from "@material-ui/core/useMediaQuery";
 
@@ -150,6 +151,7 @@ const Movie = () => {
     const dispatch = useDispatch();
     const { key, name, image } = router.query
     const [movie, setMovie] = React.useState(null)
+    const [youtubeLocation, setYoutubeLocation] = React.useState('')
     const moviesData = useSelector(individualMovieSelector);
     React.useEffect(() => {
         dispatch(invalidateIndividualMovie())
@@ -159,6 +161,7 @@ const Movie = () => {
     React.useEffect(() => {
         if (moviesData.movie && moviesData.movie.name === name) {
             setMovie(moviesData.movie)
+            setYoutubeLocation(moviesData.movie.location)
         }
     }, [moviesData])
     const classes = useStyles()
