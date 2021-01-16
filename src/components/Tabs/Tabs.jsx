@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 import Typography from '@material-ui/core/Typography';
@@ -7,6 +7,7 @@ import Grid from '@material-ui/core/Grid';
 import DisplayCard from '../DisplayCard/DisplayCard';
 import { pillTabsStylesHook } from '@mui-treasury/styles/tabs';
 import { makeStyles } from '@material-ui/core/styles';
+import Pagination from '@material-ui/lab/Pagination';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -17,6 +18,9 @@ const useStyles = makeStyles((theme) => ({
             marginTop: theme.spacing(2)
         },
     },
+    pagination: {
+        marginTop: theme.spacing(1)
+    }
 }));
 
 function a11yProps(index) {
@@ -47,9 +51,23 @@ function TabPanel(props) {
 const SimpleTabs = (props) => {
     const classes = useStyles();
     const { movies } = props
+    const [totalMovies, setTotalMovies] = useState(movies.length)
+    const [displayData, setDisplayData] = useState(movies)
+    const [displayPagination, setDisplayPagination] = useState(false)
     const roleTypes = ['cast', 'producer', 'director', 'writer']
     const [value, setValue] = React.useState(0);
-    const [tabs, setTabs] = React.useState([])
+    const [tabs, setTabs] = React.useState([]);
+
+    const nextPage = (e, v) => {
+        setDisplayData(movies.filter(item => item.role.includes(roleTypes[value])).slice((v - 1) * 10, v * 10))
+    }
+
+    React.useEffect(() => {
+        if (totalMovies > 10) {
+            setDisplayPagination(true)
+            setDisplayData(movies.slice(0, 10))
+        }
+    }, [])
 
     React.useEffect(() => {
         setTabs(roleTypes.filter(item => movies.filter(a => a.role.includes(item)).length > 0))
@@ -57,6 +75,15 @@ const SimpleTabs = (props) => {
 
     const handleChange = (event, newValue) => {
         setValue(newValue);
+        const newMovie = movies.filter(items => items.role.includes(tabs[newValue]))
+        if (newMovie.length < 10) {
+            setDisplayPagination(false)
+            setDisplayData(newMovie)
+        } else {
+            setDisplayData(newMovie.slice(0, 10))
+            setTotalMovies(newMovie.length)
+            setDisplayPagination(true)
+        }
     };
     const tabsStyles = pillTabsStylesHook.useTabs();
     const tabItemStyles = pillTabsStylesHook.useTabItem();
@@ -77,12 +104,22 @@ const SimpleTabs = (props) => {
             {tabs.map((role, index) => (
                 <TabPanel value={value} index={index}>
                     <Grid container spacing={2}>
-                        {movies.filter(item => item.role.includes(role)).map(item =>
+                        {displayData.map(item =>
                             <Grid item xs={4} sm={2} md={3} xl={2} key={item.movie_id}>
                                 <DisplayCard movie={item} individual='/movie' />
                             </Grid>
                         )}
                     </Grid>
+                    {displayPagination && <Box className={classes.pagination}
+                        justifyContent="center"
+                        display="flex">
+                        <Pagination
+                            count={totalMovies % 10 === 0 ? totalMovies / 10 : Math.floor(totalMovies / 10) + 1}
+                            variant="outlined"
+                            shape="rounded"
+                            size="small"
+                            onChange={nextPage} />
+                    </Box>}
                 </TabPanel>
             ))}
         </div>

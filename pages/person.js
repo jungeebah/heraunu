@@ -34,8 +34,11 @@ const useStyles = makeStyles((theme) => ({
         },
     },
     actorMovie: {
-        [theme.breakpoints.only("sm")]: {
-            paddingTop: theme.spacing(1),
+        [theme.breakpoints.down("sm")]: {
+            paddingTop: theme.spacing(5),
+        },
+        [theme.breakpoints.up("sm")]: {
+            paddingTop: theme.spacing(22),
         },
         [theme.breakpoints.up("md")]: {
             padding: theme.spacing(4, 2, 2, 2),
@@ -43,31 +46,35 @@ const useStyles = makeStyles((theme) => ({
     },
     skeletonTitle: {
         marginTop: '10px',
-        marginBottom: '60px',
+        marginBottom: '90px',
+        position: 'relative',
     },
-    image: props => ({
+    image: {
         borderRadius: theme.spacing(2),
-        background: `url(${props.image})`,
-        [theme.breakpoints.up('sm')]: {
-            height: '323px',
-            width: '216px',
+        [theme.breakpoints.up('xs')]: {
+            marginBottom: theme.spacing(10)
         },
-        [theme.breakpoints.up('md')]: {
-            height: '400px',
-            width: '300px',
-        },
-        [theme.breakpoints.up('lg')]: {
-            height: '545px',
-            width: '367px',
-        },
-        [theme.breakpoints.down('xs')]: {
-            width: '200px',
-            height: '300px',
-        },
-        backgroundSize: '100%',
-        backgroundPosition: 'center',
-        backgroundRepeat: "no-repeat",
-    }),
+        // background: `url(${props.image})`,
+        // [theme.breakpoints.up('sm')]: {
+        //     height: '323px',
+        //     width: '216px',
+        // },
+        // [theme.breakpoints.up('md')]: {
+        //     height: '400px',
+        //     width: '300px',
+        // },
+        // [theme.breakpoints.up('lg')]: {
+        //     height: '545px',
+        //     width: '367px',
+        // },
+        // [theme.breakpoints.down('xs')]: {
+        //     width: '200px',
+        //     height: '300px',
+        // },
+        // backgroundSize: '100%',
+        // backgroundPosition: 'center',
+        // backgroundRepeat: "no-repeat",
+    },
 }))
 const Person = () => {
     const classes = useStyles()
@@ -138,11 +145,11 @@ const Person = () => {
                         direction="row"
                         alignItems="flex-end"
                         spacing={2}>
-                        <Grid item xs={12}>
+                        {/* <Grid item xs={12}>
                             <Typography variant={medium ? "subtitle1" : "h4"}>
                                 Movies
                     </Typography>
-                        </Grid>
+                        </Grid> */}
                         {person.movies ?
                             <Grid item xs={12}>
                                 <SimpleTabs movies={person.movies} />
