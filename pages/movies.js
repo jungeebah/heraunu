@@ -13,7 +13,9 @@ import DisplayCard from '../src/components/DisplayCard/DisplayCard';
 import Grid from '@material-ui/core/Grid';
 import Pagination from '@material-ui/lab/Pagination';
 import Box from '@material-ui/core/Box';
-import TextField from '@material-ui/core/TextField'
+import TextField from '@material-ui/core/TextField';
+import Chip from "@material-ui/core/Chip";
+import Avatar from "@material-ui/core/Avatar";
 import useMediaQuery from "@material-ui/core/useMediaQuery";
 
 const useStyles = makeStyles((theme) => ({
@@ -32,6 +34,12 @@ const useStyles = makeStyles((theme) => ({
     },
     pagination: {
         marginTop: theme.spacing(1)
+    },
+    filter: {
+        paddingLeft: '0'
+    },
+    chipList: {
+        listStyle: "none",
     }
 }))
 
@@ -60,17 +68,27 @@ const movies = () => {
     const [genreList, setGenreList] = React.useState([])
     const [streamList, setStreamList] = React.useState([])
     const genres = ['All'].concat(genreList.map(a => a.name))
+    const [defaultPage, setDefaultPage] = React.useState(1)
+    const [endpoint, setEndPoint] = React.useState('')
     const streams = ['All'].concat(streamList.map(a => a.site))
+    const filtered = useSelector(filterMovieSelector);
     const [genreFilter, setGenreFilter] = React.useState('All')
     const [streamFilter, setStreamFilter] = React.useState('All')
     const [yearFilter, setYearFilter] = React.useState('All')
     const [filterChipList, setFilterChipList] = React.useState([]);
     const [isFiltering, setIsFiltering] = React.useState(false);
+    const [filteredData, setFilteredData] = React.useState([])
     const [movieList, setMovieList] = useState(movie.allmovies)
     const [displayData, setDisplayData] = useState(movieList.slice(0, 10))
     const [totalMovies, setTotalMovies] = useState(movieList.length)
     const nextPage = (e, v) => {
-        setDisplayData(movieList.slice((v - 1) * 10, v * 10))
+        setDefaultPage(v)
+        if (isFiltering) {
+            dispatch(invalidateFilterMovie())
+            setEndPoint(`/?page=${v}&release_date=${yearFilter === 'All' ? '' : yearFilter}&genre=${genreFilter === 'All' ? '' : genreFilter}&streaming=${streamFilter === 'All' ? '' : streamFilter}`)
+        } else {
+            setDisplayData(movieList.slice((v - 1) * 10, v * 10))
+        }
     }
     React.useEffect(() => {
         if (!movie.allmovies?.length) {
@@ -79,6 +97,111 @@ const movies = () => {
         dispatch(getGenreDataKey())
         dispatch(getStreamDataKey())
     }, [])
+
+    React.useEffect(() => {
+        isFiltering ? setDisplayData(filteredData.slice(0, 10)) : setDisplayData(movieList.slice(0, 10))
+    }, [isFiltering])
+
+    const handleChangeFilter = (event) => {
+        setFilterOpen(false)
+        event.persist();
+        setDefaultPage(1)
+        switch (event.target.id) {
+            case "stream":
+                const streamValue = event.target.value === 'All' ? 'All' : streamList.filter(a => a.site === event.target.value)[0].key
+                if (event.target.value === 'All') {
+                    if (filterChipList.filter((x) => x.key === "S").length > 0) {
+                        setFilterChipList(filterChipList.filter((x) => x.key !== 'S'))
+                    }
+                }
+                else {
+                    if (filterChipList.filter((x) => x.key === "S").length > 0) {
+                        filterChipList.find(
+                            (x) => x.key === "S" && ((x.value = event.target.value), true)
+                        );
+                        setFilterChipList(filterChipList);
+                    }
+                    else {
+                        setFilterChipList((chips) =>
+                            chips.concat({ key: "S", value: event.target.value })
+                        );
+                    }
+                }
+                setStreamFilter(streamValue)
+                setEndPoint(`/?page=${1}&release_date=${yearFilter === 'All' ? '' : yearFilter}&genre=${genreFilter === 'All' ? '' : genreFilter}&streaming=${streamValue === 'All' ? '' : streamValue}`)
+                break;
+            case "genre":
+                const genreValue = event.target.value === 'All' ? 'All' : genreList.filter(a => a.name === event.target.value)[0].key
+                if (event.target.value === 'All') {
+                    if (filterChipList.filter((x) => x.key === "G").length > 0) {
+                        setFilterChipList(filterChipList.filter((x) => x.key !== 'G'))
+                    }
+
+                }
+                else {
+                    if (filterChipList.filter((x) => x.key === "G").length > 0) {
+                        filterChipList.find(
+                            (x) => x.key === "G" && ((x.value = event.target.value), true)
+                        );
+                        setFilterChipList(filterChipList);
+                    }
+                    else {
+                        setFilterChipList((chips) =>
+                            chips.concat({ key: "G", value: event.target.value })
+                        );
+                    }
+                }
+                setGenreFilter(genreValue);
+                setEndPoint(`/?page=${1}&release_date=${yearFilter === 'All' ? '' : yearFilter}&genre=${genreValue === 'All' ? '' : genreValue}&streaming=${streamFilter === 'All' ? '' : streamFilter}`)
+                break;
+            case "year":
+                if (event.target.value === 'All') {
+                    if (filterChipList.filter((x) => x.key === "Y").length > 0) {
+                        setFilterChipList(filterChipList.filter((x) => x.key !== 'Y'))
+                    }
+                } else {
+                    if (filterChipList.filter((x) => x.key === "Y").length > 0 && event.target.value !== 'All') {
+                        filterChipList.find(
+                            (x) => x.key === "Y" && ((x.value = event.target.value), true)
+                        );
+                        setFilterChipList(filterChipList);
+                    }
+                    else {
+                        setFilterChipList((chips) =>
+                            chips.concat({ key: "Y", value: event.target.value })
+                        );
+                    }
+                }
+
+                setYearFilter(event.target.value);
+                setEndPoint(`/?page=${1}&release_date=${event.target.value === 'All' ? '' : event.target.value}&genre=${genreFilter === 'All' ? '' : genreFilter}&streaming=${streamFilter === 'All' ? '' : streamFilter}`)
+                break;
+            default:
+                break;
+        }
+    }
+
+    const handleChipDelete = (chipToDelete) => () => {
+        setFilterChipList((chips) =>
+            chips.filter((chip) => chip.value !== chipToDelete.value)
+        );
+        if (chipToDelete.key === "G") {
+            setEndPoint(`/?page=${1}&release_date=${yearFilter === 'All' ? '' : yearFilter}&genre=&streaming=${streamFilter === 'All' ? '' : streamFilter}`);
+            setGenreFilter("All");
+        } else if (chipToDelete.key === "S") {
+            setEndPoint(`/?page=${1}&release_date=${yearFilter === 'All' ? '' : yearFilter}&genre=${genreFilter === 'All' ? '' : genreFilter}&streaming=`);
+            setStreamFilter('All')
+        } else if (chipToDelete.key === 'Y') {
+            setEndPoint(`/?page=${1}&release_date=&genre=${genreFilter === 'All' ? '' : genreFilter}&streaming=${streamFilter === 'All' ? '' : streamFilter}`);
+            setYearFilter("All");
+        }
+    }
+
+    React.useEffect(() => {
+        if (endpoint !== '') {
+            dispatch(getFilterMovies(endpoint))
+        }
+    }, [endpoint])
 
     React.useEffect(() => {
         if (genreFilter === 'All' && streamFilter === 'All' && yearFilter === 'All') {
@@ -108,91 +231,116 @@ const movies = () => {
         setFilterOpen(!filterOpen)
     }
 
+    React.useEffect(() => {
+        if (isFiltering) {
+            setFilteredData(filtered.movies)
+            setTotalMovies(filtered.count)
+            setDisplayData(filtered.movies)
+        }
+    }, [filtered])
+
     const filter = movie ?
         (
             <div>
-                <Box display="flex" flexDirection="row">
-                    <IconButton edge="start" size={mobile ? "small" : "medium"}
-                        onClick={filterClick}>
-                        <Filter_alt />
-                        <Typography
-                            // className={classes.filterText}
-                            varaint={mobile ? "subtitle1" : "body1"}
-                        >
-                            Filter
-            </Typography>
-                    </IconButton>
+                <Box display="flex" flexDirection="row" >
+                    <Box p={1} flexGrow={1} className={classes.filter}>
+                        <IconButton edge="start" size={mobile ? "small" : "medium"}
+                            onClick={filterClick}>
+                            <Filter_alt />
+                            <Typography varaint={mobile ? "subtitle1" : "body1"}>
+                                Filter
+                            </Typography>
+                        </IconButton>
+                    </Box>
                 </Box>
+                <Box display="flex" flexDirection="row" className={classes.chipList}>
+                    {filterChipList ? (
+                        filterChipList.map((item) => (
+                            <Box p={1} key={item}>
+                                <li key={item.key}>
+                                    <Chip
+                                        color="secondary"
+                                        size="small"
+                                        avatar={<Avatar>{item.key}</Avatar>}
+                                        label={item.value}
+                                        onDelete={handleChipDelete(item)}
+                                        className={classes.chip}
+                                    />
+                                </li>
+                            </Box>
+                        ))
+                    ) : (
+                            <div></div>
+                        )}
+                </Box >
                 <Collapse in={filterOpen}>
-                    <Box>
-                        <Grid container spacing={2}>
-                            <Grid item xs={4} sm={4} lg={3}>
-                                <TextField
-                                    id="genre"
-                                    select
-                                    label="Genre"
-                                    size="small"
-                                    value={genreFilter === 'All' ? genreFilter : genreList.filter(a => a.key === genreFilter)[0].name}
-                                    // onChange={handleChangeFilter}
-                                    SelectProps={{
-                                        native: true,
-                                    }}
-                                    helperText="Genre"
-                                    variant="outlined"
-                                >
-                                    {genres.map((option, index) => (
-                                        <option key={index} value={option}>
-                                            {option}
-                                        </option>
-                                    ))}
-                                </TextField>
-                            </Grid>
-                            <Grid item xs={4} sm={4} lg={3}>
-                                <TextField
-                                    id="year"
-                                    select
-                                    label="Year"
-                                    size="small"
-                                    value={yearFilter}
-                                    // onChange={handleChangeFilter}
-                                    SelectProps={{
-                                        native: true,
-                                    }}
-                                    helperText="Year"
-                                    variant="outlined"
-                                >
-                                    {yearList.map((option, index) => (
-                                        <option key={index} value={option}>
-                                            {option}
-                                        </option>
-                                    ))}
-                                </TextField>
-                            </Grid>
-                            <Grid item xs={4} sm={4} lg={3}>
-                                <TextField
-                                    id="stream"
-                                    select
-                                    label="Stream"
-                                    size="small"
-                                    value={streamFilter === 'All' ? streamFilter : streamList.filter(a => a.key === streamFilter)[0].site}
-                                    // onChange={handleChangeFilter}
-                                    SelectProps={{
-                                        native: true,
-                                    }}
-                                    helperText="Streaming"
-                                    variant="outlined"
-                                >
-                                    {streams.map((option, index) => (
-                                        <option key={index} value={option}>
-                                            {option}
-                                        </option>
-                                    ))}
-                                </TextField>
-                            </Grid>
-                        </Grid>
+                    <Box display="flex" flexDirection="row">
+                        <Box p="1px">
+                            <TextField
+                                id="genre"
+                                select
+                                label="Genre"
+                                size="small"
+                                value={genreFilter === 'All' ? genreFilter : genreList.filter(a => a.key === genreFilter)[0].name}
+                                onChange={handleChangeFilter}
+                                SelectProps={{
+                                    native: true,
+                                }}
+                                helperText="Genre"
+                                variant="outlined"
+                            >
+                                {genres.map((option, index) => (
+                                    <option key={index} value={option}>
+                                        {option}
+                                    </option>
+                                ))}
+                            </TextField>
+                        </Box>
+                        <Box p="1px">
+                            <TextField
+                                id="year"
+                                select
+                                label="Year"
+                                size="small"
+                                value={yearFilter}
+                                onChange={handleChangeFilter}
+                                SelectProps={{
+                                    native: true,
+                                }}
+                                helperText="Year"
+                                variant="outlined"
+                            >
+                                {yearList.map((option, index) => (
+                                    <option key={index} value={option}>
+                                        {option}
+                                    </option>
+                                ))}
+                            </TextField>
+                        </Box>
+                        <Box p="1px">
+                            <TextField
+                                id="stream"
+                                select
+                                label="Stream"
+                                size="small"
+                                value={streamFilter === 'All' ? streamFilter : streamList.filter(a => a.key === streamFilter)[0].site}
+                                onChange={handleChangeFilter}
+                                SelectProps={{
+                                    native: true,
+                                }}
+                                helperText="Streaming"
+                                variant="outlined"
+                            >
+                                {streams.map((option, index) => (
+                                    <option key={index} value={option}>
+                                        {option}
+                                    </option>
+                                ))}
+                            </TextField>
+                        </Box>
                     </Box>
                 </Collapse>
-            </div>
+            </div >
         )
         : <div></div>
     return (
@@ -212,16 +360,19 @@ const movies = () => {
                     ))}
                 </Grid>
             </div>
-            <Box className={classes.pagination}
-                justifyContent="center"
-                display="flex">
-                <Pagination
-                    count={totalMovies % 10 === 0 ? totalMovies / 10 : Math.floor(totalMovies / 10) + 1}
-                    variant="outlined"
-                    shape="rounded"
-                    size="small"
-                    onChange={nextPage} />
-            </Box>
+            {totalMovies > 10 ?
+                <Box className={classes.pagination}
+                    justifyContent="center"
+                    display="flex">
+                    <Pagination
+                        count={totalMovies % 10 === 0 ? totalMovies / 10 : Math.floor(totalMovies / 10) + 1}
+                        variant="outlined"
+                        shape="rounded"
+                        size="small"
+                        onChange={nextPage} />
+                </Box> :
+                <div></div>
+            }
         </div >
     )
 }
