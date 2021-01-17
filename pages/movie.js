@@ -278,7 +278,8 @@ const Movie = () => {
                         <Grid item xs={12} key={'level3-' + item.id}>
                             <Button
                                 className={classes.director}
-                                onClick={(e) => props.changeBody(e, `https://api.heraunu.com/api/persons/${item.id}/`, item.image)}
+                                onClick={(e) =>
+                                    router.push({ pathname: '/person', query: { key: item.id, name: item.name, image: item.image } })}
                             >{item.name}
                             </Button>
                         </Grid>
