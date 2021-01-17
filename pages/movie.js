@@ -338,14 +338,19 @@ const Movie = () => {
                     alignItems="flex-end"
                 >
                     <Grid item xs={6} sm={4} lg={4}>
-                        <Image
-                            className={classes.image}
-                            key={movie.key}
-                            src={image}
-                            alt={movie.name}
+                        <Box
                             height={xlarge ? 545 : 323}
                             width={xlarge ? 367 : 216}
-                        />
+                        >
+                            <Image
+                                className={classes.image}
+                                key={movie.key}
+                                src={image}
+                                alt={movie.name}
+                                height={xlarge ? 545 : 323}
+                                width={xlarge ? 367 : 216}
+                            />
+                        </Box>
                     </Grid>
                     <Grid item xs={12} sm={8} lg={8}>
                         <Typography variant='h6'>

@@ -35,18 +35,18 @@ const useStyles = makeStyles((theme) => ({
     },
     actorMovie: {
         [theme.breakpoints.down("sm")]: {
-            paddingTop: theme.spacing(5),
+            paddingTop: theme.spacing(0),
         },
-        [theme.breakpoints.up("sm")]: {
-            paddingTop: theme.spacing(22),
-        },
+        // [theme.breakpoints.up("sm")]: {
+        //     paddingTop: theme.spacing(22),
+        // },
         [theme.breakpoints.up("md")]: {
             padding: theme.spacing(4, 2, 2, 2),
         },
     },
     skeletonTitle: {
         marginTop: '10px',
-        marginBottom: '90px',
+        marginBottom: '20px',
         position: 'relative',
     },
     image: {
@@ -93,14 +93,18 @@ const Person = () => {
                     alignItems="flex-end"
                 >
                     <Grid item xs={6} sm={5} lg={4}>
-                        <Image
-                            className={classes.image}
-                            key={person.id}
-                            src={image || '/image.jpg'}
-                            alt={person.name}
+                        <Box
                             height={large ? 545 : 323}
-                            width={large ? 367 : 216}
-                        />
+                            width={large ? 367 : 216}>
+                            <Image
+                                className={classes.image}
+                                key={person.id}
+                                src={image || '/image.jpg'}
+                                alt={person.name}
+                                height={large ? 545 : 323}
+                                width={large ? 367 : 216}
+                            />
+                        </Box>
                     </Grid>
                     <Grid item xs={12} sm={7} lg={8}>
                         <Grid

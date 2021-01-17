@@ -136,7 +136,7 @@ const Carousel = (props) => {
         900: { items: 4 },
         1024: { items: 4 },
         1135: { items: 5 },
-        1281: { items: 7 }
+        1400: { items: 7 }
     };
     const itemsMovies = displayData.map(movie => <SliderImage movie={movie} individual={individual} />)
     return (

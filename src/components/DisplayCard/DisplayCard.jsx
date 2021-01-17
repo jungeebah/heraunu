@@ -1,6 +1,7 @@
 import React from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
+import Box from '@material-ui/core/Box'
 import IconButton from '@material-ui/core/IconButton';
 import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
@@ -50,14 +51,19 @@ const DisplayCard = (props) => {
                     justify="center"
                 >
                     <Grid item>
-                        <Image
-                            className={classes.image}
-                            src={image || '/image.jpg'}
-                            alt={movie.name}
+                        <Box
                             width={large ? 211 : 92}
                             height={large ? 314 : 137}
-                        />
-
+                            boxShadow={2}
+                        >
+                            <Image
+                                className={classes.image}
+                                src={image || '/image.jpg'}
+                                alt={movie.name}
+                                width={large ? 211 : 92}
+                                height={large ? 314 : 137}
+                            />
+                        </Box>
                     </Grid>
                     <Grid item>
                         <Typography className={classes.text} align="left">

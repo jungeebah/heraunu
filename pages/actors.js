@@ -1,7 +1,7 @@
-import { allPersonSelector } from '../lib/slice/allPerson';
-import { useSelector } from 'react-redux';
+import { getAllActor, allPersonSelector } from '../lib/slice/allPerson';
+import { useDispatch, useSelector } from 'react-redux';
 
-import { useState } from 'react'
+import React, { useState } from 'react'
 import Typography from '@material-ui/core/Typography'
 import { makeStyles, useTheme } from "@material-ui/core/styles";
 import DisplayCard from '../src/components/DisplayCard/DisplayCard';
@@ -30,13 +30,28 @@ const useStyles = makeStyles((theme) => ({
 
 const actors = () => {
     const person = useSelector(allPersonSelector);
+    const dispatch = useDispatch();
     const classes = useStyles();
-    const personList = person.allActors
+    const [personList, setPersonList] = useState(person.allActors)
     const [displayData, setDisplayData] = useState(personList.slice(0, 10))
-    const totalPerson = personList.length
+    const [totalPerson, setTotalPerson] = useState(personList.length)
     const nextPage = (e, v) => {
         setDisplayData(personList.slice((v - 1) * 10, v * 10))
     }
+    React.useEffect(() => {
+        if (!person.allActors?.length) {
+            dispatch(getAllActor())
+        }
+    }, [])
+    React.useEffect(() => {
+        setPersonList(person.allActors)
+    }, [person])
+
+    React.useEffect(() => {
+        setDisplayData(personList.slice(0, 10))
+        setTotalPerson(personList.length)
+    }, [personList])
+
     return (
         <div className={classes.persons}>
             <div >

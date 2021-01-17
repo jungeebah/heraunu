@@ -1,6 +1,6 @@
-import { allYoutubeSelector } from '../lib/slice/allYoutube';
-import { useSelector } from 'react-redux';
-import { useState } from 'react';
+import { getallYoutube, allYoutubeSelector } from '../lib/slice/allYoutube';
+import { useDispatch, useSelector } from 'react-redux';
+import React, { useState } from 'react';
 import Typography from '@material-ui/core/Typography'
 import { makeStyles, useTheme } from "@material-ui/core/styles";
 import DisplayCard from '../src/components/DisplayCard/DisplayCard';
@@ -28,13 +28,31 @@ const useStyles = makeStyles((theme) => ({
 
 const youtube = () => {
     const youtubeData = useSelector(allYoutubeSelector);
+    const dispatch = useDispatch();
     const classes = useStyles();
-    const youtubeList = youtubeData.allmovies
+    const [youtubeList, setYoutubeList] = useState(youtubeData.allmovies)
     const [displayData, setDisplayData] = useState(youtubeList.slice(0, 10))
-    const totalYoutube = youtubeList.length
+    const [totalYoutube, setTotalYoutube] = useState(youtubeList.length)
     const nextPage = (e, v) => {
         setDisplayData(youtubeList.slice((v - 1) * 10, v * 10))
     }
+
+    React.useEffect(() => {
+        if (!youtubeData.allmovies?.length) {
+            dispatch(getallYoutube())
+        }
+    }
+        , [])
+
+    React.useEffect(() => {
+        setYoutubeList(youtubeData.allmovies)
+    }, [youtubeData])
+
+    React.useEffect(() => {
+        setDisplayData(youtubeList.slice(0, 10))
+        setTotalYoutube(youtubeList.length)
+    }
+        , [youtubeList])
     return (
         <div className={classes.youtube}>
             <div >
