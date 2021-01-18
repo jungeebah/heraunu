@@ -201,7 +201,7 @@ const Movie = () => {
 
     }
 
-    
+
 
     const imdbRating = movie ? movie.imdb_rating ? (
         <div className={classes.streaming}>
@@ -337,7 +337,7 @@ const Movie = () => {
             direction="column"
             justify="space-between"
             spacing={2}>
-            
+
             <Grid item xs={12} >
                 <Grid container
                     direction="row"
@@ -348,6 +348,7 @@ const Movie = () => {
                         <Box
                             height={xlarge ? 545 : 323}
                             width={xlarge ? 367 : 216}
+                            p={1}
                         >
                             <Image
                                 className={classes.image}
