@@ -67,6 +67,7 @@ const AutoComplete = (props) => {
             dispatch(invalidateSearch())
             dispatch(getSearch(e.target.value))
             router.push({ pathname: '/search' })
+            setOpenLabel(!openLabel)
         }
         e.preventDefault();
     }
