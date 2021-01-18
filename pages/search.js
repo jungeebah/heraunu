@@ -30,31 +30,31 @@ const search = () => {
     const classes = useStyles();
     const router = useRouter();
     const result = useSelector(allSearchSelection)
-    const [apiSearch, setApiSearch] = React.useState(true)
     const [searchResult, setSearchResult] = React.useState([])
     const [type, setType] = React.useState(null)
+    const movie = router.query
 
     React.useEffect(() => {
         if (router.query.type) {
-            setApiSearch(true)
             setType(router.query.type)
         } else {
-            setApiSearch(false)
             setSearchResult(result.allResult)
         }
     }, [])
 
     React.useEffect(() => {
         if (router.query.type) {
-            setApiSearch(true)
             setType(router.query.type)
         }
     }, [router.query])
 
     React.useEffect(() => {
-        setApiSearch(false)
         setSearchResult(result.allResult)
     }, [result])
+
+    const optionSelect = movie ? (
+        <DisplayCard movie={movie} individual={type} />
+    ) : <div></div>
 
     const apiSearchResult = searchResult ? (
         <Grid container spacing={2}>
@@ -79,10 +79,9 @@ const search = () => {
                 </Grid>
                 <Grid item xs={12}>
                     <Box className={classes.result}>
-                        {apiSearch ?
-                            <div>
-                                < DisplayCard movie={router.query} individual={type} />
-                            </div> :
+                        {movie.key ?
+                            optionSelect
+                            :
                             apiSearchResult
                         }
 
