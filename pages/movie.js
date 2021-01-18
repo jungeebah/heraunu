@@ -107,6 +107,9 @@ const useStyles = makeStyles((theme) => ({
         marginTop: ' -5px',
         paddingLeft: '12px',
     },
+    information: {
+        paddingRight: theme.spacing(1)
+    },
     director: {
         textTransform: 'capitalize',
         fontSize: '0.75rem',
@@ -348,7 +351,7 @@ const Movie = () => {
                         <Box
                             height={xlarge ? 545 : 323}
                             width={xlarge ? 367 : 216}
-                            p={1}
+                            className={classes.information}
                         >
                             <Image
                                 className={classes.image}
