@@ -1,8 +1,10 @@
 import React from "react";
+import { useDispatch, useSelector } from 'react-redux';
 import TextField from "@material-ui/core/TextField";
 import Autocomplete from "@material-ui/lab/Autocomplete";
 import { makeStyles } from "@material-ui/core/styles";
 import { useRouter } from 'next/router';
+import { getSearch, invalidateSearch } from '../../../lib/slice/search';
 
 const useStyles = makeStyles(
     (theme) => ({
@@ -44,6 +46,7 @@ const useStyles = makeStyles(
 
 const AutoComplete = (props) => {
     const router = useRouter()
+    const dispatch = useDispatch()
     const { openLabel, setOpenLabel, allPersonsData, allMoviesData } = props;
     const classes = useStyles();
 
@@ -57,6 +60,15 @@ const AutoComplete = (props) => {
             }
             router.push({ pathname: '/search', query: { key: v.key, name: v.name, image: image, type: type } })
         }
+    }
+
+    const pressedEnter = (e) => {
+        if (e.target.value) {
+            dispatch(invalidateSearch())
+            dispatch(getSearch(e.target.value))
+            router.push({ pathname: '/search' })
+        }
+        e.preventDefault();
     }
 
     const defaultProps = {
@@ -88,6 +100,11 @@ const AutoComplete = (props) => {
                         variant="outlined"
                         color="secondary"
                         size="small"
+                        onKeyPress={(ev) => {
+                            if (ev.key === 'Enter') {
+                                pressedEnter(ev);
+                            }
+                        }}
                         onChange={(e) => {
                             e.target.value === "" ? setOpenLabel(false) : setOpenLabel(true);
                         }}

@@ -6,7 +6,8 @@ import allYoutubeReducer from './lib/slice/allYoutube';
 import actorReducer from './lib/slice/individualPerson'
 import genreDataReducer from './lib/slice/allGenre';
 import streamDataReducer from './lib/slice/allStream';
-import filterMovieReducer from './lib/slice/filter'
+import filterMovieReducer from './lib/slice/filter';
+import allSearchReducer from './lib/slice/search'
 
 export default configureStore({
     reducer: {
@@ -15,6 +16,7 @@ export default configureStore({
         allYoutube: allYoutubeReducer,
         individualMovie: individualMovieReducer,
         actor: actorReducer,
+        allSearch: allSearchReducer,
         genreData: genreDataReducer,
         streamData: streamDataReducer,
         filterMovies: filterMovieReducer,
