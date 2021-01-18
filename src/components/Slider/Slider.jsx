@@ -99,12 +99,12 @@ const Carousel = (props) => {
     const movieScrollBox = React.useRef();
     const medium = useMediaQuery(theme.breakpoints.up("md"));
     const large = useMediaQuery(theme.breakpoints.up("lg"));
+
     const { displayData, name, url, individual } = props
     const classes = useStyles()
 
     const slidePrev = (e) => {
         movieScrollBox.current.slidePrev()
-
     };
     const slideNext = (e) => {
         movieScrollBox.current.slideNext()
