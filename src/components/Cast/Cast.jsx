@@ -2,10 +2,11 @@ import React from "react";
 import Typography from "@material-ui/core/Typography";
 import Card from "@material-ui/core/Card";
 import CardMedia from "@material-ui/core/CardMedia";
-import CardActionArea from "@material-ui/core/CardActionArea";
+import Link from 'next/link'
 import GridList from "@material-ui/core/GridList";
 import GridListTile from "@material-ui/core/GridListTile";
 import Paper from "@material-ui/core/Paper";
+import Box from '@material-ui/core/Box';
 import useMediaQuery from "@material-ui/core/useMediaQuery";
 import { makeStyles, useTheme } from "@material-ui/core/styles";
 import Skeleton from "@material-ui/lab/Skeleton";
@@ -13,7 +14,6 @@ import ArrowBackIosIcon from "@material-ui/icons/ArrowBackIos";
 import ArrowForwardIosIcon from "@material-ui/icons/ArrowForwardIos";
 import IconButton from "@material-ui/core/IconButton";
 import PropTypes from "prop-types";
-import Image from './image.jpg';
 import Grid from "@material-ui/core/Grid";
 
 const useStyles = makeStyles((theme) => ({
@@ -25,7 +25,7 @@ const useStyles = makeStyles((theme) => ({
         paddingTop: theme.spacing(3),
     },
     image: {
-        boxShadow: theme.shadows[10],
+        // boxShadow: theme.shadows[0],
     },
     card: {
         borderRadius: 12,
@@ -162,16 +162,6 @@ const Cast = (props) => {
     );
     const { actor } = props;
     const classes = useStyles();
-    // const noImage = (
-    //     <Paper
-    //         className={clsx(classes.noImage, {
-    //             [classes.menuDrawerNoImage]: props.menuDrawerOpen,
-    //             [classes.menuNotDrawnNoImage]: !props.menuDrawerOpen,
-    //         })}
-    //     >
-    //         <PersonIcon className={classes.icon} />
-    //     </Paper>
-    // );
     const scrollRight = () => {
         movieScrollBox.current.scrollLeft += 200;
         setleftArrow(true);
@@ -204,7 +194,7 @@ const Cast = (props) => {
         </IconButton>
     );
     return (
-        <Paper elevation={0} className={classes.root}>
+        <Box className={classes.root}>
             <Typography variant={smallScreen ? "h6" : "h3"}>Cast</Typography>
             <div className={classes.gridRoot}>
                 <Grid container spacing={0}>
@@ -214,9 +204,7 @@ const Cast = (props) => {
                         ) : leftArrow ? (
                             <Paper
                                 className={
-                                    props.menuDrawerOpen
-                                        ? classes.arrowLeftMenuDrawn
-                                        : classes.arrowLeft
+                                    classes.arrowLeft
                                 }
                                 elevaion={0}
                             >
@@ -231,22 +219,17 @@ const Cast = (props) => {
                             ref={movieScrollBox}
                             spacing={mobile ? 8 : xlarge ? 20 : 15}
                             className={classes.gridList}
-                            cellHeight={mobile ? 170 : ipad ? 220 : xlarge ? 350 : 320}
+                            cellHeight={mobile ? 170 : ipad ? 240 : xlarge ? 350 : 320}
                             cols={column}
                         >
                             {actor
                                 ? actor.map((item) => (
                                     <GridListTile key={item.id}>
-                                        <Card
-                                            elevation={6}
-                                            className={classes.card}
-                                            key={`card${item.id}`}
-                                        >
-                                            <CardActionArea
-                                                key={item.id}
-                                                onClick={(e) => {
-                                                    props.changeBody(e, `https://api.heraunu.com/api/persons/${item.id}/`, item.image);
-                                                }}
+                                        <Link href={{ pathname: '/person', query: { key: item.id, name: item.name, image: item.image } }}>
+                                            <Card
+                                                elevation={6}
+                                                className={classes.card}
+                                                key={`card${item.id}`}
                                             >
 
                                                 <CardMedia
@@ -255,12 +238,11 @@ const Cast = (props) => {
                                                         img: classes.image,
                                                     }}
                                                     component="img"
-                                                    image={item.image || Image}
+                                                    image={item.image || '/image.jpg'}
                                                     title={item.name}
                                                 ></CardMedia>
-
-                                            </CardActionArea>
-                                        </Card>
+                                            </Card>
+                                        </Link>
                                         <Typography
                                             variant={mobile ? "body2" : "h6"}
                                             key={item.name}
@@ -281,9 +263,7 @@ const Cast = (props) => {
                         ) : rightArrow ? (
                             <Paper
                                 className={
-                                    props.menuDrawerOpen
-                                        ? classes.arrowRightMenuDrawn
-                                        : classes.arrow
+                                    classes.arrow
                                 }
                             >
                                 {arrowForward}
@@ -294,7 +274,7 @@ const Cast = (props) => {
                     </Grid>
                 </Grid>
             </div>
-        </Paper>
+        </Box>
     );
 };
 Cast.propsType = {

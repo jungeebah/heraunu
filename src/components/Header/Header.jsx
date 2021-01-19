@@ -1,66 +1,68 @@
 import React from 'react';
+import Link from 'next/link';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import IconButton from '@material-ui/core/IconButton';
 import Typography from '@material-ui/core/Typography';
 import { fade, makeStyles, useTheme } from '@material-ui/core/styles';
-import MenuIcon from '@material-ui/icons/Menu';
-import Switch from '../Switch/Switch';
-import Grow from "@material-ui/core/Grow";
-import PropTypes from "prop-types";
-import SearchIcon from "@material-ui/icons/Search";
-import MobileAutocomplete from "../Autocomplete/MobileAutocomplete/MobileAutocomplete";
 import Brightness5Icon from "@material-ui/icons/Brightness5";
 import Brightness4Icon from "@material-ui/icons/Brightness4";
-import Autocomplete from '../Autocomplete/Autocomplete';
+import Tooltip from '@material-ui/core/Tooltip';
+import { useSelector } from 'react-redux';
 import useMediaQuery from "@material-ui/core/useMediaQuery";
+import Autocomplete from '../Autocomplete/Autocomplete'
+import { allmovieSelector } from '../../../lib/slice/allMovies';
+import { allPersonSelector } from '../../../lib/slice/allPerson';
+import MenuIcon from '@material-ui/icons/Menu';
 
 const useStyles = makeStyles((theme) => ({
     root: {
-
-        [theme.breakpoints.down('xs')]: {
-            flexGrow: 0,
-            marginRight: -theme.spacing(2) - 2,
-        },
         flexGrow: 1,
-    },
-    appbar: {
-        zIndex: theme.zIndex.drawer + 1,
-    },
-    menuButton: {
-        marginRight: theme.spacing(2),
     },
     title: {
         flexGrow: 1,
-        justifyContent: 'left',
-        [theme.breakpoints.up('sm')]: {
-            display: 'block',
-        },
         [theme.breakpoints.down('xs')]: {
-            marginLeft: -theme.spacing(4) - 2,
-            marginRight: theme.spacing(1) + 1,
+            marginLeft: -theme.spacing(1) - 4
         },
-        [theme.breakpoints.between(['xs', 'sm'])]: {
-            marginLeft: -theme.spacing(3),
-            marginRight: theme.spacing(5),
+        marginLeft: -theme.spacing(2) - 1,
+        [theme.breakpoints.up('md')]: {
+            marginLeft: theme.spacing(4)
         },
-        [theme.breakpoints.between(['sm', 'md'])]: {
-            marginLeft: -theme.spacing(3),
-            marginRight: theme.spacing(9),
-        }
+        [theme.breakpoints.up('lg')]: {
+            marginLeft: -theme.spacing(3)
+        },
+    },
+    icons: {
+        marginLeft: 0,
+        display: 'flex',
+    },
+    switch: {
+        paddingLeft: theme.spacing(2) - 3
+    },
+    searchIcons: {
+        [theme.breakpoints.down('xs')]: {
+            display: 'block'
+        },
+        display: 'none'
     },
     search: {
         position: 'relative',
-        borderRadius: theme.shape.borderRadius,
+        // borderRadius: theme.shape.borderRadius,
         backgroundColor: fade(theme.palette.common.white, 0.15),
         '&:hover': {
             backgroundColor: fade(theme.palette.common.white, 0.25),
         },
         marginLeft: 0,
-        width: '100%',
+        // width: '100%',
+
+        [theme.breakpoints.down('sm')]: {
+
+            borderRadius: theme.spacing(3)
+        },
         [theme.breakpoints.up('sm')]: {
             marginLeft: theme.spacing(1),
             width: 'auto',
+            borderRadius: theme.spacing(3)
         },
     },
     searchIcon: {
@@ -88,323 +90,95 @@ const useStyles = makeStyles((theme) => ({
             },
         },
     },
-    mobileAuto: {
-        position: "fixed",
-        width: "100%",
-        maxHeight: "56px",
-        zIndex: theme.zIndex.drawer + 4,
+    menuButton: {
+        [theme.breakpoints.up('lg')]: {
+            display: 'block',
+            marginRight: theme.spacing(2),
+        },
+        display: 'none'
+
     },
 }));
 
-const Header = (props) => {
+export default function Header(props) {
+    const keyArtist = useSelector(allPersonSelector);
+    const keyMovie = useSelector(allmovieSelector);
+    const [movies, setMovies] = React.useState([]);
+    const [artist, setArtist] = React.useState([]);
+    React.useEffect(() => { setMovies(keyMovie.allmovies) }, [keyMovie])
+    React.useEffect(() => { setArtist(keyArtist.allActors) }, [keyArtist])
+    const { switchName } = props
+    const allPersonsData = artist
+    const allMoviesData = movies
+    const [openLabel, setOpenLabel] = React.useState(false);
+    const [input, setInput] = React.useState('')
     const classes = useStyles();
-    const {
-        homeReset,
-        option,
-        handleMobileSwitch,
-        selectedMobile,
-        setOpenLabel,
-        handleSwitchChange,
-        openLabel,
-        input,
-        setInput,
-        switchName,
-        selected,
-        switchState,
-        mobileSearchGrow
-    } = props;
     const theme = useTheme();
-    const mobile = useMediaQuery(theme.breakpoints.down("xs"));
+    const large = useMediaQuery(theme.breakpoints.down("lg"));
 
+
+    // const [mobileSearchGrow, setMobileSearchGrow] = React.useState(true);
+    const handleChangeTheme = (e) => {
+        props.setDarkTheme(!props.darkTheme)
+    }
+
+    const selected = (e, v) => {
+        setOpenLabel(false);
+    };
     return (
         <div>
-            {
-                mobile
-                    ?
-                    <div>
-                        <Grow
-                            in={mobileSearchGrow}
-                            style={{ transformOrigin: "0 0 0" }}
-                            {...(mobileSearchGrow ? { timeout: 1000 } : {})}
-                        >
-                            <div className={classes.mobileAuto}>
-                                <MobileAutocomplete
-                                    option={option}
-                                    selectedMobile={selectedMobile}
-                                    setOpenLabel={setOpenLabel}
-                                    selected={selected}
-                                    openLabel={openLabel}
-                                    switched={switchName}
-                                    handleChange={props.handleChange}
-                                    handleMobileSwitch={handleMobileSwitch}
-                                />
-                            </div>
-                        </Grow>
-                        <div className={classes.root}>
-                            <AppBar position="fixed" className={classes.appbar}>
-                                <Toolbar>
-                                    <IconButton
-                                        edge="start"
-                                        className={classes.menuButton}
-                                        color="inherit"
-                                        aria-label="menu"
-                                        onClick={props.toggleDrawer(true)}
-                                    >
-                                        <MenuIcon />
-                                    </IconButton>
-                                    <IconButton
-                                        // className={classes.titleButton}
-                                        color="inherit"
-                                        onClick={homeReset}
-                                        disableRipple={true}
-                                        className={classes.title}
-                                    >
-                                        <Typography variant="h6" edge="center" >
-                                            Heraunu
-                                </Typography>
-                                    </IconButton>
-                                    <div className={classes.root} justify="flex-end">
-                                        <IconButton color="inherit" onClick={props.handleChange}>
-                                            <SearchIcon />
-                                        </IconButton>
-                                        <IconButton
-                                            edge="end"
-                                            className={classes.menuButton}
-                                            color="inherit"
-                                            aria-label="theme"
-                                            onClick={props.handleChangeTheme}
-                                        >
-                                            {props.theme ? <Brightness5Icon /> : <Brightness4Icon />}
-                                        </IconButton>
-                                        <Switch
-                                            name={switchName}
-                                            handleChange={handleSwitchChange}
-                                            switchState={switchState}
-
-                                        />
-                                    </div>
-                                </Toolbar>
-                            </AppBar>
-                        </div>
-                    </div >
-
-                    :
-                    <div className={classes.root}>
-                        <AppBar position="fixed" className={classes.appbar}>
-                            <Toolbar>
+            <div className={classes.root}>
+                <AppBar position="fixed">
+                    <Toolbar>
+                        <Tooltip title="Menu">
+                            <div className={classes.menuButton}>
                                 <IconButton
                                     edge="start"
-                                    className={classes.menuButton}
                                     color="inherit"
-                                    aria-label="open drawer"
+                                    aria-label="menu"
+                                    onClick={props.handleDrawerClose}
                                 >
                                     <MenuIcon />
                                 </IconButton>
-                                <IconButton
-                                    // className={classes.titleButton}
-                                    className={classes.title}
-                                    color="inherit" onClick={homeReset}
-                                    disableRipple={true}
-                                    disableFocusRipple={true}
-                                    style={{ backgroundColor: 'transparent' }} >
-                                    <Typography variant="h6" noWrap>
-                                        Heraunu
-                                    </Typography>
-                                </IconButton>
+                            </div>
+                        </Tooltip>
+                        <div className={classes.title}>
+                            <Tooltip title="Home">
+                                <Link href="/" shallow={true}>
+                                    <IconButton >
+                                        <Typography variant={large ? "h5" : "h6"} noWrap color="secondary">
+                                            Heraunu
+                                        </Typography>
+                                    </IconButton>
+                                </Link>
+                            </Tooltip>
+                        </div>
+                        <div className={classes.search}>
+                            <Autocomplete
+                                allPersonsData={allPersonsData}
+                                allMoviesData={allMoviesData}
+                                setOpenLabel={setOpenLabel}
+                                selected={selected}
+                                openLabel={openLabel}
+                                inputValue={input}
+                                setInput={setInput} />
+                        </div>
+                        <div className={classes.icons}>
+                            <Tooltip title="Theme">
                                 <IconButton
                                     edge="end"
-                                    className={classes.menuButton}
+                                    // className={classes.menuButton}
                                     color="inherit"
                                     aria-label="theme"
-                                    onClick={props.handleChangeTheme}
+                                    onClick={handleChangeTheme}
                                 >
-                                    {props.theme ? <Brightness5Icon /> : <Brightness4Icon />}
+                                    {props.darkTheme ? < Brightness5Icon /> : <Brightness4Icon />}
                                 </IconButton>
-                                <Switch
-                                    name={switchName}
-                                    handleChange={handleSwitchChange}
-                                    switchState={switchState}
-
-                                />
-                                <div className={classes.search}>
-                                    <Autocomplete
-                                        setOpenLabel={setOpenLabel}
-                                        selected={selected}
-                                        openLabel={openLabel}
-                                        switched={switchName}
-                                        inputValue={input}
-                                        setInput={setInput} />
-                                </div>
-                            </Toolbar>
-                        </AppBar>
-                    </div>
-            }
-
-        </div >);
+                            </Tooltip>
+                        </div>
+                    </Toolbar>
+                </AppBar>
+            </div>
+        </div >
+    );
 }
-
-
-// import React from "react";
-// import IconButton from "@material-ui/core/IconButton";
-// import AppBar from "@material-ui/core/AppBar";
-// import Toolbar from "@material-ui/core/Toolbar";
-// import Switch from '../Switch/Switch';
-// import Typography from "@material-ui/core/Typography";
-// import {makeStyles, useTheme} from "@material-ui/core/styles";
-// import MenuIcon from "@material-ui/icons/Menu";
-// import Brightness5Icon from "@material-ui/icons/Brightness5";
-// import Brightness4Icon from "@material-ui/icons/Brightness4";
-// import PropTypes from "prop-types";
-// import useMediaQuery from "@material-ui/core/useMediaQuery";
-// import AutoComplete from "../Autocomplete/Autocomplete";
-// import SearchIcon from "@material-ui/icons/Search";
-// import MobileAutocomplete from "../Autocomplete/MobileAutocomplete/MobileAutocomplete";
-// import Grow from "@material-ui/core/Grow";
-
-// const useStyles = makeStyles((theme) => ({
-//     root: {
-//         flexGrow: 1,
-//     },
-//     appbar: {
-//         zIndex: theme.zIndex.drawer + 1,
-//     },
-//     menuButton: {
-//         [theme.breakpoints.down("sm")]{
-//             marginRight: theme.spacing(1),
-//         },
-//         marginRight: theme.spacing(2),
-//     },
-//     title: {
-//         flexGrow: 1,
-//         [theme.breakpoints.down("xs")]: {
-//             textAlign: "center",
-//         },
-//     },
-//     mobileAuto: {
-//         position: "absolute",
-//         width: "100%",
-//         maxHeight: "56px",
-//         zIndex: theme.zIndex.drawer + 4,
-//     },
-// }));
-
-// const Header = (props) => {
-//     const { searchFilter } = props;
-//     const classes = useStyles();
-//     const theme = useTheme();
-//     const mobile = useMediaQuery(theme.breakpoints.down("xs"));
-//     const [mobileSearchGrow, setMobileSearchGrow] = React.useState(false);
-//     const [input, setInput] = React.useState('')
-//     const [switchState, setSwitchState] = React.useState(true);
-//     const [switchMobileName, setSwitchMobileName] = React.useState('M')
-//     const [switchName, setSwitchName] = React.useState('Movies')
-
-//     const handleSwitchChange = (event) => {
-//         setSwitchState(event.target.checked);
-//         setInput('')
-//         if (mobile) {
-//             event.target.checked ? setSwitchMobileName('M') : setSwitchMobileName('P')
-//         }
-//         else {
-//             event.target.checked ? setSwitchName("Movies") : setSwitchName('Persons')
-//         }
-
-//     }
-//     const handleChange = () => {
-//         setMobileSearchGrow((prev) => !prev);
-//     };
-//     const onMobileTitle = (
-//         <Typography variant="h6" edge="center" className={classes.title}>
-//             Heraunu
-//         </Typography>
-//     );
-//     return (
-//         <div>
-//             {mobile ? (
-//                 <Grow
-//                     in={mobileSearchGrow}
-//                     style={{ transformOrigin: "0 0 0" }}
-//                     {...(mobileSearchGrow ? { timeout: 1000 } : {})}
-//                 >
-//                     <div className={classes.mobileAuto}>
-//                         <MobileAutocomplete
-//                             searchFilter={searchFilter}
-//                             handleChange={handleChange}
-//                         />
-//                     </div>
-//                 </Grow>
-//             ) : (
-//                     <div></div>
-//                 )}
-//             <AppBar position="fixed" className={classes.appbar}>
-//                 <Toolbar>
-//                     {mobile ? (
-//                         <IconButton
-//                             edge="start"
-//                             className={classes.menuButton}
-//                             color="inherit"
-//                             aria-label="menu"
-//                             onClick={props.toggleDrawer(true)}
-//                         >
-//                             <MenuIcon />
-//                         </IconButton>
-//                     ) : (
-//                             <div></div>
-//                         )}
-//                     {mobile ? (
-//                         onMobileTitle
-//                     ) : (
-//                             <Typography variant="h6" className={classes.title}>
-//                                 Heraunu
-//                             </Typography>
-//                         )}
-//                     {mobile ? (
-//                         <div>
-//                             <IconButton color="inherit" onClick={handleChange}>
-//                                 <SearchIcon />
-//                             </IconButton>
-//                         </div>
-//                     ) : (
-//                             <div>
-//                                 <Switch
-//                                     name={mobile ? switchMobileName : switchName}
-//                                     handleChange={handleSwitchChange}
-//                                     switchState={switchState}
-
-//                                 />
-//                                 <div className={classes.search}>
-//                                     <AutoComplete
-//                                         switched={mobile ? switchMobileName : switchName}
-//                                         inputValue={input}
-//                                         setInput={setInput} />
-//                                 </div>
-//                             </div>
-//                         )}
-//                     <IconButton
-//                         edge="end"
-//                         className={classes.menuButton}
-//                         color="inherit"
-//                         aria-label="theme"
-//                         onClick={props.handleChangeTheme}
-//                     >
-//                         {props.theme ? <Brightness5Icon /> : <Brightness4Icon />}
-//                     </IconButton>
-//                 </Toolbar>
-//             </AppBar>
-//         </div>
-//     );
-// };
-
-Header.propsType = {
-    handleChangeTheme: PropTypes.func,
-    theme: PropTypes.string,
-    toggleDrawer: PropTypes.func,
-};
-
-Header.defaultProps = {
-    theme: false,
-    toggleDrawer: () => { },
-    handleChangeTheme: () => { },
-};
-
-export default Header;
