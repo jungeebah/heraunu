@@ -51,6 +51,7 @@ const MyApp = (props) => {
             <Head>
                 <title>Heraunu</title>
                 <meta name="viewport" content="minimum-scale=1, initial-scale=1, width=device-width user-scalable=no" />
+                <script async defer data-pin-hover="true" data-pin-round="true" src="//assets.pinterest.com/js/pinit.js"></script>
             </Head>
             <Provider store={store}>
                 <ThemeProvider theme={darkTheme ? DarkTheme : LightTheme}>
