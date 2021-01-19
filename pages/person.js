@@ -149,7 +149,7 @@ const Person = () => {
 
         </div>
     return (
-        <div className={classes.person} itemscope itemtype="http://schema.org/actor">
+        <div className={classes.person} itemScope itemType="http://schema.org/actor">
             {renderPerson}
         </div>
     )

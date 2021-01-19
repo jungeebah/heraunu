@@ -1,5 +1,6 @@
-import React, { useState } from 'react';
+import React from 'react';
 import Link from 'next/link';
+import clsx from 'clsx';
 import Box from '@material-ui/core/Box';
 import SliderImage from '../SliderImage/SliderImage'
 import AliceCarousel from 'react-alice-carousel';
@@ -40,54 +41,42 @@ const useStyles = makeStyles((theme) => ({
     flexXs: {
         display: 'flex'
     },
-
-    arrowLeftMenuDrawn: {
-        position: "absolute",
-        zIndex: "1000",
-        alignItems: "center",
-        display: "flex",
-        marginBottom: theme.spacing(13) + 3,
-        opacity: "0.9",
-        height: theme.spacing(29) + 1,
-    },
     arrowLeft: {
         position: "absolute",
         zIndex: "1000",
         alignItems: "center",
-        display: "flex",
         borderRadius: theme.spacing(1) - 6,
         marginBottom: theme.spacing(13) + 3,
         opacity: "0.9",
         [theme.breakpoints.up('lg')]: {
             height: '314px'
         },
+        display: "flex",
         marginLeft: theme.spacing(9) - 2,
         height: theme.spacing(32) + 8,
     },
-
-    arrow: {
+    showArrow: {
+        display: 'block'
+    },
+    noshowArrow: {
+        display: 'none'
+    },
+    boxArrowRight: {
         position: "absolute",
-        display: 'none',
+        marginLeft: 'calc(100% - 76px)',
+    },
+    arrow: {
+        // position: "absolute",
         borderRadius: theme.spacing(1) - 6,
         marginBottom: theme.spacing(13) + 3,
-        marginLeft: 'calc(100% - 76px)',
+        // marginLeft: 'calc(100% - 76px)',
         opacity: "0.9",
         [theme.breakpoints.up('lg')]: {
             height: '314px'
         },
-        alignItems: "center",
         display: "flex",
+        alignItems: "center",
         height: theme.spacing(32) + 8,
-    },
-    arrowRightMenuDrawn: {
-        height: theme.spacing(29) + 1,
-        position: "relative",
-        alignItems: "center",
-        marginLeft: -theme.spacing(6),
-        display: "flex",
-        borderRadius: theme.spacing(1) - 6,
-        marginBottom: theme.spacing(13) + 3,
-        opacity: "0.9",
     },
     carrousel: {
         width: '100%'
@@ -97,12 +86,27 @@ const useStyles = makeStyles((theme) => ({
 const Carousel = (props) => {
     const theme = useTheme();
     const movieScrollBox = React.useRef();
+    const [showRightArrow, setShowRightArrow] = React.useState(false)
+    const [showLeftArrow, setShowLeftArrow] = React.useState(true)
     const medium = useMediaQuery(theme.breakpoints.up("md"));
     const large = useMediaQuery(theme.breakpoints.up("lg"));
 
     const { displayData, name, url, individual } = props
     const classes = useStyles()
 
+    const onSlideChanged = (e) => {
+        // console.log(e.item, e.slide)
+        if (e.item === 0) {
+            setShowRightArrow(false)
+            setShowLeftArrow(true)
+        // } else if (e.item === 5) {
+        //     setShowRightArrow(true)
+        //     setShowLeftArrow(false)
+        } else {
+            setShowRightArrow(true)
+            setShowLeftArrow(true)
+        }
+    }
     const slidePrev = (e) => {
         movieScrollBox.current.slidePrev()
     };
@@ -111,7 +115,8 @@ const Carousel = (props) => {
 
     };
     const arrowBack = (
-        <Paper className={classes.arrow}>
+        <Paper
+            className={classes.arrow}>
             <IconButton size={"medium"} onClick={slidePrev}>
                 <ArrowBackIosIcon fontSize={"large"} />
             </IconButton>
@@ -159,7 +164,9 @@ const Carousel = (props) => {
             </Grid>
             {large ?
                 <Box component="span" className={classes.flexXs}>
-                    {arrowForward}
+                    <Box className={showLeftArrow ? classes.showArrow : classes.noshowArrow}>
+                        {arrowForward}
+                    </Box>
                     <div className={classes.carrousel}
                     >
                         <AliceCarousel
@@ -167,13 +174,18 @@ const Carousel = (props) => {
                             mouseTracking
                             items={itemsMovies}
                             paddingLeft={medium ? 70 : 20}
-                            paddingRight={50}
+                            paddingRight={20}
                             responsive={responsive}
                             disableDotsControls={true}
                             disableButtonsControls={true}
+                            onSlideChanged={onSlideChanged}
                         />
                     </div>
-                    {arrowBack}
+                    <Box
+                        className={`${classes.boxArrowRight} ${showRightArrow ? classes.showArrow : classes.noshowArrow}`}>
+                        {arrowBack}
+                    </Box>
+
                 </Box> :
                 <AliceCarousel
                     ref={movieScrollBox}

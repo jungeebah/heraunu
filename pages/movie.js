@@ -390,7 +390,7 @@ const Movie = () => {
         </Grid>
     ) : <div></div>
     return (
-        <div className={classes.movie} itemscope itemType ="http://schema.org/Movie">
+        <div className={classes.movie} itemScope itemType ="http://schema.org/Movie">
             {renderMovie}
         </div>
     )
