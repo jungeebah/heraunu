@@ -169,7 +169,6 @@ const Movie = () => {
         }
     }, [moviesData])
     const classes = useStyles()
-    const medium = useMediaQuery(theme.breakpoints.down('sm'));
     const large = useMediaQuery(theme.breakpoints.up("md"));
     const xlarge = useMediaQuery(theme.breakpoints.up("lg"));
     const openYoutube = (e, item) => {
@@ -391,7 +390,7 @@ const Movie = () => {
         </Grid>
     ) : <div></div>
     return (
-        <div className={classes.movie} itemscope itemtype ="http://schema.org/Movie">
+        <div className={classes.movie} itemscope itemType ="http://schema.org/Movie">
             {renderMovie}
         </div>
     )

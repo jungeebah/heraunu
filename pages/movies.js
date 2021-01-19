@@ -4,6 +4,7 @@ import { getStreamDataKey, streamDataSelector } from '../lib/slice/allStream';
 import { getFilterMovies, filterMovieSelector, invalidateFilterMovie } from '../lib/slice/filter';
 import { useDispatch, useSelector } from 'react-redux';
 import React, { useState } from 'react';
+import SkeletonDisplay from '../src/components/SkeletonDisplay/SkeletonDisplay';
 import SvgIcon from '@material-ui/core/SvgIcon';
 import Collapse from '@material-ui/core/Collapse';
 import IconButton from '@material-ui/core/IconButton'
@@ -57,6 +58,7 @@ const rangeYear = range(currentYear, currentYear - 50, -1);
 const yearList = ["All", ...rangeYear];
 
 const movies = () => {
+    const skeletonItem = [...Array(10).keys()]
     const theme = useTheme();
     const mobile = useMediaQuery(theme.breakpoints.down("xs"));
     const [filterOpen, setFilterOpen] = React.useState(false);
@@ -101,6 +103,16 @@ const movies = () => {
     React.useEffect(() => {
         isFiltering ? setDisplayData(filteredData.slice(0, 10)) : setDisplayData(movieList.slice(0, 10))
     }, [isFiltering])
+
+    const skeleton = <div>
+        {skeletonItem.map((item) => (
+            <Grid item xs={4} sm={2} md={3} xl={2} key={item}>
+                <SkeletonDisplay />
+            </Grid>
+
+        ))}
+    </div>
+
 
     const handleChangeFilter = (event) => {
         setFilterOpen(false)
@@ -353,11 +365,14 @@ const movies = () => {
                     Movies
                 </Typography>
                 <Grid container spacing={2}>
-                    {displayData.map(items => (
-                        <Grid item xs={4} sm={2} md={3} xl={2} key={items.key} >
-                            <DisplayCard movie={items} individual='/movie' key={items.key} />
-                        </Grid>
-                    ))}
+                    {displayData ?
+                        displayData.map(items => (
+                            <Grid item xs={4} sm={2} md={3} xl={2} key={items.key} >
+                                <DisplayCard movie={items} individual='/movie' key={items.key} />
+                            </Grid>
+                        ))
+                        :
+                        skeleton}
                 </Grid>
             </div>
             {totalMovies > 10 ?

@@ -1,50 +1,47 @@
 import React from "react";
-import { makeStyles } from "@material-ui/core/styles";
-import Card from "@material-ui/core/Card";
+import { makeStyles, useTheme } from "@material-ui/core/styles";
 import Skeleton from '@material-ui/lab/Skeleton';
+import useMediaQuery from "@material-ui/core/useMediaQuery";
+import Box from '@material-ui/core/Box'
 
 
 const useStyles = makeStyles((theme) => ({
-    paper: {
-        [theme.breakpoints.down("sm")]: {
-            width: theme.spacing(18),
-            height: theme.spacing(26) + 2,
-        },
-        width: theme.spacing(22),
-        height: theme.spacing(34),
-        boxShadow: theme.shadows[10],
+
+    skeleton: {
+        marginBottom: theme.spacing(1)
     },
     card: {
-        [theme.breakpoints.down("sm")]: {
-            width: theme.spacing(14),
-            height: theme.spacing(19),
+        [theme.breakpoints.up("md")]: {
+            width: theme.spacing(26),
+            height: theme.spacing(39),
         },
-        width: theme.spacing(18),
-        height: theme.spacing(26),
-        margin: theme.spacing(1, 0, 0, 2),
-        boxShadow: theme.shadows[10],
+        width: theme.spacing(11),
+        height: theme.spacing(17),
+        borderRadius: theme.spacing(1) - 6,
     },
     media: {
         width: 152,
     },
     title: {
-        textAlign: "left",
-        padding: theme.spacing(1, 1, 0, 2),
+        marginTop: theme.spacing(1) - 2
     }
 }));
 
 const SkeletonDisplay = () => {
     const classes = useStyles();
+    const theme = useTheme();
+    const large = useMediaQuery(theme.breakpoints.up("md"));
     return (
-        <div>
-            <Card
-                className={classes.paper}
+        <Box className={classes.skeleton}>
+            <Box
+                width={large ? 208 : 88}
+                height={large ? 312 : 136}
+                boxShadow={2}
             >
                 <Skeleton variant='rect' className={classes.card}></Skeleton>
-
-
-            </Card>
-        </div>
+            </Box>
+            <Skeleton variant="rect" height={20} width="60%" className={classes.title} />
+        </Box>
     );
 };
 

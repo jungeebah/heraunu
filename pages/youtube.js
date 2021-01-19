@@ -1,6 +1,7 @@
 import { getallYoutube, allYoutubeSelector, invalidateAllYoutube } from '../lib/slice/allYoutube';
 import { useDispatch, useSelector } from 'react-redux';
 import React, { useState } from 'react';
+import SkeletonDisplay from '../src/components/SkeletonDisplay/SkeletonDisplay';
 import Typography from '@material-ui/core/Typography'
 import { makeStyles, useTheme } from "@material-ui/core/styles";
 import DisplayCard from '../src/components/DisplayCard/DisplayCard';
@@ -58,6 +59,7 @@ function Filter_alt(props) {
 
 const youtube = () => {
     const youtubeData = useSelector(allYoutubeSelector);
+    const skeletonItem = [...Array(10).keys()]
     const dispatch = useDispatch();
     const classes = useStyles();
     const theme = useTheme();
@@ -83,6 +85,15 @@ const youtube = () => {
         }
 
     }
+
+    const skeleton = <div>
+        {skeletonItem.map((item) => (
+            <Grid item xs={4} sm={2} md={3} xl={2} key={item}>
+                <SkeletonDisplay />
+            </Grid>
+
+        ))}
+    </div>
 
     const filterClick = () => {
         setFilterOpen(!filterOpen)
@@ -166,11 +177,14 @@ const youtube = () => {
                     Youtube
                 </Typography>
                 <Grid container spacing={2}>
-                    {displayData.map(items => (
-                        <Grid item xs={4} sm={2} md={3} xl={2} key={items.key} >
-                            <DisplayCard movie={items} individual='/movie' />
-                        </Grid>
-                    ))}
+                    {youtubeData.allmovies ?
+                        displayData.map(items => (
+                            <Grid item xs={4} sm={2} md={3} xl={2} key={items.key} >
+                                <DisplayCard movie={items} individual='/movie' />
+                            </Grid>
+                        ))
+                        :
+                        skeleton}
                 </Grid>
             </div>
             <Box className={classes.pagination}

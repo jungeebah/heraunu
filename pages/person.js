@@ -135,7 +135,7 @@ const Person = () => {
                             </Grid>
                             :
                             skeletonItem.map((item) => (
-                                <Grid item xs={6} sm={4} md={3} xl={2} key={item}>
+                                <Grid item xs={4} sm={2} md={3} xl={2} key={item}>
                                     <SkeletonDisplay />
                                 </Grid>
 
