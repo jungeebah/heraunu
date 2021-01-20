@@ -3,7 +3,7 @@ import { getGenreDataKey, genreDataSelector } from '../lib/slice/allGenre';
 import { getStreamDataKey, streamDataSelector } from '../lib/slice/allStream';
 import { getFilterMovies, filterMovieSelector, invalidateFilterMovie } from '../lib/slice/filter';
 import { useDispatch, useSelector } from 'react-redux';
-import React, { useState } from 'react';
+import React from 'react';
 import SkeletonDisplay from '../src/components/SkeletonDisplay/SkeletonDisplay';
 import SvgIcon from '@material-ui/core/SvgIcon';
 import Collapse from '@material-ui/core/Collapse';
@@ -80,12 +80,14 @@ const movies = () => {
     const [filterChipList, setFilterChipList] = React.useState([]);
     const [isFiltering, setIsFiltering] = React.useState(false);
     const [filteredData, setFilteredData] = React.useState([])
-    const [movieList, setMovieList] = useState(movie.allmovies)
-    const [displayData, setDisplayData] = useState(movieList.slice(0, 10))
-    const [totalMovies, setTotalMovies] = useState(movieList.length)
+    const [movieList, setMovieList] = React.useState(movie.allmovies)
+    const [displayData, setDisplayData] = React.useState(movieList.slice(0, 10))
+    const [totalMovies, setTotalMovies] = React.useState(movieList.length)
+    const [filterChanged, setFilterChanged] = React.useState(true)
     const nextPage = (e, v) => {
         setDefaultPage(v)
         if (isFiltering) {
+            setFilterChanged(false)
             dispatch(invalidateFilterMovie())
             setEndPoint(`/?page=${v}&release_date=${yearFilter === 'All' ? '' : yearFilter}&genre=${genreFilter === 'All' ? '' : genreFilter}&streaming=${streamFilter === 'All' ? '' : streamFilter}`)
         } else {
@@ -115,6 +117,7 @@ const movies = () => {
 
 
     const handleChangeFilter = (event) => {
+        setFilterChanged(true)
         setFilterOpen(false)
         event.persist();
         setDefaultPage(1)
@@ -194,6 +197,7 @@ const movies = () => {
     }
 
     const handleChipDelete = (chipToDelete) => () => {
+        setFilterChanged(true)
         setFilterChipList((chips) =>
             chips.filter((chip) => chip.value !== chipToDelete.value)
         );
@@ -246,7 +250,9 @@ const movies = () => {
     React.useEffect(() => {
         if (isFiltering) {
             setFilteredData(filtered.movies)
-            setTotalMovies(filtered.count)
+            if (filterChanged) {
+                setTotalMovies(filtered.count)
+            }
             setDisplayData(filtered.movies)
         }
     }, [filtered])
