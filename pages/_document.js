@@ -14,12 +14,10 @@ export default class MyDocument extends Document {
                     <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
                     <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
                     <meta name="theme-color" content="#000000" />
-                    
+
                     <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
                     <link rel="manifest" href="/manifest.json" />
                     <meta name="theme-color" content={LightTheme.palette.primary.main} />
-                    
-                    <script data-ad-client="ca-pub-5851312120123981" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
                 </Head>
                 <body>
                     <Main />
