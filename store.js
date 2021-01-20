@@ -21,6 +21,6 @@ export default configureStore({
         streamData: streamDataReducer,
         filterMovies: filterMovieReducer,
     },
-    devTools: true,
+    devTools: false,
 })
 
