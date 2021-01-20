@@ -99,9 +99,9 @@ const Carousel = (props) => {
         if (e.item === 0) {
             setShowRightArrow(false)
             setShowLeftArrow(true)
-        // } else if (e.item === 5) {
-        //     setShowRightArrow(true)
-        //     setShowLeftArrow(false)
+            // } else if (e.item === 5) {
+            //     setShowRightArrow(true)
+            //     setShowLeftArrow(false)
         } else {
             setShowRightArrow(true)
             setShowLeftArrow(true)
@@ -163,7 +163,7 @@ const Carousel = (props) => {
                 </Link>
             </Grid>
             {large ?
-                <Box component="span" className={classes.flexXs}>
+                <div component="span" className={classes.flexXs}>
                     <Box className={showLeftArrow ? classes.showArrow : classes.noshowArrow}>
                         {arrowForward}
                     </Box>
@@ -186,7 +186,7 @@ const Carousel = (props) => {
                         {arrowBack}
                     </Box>
 
-                </Box> :
+                </div> :
                 <AliceCarousel
                     ref={movieScrollBox}
                     mouseTracking
