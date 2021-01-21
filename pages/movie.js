@@ -247,18 +247,23 @@ const Movie = () => {
         ? (
             <Box display="flex" flexDirection="row">
                 <Box >
-                    {movie.release_date ? new Date(movie.release_date).getFullYear() + 1 !== 2030 ?
-                        <IconButton edge="start" className={classes.buttonYear}>
-                            <Typography variant="caption" color="textPrimary">
-                                {new Date(movie.release_date).getFullYear() + 1}
-                            </Typography>
-                        </IconButton>
-                        :
+                    {movie.release_date ? new Date(movie.release_date).getFullYear() + 1 === 2050 ?
+                        <Typography variant="caption" display="block" gutterBottom className={classes.noDataYear}>
+                            Upcoming
+                    </Typography> :
+                        new Date(movie.release_date).getFullYear() + 1 < 2030 ?
+                            <IconButton edge="start" className={classes.buttonYear}>
+                                <Typography variant="caption" color="textPrimary">
+                                    {new Date(movie.release_date).getFullYear() + 1}
+                                </Typography>
+                            </IconButton> :
+                            <Typography variant="caption" display="block" gutterBottom className={classes.noDataYear}>
+                                NA
+                    </Typography> :
                         <Typography variant="caption" display="block" gutterBottom className={classes.noDataYear}>
                             NA
-                    </Typography> : <Typography variant="caption" display="block" gutterBottom className={classes.noDataYear}>
-                            NA
-                    </Typography>}
+                        </Typography>
+                    }
                 </Box>
                 <Box className={classes.rating}>
                     <Typography
@@ -390,7 +395,7 @@ const Movie = () => {
         </Grid>
     ) : <div></div>
     return (
-        <div className={classes.movie} itemScope itemType ="http://schema.org/Movie">
+        <div className={classes.movie} itemScope itemType="http://schema.org/Movie">
             {renderMovie}
         </div>
     )
