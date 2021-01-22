@@ -2,7 +2,7 @@ import { makeStyles, useTheme } from "@material-ui/core/styles";
 import { getIndividualMovie, individualMovieSelector, invalidateIndividualMovie } from '../lib/slice/individualMovie';
 import { useDispatch, useSelector } from 'react-redux';
 import React from 'react';
-import SvgIcon from '@material-ui/core/SvgIcon';
+import Collections from '../src/components/Collection/Collection'
 import Image from 'next/image';
 import Cast from '../src/components/Cast/Cast'
 import { useRouter } from 'next/router';
@@ -392,6 +392,14 @@ const Movie = () => {
                     />
                 </div>
             </Grid>
+            {/* {movie.collection.length > 1 ? <Grid item xs={12}>
+                <div className={classes.casting}>
+                    <Collections
+                        actor={movie.collection}
+                    />
+                </div>
+            </Grid> : <div></div>
+            } */}
         </Grid>
     ) : <div></div>
     return (
