@@ -150,6 +150,7 @@ const useStyles = makeStyles((theme) => ({
         position: 'relative',
         overflow: 'hidden',
         width: '100%',
+        marginBottom: 'calc(250% + 90px)',
         '&::after': {
             paddingTop: '56.25%', /* 16:9 */
             display: 'block',
