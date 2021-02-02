@@ -147,7 +147,7 @@ export default function Header(props) {
                                 <Link href="/" shallow={true}>
                                     <IconButton >
                                         <Typography variant={large ? "h5" : "h6"} noWrap color="secondary">
-                                            Heraunu
+                                            Hernucha
                                         </Typography>
                                     </IconButton>
                                 </Link>
