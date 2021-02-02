@@ -12,9 +12,11 @@ const useStyles = makeStyles((theme) => ({
     footer: {
         [theme.breakpoints.down('xs')]: {
             marginBottom: '50px',
+            // marginTop: 'calc(60% + 10px)',
         },
         [theme.breakpoints.between('xs', 'md')]: {
-            marginBottom: '65px'
+            marginBottom: '65px',
+            // marginTop: 'calc(60% + 10px)',
         },
         [theme.breakpoints.up('lg')]: {
             marginBottom: '0'
