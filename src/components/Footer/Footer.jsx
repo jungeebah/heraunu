@@ -53,7 +53,7 @@ const Footer = () => {
     return (
         <Paper className={classes.footer} elevation={0}>
             <Typography variant="h6">
-                Heraunu
+                Hernechu
             </Typography>
             <Link href="/about">
                 <IconButton className={classes.button}>
@@ -77,7 +77,7 @@ const Footer = () => {
                 <Grid item>
                     <Link href="https://www.facebook.com/Heraunu-104094554972237" passHref={true}>
                         <IconButton className={classes.media}>
-                            
+
                             <FacebookIcon />
                         </IconButton>
                     </Link>
