@@ -151,15 +151,15 @@ const useStyles = makeStyles((theme) => ({
         overflow: 'hidden',
         width: '100%',
         [theme.breakpoints.down('sm')]: {
-            marginBottom: 'calc(100% + 90px)',
+            marginBottom: 'calc(1% + 90px)',
         },
         [theme.breakpoints.between('sm', 'md')]: {
-            marginBottom: 'calc(100% + 150px)',
+            marginBottom: 'calc(1% + 150px)',
         },
         [theme.breakpoints.between('md', 'lg')]: {
-            marginBottom: 'calc(100% + 100px)',
+            marginBottom: 'calc(1% + 100px)',
         },
-        marginBottom: 'calc(100% + 90px)',
+        marginBottom: 'calc(1% + 90px)',
         '&::after': {
             paddingTop: '56.25%', /* 16:9 */
             display: 'block',
