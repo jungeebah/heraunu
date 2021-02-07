@@ -154,7 +154,7 @@ const useStyles = makeStyles((theme) => ({
             marginBottom: 'calc(25% + 90px)',
         },
         [theme.breakpoints.between('sm', 'md')]: {
-            marginBottom: 'calc(1% + 150px)',
+            marginBottom: 'calc(35% + 150px)',
         },
         [theme.breakpoints.between('md', 'lg')]: {
             marginBottom: 'calc(1% + 100px)',
