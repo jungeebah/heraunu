@@ -10,16 +10,19 @@ import Grid from '@material-ui/core/Grid'
 
 const useStyles = makeStyles((theme) => ({
     footer: {
+        position: 'relative',
         [theme.breakpoints.down('xs')]: {
             marginBottom: '50px',
+            // marginTop: 'calc(60% + 10px)',
         },
         [theme.breakpoints.between('xs', 'md')]: {
-            marginBottom: '65px'
+            marginBottom: '65px',
+            // marginTop: 'calc(60% + 10px)',
         },
         [theme.breakpoints.up('lg')]: {
             marginBottom: '0'
         },
-        marginTop: 'calc(5% + 10px)',
+        marginTop: 'calc(17% + 10px)',
         paddingLeft: theme.spacing(2),
 
         [theme.breakpoints.up('md')]: {
@@ -53,7 +56,7 @@ const Footer = () => {
     return (
         <Paper className={classes.footer} elevation={0}>
             <Typography variant="h6">
-                Heraunu
+                Hernucha
             </Typography>
             <Link href="/about">
                 <IconButton className={classes.button}>
@@ -77,7 +80,7 @@ const Footer = () => {
                 <Grid item>
                     <Link href="https://www.facebook.com/Heraunu-104094554972237" passHref={true}>
                         <IconButton className={classes.media}>
-                            
+
                             <FacebookIcon />
                         </IconButton>
                     </Link>
