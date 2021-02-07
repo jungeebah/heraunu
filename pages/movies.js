@@ -61,6 +61,7 @@ const movies = () => {
     const skeletonItem = [...Array(10).keys()]
     const theme = useTheme();
     const mobile = useMediaQuery(theme.breakpoints.down("xs"));
+    const large = useMediaQuery(theme.breakpoints.up("lg"))
     const [filterOpen, setFilterOpen] = React.useState(false);
     const movie = useSelector(allmovieSelector);
     const dispatch = useDispatch();
@@ -293,7 +294,7 @@ const movies = () => {
                 </Box >
                 <Collapse in={filterOpen}>
                     <Box display="flex" flexDirection="row">
-                        <Box p="1px">
+                        <Box p="1px" mr={large ? 4 : 0}>
                             <TextField
                                 id="genre"
                                 select
@@ -314,7 +315,7 @@ const movies = () => {
                                 ))}
                             </TextField>
                         </Box>
-                        <Box p="1px">
+                        <Box p="1px" mr={large ? 4 : 0}>
                             <TextField
                                 id="year"
                                 select
@@ -335,7 +336,7 @@ const movies = () => {
                                 ))}
                             </TextField>
                         </Box>
-                        <Box p="1px">
+                        <Box p="1px" mr={large ? 4 : 0}>
                             <TextField
                                 id="stream"
                                 select
