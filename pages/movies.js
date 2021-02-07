@@ -55,7 +55,7 @@ const currentYear = new Date().getFullYear();
 const range = (start, stop, step) =>
     Array.from({ length: (stop - start) / step + 1 }, (_, i) => start + i * step);
 const rangeYear = range(currentYear, currentYear - 50, -1);
-const yearList = ["All", ...rangeYear];
+const yearList = ["All", "Upcoming", ...rangeYear];
 
 const movies = () => {
     const skeletonItem = [...Array(10).keys()]
@@ -89,7 +89,7 @@ const movies = () => {
         if (isFiltering) {
             setFilterChanged(false)
             dispatch(invalidateFilterMovie())
-            setEndPoint(`/?page=${v}&release_date=${yearFilter === 'All' ? '' : yearFilter}&genre=${genreFilter === 'All' ? '' : genreFilter}&streaming=${streamFilter === 'All' ? '' : streamFilter}`)
+            setEndPoint(`/?page=${v}&release_date=${yearFilter === 'All' ? '' : yearFilter === 'Upcoming' ? 2050 : yearFilter}&genre=${genreFilter === 'All' ? '' : genreFilter}&streaming=${streamFilter === 'All' ? '' : streamFilter} `)
         } else {
             setDisplayData(movieList.slice((v - 1) * 10, v * 10))
         }
@@ -143,7 +143,7 @@ const movies = () => {
                     }
                 }
                 setStreamFilter(streamValue)
-                setEndPoint(`/?page=${1}&release_date=${yearFilter === 'All' ? '' : yearFilter}&genre=${genreFilter === 'All' ? '' : genreFilter}&streaming=${streamValue === 'All' ? '' : streamValue}`)
+                setEndPoint(`/?page=${1}&release_date=${yearFilter === 'All' ? '' : yearFilter === 'Upcoming' ? 2050 : yearFilter}&genre=${genreFilter === 'All' ? '' : genreFilter}&streaming=${streamValue === 'All' ? '' : streamValue} `)
                 break;
             case "genre":
                 const genreValue = event.target.value === 'All' ? 'All' : genreList.filter(a => a.name === event.target.value)[0].key
@@ -167,7 +167,7 @@ const movies = () => {
                     }
                 }
                 setGenreFilter(genreValue);
-                setEndPoint(`/?page=${1}&release_date=${yearFilter === 'All' ? '' : yearFilter}&genre=${genreValue === 'All' ? '' : genreValue}&streaming=${streamFilter === 'All' ? '' : streamFilter}`)
+                setEndPoint(`/?page=${1}&release_date=${yearFilter === 'All' ? '' : yearFilter === 'Upcoming' ? 2050 : yearFilter}&genre=${genreValue === 'All' ? '' : genreValue}&streaming=${streamFilter === 'All' ? '' : streamFilter} `)
                 break;
             case "year":
                 if (event.target.value === 'All') {
@@ -189,7 +189,7 @@ const movies = () => {
                 }
 
                 setYearFilter(event.target.value);
-                setEndPoint(`/?page=${1}&release_date=${event.target.value === 'All' ? '' : event.target.value}&genre=${genreFilter === 'All' ? '' : genreFilter}&streaming=${streamFilter === 'All' ? '' : streamFilter}`)
+                setEndPoint(`/?page=${1}&release_date=${event.target.value === 'All' ? '' : event.target.value === 'Upcoming' ? 2050 : event.target.value}&genre=${genreFilter === 'All' ? '' : genreFilter}&streaming=${streamFilter === 'All' ? '' : streamFilter} `)
                 break;
             default:
                 break;
@@ -202,13 +202,13 @@ const movies = () => {
             chips.filter((chip) => chip.value !== chipToDelete.value)
         );
         if (chipToDelete.key === "G") {
-            setEndPoint(`/?page=${1}&release_date=${yearFilter === 'All' ? '' : yearFilter}&genre=&streaming=${streamFilter === 'All' ? '' : streamFilter}`);
+            setEndPoint(`/?page=${1}&release_date=${yearFilter === 'All' ? '' : yearFilter === 'Upcoming' ? 2050 : yearFilter}&genre=&streaming=${streamFilter === 'All' ? '' : streamFilter} `);
             setGenreFilter("All");
         } else if (chipToDelete.key === "S") {
-            setEndPoint(`/?page=${1}&release_date=${yearFilter === 'All' ? '' : yearFilter}&genre=${genreFilter === 'All' ? '' : genreFilter}&streaming=`);
+            setEndPoint(`/? page=${1}&release_date=${yearFilter === 'All' ? '' : yearFilter === 'Upcoming' ? 2050 : yearFilter}&genre=${genreFilter === 'All' ? '' : genreFilter}&streaming=`);
             setStreamFilter('All')
         } else if (chipToDelete.key === 'Y') {
-            setEndPoint(`/?page=${1}&release_date=&genre=${genreFilter === 'All' ? '' : genreFilter}&streaming=${streamFilter === 'All' ? '' : streamFilter}`);
+            setEndPoint(`/?page=${1}&release_date=&genre=${genreFilter === 'All' ? '' : genreFilter}&streaming=${streamFilter === 'All' ? '' : streamFilter} `);
             setYearFilter("All");
         }
     }
