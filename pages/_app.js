@@ -49,7 +49,7 @@ const MyApp = (props) => {
     return (
         <React.Fragment>
             <Head>
-                <title>Heraunu</title>
+                <title>Complete Nepali Movie Database for viewing Nepali Movies|Heraunu</title>
                 <meta
                     name="description"
                     content="Heraunu is a site for Nepali Movie lovers to come and find viewing locations."
