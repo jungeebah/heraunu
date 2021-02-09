@@ -173,7 +173,7 @@ const youtube = () => {
                 <Box>
                     {filter}
                 </Box>
-                <Typography variant='h6' color="secondary">
+                <Typography variant='h1' color="secondary">
                     Youtube
                 </Typography>
                 <Grid container spacing={2}>

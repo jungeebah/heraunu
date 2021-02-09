@@ -65,7 +65,7 @@ const actors = () => {
     return (
         <div className={classes.persons}>
             <div >
-                <Typography variant='h6' color="secondary">
+                <Typography variant='h1' color="secondary">
                     Actors
                 </Typography>
                 <Grid container spacing={2}>
