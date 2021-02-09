@@ -15,7 +15,6 @@ import IconButton from '@material-ui/core/IconButton'
 import Box from '@material-ui/core/Box';
 import Typography from '@material-ui/core/Typography';
 import useMediaQuery from "@material-ui/core/useMediaQuery";
-import YouTube from 'react-youtube';
 
 const useStyles = makeStyles((theme) => ({
     movie: {
@@ -146,49 +145,11 @@ const useStyles = makeStyles((theme) => ({
             padding: theme.spacing(4, 2, 2, 2),
         },
     },
-    video: {
-        position: 'relative',
-        overflow: 'hidden',
-        width: '100%',
-        [theme.breakpoints.down('sm')]: {
-            marginBottom: 'calc(25% + 90px)',
-        },
-        [theme.breakpoints.between('sm', 'md')]: {
-            marginBottom: 'calc(35% + 150px)',
-        },
-        [theme.breakpoints.between('md', 'lg')]: {
-            marginBottom: 'calc(1% + 100px)',
-        },
-        marginBottom: 'calc(1% + 90px)',
-        '&::after': {
-            paddingTop: '56.25%', /* 16:9 */
-            display: 'block',
-            content: '""',
-        }
-    },
-    frame: {
-        position: 'absolute',
-        top: 0,
-        left: 0,
-        width: '100 %',
-        height: '100 %',
-    }
 }));
-
-
-function get_id(url) {
-    var video_id = url.split('v=')[1];
-    var ampersandPosition = video_id.indexOf('&');
-    if (ampersandPosition != -1) {
-        video_id = video_id.substring(0, ampersandPosition);
-    }
-    return video_id
-}
 
 
 
 const Movie = () => {
-
     const theme = useTheme();
     const router = useRouter()
     const dispatch = useDispatch();
@@ -196,7 +157,6 @@ const Movie = () => {
     const [movie, setMovie] = React.useState(null)
     const [youtubeLocation, setYoutubeLocation] = React.useState('')
     const moviesData = useSelector(individualMovieSelector);
-
     React.useEffect(() => {
         dispatch(invalidateIndividualMovie())
         setMovie(null)
@@ -209,18 +169,8 @@ const Movie = () => {
         }
     }, [moviesData])
     const classes = useStyles()
-    const mobile = useMediaQuery(theme.breakpoints.down("xs"));
     const large = useMediaQuery(theme.breakpoints.up("md"));
     const xlarge = useMediaQuery(theme.breakpoints.up("lg"));
-    const opts = {
-        height: mobile ? '208' : large ? '405' : '360',
-        width: mobile ? '370' : large ? '720' : '640',
-        playerVars: {
-            // https://developers.google.com/youtube/player_parameters
-            autoplay: 1,
-            modestbranding: 1,
-        },
-    };
     const openYoutube = (e, item) => {
         switch (item) {
             case ('Youtube'):
@@ -253,9 +203,7 @@ const Movie = () => {
 
     }
 
-    const onStart = (event) => {
-        event.target.pauseVideo();
-    }
+
 
     const imdbRating = movie ? movie.imdb_rating ? (
         <div className={classes.streaming}>
@@ -381,7 +329,7 @@ const Movie = () => {
             <IconButton className={classes.genreButton} edge="start"
                 size="small" >
                 <Typography variant="caption" >
-                    <Box border={1} display="flex" justifyContent="center" >
+                    <Box border={1} borderRadius={5} p='2px' fontWeight={500}>
                         {item.name}
                     </Box>
                 </Typography>
@@ -452,16 +400,6 @@ const Movie = () => {
                 </div>
             </Grid> : <div></div>
             } */}
-            {movie.trailer ?
-                <Grid item xs={12}>
-                    <Typography variant={large ? "h6" : "body1"} display="block" gutterBottom>
-                        Trailer
-                </Typography>
-                    <Box className={classes.video}>
-                        <YouTube className={classes.frame} videoId={get_id(movie.trailer)} opts={opts} onReady={onStart} />
-                    </Box>
-                </Grid> :
-                <div></div>}
         </Grid>
     ) : <div></div>
     return (
