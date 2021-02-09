@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import SkeletonDisplay from '../src/components/SkeletonDisplay/SkeletonDisplay';
 import React, { useState } from 'react'
 import Typography from '@material-ui/core/Typography'
-import { makeStyles} from "@material-ui/core/styles";
+import { makeStyles } from "@material-ui/core/styles";
 import DisplayCard from '../src/components/DisplayCard/DisplayCard';
 import Grid from '@material-ui/core/Grid';
 import Pagination from '@material-ui/lab/Pagination';
