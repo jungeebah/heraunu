@@ -47,7 +47,7 @@ export default function BottomAppBar() {
                                     <IconButton edge="start" color="inherit" aria-label="open drawer">
                                         <Grid item xs>
                                             <HomeIcon />
-                                            <Typography className={classes.iconLabel}>
+                                            <Typography className={classes.iconLabel} color="textPrimary">
                                                 Home
                                         </Typography>
                                         </Grid>
@@ -61,7 +61,7 @@ export default function BottomAppBar() {
                                     <IconButton edge="start" color="inherit" aria-label="open drawer">
                                         <Grid item xs>
                                             <MovieIcon />
-                                            <Typography className={classes.iconLabel}>
+                                            <Typography className={classes.iconLabel} color="textPrimary">
                                                 Movies
                                 </Typography>
                                         </Grid>
@@ -75,7 +75,7 @@ export default function BottomAppBar() {
                                     <IconButton edge="start" color="inherit" aria-label="open drawer">
                                         <Grid item xs>
                                             <PersonIcon />
-                                            <Typography className={classes.iconLabel}>
+                                            <Typography className={classes.iconLabel} color="textPrimary">
                                                 Actors
                                 </Typography>
                                         </Grid>
@@ -89,7 +89,7 @@ export default function BottomAppBar() {
                                     <IconButton color="inherit">
                                         <Grid item xs>
                                             <YouTubeIcon />
-                                            <Typography className={classes.iconLabel}>
+                                            <Typography className={classes.iconLabel} color="textPrimary">
                                                 Youtube
                                             </Typography>
                                         </Grid>

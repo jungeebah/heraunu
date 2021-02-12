@@ -56,7 +56,7 @@ const Section = (props) => {
                 direction="row"
                 justify="space-between"
                 alignItems="center">
-                <Typography className={classes.title} color="secondary" variant={medium ? 'h6' : 'subtitle2'}>
+                <Typography className={classes.title} color="textPrimary" variant={medium ? 'h4' : 'h6'}>
                     {name}
                 </Typography>
                 <Link href={url} passHref={true} shallow={true}>
@@ -73,7 +73,7 @@ const Section = (props) => {
                     spacing={2}
                 >
                     {displayData.map(items =>
-                        <Grid item item xs={3} sm={2} md={3} xl={2} key={items.key}>
+                        <Grid item item xs={3} sm={2} md={3} lg={2} key={items.key}>
                             <DisplayCard movie={items} individual='/movie' key={items.key} />
                         </Grid>
                     )}
