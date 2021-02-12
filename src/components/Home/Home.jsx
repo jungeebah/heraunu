@@ -1,6 +1,7 @@
 import React from 'react';
 import Grid from '@material-ui/core/Grid'
 import Slider from '../Slider/Slider'
+import Section from '../Section/Section'
 import { useTheme, makeStyles } from "@material-ui/core/styles";
 import useMediaQuery from "@material-ui/core/useMediaQuery";
 
@@ -30,7 +31,7 @@ const Home = (props) => {
         <div className={classes.root}>
             <Grid container>
                 <Grid item xs={12}>
-                    <Slider
+                    <Section
                         displayData={displayData}
                         name={'MOVIES'}
                         url='/movies'
@@ -41,7 +42,7 @@ const Home = (props) => {
                     className={classes.slider}
                     xs={12}>
 
-                    <Slider
+                    <Section
                         displayData={displayPerson}
                         name={'ACTORS'}
                         className={classes.slider}
@@ -51,7 +52,7 @@ const Home = (props) => {
                 </Grid>
                 <Grid item xs={12}
                     className={classes.slider}>
-                    <Slider
+                    <Section
                         displayData={displayYoutube}
                         name={'YOUTUBE'}
                         individual='/movie'
