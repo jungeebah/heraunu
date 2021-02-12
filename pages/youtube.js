@@ -48,6 +48,9 @@ const useStyles = makeStyles((theme) => ({
     sort: {
         marginTop: -theme.spacing(2)
     },
+    title: {
+        marginBottom: theme.spacing(1)
+    }
 }))
 
 function Filter_alt(props) {
@@ -175,7 +178,7 @@ const youtube = () => {
                 <Box>
                     {filter}
                 </Box>
-                <Typography variant='h6' color="secondary">
+                <Typography variant='h6' color="secondary" className={classes.title}>
                     Youtube
                 </Typography>
                 <Grid container spacing={2}>

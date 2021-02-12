@@ -26,6 +26,9 @@ const useStyles = makeStyles((theme) => ({
     },
     pagination: {
         marginTop: theme.spacing(1)
+    },
+    title: {
+        marginBottom: theme.spacing(1)
     }
 }))
 
@@ -68,7 +71,7 @@ const actors = () => {
     return (
         <div className={classes.persons}>
             <div >
-                <Typography variant='h6' color="secondary">
+                <Typography variant='h6' color="secondary" className={classes.title}>
                     Actors
                 </Typography>
                 <Grid container spacing={2}>

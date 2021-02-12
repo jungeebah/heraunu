@@ -42,6 +42,9 @@ const useStyles = makeStyles((theme) => ({
     },
     chipList: {
         listStyle: "none",
+    },
+    title: {
+        marginBottom: theme.spacing(1)
     }
 }))
 
@@ -393,7 +396,7 @@ const movies = () => {
                 <Box>
                     {filter}
                 </Box>
-                <Typography variant='h6' color="secondary">
+                <Typography variant='h6' color="secondary" className={classes.title}>
                     Movies
                 </Typography>
                 <Grid container spacing={2}>
