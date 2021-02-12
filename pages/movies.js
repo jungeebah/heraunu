@@ -2,6 +2,7 @@ import { getallMovie, allmovieSelector } from '../lib/slice/allMovies';
 import { getGenreDataKey, genreDataSelector } from '../lib/slice/allGenre';
 import { getStreamDataKey, streamDataSelector } from '../lib/slice/allStream';
 import { getFilterMovies, filterMovieSelector, invalidateFilterMovie } from '../lib/slice/filter';
+import { updateFilters, updatePage, movieDataSelector, updateIsFiltering, updateFilterChip } from '../lib/slice/moviesDataSlice';
 import { useDispatch, useSelector } from 'react-redux';
 import React from 'react';
 import SkeletonDisplay from '../src/components/SkeletonDisplay/SkeletonDisplay';
@@ -64,30 +65,33 @@ const movies = () => {
     const large = useMediaQuery(theme.breakpoints.up("lg"))
     const [filterOpen, setFilterOpen] = React.useState(false);
     const movie = useSelector(allmovieSelector);
+    const moviesUserSetting = useSelector(movieDataSelector);
     const dispatch = useDispatch();
     const classes = useStyles();
     const genreData = useSelector(genreDataSelector);
     const streamData = useSelector(streamDataSelector);
-    const [genreList, setGenreList] = React.useState([])
-    const [streamList, setStreamList] = React.useState([])
+    const [genreList, setGenreList] = React.useState(genreData.genres)
+    const [streamList, setStreamList] = React.useState(streamData.stream)
     const genres = ['All'].concat(genreList.map(a => a.name))
     const [defaultPage, setDefaultPage] = React.useState(1)
     const [endpoint, setEndPoint] = React.useState('')
     const streams = ['All'].concat(streamList.map(a => a.site))
     const filtered = useSelector(filterMovieSelector);
-    const [genreFilter, setGenreFilter] = React.useState('All')
-    const [streamFilter, setStreamFilter] = React.useState('All')
-    const [yearFilter, setYearFilter] = React.useState('All')
-    const [filterChipList, setFilterChipList] = React.useState([]);
-    const [isFiltering, setIsFiltering] = React.useState(false);
+    const [genreFilter, setGenreFilter] = React.useState(moviesUserSetting.filters[0])
+    const [streamFilter, setStreamFilter] = React.useState(moviesUserSetting.filters[1])
+    const [yearFilter, setYearFilter] = React.useState(moviesUserSetting.filters[2])
+    const [filterChipList, setFilterChipList] = React.useState(moviesUserSetting.filterChip);
+    const [isFiltering, setIsFiltering] = React.useState(moviesUserSetting.isFiltering);
     const [filteredData, setFilteredData] = React.useState([])
     const [movieList, setMovieList] = React.useState(movie.allmovies)
-    const [displayData, setDisplayData] = React.useState(movieList.slice(0, 10))
+    const [displayData, setDisplayData] = React.useState(movieList.slice((moviesUserSetting.pageNumber - 1) * 10, moviesUserSetting.pageNumber * 10))
     const [totalMovies, setTotalMovies] = React.useState(movieList.length)
     const [filterChanged, setFilterChanged] = React.useState(true)
+    console.log(genreFilter, moviesUserSetting.filterChip)
     const nextPage = (e, v) => {
+        dispatch(updatePage(v))
         setDefaultPage(v)
-        if (isFiltering) {
+        if (moviesUserSetting.isFiltering) {
             setFilterChanged(false)
             dispatch(invalidateFilterMovie())
             setEndPoint(`/?page=${v}&release_date=${yearFilter === 'All' ? '' : yearFilter === 'Upcoming' ? 2050 : yearFilter}&genre=${genreFilter === 'All' ? '' : genreFilter}&streaming=${streamFilter === 'All' ? '' : streamFilter} `)
@@ -104,7 +108,7 @@ const movies = () => {
     }, [])
 
     React.useEffect(() => {
-        isFiltering ? setDisplayData(filteredData.slice(0, 10)) : setDisplayData(movieList.slice(0, 10))
+        moviesUserSetting.isFiltering ? setDisplayData(filteredData.slice((moviesUserSetting.pageNumber - 1) * 10, moviesUserSetting.pageNumber * 10)) : setDisplayData(movieList.slice((moviesUserSetting.pageNumber - 1) * 10, moviesUserSetting.pageNumber * 10))
     }, [isFiltering])
 
     const skeleton = <div>
@@ -122,12 +126,14 @@ const movies = () => {
         setFilterOpen(false)
         event.persist();
         setDefaultPage(1)
+        dispatch(updatePage(1))
         switch (event.target.id) {
             case "stream":
                 const streamValue = event.target.value === 'All' ? 'All' : streamList.filter(a => a.site === event.target.value)[0].key
                 if (event.target.value === 'All') {
                     if (filterChipList.filter((x) => x.key === "S").length > 0) {
                         setFilterChipList(filterChipList.filter((x) => x.key !== 'S'))
+                        dispatch(updateFilterChip(filterChipList.filter((x) => x.key !== 'S')))
                     }
                 }
                 else {
@@ -136,21 +142,26 @@ const movies = () => {
                             (x) => x.key === "S" && ((x.value = event.target.value), true)
                         );
                         setFilterChipList(filterChipList);
+                        dispatch(updateFilterChip(filterChipList))
+
                     }
                     else {
                         setFilterChipList((chips) =>
                             chips.concat({ key: "S", value: event.target.value })
                         );
+                        dispatch(updateFilterChip(filterChipList.concat({ key: "S", value: event.target.value })))
                     }
                 }
+                dispatch(updateFilters([genreFilter, streamValue, yearFilter]))
                 setStreamFilter(streamValue)
-                setEndPoint(`/?page=${1}&release_date=${yearFilter === 'All' ? '' : yearFilter === 'Upcoming' ? 2050 : yearFilter}&genre=${genreFilter === 'All' ? '' : genreFilter}&streaming=${streamValue === 'All' ? '' : streamValue} `)
+                setEndPoint(`/?page=${1}&release_date=${moviesUserSetting.filters[2] === 'All' ? '' : moviesUserSetting.filters[2] === 'Upcoming' ? 2050 : moviesUserSetting.filters[2]}&genre=${moviesUserSetting.filters[0] === 'All' ? '' : moviesUserSetting.filters[0]}&streaming=${streamValue === 'All' ? '' : streamValue} `)
                 break;
             case "genre":
                 const genreValue = event.target.value === 'All' ? 'All' : genreList.filter(a => a.name === event.target.value)[0].key
                 if (event.target.value === 'All') {
                     if (filterChipList.filter((x) => x.key === "G").length > 0) {
                         setFilterChipList(filterChipList.filter((x) => x.key !== 'G'))
+                        dispatch(updateFilterChip(filterChipList.filter((x) => x.key !== 'G')))
                     }
 
                 }
@@ -160,20 +171,25 @@ const movies = () => {
                             (x) => x.key === "G" && ((x.value = event.target.value), true)
                         );
                         setFilterChipList(filterChipList);
+                        dispatch(updateFilterChip(filterChipList))
                     }
                     else {
                         setFilterChipList((chips) =>
                             chips.concat({ key: "G", value: event.target.value })
                         );
+                        dispatch(updateFilterChip(filterChipList.concat({ key: "G", value: event.target.value })))
                     }
                 }
+                dispatch(updateFilters([genreValue, streamFilter, yearFilter]))
                 setGenreFilter(genreValue);
-                setEndPoint(`/?page=${1}&release_date=${yearFilter === 'All' ? '' : yearFilter === 'Upcoming' ? 2050 : yearFilter}&genre=${genreValue === 'All' ? '' : genreValue}&streaming=${streamFilter === 'All' ? '' : streamFilter} `)
+                setEndPoint(`/?page=${1}&release_date=${moviesUserSetting.filters[2] === 'All' ? '' : moviesUserSetting.filters[2] === 'Upcoming' ? 2050 : moviesUserSetting.filters[2]}&genre=${genreValue === 'All' ? '' : genreValue}&streaming=${moviesUserSetting.filters[1] === 'All' ? '' : moviesUserSetting.filters[1]} `)
                 break;
             case "year":
+
                 if (event.target.value === 'All') {
                     if (filterChipList.filter((x) => x.key === "Y").length > 0) {
                         setFilterChipList(filterChipList.filter((x) => x.key !== 'Y'))
+                        dispatch(updateFilterChip(filterChipList.filter((x) => x.key !== 'Y')))
                     }
                 } else {
                     if (filterChipList.filter((x) => x.key === "Y").length > 0 && event.target.value !== 'All') {
@@ -181,16 +197,18 @@ const movies = () => {
                             (x) => x.key === "Y" && ((x.value = event.target.value), true)
                         );
                         setFilterChipList(filterChipList);
+                        dispatch(updateFilterChip(filterChipList))
                     }
                     else {
                         setFilterChipList((chips) =>
                             chips.concat({ key: "Y", value: event.target.value })
                         );
+                        dispatch(updateFilterChip(filterChipList.concat({ key: "Y", value: event.target.value })))
                     }
                 }
-
+                dispatch(updateFilters([genreFilter, streamFilter, event.target.value]))
                 setYearFilter(event.target.value);
-                setEndPoint(`/?page=${1}&release_date=${event.target.value === 'All' ? '' : event.target.value === 'Upcoming' ? 2050 : event.target.value}&genre=${genreFilter === 'All' ? '' : genreFilter}&streaming=${streamFilter === 'All' ? '' : streamFilter} `)
+                setEndPoint(`/?page=${1}&release_date=${event.target.value === 'All' ? '' : event.target.value === 'Upcoming' ? 2050 : event.target.value}&genre=${moviesUserSetting.filters[0] === 'All' ? '' : moviesUserSetting.filters[0]}&streaming=${moviesUserSetting.filters[1] === 'All' ? '' : moviesUserSetting.filters[1]} `)
                 break;
             default:
                 break;
@@ -202,13 +220,18 @@ const movies = () => {
         setFilterChipList((chips) =>
             chips.filter((chip) => chip.value !== chipToDelete.value)
         );
+        dispatch(updateFilterChip(filterChipList.filter((chip) => chip.value !== chipToDelete.value)))
         if (chipToDelete.key === "G") {
+            dispatch(updateFilters(['All', streamFilter, yearFilter]))
+
             setEndPoint(`/?page=${1}&release_date=${yearFilter === 'All' ? '' : yearFilter === 'Upcoming' ? 2050 : yearFilter}&genre=&streaming=${streamFilter === 'All' ? '' : streamFilter} `);
             setGenreFilter("All");
         } else if (chipToDelete.key === "S") {
+            dispatch(updateFilters([genreFilter, 'All', yearFilter]))
             setEndPoint(`/? page=${1}&release_date=${yearFilter === 'All' ? '' : yearFilter === 'Upcoming' ? 2050 : yearFilter}&genre=${genreFilter === 'All' ? '' : genreFilter}&streaming=`);
             setStreamFilter('All')
         } else if (chipToDelete.key === 'Y') {
+            dispatch(updateFilters([genreFilter, streamFilter, 'All']))
             setEndPoint(`/?page=${1}&release_date=&genre=${genreFilter === 'All' ? '' : genreFilter}&streaming=${streamFilter === 'All' ? '' : streamFilter} `);
             setYearFilter("All");
         }
@@ -223,8 +246,10 @@ const movies = () => {
     React.useEffect(() => {
         if (genreFilter === 'All' && streamFilter === 'All' && yearFilter === 'All') {
             setIsFiltering(false)
+            dispatch(updateIsFiltering(false))
         }
         else {
+            dispatch(updateIsFiltering(true))
             setIsFiltering(true)
             // setTotalData(filteredData)
         }
@@ -240,7 +265,7 @@ const movies = () => {
         setMovieList(movie.allmovies)
     }, [movie])
     React.useEffect(() => {
-        setDisplayData(movieList.slice(0, 10))
+        setDisplayData(movieList.slice((moviesUserSetting.pageNumber - 1) * 10, moviesUserSetting.pageNumber * 10))
         setTotalMovies(movieList.length)
     }, [movieList])
 
@@ -249,7 +274,7 @@ const movies = () => {
     }
 
     React.useEffect(() => {
-        if (isFiltering) {
+        if (moviesUserSetting.isFiltering) {
             setFilteredData(filtered.movies)
             if (filterChanged) {
                 setTotalMovies(filtered.count)
@@ -273,7 +298,7 @@ const movies = () => {
                     </Box>
                 </Box>
                 <Box display="flex" flexDirection="row" className={classes.chipList}>
-                    {filterChipList ? (
+                    {moviesUserSetting.filterChip ? (
                         filterChipList.map((item) => (
                             <Box p={1} key={item}>
                                 <li key={item.key}>
@@ -300,7 +325,7 @@ const movies = () => {
                                 select
                                 label="Genre"
                                 size="small"
-                                value={genreFilter === 'All' ? genreFilter : genreList.filter(a => a.key === genreFilter)[0].name}
+                                value={moviesUserSetting.filters[0] === 'All' ? moviesUserSetting.filters[0] : genreList.filter(a => a.key === moviesUserSetting.filters[0])[0].name}
                                 onChange={handleChangeFilter}
                                 SelectProps={{
                                     native: true,
@@ -342,7 +367,7 @@ const movies = () => {
                                 select
                                 label="Stream"
                                 size="small"
-                                value={streamFilter === 'All' ? streamFilter : streamList.filter(a => a.key === streamFilter)[0].site}
+                                value={moviesUserSetting.filters[1] === 'All' ? moviesUserSetting.filters[1] : streamList.filter(a => a.key === moviesUserSetting.filters[1])[0].site}
                                 onChange={handleChangeFilter}
                                 SelectProps={{
                                     native: true,
@@ -391,6 +416,7 @@ const movies = () => {
                         variant="outlined"
                         shape="rounded"
                         size="small"
+                        page={moviesUserSetting.pageNumber}
                         onChange={nextPage} />
                 </Box> :
                 <div></div>

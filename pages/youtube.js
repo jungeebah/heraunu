@@ -1,4 +1,5 @@
 import { getallYoutube, allYoutubeSelector, invalidateAllYoutube } from '../lib/slice/allYoutube';
+import { updatePageNumber, updateSorting, youtubeDataSelector } from '../lib/slice/youtubeDataSlice'
 import { useDispatch, useSelector } from 'react-redux';
 import React, { useState } from 'react';
 import SkeletonDisplay from '../src/components/SkeletonDisplay/SkeletonDisplay';
@@ -59,11 +60,11 @@ function Filter_alt(props) {
 
 const youtube = () => {
     const youtubeData = useSelector(allYoutubeSelector);
+    const userData = useSelector(youtubeDataSelector);
     const skeletonItem = [...Array(10).keys()]
     const dispatch = useDispatch();
     const classes = useStyles();
     const theme = useTheme();
-    const [primary, setPrimary] = React.useState(1);
     const mobile = useMediaQuery(theme.breakpoints.down("xs"));
     const [filterOpen, setFilterOpen] = React.useState(false);
     const [youtubeList, setYoutubeList] = useState(youtubeData.allmovies)
@@ -75,8 +76,9 @@ const youtube = () => {
     }
 
     const sortPressed = (e, index) => {
-        setPrimary(index)
+        dispatch(updateSorting(index))
         invalidateAllYoutube()
+        setFilterOpen(false)
         if (index === 0) {
             dispatch(getallYoutube('-youtube__video_date'))
         } else {
@@ -137,7 +139,7 @@ const youtube = () => {
                                             component="span"
                                             variant="body2"
                                             className={classes.inline}
-                                            color={primary === index ? 'secondary' : 'textPrimary'}
+                                            color={userData.sorting === index ? 'secondary' : 'textPrimary'}
                                         >
                                             {item}
                                         </Typography>
