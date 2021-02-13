@@ -55,7 +55,7 @@ const MyApp = (props) => {
                     content="Hernucha is a site for Nepali Movie lovers to come and find viewing locations."
                 />
                 <meta name="viewport" content="minimum-scale=1, initial-scale=1, width=device-width user-scalable=no" />
-                <script async defer data-pin-hover="true" data-pin-round="true" src="//assets.pinterest.com/js/pinit.js"></script>
+                {/* <script async defer data-pin-hover="true" data-pin-round="true" src="//assets.pinterest.com/js/pinit.js"></script> */}
             </Head>
             <Provider store={store}>
                 <ThemeProvider theme={darkTheme ? DarkTheme : LightTheme}>
