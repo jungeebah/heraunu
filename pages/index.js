@@ -7,13 +7,13 @@ import { useDispatch, useSelector } from 'react-redux';
 
 
 function Index(props) {
-  const dispatch = useDispatch();
-  const movie = useSelector(allmovieSelector);
-  if (!movie.allmovies?.length) {
-    dispatch(getallYoutube('-youtube__views'))
-    dispatch(getallMovie())
-    dispatch(getAllActor())
-  }
+  // const dispatch = useDispatch();
+  // const movie = useSelector(allmovieSelector);
+  // if (!movie.allmovies?.length) {
+  //   dispatch(getallYoutube('-youtube__views'))
+  //   dispatch(getallMovie())
+  //   dispatch(getAllActor())
+  // }
   const { movies, persons, youtube } = props
   return (
     <div>
