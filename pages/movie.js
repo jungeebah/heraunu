@@ -145,9 +145,43 @@ const useStyles = makeStyles((theme) => ({
             padding: theme.spacing(4, 2, 2, 2),
         },
     },
+    video: {
+        position: 'relative',
+        overflow: 'hidden',
+        width: '100%',
+        [theme.breakpoints.down('sm')]: {
+            marginBottom: 'calc(25% + 90px)',
+        },
+        [theme.breakpoints.between('sm', 'md')]: {
+            marginBottom: 'calc(35% + 150px)',
+        },
+        [theme.breakpoints.between('md', 'lg')]: {
+            marginBottom: 'calc(1% + 100px)',
+        },
+        marginBottom: 'calc(1% + 90px)',
+        '&::after': {
+            paddingTop: '56.25%', /* 16:9 */
+            display: 'block',
+            content: '""',
+        }
+    },
+    frame: {
+        position: 'absolute',
+        top: 0,
+        left: 0,
+        width: '100 %',
+        height: '100 %',
+    }
 }));
 
-
+function get_id(url) {
+    var video_id = url.split('v=')[1];
+    var ampersandPosition = video_id.indexOf('&');
+    if (ampersandPosition != -1) {
+        video_id = video_id.substring(0, ampersandPosition);
+    }
+    return video_id
+}
 
 const Movie = () => {
     const theme = useTheme();
@@ -168,9 +202,24 @@ const Movie = () => {
             setYoutubeLocation(moviesData.movie.location)
         }
     }, [moviesData])
+
+    const onStart = (event) => {
+        event.target.pauseVideo();
+    }
+
     const classes = useStyles()
     const large = useMediaQuery(theme.breakpoints.up("md"));
     const xlarge = useMediaQuery(theme.breakpoints.up("lg"));
+
+    const opts = {
+        height: mobile ? '208' : large ? '405' : '360',
+        width: mobile ? '370' : large ? '720' : '640',
+        playerVars: {
+            // https://developers.google.com/youtube/player_parameters
+            autoplay: 1,
+            modestbranding: 1,
+        },
+    };
     const openYoutube = (e, item) => {
         switch (item) {
             case ('Youtube'):
@@ -400,6 +449,16 @@ const Movie = () => {
                 </div>
             </Grid> : <div></div>
             } */}
+            {movie.trailer ?
+                <Grid item xs={12}>
+                    <Typography variant={large ? "h6" : "body1"} display="block" gutterBottom>
+                        Trailer
+                </Typography>
+                    <Box className={classes.video}>
+                        <YouTube className={classes.frame} videoId={get_id(movie.trailer)} opts={opts} onReady={onStart} />
+                    </Box>
+                </Grid> :
+                <div></div>}
         </Grid>
     ) : <div></div>
     return (
