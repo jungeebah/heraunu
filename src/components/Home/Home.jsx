@@ -1,9 +1,7 @@
 import React from 'react';
 import Grid from '@material-ui/core/Grid'
-import Slider from '../Slider/Slider'
 import Section from '../Section/Section'
 import { useTheme, makeStyles } from "@material-ui/core/styles";
-import useMediaQuery from "@material-ui/core/useMediaQuery";
 
 const useStyles = makeStyles((theme) => ({
     root: {
