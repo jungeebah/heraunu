@@ -35,6 +35,7 @@ const useStyles = makeStyles((theme) => ({
 const DisplayCard = (props) => {
     const theme = useTheme();
     const large = useMediaQuery(theme.breakpoints.up("md"));
+    const mobile = useMediaQuery(theme.breakpoints.down("md"));
     const classes = useStyles();
     const { movie, individual } = props
     var image = movie.image || movie.video_thumbnail
@@ -52,16 +53,16 @@ const DisplayCard = (props) => {
                 >
                     <Grid item>
                         <Box
-                            width={large ? 180 : 92}
-                            height={large ? 259 : 137}
+                            width={mobile ? 92 : 180}
+                            height={mobile ? 137 : 259}
                             boxShadow={2}
                         >
                             <Image
                                 className={classes.image}
                                 src={image || '/image.jpg'}
                                 alt={movie.name}
-                                width={large ? 180 : 92}
-                                height={large ? 259 : 137}
+                                width={mobile ? 92 : 180}
+                                height={mobile ? 137 : 259}
                             />
                         </Box>
                     </Grid>
