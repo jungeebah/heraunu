@@ -2,7 +2,7 @@ import { makeStyles, useTheme } from "@material-ui/core/styles";
 import { getIndividualMovie, individualMovieSelector, invalidateIndividualMovie } from '../lib/slice/individualMovie';
 import { useDispatch, useSelector } from 'react-redux';
 import React from 'react';
-import Collections from '../src/components/Collection/Collection'
+import YouTube from 'react-youtube';
 import Image from 'next/image';
 import Cast from '../src/components/Cast/Cast'
 import { useRouter } from 'next/router';
@@ -208,6 +208,7 @@ const Movie = () => {
     }
 
     const classes = useStyles()
+    const mobile = useMediaQuery(theme.breakpoints.down("xs"));
     const large = useMediaQuery(theme.breakpoints.up("md"));
     const xlarge = useMediaQuery(theme.breakpoints.up("lg"));
 
