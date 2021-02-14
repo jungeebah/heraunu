@@ -150,13 +150,13 @@ const useStyles = makeStyles((theme) => ({
         overflow: 'hidden',
         width: '100%',
         [theme.breakpoints.down('sm')]: {
-            marginBottom: 'calc(25% + 90px)',
+            marginBottom: 'calc(250% + 90px)',
         },
         [theme.breakpoints.between('sm', 'md')]: {
-            marginBottom: 'calc(35% + 150px)',
+            marginBottom: 'calc(350% + 150px)',
         },
         [theme.breakpoints.between('md', 'lg')]: {
-            marginBottom: 'calc(1% + 100px)',
+            marginBottom: 'calc(260% + 100px)',
         },
         marginBottom: 'calc(1% + 90px)',
         '&::after': {
