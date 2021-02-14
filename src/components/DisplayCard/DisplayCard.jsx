@@ -53,16 +53,16 @@ const DisplayCard = (props) => {
                 >
                     <Grid item>
                         <Box
-                            width={mobile ? 92 : 180}
-                            height={mobile ? 137 : 259}
+                            width={mobile ? 85 : 180}
+                            height={mobile ? 127 : 259}
                             boxShadow={2}
                         >
                             <Image
                                 className={classes.image}
                                 src={image || '/image.jpg'}
                                 alt={movie.name}
-                                width={mobile ? 92 : 180}
-                                height={mobile ? 137 : 259}
+                                width={mobile ? 85 : 180}
+                                height={mobile ? 127 : 259}
                             />
                         </Box>
                     </Grid>

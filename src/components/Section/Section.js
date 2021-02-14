@@ -7,6 +7,7 @@ import { Typography } from '@material-ui/core';
 import Grid from '@material-ui/core/Grid';
 import useMediaQuery from "@material-ui/core/useMediaQuery";
 import { makeStyles, useTheme } from "@material-ui/core/styles";
+import { CallReceived } from '@material-ui/icons';
 
 const useStyles = makeStyles((theme) => ({
     title: {
@@ -16,17 +17,21 @@ const useStyles = makeStyles((theme) => ({
         },
     },
     seeAll: {
-        [theme.breakpoints.up('md')]: {
-            fontSize: '1rem',
-        },
         [theme.breakpoints.up('lg')]: {
-            paddingRight: theme.spacing(1) - 1,
+            marginRight: '1px',
         },
-        [theme.breakpoints.down('xs')]: {
-            paddingRight: theme.spacing(1) - 3,
+        [theme.breakpoints.down('lg')]: {
+            fontSize: '1rem',
+            marginRight: '48px',
         },
         [theme.breakpoints.down('md')]: {
-            paddingRight: theme.spacing(1) + 3,
+            marginRight: '20px',
+        },
+        [theme.breakpoints.down('sm')]: {
+            marginRight: '31px',
+        },
+        [theme.breakpoints.down('xs')]: {
+            marginRight: '0%',
         },
         fontSize: '0.75rem',
         fontWeight: '700',
@@ -44,9 +49,8 @@ const useStyles = makeStyles((theme) => ({
 const Section = (props) => {
     const theme = useTheme();
     const medium = useMediaQuery(theme.breakpoints.up("md"));
-    const large = useMediaQuery(theme.breakpoints.up("lg"));
 
-    const { displayData, name, url, individual } = props
+    const { displayData, name, url } = props
     const classes = useStyles()
 
     return (
@@ -62,7 +66,9 @@ const Section = (props) => {
                 <Link href={url} passHref={true} shallow={true}>
                     <IconButton >
                         <Typography className={classes.seeAll}>
-                            SEE ALL
+                            <Box border={1} borderRadius={5} p='2px' fontWeight={500}>
+                                SEE ALL
+                            </Box>
                         </Typography>
                     </IconButton>
                 </Link>
@@ -70,10 +76,10 @@ const Section = (props) => {
             <Box component="span" className={classes.flexXs}>
                 <Grid container
                     direction="row"
-                    spacing={2}
+
                 >
                     {displayData.map(items =>
-                        <Grid item item xs={3} sm={2} md={3} lg={2} key={items.key}>
+                        <Grid item item xs={3} sm={2} md={3} lg={2} xl={1} key={items.key}>
                             <DisplayCard movie={items} individual='/movie' key={items.key} />
                         </Grid>
                     )}
