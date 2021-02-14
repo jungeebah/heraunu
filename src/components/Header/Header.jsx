@@ -5,7 +5,7 @@ import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import IconButton from '@material-ui/core/IconButton';
 import SvgIcon from '@material-ui/core/SvgIcon';
-import Logo from '../../../public/Logo.svg';
+import Logo from './Logo';
 import Icon from '@material-ui/core/Icon';
 import { fade, makeStyles, useTheme } from '@material-ui/core/styles';
 import Brightness5Icon from "@material-ui/icons/Brightness5";
@@ -19,13 +19,7 @@ import { allPersonSelector } from '../../../lib/slice/allPerson';
 import MenuIcon from '@material-ui/icons/Menu';
 
 
-function LogoIcon(props) {
-    return (
-        <Icon {...props}>
-            <img src={Logo} alt="" width="100" height="30" />
-        </Icon>
-    );
-}
+
 
 
 const useStyles = makeStyles((theme) => ({
@@ -117,6 +111,10 @@ const useStyles = makeStyles((theme) => ({
     iconRoot: {
         height: '1.2em',
         width: '0px'
+    },
+    Logo: {
+        height: '30px',
+        width: '100px'
     }
 }));
 
@@ -136,6 +134,13 @@ export default function Header(props) {
     const theme = useTheme();
     const large = useMediaQuery(theme.breakpoints.down("lg"));
 
+    // const LogoIcon = (props) => {
+    //     return (
+    //         <Icon {...props}>
+    //             <Logo className={classes.Logo} />
+    //         </Icon>
+    //     );
+    // }
 
     // const [mobileSearchGrow, setMobileSearchGrow] = React.useState(true);
     const handleChangeTheme = (e) => {
@@ -169,7 +174,7 @@ export default function Header(props) {
                                         {/* <Typography variant={large ? "h5" : "h6"} noWrap color="secondary">
                                             Hernucha
                                         </Typography> */}
-                                        <LogoIcon className={classes.iconRoot} />
+                                        <Logo className={classes.Logo} theme={props.darkTheme} />
                                     </IconButton>
                                 </Link>
                             </Tooltip>
