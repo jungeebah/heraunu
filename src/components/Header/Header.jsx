@@ -1,9 +1,12 @@
 import React from 'react';
 import Link from 'next/link';
+import Image from 'next/image'
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import IconButton from '@material-ui/core/IconButton';
-import Typography from '@material-ui/core/Typography';
+import SvgIcon from '@material-ui/core/SvgIcon';
+import Logo from '../../../public/Logo.svg';
+import Icon from '@material-ui/core/Icon';
 import { fade, makeStyles, useTheme } from '@material-ui/core/styles';
 import Brightness5Icon from "@material-ui/icons/Brightness5";
 import Brightness4Icon from "@material-ui/icons/Brightness4";
@@ -14,6 +17,16 @@ import Autocomplete from '../Autocomplete/Autocomplete'
 import { allmovieSelector } from '../../../lib/slice/allMovies';
 import { allPersonSelector } from '../../../lib/slice/allPerson';
 import MenuIcon from '@material-ui/icons/Menu';
+
+
+function LogoIcon(props) {
+    return (
+        <Icon {...props}>
+            <img src={Logo} alt="" width="100" height="30" />
+        </Icon>
+    );
+}
+
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -98,6 +111,13 @@ const useStyles = makeStyles((theme) => ({
         display: 'none'
 
     },
+    iconButton: {
+        display: 'block'
+    },
+    iconRoot: {
+        height: '1.2em',
+        width: '0px'
+    }
 }));
 
 export default function Header(props) {
@@ -145,10 +165,11 @@ export default function Header(props) {
                         <div className={classes.title}>
                             <Tooltip title="Home">
                                 <Link href="/" shallow={true}>
-                                    <IconButton >
-                                        <Typography variant={large ? "h5" : "h6"} noWrap color="secondary">
+                                    <IconButton classes={{ label: classes.iconButton }}>
+                                        {/* <Typography variant={large ? "h5" : "h6"} noWrap color="secondary">
                                             Hernucha
-                                        </Typography>
+                                        </Typography> */}
+                                        <LogoIcon className={classes.iconRoot} />
                                     </IconButton>
                                 </Link>
                             </Tooltip>
