@@ -171,9 +171,6 @@ export default function Header(props) {
                             <Tooltip title="Home">
                                 <Link href="/" shallow={true}>
                                     <IconButton classes={{ label: classes.iconButton }}>
-                                        {/* <Typography variant={large ? "h5" : "h6"} noWrap color="secondary">
-                                            Hernucha
-                                        </Typography> */}
                                         <Logo className={classes.Logo} theme={props.darkTheme} />
                                     </IconButton>
                                 </Link>
