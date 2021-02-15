@@ -149,24 +149,24 @@ const useStyles = makeStyles((theme) => ({
         position: 'relative',
         overflow: 'hidden',
         width: '100%',
-        [theme.breakpoints.down('sm')]: {
-            marginBottom: 'calc(250% + 90px)',
-        },
-        [theme.breakpoints.between('sm', 'md')]: {
-            marginBottom: 'calc(350% + 150px)',
-        },
-        [theme.breakpoints.between('md', 'lg')]: {
-            marginBottom: 'calc(260% + 100px)',
-        },
-        marginBottom: 'calc(1% + 90px)',
+        // [theme.breakpoints.down('sm')]: {
+        //     marginBottom: 'calc(250% + 90px)',
+        // },
+        // [theme.breakpoints.between('sm', 'md')]: {
+        //     marginBottom: 'calc(350% + 150px)',
+        // },
+        // [theme.breakpoints.between('md', 'lg')]: {
+        //     marginBottom: 'calc(260% + 100px)',
+        // },
+        // marginBottom: 'calc(1% + 90px)',
         '&::after': {
-            paddingTop: '56.25%', /* 16:9 */
+            // paddingTop: '56.25%', /* 16:9 */
             display: 'block',
             content: '""',
         }
     },
     frame: {
-        position: 'absolute',
+        position: 'relative',
         top: 0,
         left: 0,
         width: '100 %',
