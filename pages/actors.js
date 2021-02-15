@@ -74,7 +74,7 @@ const actors = () => {
                 <Typography variant='h6' color="secondary" className={classes.title}>
                     Actors
                 </Typography>
-                <Grid container spacing={2}>
+                <Grid container>
                     {displayData ?
                         displayData.map(items => (
                             <Grid item xs={3} sm={2} md={3} lg={2} key={items.key} >

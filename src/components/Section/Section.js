@@ -1,5 +1,6 @@
 import React from 'react';
 import Link from 'next/link';
+import Paper from '@material-ui/core/Paper'
 import Box from '@material-ui/core/Box';
 import DisplayCard from '../DisplayCard/DisplayCard';
 import IconButton from '@material-ui/core/IconButton';
@@ -15,13 +16,14 @@ const useStyles = makeStyles((theme) => ({
         [theme.breakpoints.up('md')]: {
             marginLeft: theme.spacing(9) - 2
         },
+        fontWeight: '700'
     },
     seeAll: {
         [theme.breakpoints.up('lg')]: {
             marginRight: '1px',
         },
         [theme.breakpoints.down('lg')]: {
-            fontSize: '1rem',
+            fontSize: '0.7rem',
             marginRight: '48px',
         },
         [theme.breakpoints.down('md')]: {
@@ -33,7 +35,7 @@ const useStyles = makeStyles((theme) => ({
         [theme.breakpoints.down('xs')]: {
             marginRight: '0%',
         },
-        fontSize: '0.75rem',
+        fontSize: '0.7rem',
         fontWeight: '700',
         color: theme.palette.primary.light
     },
@@ -44,12 +46,15 @@ const useStyles = makeStyles((theme) => ({
             marginLeft: theme.spacing(9) - 2
         },
     },
+    seeAllPaper: {
+        borderRadius: '7px',
+        backgroundColor: theme.palette.primary.seeAll
+    }
 }))
 
 const Section = (props) => {
     const theme = useTheme();
     const medium = useMediaQuery(theme.breakpoints.up("md"));
-
     const { displayData, name, url } = props
     const classes = useStyles()
 
@@ -66,9 +71,11 @@ const Section = (props) => {
                 <Link href={url} passHref={true} shallow={true}>
                     <IconButton >
                         <Typography className={classes.seeAll}>
-                            <Box border={1} borderRadius={5} p='2px' fontWeight={500}>
-                                SEE ALL
-                            </Box>
+                            <Paper variant="outlined" className={classes.seeAllPaper}>
+                                <Box border={1} borderRadius={5} p='2px' fontWeight={600}>
+                                    SEE ALL
+                                </Box>
+                            </Paper>
                         </Typography>
                     </IconButton>
                 </Link>

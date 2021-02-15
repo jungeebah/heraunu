@@ -34,7 +34,6 @@ const useStyles = makeStyles((theme) => ({
 
 const DisplayCard = (props) => {
     const theme = useTheme();
-    const large = useMediaQuery(theme.breakpoints.up("md"));
     const mobile = useMediaQuery(theme.breakpoints.down("sm"));
     const classes = useStyles();
     const { movie, individual } = props

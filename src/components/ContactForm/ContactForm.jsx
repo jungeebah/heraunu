@@ -1,6 +1,8 @@
 import React from "react";
 import Grid from '@material-ui/core/Grid';
+import Paper from '@material-ui/core/Paper'
 import Button from '@material-ui/core/Button';
+import Opinion from './opinion'
 import Dialog from '@material-ui/core/Dialog';
 import useMediaQuery from "@material-ui/core/useMediaQuery";
 import Typography from '@material-ui/core/Typography';
@@ -10,12 +12,40 @@ import emailjs from 'emailjs-com';
 
 const useStyles = makeStyles((theme) => ({
     dialog: {
-        maxWidth: '400px'
+        maxWidth: '400px',
+        backgroundColor: '#219ebc',
+        borderRadius: '26px'
     },
     inputButton: {
-        backgroundColor: theme.palette.secondary.main,
-        borderRadius: '5px',
+        backgroundColor: '#4361ee',
+        borderRadius: '15px',
+        borderColor: '#219ebc',
         color: '#fff',
+    },
+    background: {
+        backgroundColor: '#219ebc',
+        borderRadius: '10px'
+    },
+    label: {
+        fontWeight: '700',
+        fontSize: '1rem'
+    },
+    inputBox: {
+        borderRadius: '5px',
+        border: 'aqua',
+        height: '23px'
+    },
+    messageBox: {
+        borderRadius: '5px',
+        border: 'aqua',
+        height: '60px'
+    },
+    form: {
+        marginTop: '35px'
+    },
+    contactButton: {
+        borderRadius: '10px',
+        marginTop: '10px'
     }
 }))
 
@@ -45,7 +75,7 @@ const ContactForm = () => {
     }
     return (
         <div>
-            <Button variant="contained" color="secondary" onClick={handleClickOpen}>
+            <Button variant="contained" color="secondary" onClick={handleClickOpen} className={classes.contactButton}>
                 Contact
                         </Button>
             <Dialog
@@ -53,45 +83,34 @@ const ContactForm = () => {
                 classes={{ paperWidthSm: classes.dialog }}
                 onClose={handleClose}
                 aria-labelledby="form-dialog-title">
+
                 <Grid container spacing={2}>
-                    <Grid item xs={4}>
+                    <Grid item xs={5}>
                         <Grid container
                             spacing={0}
                             direction="column"
                             alignItems="center"
                             justify="center"
-                            style={{ minHeight: '220px' }}>
+                            style={{ height: '300px' }}
+                        >
                             <Grid item xs={12}>
-
-                                <Typography variant={mobile ? 'body2' : 'body1'}>
-                                    FeedBack
-                        </Typography>
+                                <Opinion />
                             </Grid>
                         </Grid>
                     </Grid>
-                    <Grid item xs={8}>
-
-                        <form action="#" name="contact_form" onSubmit={sendEmail}>
+                    <Grid item xs={7}>
+                        <form className={classes.form} action="#" name="contact_form" onSubmit={sendEmail}>
                             <input type="hidden" name="contact_number" />
                             <Grid container spacing={2}>
                                 <Grid item xs={12}>
                                     <Grid container >
                                         <Grid item xs={12}>
-                                            <label >Name</label>
+                                            <label className={classes.label}>Name</label>
                                         </Grid>
                                         <Grid item xs={12}>
-                                            <input name="name" type="text" required placeholder="Shankar" />
-                                        </Grid>
-                                    </Grid>
-                                </Grid>
-                                <br />
-                                <Grid item xs={12}>
-                                    <Grid container >
-                                        <Grid item xs={12}>
-                                            <label >Email</label>
-                                        </Grid>
-                                        <Grid item xs={12}>
-                                            <input name="email" type="email" required placeholder="you@domain.com" />
+                                            <input
+                                                className={classes.inputBox}
+                                                name="name" type="text" required placeholder="Shankar" />
                                         </Grid>
                                     </Grid>
                                 </Grid>
@@ -99,10 +118,25 @@ const ContactForm = () => {
                                 <Grid item xs={12}>
                                     <Grid container >
                                         <Grid item xs={12}>
-                                            <label for="message">Message</label>
+                                            <label className={classes.label}>Email</label>
                                         </Grid>
                                         <Grid item xs={12}>
-                                            <textarea name="message" />
+                                            <input
+                                                className={classes.inputBox}
+                                                name="email" type="email" required placeholder="you@domain.com" />
+                                        </Grid>
+                                    </Grid>
+                                </Grid>
+                                <br />
+                                <Grid item xs={12}>
+                                    <Grid container >
+                                        <Grid item xs={12}>
+                                            <label className={classes.label} for="message">Message</label>
+                                        </Grid>
+                                        <Grid item xs={12}>
+                                            <textarea
+                                                className={classes.messageBox}
+                                                name="message" />
                                         </Grid>
                                     </Grid>
                                 </Grid>
@@ -116,7 +150,8 @@ const ContactForm = () => {
                         </form>
                     </Grid>
                 </Grid>
-            </Dialog>
+
+            </Dialog >
         </div >
     );
 };
