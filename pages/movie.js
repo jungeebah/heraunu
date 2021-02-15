@@ -2,6 +2,7 @@ import { makeStyles, useTheme } from "@material-ui/core/styles";
 import { getIndividualMovie, individualMovieSelector, invalidateIndividualMovie } from '../lib/slice/individualMovie';
 import { useDispatch, useSelector } from 'react-redux';
 import React from 'react';
+import DisplayCard from '../src/components/DisplayCard/DisplayCard'
 import YouTube from 'react-youtube';
 import Image from 'next/image';
 import Cast from '../src/components/Cast/Cast'
@@ -183,7 +184,7 @@ function get_id(url) {
     return video_id
 }
 
-const Movie = () => {
+const Movie = (props) => {
     const theme = useTheme();
     const router = useRouter()
     const dispatch = useDispatch();
@@ -196,6 +197,13 @@ const Movie = () => {
         setMovie(null)
         dispatch(getIndividualMovie(key))
     }, [])
+
+    React.useEffect(() => {
+        dispatch(invalidateIndividualMovie())
+        setMovie(null)
+        dispatch(getIndividualMovie(key))
+    }, [router.asPath])
+
     React.useEffect(() => {
         if (moviesData.movie && moviesData.movie.name === name) {
             setMovie(moviesData.movie)
@@ -252,9 +260,6 @@ const Movie = () => {
         }
 
     }
-
-
-
     const imdbRating = movie ? movie.imdb_rating ? (
         <div className={classes.streaming}>
             <Grid item xs={12} lg={12}>
@@ -442,14 +447,22 @@ const Movie = () => {
                     />
                 </div>
             </Grid>
-            {/* {movie.collection.length > 1 ? <Grid item xs={12}>
+            {movie.collection.length > 1 ? <Grid item xs={12}>
                 <div className={classes.casting}>
-                    <Collections
-                        actor={movie.collection}
-                    />
+                    <Typography variant='h6' >
+                        Collections
+                </Typography>
+                    <Grid container spacing={3}>
+                        {movie.collection.map(items =>
+                        (
+                            <Grid item xs={3} sm={2} md={3} lg={2} key={items.key} >
+                                <DisplayCard movie={items} individual='/movie' key={items.key} />
+                            </Grid>
+                        ))}
+                    </Grid>
                 </div>
             </Grid> : <div></div>
-            } */}
+            }
             {movie.trailer ?
                 <Grid item xs={12}>
                     <Typography variant={large ? "h6" : "body1"} display="block" gutterBottom>
@@ -468,6 +481,10 @@ const Movie = () => {
         </div>
     )
 }
+
+Movie.getInitialProps = async ({ req }) => {
+    return { isServer: !!req };
+};
 
 export default Movie
 

@@ -41,7 +41,7 @@ const DisplayCard = (props) => {
     if (image === 'None') {
         image = '/image.jpg'
     }
-    const key = movie.key || movie.movie_id
+    const key = movie.key || movie.movie_id || movie.id
 
     return (
         <Link href={{ pathname: individual, query: { key: key, name: movie.name, image: image } }}>

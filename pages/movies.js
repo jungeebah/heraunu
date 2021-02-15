@@ -90,7 +90,6 @@ const movies = () => {
     const [displayData, setDisplayData] = React.useState(movieList.slice((moviesUserSetting.pageNumber - 1) * 10, moviesUserSetting.pageNumber * 10))
     const [totalMovies, setTotalMovies] = React.useState(movieList.length)
     const [filterChanged, setFilterChanged] = React.useState(true)
-    console.log(genreFilter, moviesUserSetting.filterChip)
     const nextPage = (e, v) => {
         dispatch(updatePage(v))
         setDefaultPage(v)
