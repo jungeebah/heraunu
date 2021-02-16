@@ -74,19 +74,21 @@ const youtube = () => {
     const [displayData, setDisplayData] = useState(youtubeList.slice(0, 10))
     const [totalYoutube, setTotalYoutube] = useState(youtubeList.length);
     const sort_item = ['Upload date', 'View Count'];
+    const trend_item = ['Weekly']
     const nextPage = (e, v) => {
         setDisplayData(youtubeList.slice((v - 1) * 10, v * 10))
     }
 
-    const sortPressed = (e, index) => {
-        dispatch(updateSorting(index))
+    const sortPressed = (e, item) => {
+        dispatch(updateSorting(item))
         invalidateAllYoutube()
         setFilterOpen(false)
-        if (index === 0) {
+        if (item === 'Upload date') {
             dispatch(getallYoutube('-youtube__video_date'))
-        } else {
+        } else if (item === 'View Count') {
             dispatch(getallYoutube('-youtube__views'))
-
+        } else if (item === 'Weekly') {
+            dispatch(getallYoutube('-youtube__weekly'))
         }
 
     }
@@ -119,40 +121,80 @@ const youtube = () => {
             </Box>
             <Collapse in={filterOpen}>
                 <Box display="flex" flexDirection="row">
-                    <Typography
-                        variant={mobile ? 'subtitle1' : 'body1'}>
-                        SORT BY
+                    <Box>
+                        <Typography
+                            variant={mobile ? 'subtitle1' : 'body1'}>
+                            SORT BY
                     </Typography>
+                    </Box>
+                    <Box ml={5}>
+                        <Typography
+                            variant={mobile ? 'subtitle1' : 'body1'}>
+                            TREND
+                    </Typography>
+                    </Box>
                 </Box>
                 <Box>
                     <hr className={classes.hr} />
                 </Box>
-                <List dense={true} className={classes.sort}>
-                    {sort_item.map((item, index) => (
-                        <ListItem button
-                            key={item}
-                            onClick={(e) => sortPressed(e, index)}
-                        >
-                            <ListItemText
-                                key={item}
-                                primary={
-                                    <React.Fragment>
-                                        <Typography
-                                            key={item}
-                                            component="span"
-                                            variant="body2"
-                                            className={classes.inline}
-                                            color={userData.sorting === index ? 'secondary' : 'textPrimary'}
-                                        >
-                                            {item}
-                                        </Typography>
-                                    </React.Fragment>
-                                }
+                <Box display="flex" flexDirection="row">
+                    <Box>
+                        <List dense={true} className={classes.sort}>
+                            {sort_item.map((item) => (
+                                <ListItem button
+                                    key={item}
+                                    onClick={(e) => sortPressed(e, item)}
+                                >
+                                    <ListItemText
+                                        key={item}
+                                        primary={
+                                            <React.Fragment>
+                                                <Typography
+                                                    key={item}
+                                                    component="span"
+                                                    variant="body2"
+                                                    className={classes.inline}
+                                                    color={userData.sorting === item ? 'secondary' : 'textPrimary'}
+                                                >
+                                                    {item}
+                                                </Typography>
+                                            </React.Fragment>
+                                        }
 
-                            />
-                        </ListItem>
-                    ))}
-                </List>
+                                    />
+                                </ListItem>
+                            ))}
+                        </List>
+                    </Box>
+                    <Box>
+                        <List dense={true} className={classes.sort}>
+                            {trend_item.map((item) => (
+                                <ListItem button
+                                    key={item}
+                                    onClick={(e) => sortPressed(e, item)}
+                                >
+                                    <ListItemText
+                                        key={item}
+                                        primary={
+                                            <React.Fragment>
+                                                <Typography
+                                                    key={item}
+                                                    component="span"
+                                                    variant="body2"
+                                                    className={classes.inline}
+                                                    color={userData.sorting === item ? 'secondary' : 'textPrimary'}
+                                                >
+                                                    {item}
+                                                </Typography>
+                                            </React.Fragment>
+                                        }
+
+                                    />
+                                </ListItem>
+                            ))}
+                        </List>
+                    </Box>
+                </Box>
             </Collapse>
         </div >
 
