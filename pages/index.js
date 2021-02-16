@@ -1,7 +1,5 @@
 import Home from '../src/components/Home/Home';
 import { getallMovie, allmovieSelector } from '../lib/slice/allMovies';
-import { getAllActor } from '../lib/slice/allPerson';
-import { getallYoutube } from '../lib/slice/allYoutube';
 import { useDispatch, useSelector } from 'react-redux';
 
 
@@ -9,9 +7,7 @@ function Index(props) {
   const dispatch = useDispatch();
   const movie = useSelector(allmovieSelector);
   if (!movie.allmovies?.length) {
-    dispatch(getallYoutube('-youtube__views'))
     dispatch(getallMovie())
-    dispatch(getAllActor())
   }
   const { movies, persons, youtube } = props
   return (

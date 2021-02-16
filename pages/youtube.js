@@ -76,12 +76,13 @@ const youtube = () => {
     const sort_item = ['Upload date', 'View Count'];
     const trend_item = ['Weekly']
     const nextPage = (e, v) => {
+        dispatch(updatePageNumber(v))
         setDisplayData(youtubeList.slice((v - 1) * 10, v * 10))
     }
 
     const sortPressed = (e, item) => {
         dispatch(updateSorting(item))
-        invalidateAllYoutube()
+        dispatch(invalidateAllYoutube())
         setFilterOpen(false)
         if (item === 'Upload date') {
             dispatch(getallYoutube('-youtube__video_date'))
@@ -210,7 +211,7 @@ const youtube = () => {
     }, [youtubeData])
 
     React.useEffect(() => {
-        setDisplayData(youtubeList.slice(0, 10))
+        setDisplayData(youtubeList.slice((userData.pageNumber - 1) * 10, userData.pageNumber * 10))
         setTotalYoutube(youtubeList.length)
     }
         , [youtubeList])
@@ -242,7 +243,7 @@ const youtube = () => {
                     variant="outlined"
                     shape="rounded"
                     size="small"
-
+                    page={userData.pageNumber}
                     onChange={nextPage} />
             </Box>
         </div >
