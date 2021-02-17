@@ -123,6 +123,7 @@ const useStyles = makeStyles((theme) => ({
     },
     streaming: {
         marginTop: theme.spacing(1),
+        width: '100%'
     },
     streamingData: {
         paddingLeft: '12px',
@@ -145,6 +146,13 @@ const useStyles = makeStyles((theme) => ({
         [theme.breakpoints.up("md")]: {
             padding: theme.spacing(4, 2, 2, 2),
         },
+    },
+    chip: {
+        [theme.breakpoints.up('sm')]: {
+            height: '23px'
+        },
+        height: '20px',
+        marginRight: '4px'
     },
     video: {
         position: 'relative',
@@ -276,26 +284,26 @@ const Movie = (props) => {
             <Typography variant={large ? "h6" : "body1"} display="block" gutterBottom>
                 Streaming
                 </Typography>
-            <Grid container
-                direction="row"
-                justify="flex-start"
-                alignItems="center"
-                
-                className={classes.streamingData}
-            >
+
+            <Box display="flex"
+                flexWrap="wrap"
+                className={classes.streamingData}>
                 {movie.playing ? movie.playing.map((item) => (
-                    <Grid item xs={4} sm={3} md={2} lg={2} key={item}>
+                    <Box mr={2}>
                         <Chip
                             key={item}
                             rel="noopener noreferrer"
+                            className={classes.chip}
                             onClick={() => openYoutube(youtubeLocation, item)}
-                            icon={<OndemandVideoIcon />}
+                            icon={<OndemandVideoIcon fontSize="small" />}
                             label={item}
                             clickable
                         />
-                    </Grid>
-                )) : <div></div>}
-            </Grid>
+                    </Box>
+                )) : <div></div>
+                }
+            </Box>
+
         </Box>) : <div></div>
 
     const movieInfo = movie
@@ -398,7 +406,7 @@ const Movie = (props) => {
         <Grid container
             direction="column"
             justify="space-between"
-            >
+        >
 
             <Grid item xs={12} >
                 <Grid container
@@ -410,7 +418,9 @@ const Movie = (props) => {
                         <Box
                             height={xlarge ? 545 : 323}
                             width={xlarge ? 367 : 216}
-                            className={classes.information}
+                            // className={classes.information}
+                            boxShadow={3}
+                            borderRadius={4}
                         >
                             <Image
                                 className={classes.image}

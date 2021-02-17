@@ -101,7 +101,9 @@ const Person = () => {
                     <Grid item xs={6} sm={5} lg={4}>
                         <Box
                             height={large ? 545 : 323}
-                            width={large ? 367 : 216}>
+                            width={large ? 367 : 216}
+                            boxShadow={3}
+                            borderRadius={16}>
                             <Image
                                 className={classes.image}
                                 key={person.id}
