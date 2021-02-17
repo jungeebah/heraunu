@@ -280,7 +280,7 @@ const Movie = (props) => {
                 direction="row"
                 justify="flex-start"
                 alignItems="center"
-                spacing={2}
+                
                 className={classes.streamingData}
             >
                 {movie.playing ? movie.playing.map((item) => (
@@ -398,7 +398,7 @@ const Movie = (props) => {
         <Grid container
             direction="column"
             justify="space-between"
-            spacing={2}>
+            >
 
             <Grid item xs={12} >
                 <Grid container
@@ -452,7 +452,7 @@ const Movie = (props) => {
                     <Typography variant='h6' >
                         Collections
                 </Typography>
-                    <Grid container spacing={3}>
+                    <Grid container >
                         {movie.collection.map(items =>
                         (
                             <Grid item xs={3} sm={2} md={3} lg={2} key={items.key} >
