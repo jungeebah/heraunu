@@ -43,6 +43,10 @@ const DisplayCard = (props) => {
     const medium = useMediaQuery(theme.breakpoints.down('md'))
     const classes = useStyles();
     const { movie, individual } = props
+    const name = movie.name.toLowerCase()
+        .split(' ')
+        .map((s) => s.charAt(0).toUpperCase() + s.substring(1))
+        .join(' ');
     var image = movie.image || movie.video_thumbnail
     if (image === 'None') {
         image = '/image.jpg'
@@ -73,7 +77,7 @@ const DisplayCard = (props) => {
                     </Grid>
                     <Grid item>
                         <Typography className={classes.text} align="left">
-                            {movie.name.length > 20 ? movie.name.substring(0, 20) + "..." : movie.name}
+                            {name.length > 20 ? name.substring(0, 20) + "..." : name}
                         </Typography>
                     </Grid>
                 </Grid>
