@@ -11,9 +11,9 @@ const useStyles = makeStyles((theme) => ({
         },
     },
     slider: {
-        marginTop: theme.spacing(2) + 4,
-        [theme.breakpoints.up('xs')]: {
-            marginTop: theme.spacing(4)
+        marginTop: theme.spacing(1) + 4,
+        [theme.breakpoints.up('sm')]: {
+            marginTop: theme.spacing(2)
         },
     },
 }))

@@ -25,23 +25,26 @@ const useStyles = makeStyles((theme) => ({
         fontWeight: '700'
     },
     seeAll: {
-        [theme.breakpoints.up('lg')]: {
-            marginRight: '1px',
-        },
         [theme.breakpoints.down('lg')]: {
             fontSize: '0.7rem',
             marginRight: '48px',
         },
         [theme.breakpoints.down('md')]: {
-            marginRight: '20px',
+            marginRight: '25px',
+            fontSize: '1rem',
         },
         [theme.breakpoints.down('sm')]: {
-            marginRight: '31px',
+            marginRight: '21px',
+            fontSize: '0.7rem',
         },
         [theme.breakpoints.down('xs')]: {
             marginRight: '0%',
+            fontSize: '0.7rem',
         },
-        fontSize: '0.7rem',
+        [theme.breakpoints.up('lg')]: {
+            marginRight: '7px',
+            fontSize: '1rem',
+        },
         fontWeight: '700',
         color: theme.palette.primary.light
     },
@@ -111,7 +114,7 @@ const Section = (props) => {
 
                 >
                     {displayData.map(items =>
-                        <Grid item item xs={3} sm={2} md={3} lg={2} xl={1} key={items.key}>
+                        <Grid item item xs={3} sm={2} md={2} lg={2} xl={1} key={items.key}>
                             <DisplayCard movie={items} individual='/movie' key={items.key} />
                         </Grid>
                     )}

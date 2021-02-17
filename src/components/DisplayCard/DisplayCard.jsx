@@ -27,7 +27,12 @@ const useStyles = makeStyles((theme) => ({
         },
         fontSize: '0.75rem',
         fontWeight: '700',
-        color: theme.palette.text.primary
+        color: theme.palette.text.primary,
+        paddingBottom: theme.spacing(1),
+        [theme.breakpoints.up('md')]: {
+            paddingBottom: theme.spacing(2)
+        },
+        width: '90%',
     },
 
 }))
@@ -35,6 +40,7 @@ const useStyles = makeStyles((theme) => ({
 const DisplayCard = (props) => {
     const theme = useTheme();
     const mobile = useMediaQuery(theme.breakpoints.down("sm"));
+    const medium = useMediaQuery(theme.breakpoints.down('md'))
     const classes = useStyles();
     const { movie, individual } = props
     var image = movie.image || movie.video_thumbnail
@@ -52,22 +58,22 @@ const DisplayCard = (props) => {
                 >
                     <Grid item>
                         <Box
-                            width={mobile ? 85 : 180}
-                            height={mobile ? 127 : 259}
+                            width={mobile ? 85 : medium ? 120 : 180}
+                            height={mobile ? 127 : medium ? 179 : 259}
                             boxShadow={2}
                         >
                             <Image
                                 className={classes.image}
                                 src={image || '/image.jpg'}
                                 alt={movie.name}
-                                width={mobile ? 85 : 180}
-                                height={mobile ? 127 : 259}
+                                width={mobile ? 85 : medium ? 120 : 180}
+                                height={mobile ? 127 : medium ? 179 : 259}
                             />
                         </Box>
                     </Grid>
                     <Grid item>
                         <Typography className={classes.text} align="left">
-                            {movie.name}
+                            {movie.name.length > 20 ? movie.name.substring(0, 20) + "..." : movie.name}
                         </Typography>
                     </Grid>
                 </Grid>
