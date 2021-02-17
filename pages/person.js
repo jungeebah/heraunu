@@ -85,7 +85,7 @@ const Person = () => {
         <Grid container
             direction="column"
             justify="space-between"
-            spacing={2}>
+            >
             <Grid item xs={12} >
                 <Grid container
                     direction="row"
@@ -128,7 +128,7 @@ const Person = () => {
                     <Grid container
                         direction="row"
                         alignItems="flex-end"
-                        spacing={2}>
+                        >
                         {person.movies ?
                             <Grid item xs={12}>
                                 <SimpleTabs movies={person.movies} />
