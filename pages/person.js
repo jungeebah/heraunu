@@ -64,6 +64,7 @@ const Person = () => {
     const individualPerson = useSelector(actorSelector)
 
     var { key, name, image } = router.query
+
     if (image === 'None') {
         image = '/image.jpg'
     }
@@ -75,6 +76,9 @@ const Person = () => {
         setPerson(null)
         dispatch(getActor(key))
     }, [])
+    React.useEffect(() => {
+        dispatch(getActor(key))
+    }, [key])
     React.useEffect(() => {
         dispatch(invalidateActor())
         setPerson(null)
