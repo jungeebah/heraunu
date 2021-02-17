@@ -65,7 +65,7 @@ const Section = (props) => {
     const theme = useTheme();
     const dispatch = useDispatch()
     const medium = useMediaQuery(theme.breakpoints.up("md"));
-    const { displayData, name, url } = props
+    const { displayData, name, url, individual } = props
     const classes = useStyles()
     const seeall_reset = (url) => {
         if (url === '/youtube') {
@@ -115,7 +115,7 @@ const Section = (props) => {
                 >
                     {displayData.map(items =>
                         <Grid item item xs={3} sm={2} md={2} lg={2} xl={1} key={items.key}>
-                            <DisplayCard movie={items} individual='/movie' key={items.key} />
+                            <DisplayCard movie={items} individual={individual} key={items.key} />
                         </Grid>
                     )}
                 </Grid>
