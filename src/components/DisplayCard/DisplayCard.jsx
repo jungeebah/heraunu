@@ -22,15 +22,15 @@ const useStyles = makeStyles((theme) => ({
 
     },
     text: {
-        [theme.breakpoints.up('md')]: {
-            fontSize: '1rem',
-        },
         fontSize: '0.75rem',
         fontWeight: '700',
         color: theme.palette.text.primary,
         paddingBottom: theme.spacing(1),
         [theme.breakpoints.up('md')]: {
             paddingBottom: theme.spacing(2)
+        },
+        [theme.breakpoints.up('md')]: {
+            fontSize: '1rem',
         },
         width: '90%',
     },
