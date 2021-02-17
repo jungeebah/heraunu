@@ -220,6 +220,7 @@ const movies = () => {
     const handleChipDelete = (chipToDelete) => () => {
         setFilterChanged(true)
         dispatch(updatePage(1))
+        setDefaultPage(1)
         setFilterChipList((chips) =>
             chips.filter((chip) => chip.value !== chipToDelete.value)
         );
