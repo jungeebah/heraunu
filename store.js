@@ -7,7 +7,10 @@ import actorReducer from './lib/slice/individualPerson'
 import genreDataReducer from './lib/slice/allGenre';
 import streamDataReducer from './lib/slice/allStream';
 import filterMovieReducer from './lib/slice/filter';
-import allSearchReducer from './lib/slice/search'
+import allSearchReducer from './lib/slice/search';
+import movieDataReducer from './lib/slice/moviesDataSlice';
+import personDataReducer from './lib/slice/personUserSlice';
+import youtubeDataReducer from './lib/slice/youtubeDataSlice'
 
 export default configureStore({
     reducer: {
@@ -20,7 +23,10 @@ export default configureStore({
         genreData: genreDataReducer,
         streamData: streamDataReducer,
         filterMovies: filterMovieReducer,
+        movieData: movieDataReducer,
+        personData: personDataReducer,
+        youtubeData: youtubeDataReducer,
     },
-    devTools: false,
+    devTools: true,
 })
 

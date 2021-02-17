@@ -16,6 +16,7 @@ const LightTheme = createMuiTheme({
             main: "#f1f1f1",
             dark: "#404040",
             contrastText: "#404040",
+            seeAll: '#a8dadc'
         },
         secondary: {
             light: "#ff4081",
@@ -31,7 +32,7 @@ const LightTheme = createMuiTheme({
             contrastText: "#fff",
         },
         text: {
-            primary: "rgba(0, 0, 0, 0.87)",
+            primary: "#314e52",
             secondary: "rgba(0, 0, 0, 0.54)",
             disabled: "rgba(0, 0, 0, 0.38)",
             hint: "rgba(0, 0, 0, 0.38)",

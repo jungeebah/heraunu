@@ -22,7 +22,7 @@ const useStyles = makeStyles((theme) => ({
         [theme.breakpoints.up('lg')]: {
             marginBottom: '0'
         },
-        marginTop: 'calc(17% + 10px)',
+        marginTop: theme.spacing(1),
         paddingLeft: theme.spacing(2),
 
         [theme.breakpoints.up('md')]: {
@@ -56,7 +56,7 @@ const Footer = () => {
     return (
         <Paper className={classes.footer} elevation={0}>
             <Typography variant="h6">
-                Hernucha
+                Heraunu
             </Typography>
             <Link href="/about">
                 <IconButton className={classes.button}>

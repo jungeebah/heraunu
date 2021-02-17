@@ -1,4 +1,5 @@
 import { getallYoutube, allYoutubeSelector, invalidateAllYoutube } from '../lib/slice/allYoutube';
+import { updatePageNumber, updateSorting, youtubeDataSelector } from '../lib/slice/youtubeDataSlice'
 import { useDispatch, useSelector } from 'react-redux';
 import React, { useState } from 'react';
 import SkeletonDisplay from '../src/components/SkeletonDisplay/SkeletonDisplay';
@@ -47,6 +48,9 @@ const useStyles = makeStyles((theme) => ({
     sort: {
         marginTop: -theme.spacing(2)
     },
+    title: {
+        marginBottom: theme.spacing(1)
+    }
 }))
 
 function Filter_alt(props) {
@@ -59,29 +63,33 @@ function Filter_alt(props) {
 
 const youtube = () => {
     const youtubeData = useSelector(allYoutubeSelector);
+    const userData = useSelector(youtubeDataSelector);
     const skeletonItem = [...Array(10).keys()]
     const dispatch = useDispatch();
     const classes = useStyles();
     const theme = useTheme();
-    const [primary, setPrimary] = React.useState(1);
     const mobile = useMediaQuery(theme.breakpoints.down("xs"));
     const [filterOpen, setFilterOpen] = React.useState(false);
     const [youtubeList, setYoutubeList] = useState(youtubeData.allmovies)
     const [displayData, setDisplayData] = useState(youtubeList.slice(0, 10))
     const [totalYoutube, setTotalYoutube] = useState(youtubeList.length);
     const sort_item = ['Upload date', 'View Count'];
+    const trend_item = ['Weekly']
     const nextPage = (e, v) => {
+        dispatch(updatePageNumber(v))
         setDisplayData(youtubeList.slice((v - 1) * 10, v * 10))
     }
 
-    const sortPressed = (e, index) => {
-        setPrimary(index)
-        invalidateAllYoutube()
-        if (index === 0) {
+    const sortPressed = (e, item) => {
+        dispatch(updateSorting(item))
+        dispatch(invalidateAllYoutube())
+        setFilterOpen(false)
+        if (item === 'Upload date') {
             dispatch(getallYoutube('-youtube__video_date'))
-        } else {
+        } else if (item === 'View Count') {
             dispatch(getallYoutube('-youtube__views'))
-
+        } else if (item === 'Weekly') {
+            dispatch(getallYoutube('-youtube__weekly'))
         }
 
     }
@@ -114,40 +122,80 @@ const youtube = () => {
             </Box>
             <Collapse in={filterOpen}>
                 <Box display="flex" flexDirection="row">
-                    <Typography
-                        variant={mobile ? 'subtitle1' : 'body1'}>
-                        SORT BY
+                    <Box>
+                        <Typography
+                            variant={mobile ? 'subtitle1' : 'body1'}>
+                            SORT BY
                     </Typography>
+                    </Box>
+                    <Box ml={5}>
+                        <Typography
+                            variant={mobile ? 'subtitle1' : 'body1'}>
+                            TREND
+                    </Typography>
+                    </Box>
                 </Box>
                 <Box>
                     <hr className={classes.hr} />
                 </Box>
-                <List dense={true} className={classes.sort}>
-                    {sort_item.map((item, index) => (
-                        <ListItem button
-                            key={item}
-                            onClick={(e) => sortPressed(e, index)}
-                        >
-                            <ListItemText
-                                key={item}
-                                primary={
-                                    <React.Fragment>
-                                        <Typography
-                                            key={item}
-                                            component="span"
-                                            variant="body2"
-                                            className={classes.inline}
-                                            color={primary === index ? 'secondary' : 'textPrimary'}
-                                        >
-                                            {item}
-                                        </Typography>
-                                    </React.Fragment>
-                                }
+                <Box display="flex" flexDirection="row">
+                    <Box>
+                        <List dense={true} className={classes.sort}>
+                            {sort_item.map((item) => (
+                                <ListItem button
+                                    key={item}
+                                    onClick={(e) => sortPressed(e, item)}
+                                >
+                                    <ListItemText
+                                        key={item}
+                                        primary={
+                                            <React.Fragment>
+                                                <Typography
+                                                    key={item}
+                                                    component="span"
+                                                    variant="body2"
+                                                    className={classes.inline}
+                                                    color={userData.sorting === item ? 'secondary' : 'textPrimary'}
+                                                >
+                                                    {item}
+                                                </Typography>
+                                            </React.Fragment>
+                                        }
 
-                            />
-                        </ListItem>
-                    ))}
-                </List>
+                                    />
+                                </ListItem>
+                            ))}
+                        </List>
+                    </Box>
+                    <Box>
+                        <List dense={true} className={classes.sort}>
+                            {trend_item.map((item) => (
+                                <ListItem button
+                                    key={item}
+                                    onClick={(e) => sortPressed(e, item)}
+                                >
+                                    <ListItemText
+                                        key={item}
+                                        primary={
+                                            <React.Fragment>
+                                                <Typography
+                                                    key={item}
+                                                    component="span"
+                                                    variant="body2"
+                                                    className={classes.inline}
+                                                    color={userData.sorting === item ? 'secondary' : 'textPrimary'}
+                                                >
+                                                    {item}
+                                                </Typography>
+                                            </React.Fragment>
+                                        }
+
+                                    />
+                                </ListItem>
+                            ))}
+                        </List>
+                    </Box>
+                </Box>
             </Collapse>
         </div >
 
@@ -163,7 +211,7 @@ const youtube = () => {
     }, [youtubeData])
 
     React.useEffect(() => {
-        setDisplayData(youtubeList.slice(0, 10))
+        setDisplayData(youtubeList.slice((userData.pageNumber - 1) * 10, userData.pageNumber * 10))
         setTotalYoutube(youtubeList.length)
     }
         , [youtubeList])
@@ -173,13 +221,13 @@ const youtube = () => {
                 <Box>
                     {filter}
                 </Box>
-                <Typography variant='h6' color="secondary">
+                <Typography variant='h6' color="secondary" className={classes.title}>
                     Youtube
                 </Typography>
-                <Grid container spacing={2}>
+                <Grid container >
                     {youtubeData.allmovies ?
                         displayData.map(items => (
-                            <Grid item xs={4} sm={2} md={3} xl={2} key={items.key} >
+                            <Grid item xs={3} sm={2} md={3} lg={2} key={items.key} >
                                 <DisplayCard movie={items} individual='/movie' />
                             </Grid>
                         ))
@@ -195,7 +243,7 @@ const youtube = () => {
                     variant="outlined"
                     shape="rounded"
                     size="small"
-
+                    page={userData.pageNumber}
                     onChange={nextPage} />
             </Box>
         </div >

@@ -2,7 +2,8 @@ import { makeStyles, useTheme } from "@material-ui/core/styles";
 import { getIndividualMovie, individualMovieSelector, invalidateIndividualMovie } from '../lib/slice/individualMovie';
 import { useDispatch, useSelector } from 'react-redux';
 import React from 'react';
-import Collections from '../src/components/Collection/Collection'
+import DisplayCard from '../src/components/DisplayCard/DisplayCard'
+import YouTube from 'react-youtube';
 import Image from 'next/image';
 import Cast from '../src/components/Cast/Cast'
 import { useRouter } from 'next/router';
@@ -15,7 +16,6 @@ import IconButton from '@material-ui/core/IconButton'
 import Box from '@material-ui/core/Box';
 import Typography from '@material-ui/core/Typography';
 import useMediaQuery from "@material-ui/core/useMediaQuery";
-import YouTube from 'react-youtube';
 
 const useStyles = makeStyles((theme) => ({
     movie: {
@@ -150,31 +150,30 @@ const useStyles = makeStyles((theme) => ({
         position: 'relative',
         overflow: 'hidden',
         width: '100%',
-        [theme.breakpoints.down('sm')]: {
-            marginBottom: 'calc(25% + 90px)',
-        },
-        [theme.breakpoints.between('sm', 'md')]: {
-            marginBottom: 'calc(35% + 150px)',
-        },
-        [theme.breakpoints.between('md', 'lg')]: {
-            marginBottom: 'calc(1% + 100px)',
-        },
-        marginBottom: 'calc(1% + 90px)',
+        // [theme.breakpoints.down('sm')]: {
+        //     marginBottom: 'calc(250% + 90px)',
+        // },
+        // [theme.breakpoints.between('sm', 'md')]: {
+        //     marginBottom: 'calc(350% + 150px)',
+        // },
+        // [theme.breakpoints.between('md', 'lg')]: {
+        //     marginBottom: 'calc(260% + 100px)',
+        // },
+        // marginBottom: 'calc(1% + 90px)',
         '&::after': {
-            paddingTop: '56.25%', /* 16:9 */
+            // paddingTop: '56.25%', /* 16:9 */
             display: 'block',
             content: '""',
         }
     },
     frame: {
-        position: 'absolute',
+        position: 'relative',
         top: 0,
         left: 0,
         width: '100 %',
         height: '100 %',
     }
 }));
-
 
 function get_id(url) {
     var video_id = url.split('v=')[1];
@@ -185,10 +184,7 @@ function get_id(url) {
     return video_id
 }
 
-
-
-const Movie = () => {
-
+const Movie = (props) => {
     const theme = useTheme();
     const router = useRouter()
     const dispatch = useDispatch();
@@ -196,22 +192,34 @@ const Movie = () => {
     const [movie, setMovie] = React.useState(null)
     const [youtubeLocation, setYoutubeLocation] = React.useState('')
     const moviesData = useSelector(individualMovieSelector);
-
     React.useEffect(() => {
         dispatch(invalidateIndividualMovie())
         setMovie(null)
         dispatch(getIndividualMovie(key))
     }, [])
+
+    React.useEffect(() => {
+        dispatch(invalidateIndividualMovie())
+        setMovie(null)
+        dispatch(getIndividualMovie(key))
+    }, [router.asPath])
+
     React.useEffect(() => {
         if (moviesData.movie && moviesData.movie.name === name) {
             setMovie(moviesData.movie)
             setYoutubeLocation(moviesData.movie.location)
         }
     }, [moviesData])
+
+    const onStart = (event) => {
+        event.target.pauseVideo();
+    }
+
     const classes = useStyles()
     const mobile = useMediaQuery(theme.breakpoints.down("xs"));
     const large = useMediaQuery(theme.breakpoints.up("md"));
     const xlarge = useMediaQuery(theme.breakpoints.up("lg"));
+
     const opts = {
         height: mobile ? '208' : large ? '405' : '360',
         width: mobile ? '370' : large ? '720' : '640',
@@ -252,11 +260,6 @@ const Movie = () => {
         }
 
     }
-
-    const onStart = (event) => {
-        event.target.pauseVideo();
-    }
-
     const imdbRating = movie ? movie.imdb_rating ? (
         <div className={classes.streaming}>
             <Grid item xs={12} lg={12}>
@@ -381,7 +384,7 @@ const Movie = () => {
             <IconButton className={classes.genreButton} edge="start"
                 size="small" >
                 <Typography variant="caption" >
-                    <Box border={1} display="flex" justifyContent="center" >
+                    <Box border={1} borderRadius={5} p='2px' fontWeight={500}>
                         {item.name}
                     </Box>
                 </Typography>
@@ -444,14 +447,22 @@ const Movie = () => {
                     />
                 </div>
             </Grid>
-            {/* {movie.collection.length > 1 ? <Grid item xs={12}>
+            {movie.collection.length > 1 ? <Grid item xs={12}>
                 <div className={classes.casting}>
-                    <Collections
-                        actor={movie.collection}
-                    />
+                    <Typography variant='h6' >
+                        Collections
+                </Typography>
+                    <Grid container spacing={3}>
+                        {movie.collection.map(items =>
+                        (
+                            <Grid item xs={3} sm={2} md={3} lg={2} key={items.key} >
+                                <DisplayCard movie={items} individual='/movie' key={items.key} />
+                            </Grid>
+                        ))}
+                    </Grid>
                 </div>
             </Grid> : <div></div>
-            } */}
+            }
             {movie.trailer ?
                 <Grid item xs={12}>
                     <Typography variant={large ? "h6" : "body1"} display="block" gutterBottom>
@@ -470,6 +481,10 @@ const Movie = () => {
         </div>
     )
 }
+
+Movie.getInitialProps = async ({ req }) => {
+    return { isServer: !!req };
+};
 
 export default Movie
 

@@ -3,10 +3,11 @@ import { useDispatch, useSelector } from 'react-redux';
 import SkeletonDisplay from '../src/components/SkeletonDisplay/SkeletonDisplay';
 import React, { useState } from 'react'
 import Typography from '@material-ui/core/Typography'
-import { makeStyles} from "@material-ui/core/styles";
+import { makeStyles } from "@material-ui/core/styles";
 import DisplayCard from '../src/components/DisplayCard/DisplayCard';
 import Grid from '@material-ui/core/Grid';
 import Pagination from '@material-ui/lab/Pagination';
+import { updatePageNumber, personDataSelector } from '../lib/slice/personUserSlice';
 import Box from '@material-ui/core/Box'
 
 const useStyles = makeStyles((theme) => ({
@@ -25,18 +26,23 @@ const useStyles = makeStyles((theme) => ({
     },
     pagination: {
         marginTop: theme.spacing(1)
+    },
+    title: {
+        marginBottom: theme.spacing(1)
     }
 }))
 
 const actors = () => {
     const skeletonItem = [...Array(10).keys()]
     const person = useSelector(allPersonSelector);
+    const userData = useSelector(personDataSelector)
     const dispatch = useDispatch();
     const classes = useStyles();
     const [personList, setPersonList] = useState(person.allActors)
-    const [displayData, setDisplayData] = useState(personList.slice(0, 10))
+    const [displayData, setDisplayData] = useState(personList.slice((userData.pageNumber - 1) * 10, userData.pageNumber * 10))
     const [totalPerson, setTotalPerson] = useState(personList.length)
     const nextPage = (e, v) => {
+        dispatch(updatePageNumber(v))
         setDisplayData(personList.slice((v - 1) * 10, v * 10))
     }
     React.useEffect(() => {
@@ -49,7 +55,7 @@ const actors = () => {
     }, [person])
 
     React.useEffect(() => {
-        setDisplayData(personList.slice(0, 10))
+        setDisplayData(personList.slice((userData.pageNumber - 1) * 10, userData.pageNumber * 10))
         setTotalPerson(personList.length)
     }, [personList])
 
@@ -65,13 +71,13 @@ const actors = () => {
     return (
         <div className={classes.persons}>
             <div >
-                <Typography variant='h6' color="secondary">
+                <Typography variant='h6' color="secondary" className={classes.title}>
                     Actors
                 </Typography>
-                <Grid container spacing={2}>
+                <Grid container>
                     {displayData ?
                         displayData.map(items => (
-                            <Grid item xs={4} sm={2} md={3} xl={2} key={items.key} >
+                            <Grid item xs={3} sm={2} md={3} lg={2} key={items.key} >
                                 <DisplayCard movie={items} individual='/person' />
                             </Grid>
                         ))
@@ -87,6 +93,7 @@ const actors = () => {
                     variant="outlined"
                     shape="rounded"
                     size="small"
+                    page={userData.pageNumber}
                     onChange={nextPage} />
             </Box>
         </div >

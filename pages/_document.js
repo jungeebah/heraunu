@@ -19,10 +19,6 @@ export default class MyDocument extends Document {
                     <link rel="manifest" href="/manifest.json" />
                     <meta name="theme-color" content={LightTheme.palette.primary.main} />
                     <script
-                        async
-                        src='https://www.googletagmanager.com/gtag/js?id=G-PVQ3RNYL4H'
-                    />
-                    <script
                         dangerouslySetInnerHTML={{
                             __html: `
                                 window.dataLayer = window.dataLayer || [];
