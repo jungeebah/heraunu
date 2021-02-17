@@ -27,6 +27,6 @@ export default configureStore({
         personData: personDataReducer,
         youtubeData: youtubeDataReducer,
     },
-    devTools: true,
+    devTools: false,
 })
 
