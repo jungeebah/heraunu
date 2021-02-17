@@ -57,9 +57,9 @@ const search = () => {
     ) : <div></div>
 
     const apiSearchResult = searchResult ? (
-        <Grid container spacing={2}>
+        <Grid container >
             {searchResult.map((item) => (
-                <Grid item xs={4} sm={3} lg={3} key={item.key}>
+                <Grid item item xs={3} sm={2} md={2} lg={2} xl={1} key={item.key}>
                     <DisplayCard movie={item}
                         individual={item.item === 'Actor' ? '/person' : '/movie'}
                         key={item.item} />

@@ -74,7 +74,10 @@ const AutoComplete = (props) => {
 
     const defaultProps = {
         options: [...allMoviesData, ...allPersonsData],
-        getOptionLabel: (option) => option.name,
+        getOptionLabel: (option) => option.name.toLowerCase()
+            .split(' ')
+            .map((s) => s.charAt(0).toUpperCase() + s.substring(1))
+            .join(' '),
     };
     return (
         <div className={classes.root}>
