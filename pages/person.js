@@ -76,6 +76,12 @@ const Person = () => {
         dispatch(getActor(key))
     }, [])
     React.useEffect(() => {
+        dispatch(invalidateActor())
+        setPerson(null)
+        dispatch(getActor(key))
+    }, [router.asPath])
+
+    React.useEffect(() => {
         if (individualPerson) {
             setPerson(individualPerson)
         }
@@ -85,7 +91,7 @@ const Person = () => {
         <Grid container
             direction="column"
             justify="space-between"
-            >
+        >
             <Grid item xs={12} >
                 <Grid container
                     direction="row"
@@ -128,7 +134,7 @@ const Person = () => {
                     <Grid container
                         direction="row"
                         alignItems="flex-end"
-                        >
+                    >
                         {person.movies ?
                             <Grid item xs={12}>
                                 <SimpleTabs movies={person.movies} />
