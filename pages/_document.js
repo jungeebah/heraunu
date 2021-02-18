@@ -18,6 +18,7 @@ export default class MyDocument extends Document {
                     <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
                     <link rel="manifest" href="/manifest.json" />
                     <meta name="theme-color" content={LightTheme.palette.primary.main} />
+                    <script async src="https://www.googletagmanager.com/gtag/js?id=G-PVQ3RNYL4H"></script>
                     <script
                         dangerouslySetInnerHTML={{
                             __html: `
