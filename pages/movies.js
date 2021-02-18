@@ -83,7 +83,7 @@ const movies = () => {
     const [genreFilter, setGenreFilter] = React.useState(moviesUserSetting.filters[0])
     const [streamFilter, setStreamFilter] = React.useState(moviesUserSetting.filters[1])
     const [yearFilter, setYearFilter] = React.useState(moviesUserSetting.filters[2])
-    const [filterChipList, setFilterChipList] = React.useState(moviesUserSetting.filterChip);
+    const [filterChipList, setFilterChipList] = React.useState([...moviesUserSetting.filterChip]);
     const [isFiltering, setIsFiltering] = React.useState(moviesUserSetting.isFiltering);
     const [filteredData, setFilteredData] = React.useState([])
     const [movieList, setMovieList] = React.useState(movie.allmovies)
@@ -105,8 +105,12 @@ const movies = () => {
         if (!movie.allmovies?.length) {
             dispatch(getallMovie())
         }
-        dispatch(getGenreDataKey())
-        dispatch(getStreamDataKey())
+        if (!genreList?.length) {
+            dispatch(getGenreDataKey())
+        }
+        if (!streamList?.length) {
+            dispatch(getStreamDataKey())
+        }
     }, [])
 
     React.useEffect(() => {
@@ -140,11 +144,12 @@ const movies = () => {
                 }
                 else {
                     if (filterChipList.filter((x) => x.key === "S").length > 0) {
-                        filterChipList.find(
+                        var newList = JSON.parse(JSON.stringify(filterChipList))
+                        newList.find(
                             (x) => x.key === "S" && ((x.value = event.target.value), true)
                         );
-                        setFilterChipList(filterChipList);
-                        dispatch(updateFilterChip(filterChipList))
+                        setFilterChipList(newList);
+                        dispatch(updateFilterChip(newList))
 
                     }
                     else {
@@ -169,11 +174,12 @@ const movies = () => {
                 }
                 else {
                     if (filterChipList.filter((x) => x.key === "G").length > 0) {
-                        filterChipList.find(
+                        var newList = JSON.parse(JSON.stringify(filterChipList))
+                        newList.find(
                             (x) => x.key === "G" && ((x.value = event.target.value), true)
                         );
-                        setFilterChipList(filterChipList);
-                        dispatch(updateFilterChip(filterChipList))
+                        setFilterChipList(newList);
+                        dispatch(updateFilterChip(newList))
                     }
                     else {
                         setFilterChipList((chips) =>
@@ -195,11 +201,12 @@ const movies = () => {
                     }
                 } else {
                     if (filterChipList.filter((x) => x.key === "Y").length > 0 && event.target.value !== 'All') {
-                        filterChipList.find(
+                        var newList = JSON.parse(JSON.stringify(filterChipList))
+                        newList.find(
                             (x) => x.key === "Y" && ((x.value = event.target.value), true)
                         );
-                        setFilterChipList(filterChipList);
-                        dispatch(updateFilterChip(filterChipList))
+                        setFilterChipList(newList);
+                        dispatch(updateFilterChip(newList))
                     }
                     else {
                         setFilterChipList((chips) =>

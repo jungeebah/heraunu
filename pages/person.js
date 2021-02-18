@@ -71,11 +71,17 @@ const Person = () => {
     const [person, setPerson] = React.useState(null)
     const large = useMediaQuery(theme.breakpoints.up("lg"));
     const skeletonItem = [...Array(10).keys()]
+
+    React.useEffect(() => {
+        dispatch(invalidateActor())
+        setPerson(null)
+    }, [])
+
     React.useEffect(() => {
         dispatch(invalidateActor())
         setPerson(null)
         dispatch(getActor(key))
-    }, [])
+    }, [key])
 
     React.useEffect(() => {
         dispatch(invalidateActor())
@@ -122,8 +128,8 @@ const Person = () => {
                             direction="row"
                         >
                             <Grid item xs={12}>
-                                {person.name ? <Typography variant='h6'>
-                                    {person.name}
+                                {name ? <Typography variant='h6'>
+                                    {name}
                                 </Typography> :
                                     <div className={classes.skeletonTitle}>
                                         <Skeleton variant="rect" height={20} width="60%" />
@@ -139,13 +145,13 @@ const Person = () => {
                         direction="row"
                         alignItems="flex-end"
                     >
-                        {person.movies ?
+                        {person.name === name && person.movies ?
                             <Grid item xs={12}>
                                 <SimpleTabs movies={person.movies} />
                             </Grid>
                             :
                             skeletonItem.map((item) => (
-                                <Grid item xs={3} sm={2} md={3} lg={2} key={item}>
+                                <Grid item xs={3} sm={2} md={3} xl={2} key={item}>
                                     <SkeletonDisplay />
                                 </Grid>
 
