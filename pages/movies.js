@@ -171,7 +171,7 @@ const movies = () => {
                         dispatch(updateFilterChip(filterChipList.concat({ key: "S", value: event.target.value })))
                     }
                 }
-                dispatch(updateFilters([genreFilter, streamValue, yearFilter,imdbFilter]))
+                dispatch(updateFilters([genreFilter, streamValue, yearFilter, imdbFilter]))
                 setStreamFilter(streamValue)
                 setEndPoint(`/?page=${1}&release_date=${moviesUserSetting.filters[2] === 'All' ? '' : moviesUserSetting.filters[2] === 'Upcoming' ? 2050 : moviesUserSetting.filters[2]}&genre=${moviesUserSetting.filters[0] === 'All' ? '' : moviesUserSetting.filters[0]}&streaming=${streamValue === 'All' ? '' : streamValue}&imdb_rating=${moviesUserSetting.filters[3] === 'All' ? '' : moviesUserSetting[3]} `)
                 break;
@@ -200,7 +200,7 @@ const movies = () => {
                         dispatch(updateFilterChip(filterChipList.concat({ key: "G", value: event.target.value })))
                     }
                 }
-                dispatch(updateFilters([genreValue, streamFilter, yearFilter,imdbFilter]))
+                dispatch(updateFilters([genreValue, streamFilter, yearFilter, imdbFilter]))
                 setGenreFilter(genreValue);
                 setEndPoint(`/?page=${1}&release_date=${moviesUserSetting.filters[2] === 'All' ? '' : moviesUserSetting.filters[2] === 'Upcoming' ? 2050 : moviesUserSetting.filters[2]}&genre=${genreValue === 'All' ? '' : genreValue}&streaming=${moviesUserSetting.filters[1] === 'All' ? '' : moviesUserSetting.filters[1]}&imdb_rating=${moviesUserSetting.filters[3] === 'All' ? '' : moviesUserSetting[3]} `)
                 break;
@@ -227,7 +227,7 @@ const movies = () => {
                         dispatch(updateFilterChip(filterChipList.concat({ key: "Y", value: event.target.value })))
                     }
                 }
-                dispatch(updateFilters([genreFilter, streamFilter, event.target.value,imdbFilter]))
+                dispatch(updateFilters([genreFilter, streamFilter, event.target.value, imdbFilter]))
                 setYearFilter(event.target.value);
                 setEndPoint(`/?page=${1}&release_date=${event.target.value === 'All' ? '' : event.target.value === 'Upcoming' ? 2050 : event.target.value}&genre=${moviesUserSetting.filters[0] === 'All' ? '' : moviesUserSetting.filters[0]}&streaming=${moviesUserSetting.filters[1] === 'All' ? '' : moviesUserSetting.filters[1]}&imdb_rating=${moviesUserSetting.filters[3] === 'All' ? '' : moviesUserSetting[3]} `)
                 break;
@@ -255,7 +255,7 @@ const movies = () => {
                 }
                 dispatch(updateFilters([genreFilter, streamFilter, yearFilter, event.target.value]))
                 setImdbFilter(event.target.value);
-                setEndPoint(`/?page=${1}&release_date=${moviesUserSetting.filters[2] === 'All' ? '' : moviesUserSetting.filters[2] === 'Upcoming' ? 2050 : moviesUserSetting.filters[2]}&genre=${moviesUserSetting.filters[0] === 'All' ? '' : moviesUserSetting.filters[0]}&streaming=${moviesUserSetting.filters[1] === 'All' ? '' : moviesUserSetting.filters[1]}&imdb_rating=${event.target.value} `)
+                setEndPoint(`/?page=${1}&release_date=${moviesUserSetting.filters[2] === 'All' ? '' : moviesUserSetting.filters[2] === 'Upcoming' ? 2050 : moviesUserSetting.filters[2]}&genre=${moviesUserSetting.filters[0] === 'All' ? '' : moviesUserSetting.filters[0]}&streaming=${moviesUserSetting.filters[1] === 'All' ? '' : moviesUserSetting.filters[1]}&imdb_rating=${event.target.value === 'All' ? '' : event.target.value} `)
                 break;
             default:
                 break;
