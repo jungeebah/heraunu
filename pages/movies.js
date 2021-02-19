@@ -285,7 +285,7 @@ const movies = () => {
             setYearFilter("All");
         } else if (chipToDelete.key === 'I') {
             dispatch(updateFilters([genreFilter, streamFilter, yearFilter, 'All']))
-            setEndPoint(`/?page=${1}&release_date=${yearFilter === 'All' ? '' : yearFilter === 'Upcoming' ? 2050 : yearFilter}&genre=${genreFilter === 'All' ? '' : genreFilter}&streaming=${streamFilter === 'All' ? '' : streamFilter}&imdb_rating=${event.target.value === 'All' ? '' : event.target.value}`);
+            setEndPoint(`/?page=${1}&release_date=${yearFilter === 'All' ? '' : yearFilter === 'Upcoming' ? 2050 : yearFilter}&genre=${genreFilter === 'All' ? '' : genreFilter}&streaming=${streamFilter === 'All' ? '' : streamFilter}&imdb_rating=`);
             setImdbFilter("All");
         }
     }
