@@ -173,7 +173,7 @@ const movies = () => {
                 }
                 dispatch(updateFilters([genreFilter, streamValue, yearFilter, imdbFilter]))
                 setStreamFilter(streamValue)
-                setEndPoint(`/?page=${1}&release_date=${moviesUserSetting.filters[2] === 'All' ? '' : moviesUserSetting.filters[2] === 'Upcoming' ? 2050 : moviesUserSetting.filters[2]}&genre=${moviesUserSetting.filters[0] === 'All' ? '' : moviesUserSetting.filters[0]}&streaming=${streamValue === 'All' ? '' : streamValue}&imdb_rating=${moviesUserSetting.filters[3] === 'All' ? '' : moviesUserSetting[3]} `)
+                setEndPoint(`/?page=${1}&release_date=${moviesUserSetting.filters[2] === 'All' ? '' : moviesUserSetting.filters[2] === 'Upcoming' ? 2050 : moviesUserSetting.filters[2]}&genre=${moviesUserSetting.filters[0] === 'All' ? '' : moviesUserSetting.filters[0]}&streaming=${streamValue === 'All' ? '' : streamValue}&imdb_rating=${moviesUserSetting.filters[3] === 'All' ? '' : moviesUserSetting.filters[3]} `)
                 break;
             case "genre":
                 const genreValue = event.target.value === 'All' ? 'All' : genreList.filter(a => a.name === event.target.value)[0].key
@@ -202,7 +202,7 @@ const movies = () => {
                 }
                 dispatch(updateFilters([genreValue, streamFilter, yearFilter, imdbFilter]))
                 setGenreFilter(genreValue);
-                setEndPoint(`/?page=${1}&release_date=${moviesUserSetting.filters[2] === 'All' ? '' : moviesUserSetting.filters[2] === 'Upcoming' ? 2050 : moviesUserSetting.filters[2]}&genre=${genreValue === 'All' ? '' : genreValue}&streaming=${moviesUserSetting.filters[1] === 'All' ? '' : moviesUserSetting.filters[1]}&imdb_rating=${moviesUserSetting.filters[3] === 'All' ? '' : moviesUserSetting[3]} `)
+                setEndPoint(`/?page=${1}&release_date=${moviesUserSetting.filters[2] === 'All' ? '' : moviesUserSetting.filters[2] === 'Upcoming' ? 2050 : moviesUserSetting.filters[2]}&genre=${genreValue === 'All' ? '' : genreValue}&streaming=${moviesUserSetting.filters[1] === 'All' ? '' : moviesUserSetting.filters[1]}&imdb_rating=${moviesUserSetting.filters[3] === 'All' ? '' : moviesUserSetting.filters[3]} `)
                 break;
             case "year":
 
@@ -229,7 +229,7 @@ const movies = () => {
                 }
                 dispatch(updateFilters([genreFilter, streamFilter, event.target.value, imdbFilter]))
                 setYearFilter(event.target.value);
-                setEndPoint(`/?page=${1}&release_date=${event.target.value === 'All' ? '' : event.target.value === 'Upcoming' ? 2050 : event.target.value}&genre=${moviesUserSetting.filters[0] === 'All' ? '' : moviesUserSetting.filters[0]}&streaming=${moviesUserSetting.filters[1] === 'All' ? '' : moviesUserSetting.filters[1]}&imdb_rating=${moviesUserSetting.filters[3] === 'All' ? '' : moviesUserSetting[3]} `)
+                setEndPoint(`/?page=${1}&release_date=${event.target.value === 'All' ? '' : event.target.value === 'Upcoming' ? 2050 : event.target.value}&genre=${moviesUserSetting.filters[0] === 'All' ? '' : moviesUserSetting.filters[0]}&streaming=${moviesUserSetting.filters[1] === 'All' ? '' : moviesUserSetting.filters[1]}&imdb_rating=${moviesUserSetting.filters[3] === 'All' ? '' : moviesUserSetting.filters[3]} `)
                 break;
             case "IMDB":
                 if (event.target.value === 'All') {
@@ -297,7 +297,7 @@ const movies = () => {
     }, [endpoint])
 
     React.useEffect(() => {
-        if (genreFilter === 'All' && streamFilter === 'All' && yearFilter === 'All') {
+        if (genreFilter === 'All' && streamFilter === 'All' && yearFilter === 'All' && imdbFilter === 'All') {
             setIsFiltering(false)
             dispatch(updateIsFiltering(false))
         }
@@ -306,7 +306,7 @@ const movies = () => {
             setIsFiltering(true)
             // setTotalData(filteredData)
         }
-    }, [genreFilter, streamFilter, yearFilter])
+    }, [genreFilter, streamFilter, yearFilter, imdbFilter])
 
     React.useEffect(() => {
         setGenreList(genreData.genres)
@@ -445,7 +445,7 @@ const movies = () => {
                                     select
                                     label="IMDB Rating"
                                     size="small"
-                                    value={moviesUserSetting.filters[1] === 'All' ? moviesUserSetting.filters[1] : streamList.filter(a => a.key === moviesUserSetting.filters[1])[0].site}
+                                    value={imdbFilter}
                                     onChange={handleChangeFilter}
                                     SelectProps={{
                                         native: true,
