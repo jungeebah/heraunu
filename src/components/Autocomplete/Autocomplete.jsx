@@ -53,12 +53,13 @@ const AutoComplete = (props) => {
     const selected = (e, v) => {
         if (v) {
             const image = v.image || v.video_thumbnail || '/image.jpg'
+            const youtube_url = v.youtube_url || null
             if (v.item === 'Movie') {
                 var type = '/movie'
             } else {
                 var type = '/person'
             }
-            router.push({ pathname: '/search', query: { key: v.key, name: v.name, image: image, type: type } })
+            router.push({ pathname: '/search', query: { key: v.key, name: v.name, image: image, type: type, youtube_url: youtube_url } }, '/search')
         }
     }
 
