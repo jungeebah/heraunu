@@ -108,7 +108,7 @@ const movies = () => {
         if (moviesUserSetting.isFiltering) {
             setFilterChanged(false)
             dispatch(invalidateFilterMovie())
-            setEndPoint(`/?page=${v}&release_date=${yearFilter === 'All' ? '' : yearFilter === 'Upcoming' ? 2050 : yearFilter}&genre=${genreFilter === 'All' ? '' : genreFilter}&streaming=${streamFilter === 'All' ? '' : streamFilter} `)
+            setEndPoint(`/?page=${v}&release_date=${yearFilter === 'All' ? '' : yearFilter === 'Upcoming' ? 2050 : yearFilter}&genre=${genreFilter === 'All' ? '' : genreFilter}&streaming=${streamFilter === 'All' ? '' : streamFilter}&imdb_rating=${imdbFilter === 'All' ? '' : imdbFilter} `)
         } else {
             setDisplayData(movieList.slice((v - 1) * 10, v * 10))
         }
