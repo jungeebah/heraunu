@@ -1,6 +1,8 @@
 import React from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
+import Fab from '@material-ui/core/Fab';
+import YouTubeIcon from '@material-ui/icons/YouTube';
 import Box from '@material-ui/core/Box'
 import IconButton from '@material-ui/core/IconButton';
 import Typography from '@material-ui/core/Typography';
@@ -19,6 +21,20 @@ const useStyles = makeStyles((theme) => ({
     },
     image: {
         borderRadius: theme.spacing(1) - 6,
+    },
+    imageBox: {
+        position: 'relative'
+    },
+    fab: {
+        position: 'absolute',
+        [theme.breakpoints.down('sm')]: {
+            bottom: theme.spacing(1) - 10,
+
+        },
+        display: 'flex',
+        alignContent: 'flex- start',
+        bottom: theme.spacing(2),
+        left: 0,
 
     },
     text: {
@@ -61,20 +77,32 @@ const DisplayCard = (props) => {
                     justify="center"
                 >
                     <Grid item>
-                        <Box
-                            width={mobile ? 85 : medium ? 120 : 180}
-                            height={mobile ? 127 : medium ? 179 : 259}
-                            boxShadow={2}
-                        >
-                            <Image
-                                className={classes.image}
-                                src={image || '/image.jpg'}
-                                alt={movie.name}
+                        <Box className={classes.imageBox}>
+                            <Box
                                 width={mobile ? 85 : medium ? 120 : 180}
                                 height={mobile ? 127 : medium ? 179 : 259}
-                            />
+                                boxShadow={2}
+
+                            >
+
+                                <Image
+                                    className={classes.image}
+                                    src={image || '/image.jpg'}
+                                    alt={movie.name}
+                                    width={mobile ? 85 : medium ? 120 : 180}
+                                    height={mobile ? 127 : medium ? 179 : 259}
+                                />
+
+                            </Box>
+                            <Box className={classes.fab}>
+                                {movie.youtube_url
+                                    ?
+                                    <YouTubeIcon color='secondary' />
+                                    : <div></div>}
+                            </Box>
                         </Box>
                     </Grid>
+
                     <Grid item>
                         <Typography className={classes.text} align="left">
                             {name.length > 20 ? name.substring(0, 20) + "..." : name}
