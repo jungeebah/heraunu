@@ -45,7 +45,13 @@ const useStyles = makeStyles((theme) => ({
     },
     title: {
         marginBottom: theme.spacing(1)
-    }
+    },
+    filterBox: {
+        [theme.breakpoints.down('xs')]: {
+            width: '100%'
+        },
+        width: 'inherit'
+    },
 }))
 
 function Filter_alt(props) {
@@ -55,11 +61,16 @@ function Filter_alt(props) {
         </SvgIcon>
     );
 }
+
+
 const currentYear = new Date().getFullYear();
 const range = (start, stop, step) =>
     Array.from({ length: (stop - start) / step + 1 }, (_, i) => start + i * step);
 const rangeYear = range(currentYear, currentYear - 50, -1);
 const yearList = ["All", "Upcoming", ...rangeYear];
+
+const imdb = Array.from(new Array(10), (x, i) => i + 1);
+const imdbRating = ['All', ...imdb]
 
 const movies = () => {
     const skeletonItem = [...Array(10).keys()]
@@ -83,6 +94,7 @@ const movies = () => {
     const [genreFilter, setGenreFilter] = React.useState(moviesUserSetting.filters[0])
     const [streamFilter, setStreamFilter] = React.useState(moviesUserSetting.filters[1])
     const [yearFilter, setYearFilter] = React.useState(moviesUserSetting.filters[2])
+    const [imdbFilter, setImdbFilter] = React.useState(moviesUserSetting.filters[3])
     const [filterChipList, setFilterChipList] = React.useState([...moviesUserSetting.filterChip]);
     const [isFiltering, setIsFiltering] = React.useState(moviesUserSetting.isFiltering);
     const [filteredData, setFilteredData] = React.useState([])
@@ -159,9 +171,9 @@ const movies = () => {
                         dispatch(updateFilterChip(filterChipList.concat({ key: "S", value: event.target.value })))
                     }
                 }
-                dispatch(updateFilters([genreFilter, streamValue, yearFilter]))
+                dispatch(updateFilters([genreFilter, streamValue, yearFilter,imdbFilter]))
                 setStreamFilter(streamValue)
-                setEndPoint(`/?page=${1}&release_date=${moviesUserSetting.filters[2] === 'All' ? '' : moviesUserSetting.filters[2] === 'Upcoming' ? 2050 : moviesUserSetting.filters[2]}&genre=${moviesUserSetting.filters[0] === 'All' ? '' : moviesUserSetting.filters[0]}&streaming=${streamValue === 'All' ? '' : streamValue} `)
+                setEndPoint(`/?page=${1}&release_date=${moviesUserSetting.filters[2] === 'All' ? '' : moviesUserSetting.filters[2] === 'Upcoming' ? 2050 : moviesUserSetting.filters[2]}&genre=${moviesUserSetting.filters[0] === 'All' ? '' : moviesUserSetting.filters[0]}&streaming=${streamValue === 'All' ? '' : streamValue}&imdb_rating=${moviesUserSetting.filters[3] === 'All' ? '' : moviesUserSetting[3]} `)
                 break;
             case "genre":
                 const genreValue = event.target.value === 'All' ? 'All' : genreList.filter(a => a.name === event.target.value)[0].key
@@ -188,9 +200,9 @@ const movies = () => {
                         dispatch(updateFilterChip(filterChipList.concat({ key: "G", value: event.target.value })))
                     }
                 }
-                dispatch(updateFilters([genreValue, streamFilter, yearFilter]))
+                dispatch(updateFilters([genreValue, streamFilter, yearFilter,imdbFilter]))
                 setGenreFilter(genreValue);
-                setEndPoint(`/?page=${1}&release_date=${moviesUserSetting.filters[2] === 'All' ? '' : moviesUserSetting.filters[2] === 'Upcoming' ? 2050 : moviesUserSetting.filters[2]}&genre=${genreValue === 'All' ? '' : genreValue}&streaming=${moviesUserSetting.filters[1] === 'All' ? '' : moviesUserSetting.filters[1]} `)
+                setEndPoint(`/?page=${1}&release_date=${moviesUserSetting.filters[2] === 'All' ? '' : moviesUserSetting.filters[2] === 'Upcoming' ? 2050 : moviesUserSetting.filters[2]}&genre=${genreValue === 'All' ? '' : genreValue}&streaming=${moviesUserSetting.filters[1] === 'All' ? '' : moviesUserSetting.filters[1]}&imdb_rating=${moviesUserSetting.filters[3] === 'All' ? '' : moviesUserSetting[3]} `)
                 break;
             case "year":
 
@@ -215,9 +227,35 @@ const movies = () => {
                         dispatch(updateFilterChip(filterChipList.concat({ key: "Y", value: event.target.value })))
                     }
                 }
-                dispatch(updateFilters([genreFilter, streamFilter, event.target.value]))
+                dispatch(updateFilters([genreFilter, streamFilter, event.target.value,imdbFilter]))
                 setYearFilter(event.target.value);
-                setEndPoint(`/?page=${1}&release_date=${event.target.value === 'All' ? '' : event.target.value === 'Upcoming' ? 2050 : event.target.value}&genre=${moviesUserSetting.filters[0] === 'All' ? '' : moviesUserSetting.filters[0]}&streaming=${moviesUserSetting.filters[1] === 'All' ? '' : moviesUserSetting.filters[1]} `)
+                setEndPoint(`/?page=${1}&release_date=${event.target.value === 'All' ? '' : event.target.value === 'Upcoming' ? 2050 : event.target.value}&genre=${moviesUserSetting.filters[0] === 'All' ? '' : moviesUserSetting.filters[0]}&streaming=${moviesUserSetting.filters[1] === 'All' ? '' : moviesUserSetting.filters[1]}&imdb_rating=${moviesUserSetting.filters[3] === 'All' ? '' : moviesUserSetting[3]} `)
+                break;
+            case "IMDB":
+                if (event.target.value === 'All') {
+                    if (filterChipList.filter((x) => x.key === "I").length > 0) {
+                        setFilterChipList(filterChipList.filter((x) => x.key !== 'I'))
+                        dispatch(updateFilterChip(filterChipList.filter((x) => x.key !== 'I')))
+                    }
+                } else {
+                    if (filterChipList.filter((x) => x.key === "I").length > 0 && event.target.value !== 'All') {
+                        var newList = JSON.parse(JSON.stringify(filterChipList))
+                        newList.find(
+                            (x) => x.key === "I" && ((x.value = event.target.value), true)
+                        );
+                        setFilterChipList(newList);
+                        dispatch(updateFilterChip(newList))
+                    }
+                    else {
+                        setFilterChipList((chips) =>
+                            chips.concat({ key: "I", value: event.target.value })
+                        );
+                        dispatch(updateFilterChip(filterChipList.concat({ key: "I", value: event.target.value })))
+                    }
+                }
+                dispatch(updateFilters([genreFilter, streamFilter, yearFilter, event.target.value]))
+                setImdbFilter(event.target.value);
+                setEndPoint(`/?page=${1}&release_date=${moviesUserSetting.filters[2] === 'All' ? '' : moviesUserSetting.filters[2] === 'Upcoming' ? 2050 : moviesUserSetting.filters[2]}&genre=${moviesUserSetting.filters[0] === 'All' ? '' : moviesUserSetting.filters[0]}&streaming=${moviesUserSetting.filters[1] === 'All' ? '' : moviesUserSetting.filters[1]}&imdb_rating=${event.target.value} `)
                 break;
             default:
                 break;
@@ -233,18 +271,22 @@ const movies = () => {
         );
         dispatch(updateFilterChip(filterChipList.filter((chip) => chip.value !== chipToDelete.value)))
         if (chipToDelete.key === "G") {
-            dispatch(updateFilters(['All', streamFilter, yearFilter]))
+            dispatch(updateFilters(['All', streamFilter, yearFilter, imdbFilter]))
 
-            setEndPoint(`/?page=${1}&release_date=${yearFilter === 'All' ? '' : yearFilter === 'Upcoming' ? 2050 : yearFilter}&genre=&streaming=${streamFilter === 'All' ? '' : streamFilter} `);
+            setEndPoint(`/?page=${1}&release_date=${yearFilter === 'All' ? '' : yearFilter === 'Upcoming' ? 2050 : yearFilter}&genre=&streaming=${streamFilter === 'All' ? '' : streamFilter}&imdb_rating=${imdbFilter === 'All' ? '' : imdbFilter}`);
             setGenreFilter("All");
         } else if (chipToDelete.key === "S") {
-            dispatch(updateFilters([genreFilter, 'All', yearFilter]))
-            setEndPoint(`/? page=${1}&release_date=${yearFilter === 'All' ? '' : yearFilter === 'Upcoming' ? 2050 : yearFilter}&genre=${genreFilter === 'All' ? '' : genreFilter}&streaming=`);
+            dispatch(updateFilters([genreFilter, 'All', yearFilter, imdbFilter]))
+            setEndPoint(`/? page=${1}&release_date=${yearFilter === 'All' ? '' : yearFilter === 'Upcoming' ? 2050 : yearFilter}&genre=${genreFilter === 'All' ? '' : genreFilter}&streaming=&imdb_rating=${imdbFilter === 'All' ? '' : imdbFilter}`);
             setStreamFilter('All')
         } else if (chipToDelete.key === 'Y') {
-            dispatch(updateFilters([genreFilter, streamFilter, 'All']))
-            setEndPoint(`/?page=${1}&release_date=&genre=${genreFilter === 'All' ? '' : genreFilter}&streaming=${streamFilter === 'All' ? '' : streamFilter} `);
+            dispatch(updateFilters([genreFilter, streamFilter, 'All', imdbFilter]))
+            setEndPoint(`/?page=${1}&release_date=&genre=${genreFilter === 'All' ? '' : genreFilter}&streaming=${streamFilter === 'All' ? '' : streamFilter}&imdb_rating=${imdbFilter === 'All' ? '' : imdbFilter}`);
             setYearFilter("All");
+        } else if (chipToDelete.key === 'I') {
+            dispatch(updateFilters([genreFilter, streamFilter, yearFilter, 'All']))
+            setEndPoint(`/?page=${1}&release_date=${yearFilter === 'All' ? '' : yearFilter === 'Upcoming' ? 2050 : yearFilter}&genre=${genreFilter === 'All' ? '' : genreFilter}&streaming=${streamFilter === 'All' ? '' : streamFilter}&imdb_rating=${event.target.value === 'All' ? '' : event.target.value}`);
+            setImdbFilter("All");
         }
     }
 
@@ -329,69 +371,95 @@ const movies = () => {
                         )}
                 </Box >
                 <Collapse in={filterOpen}>
-                    <Box display="flex" flexDirection="row">
-                        <Box p="1px" mr={large ? 4 : 0}>
-                            <TextField
-                                id="genre"
-                                select
-                                label="Genre"
-                                size="small"
-                                value={moviesUserSetting.filters[0] === 'All' ? moviesUserSetting.filters[0] : genreList.filter(a => a.key === moviesUserSetting.filters[0])[0].name}
-                                onChange={handleChangeFilter}
-                                SelectProps={{
-                                    native: true,
-                                }}
-                                helperText="Genre"
-                                variant="outlined"
-                            >
-                                {genres.map((option, index) => (
-                                    <option key={index} value={option}>
-                                        {option}
-                                    </option>
-                                ))}
-                            </TextField>
+                    <Box display="flex" flexDirection="row"
+                        flexWrap="wrap">
+                        <Box display="flex" justifyContent="space-between" className={classes.filterBox}>
+                            <Box p="1px" mr={large ? 4 : 0}>
+                                <TextField
+                                    id="genre"
+                                    select
+                                    label="Genre"
+                                    size="small"
+                                    value={moviesUserSetting.filters[0] === 'All' ? moviesUserSetting.filters[0] : genreList.filter(a => a.key === moviesUserSetting.filters[0])[0].name}
+                                    onChange={handleChangeFilter}
+                                    SelectProps={{
+                                        native: true,
+                                    }}
+                                    helperText="Genre"
+                                    variant="outlined"
+                                >
+                                    {genres.map((option, index) => (
+                                        <option key={index} value={option}>
+                                            {option}
+                                        </option>
+                                    ))}
+                                </TextField>
+                            </Box>
+                            <Box p="1px" mr={large ? 4 : 2}>
+                                <TextField
+                                    id="year"
+                                    select
+                                    label="Year"
+                                    size="small"
+                                    value={yearFilter}
+                                    onChange={handleChangeFilter}
+                                    SelectProps={{
+                                        native: true,
+                                    }}
+                                    helperText="Year"
+                                    variant="outlined"
+                                >
+                                    {yearList.map((option, index) => (
+                                        <option key={index} value={option}>
+                                            {option}
+                                        </option>
+                                    ))}
+                                </TextField>
+                            </Box>
                         </Box>
-                        <Box p="1px" mr={large ? 4 : 0}>
-                            <TextField
-                                id="year"
-                                select
-                                label="Year"
-                                size="small"
-                                value={yearFilter}
-                                onChange={handleChangeFilter}
-                                SelectProps={{
-                                    native: true,
-                                }}
-                                helperText="Year"
-                                variant="outlined"
-                            >
-                                {yearList.map((option, index) => (
-                                    <option key={index} value={option}>
-                                        {option}
-                                    </option>
-                                ))}
-                            </TextField>
-                        </Box>
-                        <Box p="1px" mr={large ? 4 : 0}>
-                            <TextField
-                                id="stream"
-                                select
-                                label="Stream"
-                                size="small"
-                                value={moviesUserSetting.filters[1] === 'All' ? moviesUserSetting.filters[1] : streamList.filter(a => a.key === moviesUserSetting.filters[1])[0].site}
-                                onChange={handleChangeFilter}
-                                SelectProps={{
-                                    native: true,
-                                }}
-                                helperText="Streaming"
-                                variant="outlined"
-                            >
-                                {streams.map((option, index) => (
-                                    <option key={index} value={option}>
-                                        {option}
-                                    </option>
-                                ))}
-                            </TextField>
+                        <Box display="flex" justifyContent="space-between" className={classes.filterBox} mt={mobile ? 2 : 0}>
+                            <Box p="1px" mr={large ? 4 : 0}>
+                                <TextField
+                                    id="stream"
+                                    select
+                                    label="Stream"
+                                    size="small"
+                                    value={moviesUserSetting.filters[1] === 'All' ? moviesUserSetting.filters[1] : streamList.filter(a => a.key === moviesUserSetting.filters[1])[0].site}
+                                    onChange={handleChangeFilter}
+                                    SelectProps={{
+                                        native: true,
+                                    }}
+                                    helperText="Streaming"
+                                    variant="outlined"
+                                >
+                                    {streams.map((option, index) => (
+                                        <option key={index} value={option}>
+                                            {option}
+                                        </option>
+                                    ))}
+                                </TextField>
+                            </Box>
+                            <Box p="1px" mr={large ? 4 : 2}>
+                                <TextField
+                                    id="IMDB"
+                                    select
+                                    label="IMDB Rating"
+                                    size="small"
+                                    value={moviesUserSetting.filters[1] === 'All' ? moviesUserSetting.filters[1] : streamList.filter(a => a.key === moviesUserSetting.filters[1])[0].site}
+                                    onChange={handleChangeFilter}
+                                    SelectProps={{
+                                        native: true,
+                                    }}
+                                    helperText="ImDB Rating"
+                                    variant="outlined"
+                                >
+                                    {imdbRating.map((option, index) => (
+                                        <option key={index} value={option}>
+                                            {option}
+                                        </option>
+                                    ))}
+                                </TextField>
+                            </Box>
                         </Box>
                     </Box>
                 </Collapse>
