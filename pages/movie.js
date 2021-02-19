@@ -452,9 +452,9 @@ const Movie = (props) => {
             </Grid>
             <Grid item xs={12}>
                 <div className={classes.casting}>
-                    <Cast
+                    {!movie.actor?.length > 0 ? <div></div> : < Cast
                         actor={movie.actor}
-                    />
+                    />}
                 </div>
             </Grid>
             {movie.collection.length > 1 ? <Grid item xs={12}>
