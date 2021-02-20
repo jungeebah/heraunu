@@ -328,13 +328,6 @@ const Movie = (props) => {
                         </Typography>
                     }
                 </Box>
-                <Box className={classes.rating}>
-                    <Typography
-                        variant="caption"
-                        display="block" gutterBottom>
-                        {movie.rating || 'NA'}
-                    </Typography>
-                </Box>
                 <Box>
                     <Typography variant="caption" display="block" gutterBottom>
                         {movie.length || 'NA'}
@@ -407,7 +400,6 @@ const Movie = (props) => {
             direction="column"
             justify="space-between"
         >
-
             <Grid item xs={12} >
                 <Grid container
                     direction="row"
