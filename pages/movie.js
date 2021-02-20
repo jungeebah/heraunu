@@ -268,7 +268,7 @@ const Movie = (props) => {
         }
 
     }
-    const imdbRating = movie ? movie.imdb_rating ? (
+    const imdbRating = movie ? movie.imdb_rating > 0 ? (
         <div className={classes.streaming}>
             <Grid item xs={12} lg={12}>
                 <Chip
