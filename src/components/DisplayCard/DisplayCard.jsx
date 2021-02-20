@@ -55,7 +55,8 @@ const useStyles = makeStyles((theme) => ({
 
 const DisplayCard = (props) => {
     const theme = useTheme();
-    const mobile = useMediaQuery(theme.breakpoints.down("sm"));
+    const mobile = useMediaQuery(theme.breakpoints.down("xs"));
+    const mobOrient = useMediaQuery(theme.breakpoints.down("sm"));
     const medium = useMediaQuery(theme.breakpoints.down('md'))
     const classes = useStyles();
     const { movie, individual } = props
@@ -79,38 +80,38 @@ const DisplayCard = (props) => {
                     <Grid item>
                         <Box className={classes.imageBox}>
                             <Box
-                                width={mobile ? 85 : medium ? 120 : 180}
-                                height={mobile ? 127 : medium ? 179 : 259}
+                                width={mobile ? 85 : mobOrient ? 95 : medium ? 120 : 180}
+                                height={mobile ? 127 : mobOrient ? 142 :medium ? 179 : 259}
                                 boxShadow={2}
 
                             >
 
                                 <Image
-                                    className={classes.image}
-                                    src={image || '/image.jpg'}
-                                    alt={movie.name}
-                                    width={mobile ? 85 : medium ? 120 : 180}
-                                    height={mobile ? 127 : medium ? 179 : 259}
-                                />
+                                className={classes.image}
+                                src={image || '/image.jpg'}
+                                alt={movie.name}
+                                width={mobile ? 85 : mobOrient ? 95 : medium ? 120 : 180}
+                                height={mobile ? 127 : mobOrient ? 142 :medium ? 179 : 259}
+                            />
 
-                            </Box>
-                            <Box className={classes.fab}>
-                                {movie.youtube_url
-                                    ?
-                                    <YouTubeIcon color='secondary' />
-                                    : <div></div>}
-                            </Box>
                         </Box>
-                    </Grid>
+                        <Box className={classes.fab}>
+                            {movie.youtube_url
+                                ?
+                                <YouTubeIcon color='secondary' />
+                                : <div></div>}
+                        </Box>
+                        </Box>
+                </Grid>
 
-                    <Grid item>
-                        <Typography className={classes.text} align="left">
-                            {name.length > 20 ? name.substring(0, 20) + "..." : name}
-                        </Typography>
-                    </Grid>
+                <Grid item>
+                    <Typography className={classes.text} align="left">
+                        {name.length > 20 ? name.substring(0, 20) + "..." : name}
+                    </Typography>
+                </Grid>
                 </Grid>
             </IconButton>
-        </Link>
+        </Link >
     )
 }
 
