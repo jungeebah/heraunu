@@ -114,7 +114,7 @@ const Section = (props) => {
 
                 >
                     {displayData.map(items =>
-                        <Grid item item xs={3} sm={2} xl={1} key={items.key}>
+                        <Grid item item xs={3} sm={2} xl={2} key={items.key}>
                             <DisplayCard movie={items} individual={individual} key={items.key} />
                         </Grid>
                     )}
