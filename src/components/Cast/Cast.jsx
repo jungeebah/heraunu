@@ -40,7 +40,7 @@ const useStyles = makeStyles((theme) => ({
         flexWrap: "wrap",
         justifyContent: "space-around",
         overflow: "hidden",
-        backgroundColor: theme.palette.background.paper,
+        // backgroundColor: theme.palette.,
         overflowX: "hidden",
     },
     gridList: {
@@ -227,7 +227,7 @@ const Cast = (props) => {
                                     <GridListTile key={item.id}>
                                         <Link href={{ pathname: '/person', query: { key: item.id, name: item.name, image: item.image } }}>
                                             <Card
-                                                elevation={6}
+                                                elevation={1}
                                                 className={classes.card}
                                                 key={`card${item.id}`}
                                             >
