@@ -219,7 +219,7 @@ const Cast = (props) => {
                             ref={movieScrollBox}
                             spacing={mobile ? 8 : xlarge ? 20 : 15}
                             className={classes.gridList}
-                            cellHeight={mobile ? 170 : ipad ? 240 : xlarge ? 350 : 320}
+                            cellHeight={mobile ? 170 : ipad ? 260 : xlarge ? 350 : 320}
                             cols={column}
                         >
                             {actor
