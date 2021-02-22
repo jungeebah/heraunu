@@ -16,7 +16,7 @@ const Logo = (props) => {
         <svg id="SVGRoot" className={classes.root} version="1.1" viewBox="0 0 241.91 74.348" xmlns="http://www.w3.org/2000/svg">
             <g transform="translate(-18.209,-114.15)">
                 <rect x="18.209" y="114.15" width="63.5" height="74.083" opacity="0" stroke-width=".265" style={{ paintOrder:"stroke fill markers"}} />
-                <rect x="18.209" y="124.73" width="169.33" height="63.5" ry="5.2476" fill={darkTheme ? darkBackground : lightBackground} fill-rule="evenodd" stroke="#000" stroke-dasharray="6.36, 6.36" stroke-linecap="round" stroke-linejoin="round" stroke-width=".265" style={{ paintOrder:"stroke fill markers"}} />
+                <rect x="18.209" y="124.73" width="169.33" height="63.5" ry="5.2476" fill={darkTheme ? darkBackground : lightBackground} fill-rule="evenodd" stroke="#000"  stroke-linecap="round" stroke-linejoin="round" stroke-width=".265" style={{ paintOrder:"stroke fill markers"}} />
                 <g transform="translate(3.1422)" fill="#e63946" stroke-width=".26458" aria-label="HERA">
                     <path d="m26.942 152.08h22.647v-14.536h6.4492v35.57h-6.4492v-14.536h-22.647v14.536h-6.4492v-35.57h6.4492z" />
                     <path d="m92.848 158.58h-20.365v-6.4988h20.365zm2.9021 14.536h-23.267q-1.3395 0-2.927-0.47129t-2.9518-1.5379q-1.3395-1.0914-2.2572-2.8029-0.89297-1.7363-0.89297-4.2416v-23.267q0-0.66973 0.24805-1.265 0.24805-0.59531 0.66973-1.0418 0.44648-0.44648 1.0418-0.69453 0.59531-0.24804 1.2898-0.24804h29.046v6.4492h-25.846v20.067q0 1.265 0.66973 1.9348 0.66973 0.66973 1.9596 0.66973h23.217z" />
