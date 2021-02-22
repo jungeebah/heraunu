@@ -1,6 +1,7 @@
 import React from 'react';
 import Paper from '@material-ui/core/Paper';
-import SvgIcon from '@material-ui/core/SvgIcon';
+import TwitterIcon from '@material-ui/icons/Twitter';
+import Box from '@material-ui/core/Box'
 import FacebookIcon from '@material-ui/icons/Facebook';
 import Typography from '@material-ui/core/Typography';
 import Link from 'next/link';
@@ -35,8 +36,7 @@ const useStyles = makeStyles((theme) => ({
         padding: '0'
     },
     media: {
-        color: theme.palette.text.primary,
-        fontSize: '0.75rem',
+
         padding: theme.spacing(0, 1, 1),
         [theme.breakpoints.up('lg')]: {
             padding: theme.spacing(0, 3, 1),
@@ -47,6 +47,11 @@ const useStyles = makeStyles((theme) => ({
         [theme.breakpoints.down('md')]: {
             padding: theme.spacing(0, 3, 1),
         },
+    },
+    mediaIcon: {
+        color: theme.palette.text.primary,
+        fontSize: '0.75rem',
+        padding: '0px'
     }
 }))
 
@@ -78,12 +83,22 @@ const Footer = () => {
             </Typography>
                 </Grid>
                 <Grid item>
-                    <Link href="https://www.facebook.com/Heraunu-104094554972237" passHref={true}>
-                        <IconButton className={classes.media}>
-
-                            <FacebookIcon />
-                        </IconButton>
-                    </Link>
+                    <Box className={classes.media} display="flex">
+                        <Box>
+                            <Link href="https://www.facebook.com/Heraunu-104094554972237" passHref={true}>
+                                <IconButton className={classes.mediaIcon}>
+                                    <FacebookIcon />
+                                </IconButton>
+                            </Link>
+                        </Box>
+                        <Box ml={1}>
+                            <Link href="https://twitter.com/heraunu" passHref={true}>
+                                <IconButton className={classes.mediaIcon}>
+                                    <TwitterIcon />
+                                </IconButton>
+                            </Link>
+                        </Box>
+                    </Box>
                 </Grid>
             </Grid>
         </Paper >
