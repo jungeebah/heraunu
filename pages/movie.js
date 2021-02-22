@@ -310,14 +310,14 @@ const Movie = (props) => {
         ? (
             <Box display="flex" flexDirection="row">
                 <Box >
-                    {movie.release_date ? new Date(movie.release_date).getFullYear() + 1 === 2050 ?
+                    {movie.release_date ? new Date(movie.release_date).getFullYear() === 2050 ?
                         <Typography variant="caption" display="block" gutterBottom className={classes.noDataYear}>
                             Upcoming
                     </Typography> :
-                        new Date(movie.release_date).getFullYear() + 1 < 2030 ?
+                        new Date(movie.release_date).getFullYear()  < 2030 ?
                             <IconButton edge="start" className={classes.buttonYear}>
                                 <Typography variant="caption" color="textPrimary">
-                                    {new Date(movie.release_date).getFullYear() + 1}
+                                    {new Date(movie.release_date).getFullYear() }
                                 </Typography>
                             </IconButton> :
                             <Typography variant="caption" display="block" gutterBottom className={classes.noDataYear}>
