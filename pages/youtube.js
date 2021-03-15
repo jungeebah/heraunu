@@ -74,7 +74,7 @@ const youtube = () => {
     const [displayData, setDisplayData] = useState(youtubeList.slice(0, 10))
     const [totalYoutube, setTotalYoutube] = useState(youtubeList.length);
     const sort_item = ['Upload date', 'View Count'];
-    const trend_item = ['Weekly']
+    const trend_item = ['Weekly', 'Monthly']
     const nextPage = (e, v) => {
         dispatch(updatePageNumber(v))
         setDisplayData(youtubeList.slice((v - 1) * 10, v * 10))
@@ -90,6 +90,8 @@ const youtube = () => {
             dispatch(getallYoutube('-youtube__views'))
         } else if (item === 'Weekly') {
             dispatch(getallYoutube('-youtube__weekly'))
+        }else if (item === 'Monthly'){
+            dispatch(getallYoutube('-youtube__monthly'))
         }
 
     }
