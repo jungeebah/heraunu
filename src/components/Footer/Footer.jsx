@@ -85,14 +85,14 @@ const Footer = () => {
                 <Grid item>
                     <Box className={classes.media} display="flex">
                         <Box>
-                            <Link href="https://www.facebook.com/Heraunu-104094554972237" passHref={true}>
+                            <Link href="https://www.facebook.com/heraunasite/" passHref={true}>
                                 <IconButton className={classes.mediaIcon}>
                                     <FacebookIcon />
                                 </IconButton>
                             </Link>
                         </Box>
                         <Box ml={1}>
-                            <Link href="https://twitter.com/heraunu" passHref={true}>
+                            <Link href="https://twitter.com/Herauna" passHref={true}>
                                 <IconButton className={classes.mediaIcon}>
                                     <TwitterIcon />
                                 </IconButton>

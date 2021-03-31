@@ -49,10 +49,10 @@ const MyApp = (props) => {
     return (
         <React.Fragment>
             <Head>
-                <title>Complete Nepali Movie Database for viewing Nepali Movies|Hearunu</title>
+                <title>Complete Nepali Movie Database for viewing Nepali Movies|Heraunu</title>
                 <meta
                     name="description"
-                    content="Hearunu is a site for Nepali Movie lovers to come and find viewing locations."
+                    content="Heraunu is a site for Nepali Movie lovers to come and find viewing locations."
                 />
                 <meta name="viewport" content="minimum-scale=1, initial-scale=1, width=device-width user-scalable=no" />
                 {/* <script async defer data-pin-hover="true" data-pin-round="true" src="//assets.pinterest.com/js/pinit.js"></script> */}
