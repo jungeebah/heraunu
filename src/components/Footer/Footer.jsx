@@ -61,7 +61,7 @@ const Footer = () => {
     return (
         <Paper className={classes.footer} elevation={0}>
             <Typography variant="h6">
-                Heraunu
+                Herauna
             </Typography>
             <Link href="/about">
                 <IconButton className={classes.button}>
@@ -79,13 +79,13 @@ const Footer = () => {
                 alignItems="center">
                 <Grid item>
                     <Typography variant="caption">
-                        &copy; {new Date().getFullYear()} Copyright: Heraunu
+                        &copy; {new Date().getFullYear()} Copyright: Herauna
             </Typography>
                 </Grid>
                 <Grid item>
                     <Box className={classes.media} display="flex">
                         <Box>
-                            <Link href="https://www.facebook.com/Heraunu-104094554972237" passHref={true}>
+                            <Link href="https://www.facebook.com/heraunasite/" passHref={true}>
                                 <IconButton className={classes.mediaIcon}>
                                     <FacebookIcon />
                                 </IconButton>
