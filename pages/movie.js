@@ -148,10 +148,11 @@ const useStyles = makeStyles((theme) => ({
         },
     },
     chip: {
+        fontSize: '1rem',
         [theme.breakpoints.up('sm')]: {
-            height: '23px'
+            height: '25px'
         },
-        height: '20px',
+        height: '22px',
         marginRight: '4px'
     },
     video: {
@@ -291,6 +292,7 @@ const Movie = (props) => {
                 {movie.playing ? movie.playing.map((item) => (
                     <Box mr={2}>
                         <Chip
+                            color="secondary"
                             key={item}
                             rel="noopener noreferrer"
                             className={classes.chip}
@@ -314,10 +316,10 @@ const Movie = (props) => {
                         <Typography variant="caption" display="block" gutterBottom className={classes.noDataYear}>
                             Upcoming
                     </Typography> :
-                        new Date(movie.release_date).getFullYear()  < 2030 ?
+                        new Date(movie.release_date).getFullYear() < 2030 ?
                             <IconButton edge="start" className={classes.buttonYear}>
                                 <Typography variant="caption" color="textPrimary">
-                                    {new Date(movie.release_date).getFullYear() }
+                                    {new Date(movie.release_date).getFullYear()}
                                 </Typography>
                             </IconButton> :
                             <Typography variant="caption" display="block" gutterBottom className={classes.noDataYear}>
