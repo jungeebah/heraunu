@@ -282,7 +282,7 @@ const Movie = (props) => {
     const movieStreaming = movie ? (
         <Box className={classes.streaming}>
             <Typography variant={large ? "h6" : "body1"} display="block" gutterBottom>
-                Streaming
+                Watch Now
                 </Typography>
 
             <Box display="flex"
