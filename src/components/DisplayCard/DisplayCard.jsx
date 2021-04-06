@@ -69,7 +69,8 @@ const DisplayCard = (props) => {
     const name = movie.name.toLowerCase()
         .split(' ')
         .map((s) => s.charAt(0).toUpperCase() + s.substring(1))
-        .join(' ');
+        .join(' ')
+        .replace(/\((\b\w)/g,l => l.toUpperCase());
     var image = movie.image || movie.video_thumbnail
     if (image === 'None') {
         image = '/image.jpg'
