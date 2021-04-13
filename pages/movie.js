@@ -249,7 +249,7 @@ const Movie = (props) => {
             case ('Cinemaghar'):
                 window.open('https://cinema-ghar.com/', "_blank")
                 break;
-            case ('itune'):
+            case ('Itune'):
                 window.open('https://itunes.apple.com/', "_blank")
                 break;
             case ('Netflix'):
