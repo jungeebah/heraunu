@@ -33,7 +33,7 @@ const Home = (props) => {
                         displayData={displayData}
                         name={'MOVIES'}
                         url='/movies'
-                        individual='/movie'
+                        individual='/mv'
                         className={classes.slider} />
                 </Grid>
                 <Grid item
@@ -45,7 +45,7 @@ const Home = (props) => {
                         name={'ACTORS'}
                         className={classes.slider}
                         url='/actors'
-                        individual='/person'
+                        individual='/ps'
                     />
                 </Grid>
                 <Grid item xs={12}
@@ -53,7 +53,7 @@ const Home = (props) => {
                     <Section
                         displayData={displayYoutube}
                         name={'YOUTUBE'}
-                        individual='/movie'
+                        individual='/mv'
                         url='/youtube'
                     />
                 </Grid>

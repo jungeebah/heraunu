@@ -77,7 +77,7 @@ const DisplayCard = (props) => {
     const key = movie.key || movie.movie_id || movie.id
 
     return (
-        <Link href={{ pathname: individual, query: { key: key, name: movie.name, image: image } }}>
+        <Link href={individual}>
             <IconButton className={classes.root}>
                 <Grid container
                     direction="column"
