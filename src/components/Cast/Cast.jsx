@@ -225,7 +225,7 @@ const Cast = (props) => {
                             {actor
                                 ? actor.map((item) => (
                                     <GridListTile key={item.id}>
-                                        <Link href={`/ps/${item.id}`}>
+                                        <Link href={`/actors/${item.id}`}>
                                             <Card
                                                 elevation={1}
                                                 className={classes.card}

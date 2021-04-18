@@ -224,7 +224,7 @@ const Collections = (props) => {
                             {actor
                                 ? actor.map((item) => (
                                     <GridListTile key={item.id}>
-                                        <Link href={{ pathname: 'movie', query: { key: item.id, name: item.name, image: item.image } }} passHref>
+                                        <Link href={`/movies/${item.id}`} passHref>
                                             <Card
                                                 elevation={6}
                                                 className={classes.card}

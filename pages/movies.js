@@ -484,7 +484,7 @@ const movies = () => {
                     {displayData ?
                         displayData.map(items => (
                             <Grid item xs={3} sm={2} md={3} lg={2} key={items.key} >
-                                <DisplayCard movie={items} individual={`/mv/${items.key}`} key={items.key} />
+                                <DisplayCard movie={items} individual={`/movies/${items.key}`} key={items.key} />
                             </Grid>
                         ))
                         :

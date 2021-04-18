@@ -1,5 +1,6 @@
 
 import React from 'react';
+import Head from 'next/head';
 import Grid from "@material-ui/core/Grid";
 import Box from '@material-ui/core/Box'
 import Typography from '@material-ui/core/Typography'
@@ -111,24 +112,56 @@ const Person = ({ person, key }) => {
                 </Grid>
             </Grid>
             <Grid item xs={12}>
-                {person.movies ? 
-                <Box className={classes.actorMovie} elevation={0}>
-                    <Grid container
-                        direction="row"
-                        alignItems="flex-end"
-                    >
-                        <Grid item xs={12}>
-                            <SimpleTabs movies={person.movies} />
+                {person.movies ?
+                    <Box className={classes.actorMovie} elevation={0}>
+                        <Grid container
+                            direction="row"
+                            alignItems="flex-end"
+                        >
+                            <Grid item xs={12}>
+                                <SimpleTabs movies={person.movies} />
+                            </Grid>
                         </Grid>
-                    </Grid>
-                </Box> : <div></div>
+                    </Box> : <div></div>
                 }
             </Grid>
         </Grid>
 
     return (
-        <div className={classes.person} itemScope itemType="http://schema.org/actor">
-            {renderPerson}
+        <div>
+            <Head>
+                <title>{person.name + '- Heraunu'}</title>
+                <meta name="description" content={`Nepali movie personal ${person.name}`}></meta>
+                <meta name="keywords" content={`${person.name},Nepali Actor`}></meta>
+                <meta charset="UTF-8" />
+                <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+                <meta name='robots' content='index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1' />
+
+			<link rel="icon" type="image/png" href="image/png"/>
+	
+	<link rel="canonical" href={`https://heraunu.com/actors/${key}`}/>
+	<meta property="og:locale" content="en_US" />
+	<meta property="og:type" content="video:actor:role" />
+	<meta property="og:title" content={`${person.name} - Heraunu`}/>
+	<meta property="og:description" content={`Nepali Movie Personal ${person.name}`} />
+	<meta property="og:url" content={`https://heraunu.com/actors/${key}`} />
+	<meta property="og:site_name" content="Heraunu" />
+	<meta property="article:publisher" content="https://www.facebook.com/heraunasite/" />
+
+	<meta property="og:image" content={person.image} />
+	<meta property="og:image:width" content="1098" />
+	<meta property="og:image:height" content="659" />
+
+    <meta name="twitter:card" content="summary" />
+	<meta name="twitter:description" content={person.name} />
+    <meta name="twitter:title" content={`Nepali movie personal - ${person.name}`} />
+    <meta name="twitter:site" content="@herauuna" />
+    <meta name="twitter:image" content={person.image} />
+    <meta name="twitter:creator" content="@herauuna" />
+            </Head>
+            <div className={classes.person} itemScope itemType="http://schema.org/actor">
+                {renderPerson}
+            </div>
         </div>
     )
 }
