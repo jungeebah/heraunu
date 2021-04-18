@@ -63,7 +63,9 @@ const useStyles = makeStyles((theme) => ({
         },
     },
 }))
-const Person = ({ person, key }) => {
+const Person = (props) => {
+    const { actor_key, person } = props
+    console.log(props)
     const classes = useStyles()
     const theme = useTheme();
     const image = person.image === 'None' ? '/image.jpg' : person.image
@@ -89,7 +91,7 @@ const Person = ({ person, key }) => {
                             borderRadius={16}>
                             <Image
                                 className={classes.image}
-                                key={key}
+                                key={actor_key}
                                 src={image || '/image.jpg'}
                                 alt={person.name}
                                 height={large ? 545 : 323}
@@ -134,30 +136,30 @@ const Person = ({ person, key }) => {
                 <meta name="description" content={`Nepali movie personal ${person.name}`}></meta>
                 <meta name="keywords" content={`${person.name},Nepali Actor`}></meta>
                 <meta charset="UTF-8" />
-                <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+                <meta name="viewport" content="width=device-width, initial-scale=1.0" />
                 <meta name='robots' content='index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1' />
 
-			<link rel="icon" type="image/png" href="image/png"/>
-	
-	<link rel="canonical" href={`https://heraunu.com/actors/${key}`}/>
-	<meta property="og:locale" content="en_US" />
-	<meta property="og:type" content="video:actor:role" />
-	<meta property="og:title" content={`${person.name} - Heraunu`}/>
-	<meta property="og:description" content={`Nepali Movie Personal ${person.name}`} />
-	<meta property="og:url" content={`https://heraunu.com/actors/${key}`} />
-	<meta property="og:site_name" content="Heraunu" />
-	<meta property="article:publisher" content="https://www.facebook.com/heraunasite/" />
+                <link rel="icon" type="image/png" href="image/png" />
 
-	<meta property="og:image" content={person.image} />
-	<meta property="og:image:width" content="1098" />
-	<meta property="og:image:height" content="659" />
+                <link rel="canonical" href={`https://heraunu.com/actors/${actor_key}`} />
+                <meta property="og:locale" content="en_US" />
+                <meta property="og:type" content="video:actor:role" />
+                <meta property="og:title" content={`${person.name} - Heraunu`} />
+                <meta property="og:description" content={`Nepali Movie Personal ${person.name}`} />
+                <meta property="og:url" content={`https://heraunu.com/actors/${actor_key}`} />
+                <meta property="og:site_name" content="Heraunu" />
+                <meta property="article:publisher" content="https://www.facebook.com/heraunasite/" />
 
-    <meta name="twitter:card" content="summary" />
-	<meta name="twitter:description" content={person.name} />
-    <meta name="twitter:title" content={`Nepali movie personal - ${person.name}`} />
-    <meta name="twitter:site" content="@herauuna" />
-    <meta name="twitter:image" content={person.image} />
-    <meta name="twitter:creator" content="@herauuna" />
+                <meta property="og:image" content={person.image} />
+                <meta property="og:image:width" content="1098" />
+                <meta property="og:image:height" content="659" />
+
+                <meta name="twitter:card" content="summary" />
+                <meta name="twitter:description" content={person.name} />
+                <meta name="twitter:title" content={`Nepali movie personal - ${person.name}`} />
+                <meta name="twitter:site" content="@herauuna" />
+                <meta name="twitter:image" content={person.image} />
+                <meta name="twitter:creator" content="@herauuna" />
             </Head>
             <div className={classes.person} itemScope itemType="http://schema.org/actor">
                 {renderPerson}
@@ -171,14 +173,15 @@ export async function getStaticProps(context) {
     const { key } = context.params
     const res = await fetch(`https://api.heraunu.com/api/persons/${key}/`, requestOptions)
     const person = await res.json()
+    const actor_key = key
     // By returning { props: { posts } }, the Blog component
     // will receive `posts` as a prop at build time
     return {
         props: {
             person,
-            key,
-            revalidate: 1,
+            actor_key,
         },
+        revalidate: 1,
     }
 }
 
