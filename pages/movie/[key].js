@@ -201,7 +201,7 @@ function get_id(url) {
     return video_id
 }
 
-const Movie = ({ movie }) => {
+const Movie = ({ movie_key, movie }) => {
     const theme = useTheme();
     const youtubeLocation = movie.location || null
     const onStart = (event) => {
@@ -329,7 +329,7 @@ const Movie = ({ movie }) => {
                             <Button
                                 className={classes.director}
                                 onClick={(e) =>
-                                    router.push({ pathname: '/person', query: { key: item.id, name: item.name, image: item.image } })}
+                                    router.push(`/actor/${item.id}`)}
                             >{item.name}
                             </Button>
                         </Grid>
@@ -457,9 +457,41 @@ const Movie = ({ movie }) => {
         </Grid>
 
     return (
-        <div className={classes.movie} itemScope itemType="http://schema.org/Movie">
-            {renderMovie}
-        </div>
+        <>
+            <Head>
+                <title>{movie.name + '- Heraunu'}</title>
+                <meta name="description" content={`Nepali movie personal ${movie.name}`}></meta>
+                <meta name="keywords" content={`${movie.name},Nepali Actor`}></meta>
+                <meta charset="UTF-8" />
+                <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+                <meta name='robots' content='index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1' />
+
+                <link rel="icon" type="image/png" href="image/png" />
+
+                <link rel="canonical" href={`https://heraunu.com/actors/${movie_key}`} />
+                <meta property="og:locale" content="en_US" />
+                <meta property="og:type" content="video:actor:role" />
+                <meta property="og:title" content={`${movie.name} - Heraunu`} key="ogtitle" />
+                <meta property="og:description" content={`Nepali Movie Personal ${movie.name}`} key="ogdesc" />
+                <meta property="og:url" content={`https://heraunu.com/actors/${movie_key}`} key="ogurl" />
+                <meta property="og:site_name" content="Heraunu" key="ogsitename" />
+                <meta property="article:publisher" content="https://www.facebook.com/heraunasite/" />
+
+                <meta property="og:image" content={movie.image} key="ogimage" />
+                <meta property="og:image:width" content="1098" />
+                <meta property="og:image:height" content="659" />
+
+                <meta name="twitter:card" content="summary" />
+                <meta name="twitter:description" content={movie.name} />
+                <meta name="twitter:title" content={`Nepali movie personal - ${movie.name}`} />
+                <meta name="twitter:site" content="@herauuna" />
+                <meta name="twitter:image" content={movie.image} />
+                <meta name="twitter:creator" content="@herauuna" />
+            </Head>
+            <div className={classes.movie} itemScope itemType="http://schema.org/Movie">
+                {renderMovie}
+            </div>
+        </>
     )
 }
 
@@ -468,12 +500,13 @@ export async function getStaticProps(context) {
     const { key } = context.params
     const res = await fetch(`https://api.heraunu.com/api/movies/${key}/?release_date=&genre=&streaming=&imdb_rating=`, requestOptions)
     const movie = await res.json()
+    const movie_key = key
     // By returning { props: { posts } }, the Blog component
     // will receive `posts` as a prop at build time
     return {
         props: {
             movie,
-
+            movie_key
         },
     }
 }
