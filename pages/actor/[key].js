@@ -143,13 +143,13 @@ const Person = (props) => {
                 <link rel="canonical" href={`https://heraunu.com/actors/${actor_key}`} />
                 <meta property="og:locale" content="en_US" />
                 <meta property="og:type" content="video:actor:role" />
-                <meta property="og:title" content={`${person.name} - Heraunu`} />
-                <meta property="og:description" content={`Nepali Movie Personal ${person.name}`} />
-                <meta property="og:url" content={`https://heraunu.com/actors/${actor_key}`} />
-                <meta property="og:site_name" content="Heraunu" />
+                <meta property="og:title" content={`${person.name} - Heraunu`} key="ogtitle" />
+                <meta property="og:description" content={`Nepali Movie Personal ${person.name}`} key="ogdesc"/>
+                <meta property="og:url" content={`https://heraunu.com/actors/${actor_key}`} key="ogurl" />
+                <meta property="og:site_name" content="Heraunu" key="ogsitename" />
                 <meta property="article:publisher" content="https://www.facebook.com/heraunasite/" />
 
-                <meta property="og:image" content={person.image} />
+                <meta property="og:image" content={person.image} key="ogimage" />
                 <meta property="og:image:width" content="1098" />
                 <meta property="og:image:height" content="659" />
 
