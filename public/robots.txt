@@ -1,0 +1,9 @@
+# *
+User-agent: *
+Allow: /
+
+# Host
+Host: https://heraunu.com
+
+# Sitemaps
+Sitemap: https://heraunu.com/sitemap.xml
