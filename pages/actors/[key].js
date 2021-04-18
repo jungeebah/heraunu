@@ -65,7 +65,6 @@ const useStyles = makeStyles((theme) => ({
 }))
 const Person = (props) => {
     const { actor_key, person } = props
-    console.log(props)
     const classes = useStyles()
     const theme = useTheme();
     const image = person.image === 'None' ? '/image.jpg' : person.image
