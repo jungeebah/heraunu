@@ -118,7 +118,7 @@ const SimpleTabs = (props) => {
                     <Grid container >
                         {displayData.map(item =>
                             <Grid item xs={4} sm={2} md={3} xl={2} key={item.movie_id}>
-                                <DisplayCard movie={item} individual={`/movies/${item.movie_id}`} />
+                                <DisplayCard movie={item} individual={`/movie/${item.movie_id}`} />
                             </Grid>
                         )}
                     </Grid>

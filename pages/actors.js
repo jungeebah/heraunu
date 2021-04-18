@@ -78,7 +78,7 @@ const actors = () => {
                     {displayData ?
                         displayData.map(items => (
                             <Grid item xs={3} sm={2} md={3} lg={2} key={items.key} >
-                                <DisplayCard movie={items} individual={`/actors/${items.key}`} />
+                                <DisplayCard movie={items} individual={`/actor/${items.key}`} />
                             </Grid>
                         ))
                         :
