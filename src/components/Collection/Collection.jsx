@@ -160,6 +160,7 @@ const Collections = (props) => {
         </div>
     );
     const { actor } = props;
+    console.log(actor)
     const classes = useStyles();
     const scrollRight = () => {
         movieScrollBox.current.scrollLeft += 200;
@@ -210,8 +211,8 @@ const Collections = (props) => {
                                 {arrowBack}
                             </Paper>
                         ) : (
-                                    <div />
-                                )}
+                            <div />
+                        )}
                     </Grid>
                     <Grid item xs={11}>
                         <GridList
@@ -224,7 +225,7 @@ const Collections = (props) => {
                             {actor
                                 ? actor.map((item) => (
                                     <GridListTile key={item.id}>
-                                        <Link href={`/movies/${item.id}`} passHref>
+                                        <Link href={`/movies/${item.id}`}>
                                             <Card
                                                 elevation={6}
                                                 className={classes.card}
@@ -272,8 +273,8 @@ const Collections = (props) => {
                                 {arrowForward}
                             </Paper>
                         ) : (
-                                        <div />
-                                    )}
+                            <div />
+                        )}
                     </Grid>
                 </Grid>
             </div>
