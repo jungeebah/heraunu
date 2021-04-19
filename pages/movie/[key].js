@@ -440,7 +440,7 @@ const Movie = ({ movie_key, movie }) => {
                         {movie.collection.map(items =>
                         (
                             <Grid item xs={3} sm={2} md={3} lg={2} key={items.id} itemScope itemType="http://schema.org/Movie">
-                                <DisplayCard movie={items} individual={`/movies/${items.id}`} key={items.id} />
+                                <DisplayCard movie={items} individual={`/movie/${items.id}`} key={items.id} />
                             </Grid>
                         ))}
                     </Grid>
