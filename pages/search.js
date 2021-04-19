@@ -61,7 +61,7 @@ const search = () => {
             {searchResult.map((item) => (
                 <Grid item item xs={3} sm={2} md={2} lg={2} xl={1} key={item.key}>
                     <DisplayCard movie={item}
-                        individual={item.item === 'Actor' ? `/actors/${item.key}` : `/movies/${item.key}`}
+                        individual={item.item === 'Actor' ? `/actor/${item.key}` : `/movie/${item.key}`}
                         key={item.item} />
                 </Grid>
             ))}
