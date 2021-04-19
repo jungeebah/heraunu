@@ -1,4 +1,4 @@
-
+import Head from 'next/head';
 import { makeStyles, useTheme } from "@material-ui/core/styles";
 import React from 'react';
 import fetch from 'node-fetch';
