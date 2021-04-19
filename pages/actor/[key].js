@@ -106,7 +106,7 @@ const Person = (props) => {
                         >
                             <Grid item xs={12}>
                                 <Typography variant='h6' itemscope itemtype="http://schema.org/Person">
-                                <p itemProp="name"> {person.name}</p>
+                                    <p itemProp="name"> {person.name}</p>
                                 </Typography>
                             </Grid>
                         </Grid>
@@ -148,6 +148,7 @@ export async function getStaticProps(context) {
     // By returning { props: { posts } }, the Blog component
     // will receive `posts` as a prop at build time
     return {
+        revalidate: 3600,
         props: {
             person,
             actor_key,
