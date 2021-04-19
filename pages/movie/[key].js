@@ -460,7 +460,7 @@ const Movie = ({ movie_key, movie }) => {
         <>
             <Head>
                 <meta property="og:locale" content="en_US" />
-                <meta property="og:type" content="video:actor:role" />
+                <meta property="og:type" content="video.movie" />
                 <meta property="og:title" content={`${movie.name} - Heraunu`} key="ogtitle" />
                 <meta property="og:description" content={`Nepali Movie  ${movie.name}`} key="ogdesc" />
                 <meta property="og:url" content={`https://heraunu.com/movie/${movie_key}`} key="ogurl" />
