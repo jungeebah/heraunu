@@ -15,6 +15,7 @@ const HeadMovie = ({ person, actor_key }) => {
         "@context": "http://schema.org/",
         "@type": "Person",
         "name": person.name,
+        "image": person.image
     }
 
     return (
