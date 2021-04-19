@@ -462,7 +462,7 @@ const Movie = ({ movie_key, movie }) => {
                 <meta property="og:locale" content="en_US" />
                 <meta property="og:type" content="video:actor:role" />
                 <meta property="og:title" content={`${movie.name} - Heraunu`} key="ogtitle" />
-                <meta property="og:description" content={`Nepali Movie Personal ${movie.name}`} key="ogdesc" />
+                <meta property="og:description" content={`Nepali Movie  ${movie.name}`} key="ogdesc" />
                 <meta property="og:url" content={`https://heraunu.com/movie/${movie_key}`} key="ogurl" />
                 <meta property="og:site_name" content="Heraunu" key="ogsitename" />
                 <meta property="article:publisher" content="https://www.facebook.com/heraunasite/" />
@@ -473,12 +473,12 @@ const Movie = ({ movie_key, movie }) => {
 
                 <meta name="twitter:card" content="summary" />
                 <meta name="twitter:description" content={movie.name} />
-                <meta name="twitter:title" content={`Nepali movie personal - ${movie.name}`} />
+                <meta name="twitter:title" content={`Nepali movie - ${movie.name}`} />
                 <meta name="twitter:site" content="@herauuna" />
                 <meta name="twitter:image" content={movie.image} />
                 <meta name="twitter:creator" content="@herauuna" />
                 <title>{movie.name + '- Heraunu'}</title>
-                <meta name="description" content={`Nepali movie personal ${movie.name}`}></meta>
+                <meta name="description" content={`Nepali movie  ${movie.name}`}></meta>
                 <meta name="keywords" content={`${movie.name},Nepali Actor`}></meta>
                 <meta charset="UTF-8" />
                 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
