@@ -1,35 +1,29 @@
 import Head from 'next/head'
 
-const Head = ({ movie }) => {
+const HeadMovie = ({ movie, movie_key }) => {
 
-    const actors = movie.actor ? Object.fromEntries(
-        movie.actor.map(actor => [actor, {
+    const actorsObject = movie.actor ?
+        movie.actor.map(actor => [{
             "@type": "Person",
             "name": actor.name
-        }])
-    ) : "";
+        }]) : [];
+    const actors = actorsObject ? Object.keys(actorsObject).map(key => actorsObject[key]).flat(1) : ""
+
+    const directorObject = movie.director.length > 0 ?
+        movie.director.map(director => [{
+            "@type": "Person",
+            "name": director.name
+        }]) : []
+
+    const directors = directorObject ? Object.keys(directorObject).map(key => directorObject[key]).flat(1) : ""
     const structure_data = {
         "@context": "http://schema.org",
         "@type": "Movie",
         "name": movie.name,
-        
-        address: {
-            "@type": "PostalAddress",
-            addressLocality: "Seattle",
-            addressRegion: "WA",
-            postalCode: "98052",
-            streetAddress: "20341 Whitworth Institute 405 N. Whitworth"
-        },
-        colleague: [
-            "http://www.xyz.edu/students/alicejones.html",
-            "http://www.xyz.edu/students/bobsmith.html"
-        ],
-        email: "mailto:jane-doe@xyz.edu",
-        image: "janedoe.jpg",
-        jobTitle: "Professor",
-        name: "Jane Doe",
-        telephone: "(425) 123-4567",
-        url: "http://www.janedoe.com"
+        "actor": actors,
+        "director": directors,
+        "image": movie.image,
+        "description": movie.description
     }
 
     return (
@@ -66,11 +60,11 @@ const Head = ({ movie }) => {
             <script
                 type="application/ld+json"
                 dangerouslySetInnerHTML={{
-                    __html: JSON.stringify()
+                    __html: JSON.stringify(structure_data)
                 }}
             />
         </Head>
     )
 }
 
-export default Head
+export default HeadMovie
