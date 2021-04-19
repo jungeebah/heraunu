@@ -53,7 +53,7 @@ const search = () => {
     }, [result])
 
     const optionSelect = movie ? (
-        <DisplayCard movie={movie} individual={type} />
+        <DisplayCard movie={movie} individual={movie.type} />
     ) : <div></div>
 
     const apiSearchResult = searchResult ? (
@@ -79,7 +79,7 @@ const search = () => {
                 </Grid>
                 <Grid item xs={12}>
                     <Box className={classes.result}>
-                        {movie.key ?
+                        {movie.type ?
                             optionSelect
                             :
                             apiSearchResult
