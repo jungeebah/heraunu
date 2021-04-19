@@ -459,16 +459,6 @@ const Movie = ({ movie_key, movie }) => {
     return (
         <>
             <Head>
-                <title>{movie.name + '- Heraunu'}</title>
-                <meta name="description" content={`Nepali movie personal ${movie.name}`}></meta>
-                <meta name="keywords" content={`${movie.name},Nepali Actor`}></meta>
-                <meta charset="UTF-8" />
-                <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-                <meta name='robots' content='index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1' />
-
-                <link rel="icon" type="image/png" href="image/png" />
-
-                <link rel="canonical" href={`https://heraunu.com/actors/${movie_key}`} />
                 <meta property="og:locale" content="en_US" />
                 <meta property="og:type" content="video:actor:role" />
                 <meta property="og:title" content={`${movie.name} - Heraunu`} key="ogtitle" />
@@ -487,6 +477,16 @@ const Movie = ({ movie_key, movie }) => {
                 <meta name="twitter:site" content="@herauuna" />
                 <meta name="twitter:image" content={movie.image} />
                 <meta name="twitter:creator" content="@herauuna" />
+                <title>{movie.name + '- Heraunu'}</title>
+                <meta name="description" content={`Nepali movie personal ${movie.name}`}></meta>
+                <meta name="keywords" content={`${movie.name},Nepali Actor`}></meta>
+                <meta charset="UTF-8" />
+                <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+                <meta name='robots' content='index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1' />
+
+                <link rel="icon" type="image/png" href="image/png" />
+
+                <link rel="canonical" href={`https://heraunu.com/actors/${movie_key}`} />
             </Head>
             <div className={classes.movie} itemScope itemType="http://schema.org/Movie">
                 {renderMovie}

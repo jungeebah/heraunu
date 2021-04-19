@@ -131,20 +131,10 @@ const Person = (props) => {
     return (
         <div>
             <Head>
-                <title>{person.name + '- Heraunu'}</title>
-                <meta name="description" content={`Nepali movie personal ${person.name}`}></meta>
-                <meta name="keywords" content={`${person.name},Nepali Actor`}></meta>
-                <meta charset="UTF-8" />
-                <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-                <meta name='robots' content='index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1' />
-
-                <link rel="icon" type="image/png" href="image/png" />
-
-                <link rel="canonical" href={`https://heraunu.com/actors/${actor_key}`} />
                 <meta property="og:locale" content="en_US" />
                 <meta property="og:type" content="video:actor:role" />
                 <meta property="og:title" content={`${person.name} - Heraunu`} key="ogtitle" />
-                <meta property="og:description" content={`Nepali Movie Personal ${person.name}`} key="ogdesc"/>
+                <meta property="og:description" content={`Nepali Movie Personal ${person.name}`} key="ogdesc" />
                 <meta property="og:url" content={`https://heraunu.com/actors/${actor_key}`} key="ogurl" />
                 <meta property="og:site_name" content="Heraunu" key="ogsitename" />
                 <meta property="article:publisher" content="https://www.facebook.com/heraunasite/" />
@@ -159,6 +149,17 @@ const Person = (props) => {
                 <meta name="twitter:site" content="@herauuna" />
                 <meta name="twitter:image" content={person.image} />
                 <meta name="twitter:creator" content="@herauuna" />
+
+                <title>{person.name + '- Heraunu'}</title>
+                <meta name="description" content={`Nepali movie personal ${person.name}`}></meta>
+                <meta name="keywords" content={`${person.name},Nepali Actor`}></meta>
+                <meta charset="UTF-8" />
+                <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+                <meta name='robots' content='index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1' />
+
+                <link rel="icon" type="image/png" href="image/png" />
+
+                <link rel="canonical" href={`https://heraunu.com/actors/${actor_key}`} />
             </Head>
             <div className={classes.person} itemScope itemType="http://schema.org/actor">
                 {renderPerson}
