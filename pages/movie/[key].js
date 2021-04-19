@@ -463,7 +463,7 @@ const Movie = ({ movie_key, movie }) => {
                 <meta property="og:type" content="video:actor:role" />
                 <meta property="og:title" content={`${movie.name} - Heraunu`} key="ogtitle" />
                 <meta property="og:description" content={`Nepali Movie Personal ${movie.name}`} key="ogdesc" />
-                <meta property="og:url" content={`https://heraunu.com/actors/${movie_key}`} key="ogurl" />
+                <meta property="og:url" content={`https://heraunu.com/movie/${movie_key}`} key="ogurl" />
                 <meta property="og:site_name" content="Heraunu" key="ogsitename" />
                 <meta property="article:publisher" content="https://www.facebook.com/heraunasite/" />
 
@@ -486,7 +486,7 @@ const Movie = ({ movie_key, movie }) => {
 
                 <link rel="icon" type="image/png" href="image/png" />
 
-                <link rel="canonical" href={`https://heraunu.com/actors/${movie_key}`} />
+                <link rel="canonical" href={`https://heraunu.com/movie/${movie_key}`} />
             </Head>
             <div className={classes.movie} itemScope itemType="http://schema.org/Movie">
                 {renderMovie}

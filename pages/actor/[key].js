@@ -135,7 +135,7 @@ const Person = (props) => {
                 <meta property="og:type" content="video:actor:role" />
                 <meta property="og:title" content={`${person.name} - Heraunu`} key="ogtitle" />
                 <meta property="og:description" content={`Nepali Movie Personal ${person.name}`} key="ogdesc" />
-                <meta property="og:url" content={`https://heraunu.com/actors/${actor_key}`} key="ogurl" />
+                <meta property="og:url" content={`https://heraunu.com/actor/${actor_key}`} key="ogurl" />
                 <meta property="og:site_name" content="Heraunu" key="ogsitename" />
                 <meta property="article:publisher" content="https://www.facebook.com/heraunasite/" />
 
@@ -159,7 +159,7 @@ const Person = (props) => {
 
                 <link rel="icon" type="image/png" href="image/png" />
 
-                <link rel="canonical" href={`https://heraunu.com/actors/${actor_key}`} />
+                <link rel="canonical" href={`https://heraunu.com/actor/${actor_key}`} />
             </Head>
             <div className={classes.person} itemScope itemType="http://schema.org/actor">
                 {renderPerson}
