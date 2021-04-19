@@ -17,6 +17,7 @@ import Typography from '@material-ui/core/Typography';
 import useMediaQuery from "@material-ui/core/useMediaQuery";
 import { useRouter } from 'next/router';
 
+
 const token = process.env.NEXT_PUBLIC_Token
 
 var myHeaders = new Headers();
