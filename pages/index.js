@@ -19,10 +19,16 @@ function Index(props) {
   return (
     <div>
       <Head>
-        <title>Complete Nepali Movie Database for viewing Nepali Movies - Heraunu</title>
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+        <meta name="theme-color" content="#000000" />
+
+        <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+        <link rel="manifest" href="/manifest.json" />
+        <title>A Complete Nepali Movie Engine - Heraunu</title>
         <meta
           name="description"
-          content="Heraunu is a site for Nepali Movie lovers to come and find viewing locations."
+          content="Heraunu is a movie engine to provide complete information on Nepali Movie."
         />
         <meta name="viewport" content="minimum-scale=1, initial-scale=1, width=device-width user-scalable=no" />
         {/* <script async defer data-pin-hover="true" data-pin-round="true" src="//assets.pinterest.com/js/pinit.js"></script> */}
