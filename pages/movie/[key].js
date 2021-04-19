@@ -15,6 +15,7 @@ import IconButton from '@material-ui/core/IconButton'
 import Box from '@material-ui/core/Box';
 import Typography from '@material-ui/core/Typography';
 import useMediaQuery from "@material-ui/core/useMediaQuery";
+import { useRouter } from 'next/router';
 
 const token = process.env.NEXT_PUBLIC_Token
 
@@ -207,6 +208,7 @@ const Movie = ({ movie_key, movie }) => {
     const onStart = (event) => {
         event.target.pauseVideo();
     }
+    const router = useRouter()
 
     const classes = useStyles()
     const mobile = useMediaQuery(theme.breakpoints.down("xs"));
