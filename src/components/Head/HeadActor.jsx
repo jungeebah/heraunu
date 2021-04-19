@@ -15,7 +15,6 @@ const HeadMovie = ({ person, actor_key }) => {
         "@context": "http://schema.org/",
         "@type": "Person",
         "name": person.name,
-        "@reverse": { "actor": movie }
     }
 
     return (
