@@ -22,10 +22,10 @@ const HeadMovie = ({ person, actor_key }) => {
         <Head>
             <meta property="og:locale" content="en_US" />
             <meta property="og:type" content="video:actor:role" />
-            <meta property="og:title" content={`${person.name} - Heraunu`} key="ogtitle" />
+            <meta property="og:title" content={`${person.name} - Herauna`} key="ogtitle" />
             <meta property="og:description" content={`Nepali Movie Personal ${person.name}`} key="ogdesc" />
-            <meta property="og:url" content={`https://heraunu.com/actor/${actor_key}`} key="ogurl" />
-            <meta property="og:site_name" content="Heraunu" key="ogsitename" />
+            <meta property="og:url" content={`https://herauna.com/actor/${actor_key}`} key="ogurl" />
+            <meta property="og:site_name" content="Herauna" key="ogsitename" />
             <meta property="article:publisher" content="https://www.facebook.com/heraunasite/" />
 
             <meta property="og:image" content={person.image} key="ogimage" />
@@ -39,7 +39,7 @@ const HeadMovie = ({ person, actor_key }) => {
             <meta name="twitter:image" content={person.image} />
             <meta name="twitter:creator" content="@herauuna" />
 
-            <title>{person.name + '- Heraunu'}</title>
+            <title>{person.name + '- Herauna'}</title>
             <meta name="description" content={`Nepali movie personal ${person.name}`}></meta>
             <meta name="keywords" content={`${person.name},Nepali Actor`}></meta>
             <meta charSet="UTF-8" />
@@ -48,7 +48,7 @@ const HeadMovie = ({ person, actor_key }) => {
 
             <link rel="icon" type="image/png" href="image/png" />
 
-            <link rel="canonical" href={`https://heraunu.com/actor/${actor_key}`} />
+            <link rel="canonical" href={`https://herauna.com/actor/${actor_key}`} />
 
             <script
                 type="application/ld+json"
