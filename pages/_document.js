@@ -11,6 +11,7 @@ export default class MyDocument extends Document {
                 <Head>
                     {/* PWA primary color */}
                     <meta charSet="utf-8" />
+                    <link rel="icon" href="/favicon.ico" />
                     <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
                     <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
                     <meta name="theme-color" content="#000000" />
@@ -18,14 +19,15 @@ export default class MyDocument extends Document {
                     <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
                     <link rel="manifest" href="/manifest.json" />
                     <meta name="theme-color" content={LightTheme.palette.primary.main} />
-                    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-193514445-1"></script>
+                    <script data-ad-client="ca-pub-5851312120123981" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+                    <script async src="https://www.googletagmanager.com/gtag/js?id=G-PVQ3RNYL4H"></script>
                     <script
                         dangerouslySetInnerHTML={{
                             __html: `
                                 window.dataLayer = window.dataLayer || [];
                                 function gtag(){dataLayer.push(arguments);}
                                 gtag('js', new Date());
-                                gtag('config', 'UA-193514445-1');
+                                gtag('config', 'G-PVQ3RNYL4H');
                             `,
                         }}
                     />

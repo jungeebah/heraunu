@@ -160,6 +160,7 @@ const Collections = (props) => {
         </div>
     );
     const { actor } = props;
+    console.log(actor)
     const classes = useStyles();
     const scrollRight = () => {
         movieScrollBox.current.scrollLeft += 200;
@@ -210,8 +211,8 @@ const Collections = (props) => {
                                 {arrowBack}
                             </Paper>
                         ) : (
-                                    <div />
-                                )}
+                            <div />
+                        )}
                     </Grid>
                     <Grid item xs={11}>
                         <GridList
@@ -223,8 +224,8 @@ const Collections = (props) => {
                         >
                             {actor
                                 ? actor.map((item) => (
-                                    <GridListTile key={item.id}>
-                                        <Link href={{ pathname: 'movie', query: { key: item.id, name: item.name, image: item.image } }} passHref>
+                                    <GridListTile key={item.id} itemScope itemType="http://schema.org/Movie">
+                                        <Link href={`/movie/${item.id}`}>
                                             <Card
                                                 elevation={6}
                                                 className={classes.card}
@@ -233,6 +234,7 @@ const Collections = (props) => {
 
 
                                                 <CardMedia
+                                                    itemProp="image"
                                                     key={item.id}
                                                     classes={{
                                                         img: classes.image,
@@ -247,6 +249,7 @@ const Collections = (props) => {
                                         </Link>
 
                                         <Typography
+                                            itemProp="name"
                                             variant={mobile ? "body2" : "h6"}
                                             key={item.name}
                                             className={classes.title}
@@ -272,8 +275,8 @@ const Collections = (props) => {
                                 {arrowForward}
                             </Paper>
                         ) : (
-                                        <div />
-                                    )}
+                            <div />
+                        )}
                     </Grid>
                 </Grid>
             </div>

@@ -211,8 +211,8 @@ const Cast = (props) => {
                                 {arrowBack}
                             </Paper>
                         ) : (
-                                    <div />
-                                )}
+                            <div />
+                        )}
                     </Grid>
                     <Grid item xs={11}>
                         <GridList
@@ -224,8 +224,8 @@ const Cast = (props) => {
                         >
                             {actor
                                 ? actor.map((item) => (
-                                    <GridListTile key={item.id}>
-                                        <Link href={{ pathname: '/person', query: { key: item.id, name: item.name, image: item.image } }}>
+                                    <GridListTile key={item.id} itemScope itemType="http://schema.org/Person">
+                                        <Link href={`/actor/${item.id}`}>
                                             <Card
                                                 elevation={1}
                                                 className={classes.card}
@@ -233,6 +233,7 @@ const Cast = (props) => {
                                             >
 
                                                 <CardMedia
+                                                    itemProp="image"
                                                     key={item.id}
                                                     classes={{
                                                         img: classes.image,
@@ -244,6 +245,7 @@ const Cast = (props) => {
                                             </Card>
                                         </Link>
                                         <Typography
+                                            itemProp="name"
                                             variant={mobile ? "body2" : "h6"}
                                             key={item.name}
                                             className={classes.title}
@@ -269,8 +271,8 @@ const Cast = (props) => {
                                 {arrowForward}
                             </Paper>
                         ) : (
-                                        <div />
-                                    )}
+                            <div />
+                        )}
                     </Grid>
                 </Grid>
             </div>

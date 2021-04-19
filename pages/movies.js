@@ -372,8 +372,8 @@ const movies = () => {
                             </Box>
                         ))
                     ) : (
-                            <div></div>
-                        )}
+                        <div></div>
+                    )}
                 </Box >
                 <Collapse in={filterOpen}>
                     <Box display="flex" flexDirection="row"
@@ -484,7 +484,7 @@ const movies = () => {
                     {displayData ?
                         displayData.map(items => (
                             <Grid item xs={3} sm={2} md={3} lg={2} key={items.key} >
-                                <DisplayCard movie={items} individual='/movie' key={items.key} />
+                                <DisplayCard movie={items} individual={`/movie/${items.key}`} key={items.key} />
                             </Grid>
                         ))
                         :

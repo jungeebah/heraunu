@@ -53,7 +53,7 @@ const search = () => {
     }, [result])
 
     const optionSelect = movie ? (
-        <DisplayCard movie={movie} individual={type} />
+        <DisplayCard movie={movie} individual={movie.type} />
     ) : <div></div>
 
     const apiSearchResult = searchResult ? (
@@ -61,7 +61,7 @@ const search = () => {
             {searchResult.map((item) => (
                 <Grid item item xs={3} sm={2} md={2} lg={2} xl={1} key={item.key}>
                     <DisplayCard movie={item}
-                        individual={item.item === 'Actor' ? '/person' : '/movie'}
+                        individual={item.item === 'Actor' ? `/actor/${item.key}` : `/movie/${item.key}`}
                         key={item.item} />
                 </Grid>
             ))}
@@ -79,7 +79,7 @@ const search = () => {
                 </Grid>
                 <Grid item xs={12}>
                     <Box className={classes.result}>
-                        {movie.key ?
+                        {movie.type ?
                             optionSelect
                             :
                             apiSearchResult

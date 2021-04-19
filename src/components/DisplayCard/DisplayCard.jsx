@@ -70,7 +70,7 @@ const DisplayCard = (props) => {
         .split(' ')
         .map((s) => s.charAt(0).toUpperCase() + s.substring(1))
         .join(' ')
-        .replace(/\((\b\w)/g,l => l.toUpperCase());
+        .replace(/\((\b\w)/g,l => l.toUpperCase());;
     var image = movie.image || movie.video_thumbnail
     if (image === 'None') {
         image = '/image.jpg'
@@ -78,7 +78,7 @@ const DisplayCard = (props) => {
     const key = movie.key || movie.movie_id || movie.id
 
     return (
-        <Link href={{ pathname: individual, query: { key: key, name: movie.name, image: image } }}>
+        <Link href={individual}>
             <IconButton className={classes.root}>
                 <Grid container
                     direction="column"
@@ -94,6 +94,7 @@ const DisplayCard = (props) => {
                             >
 
                                 <Image
+                                    itemProp="image"
                                     className={classes.image}
                                     src={image || '/image.jpg'}
                                     alt={movie.name}
@@ -112,7 +113,7 @@ const DisplayCard = (props) => {
                     </Grid>
 
                     <Grid item>
-                        <Typography className={classes.text} align="left">
+                        <Typography className={classes.text} align="left" itemProp="name">
                             {name.length > 20 ? name.substring(0, 20) + "..." : name}
                         </Typography>
                     </Grid>
