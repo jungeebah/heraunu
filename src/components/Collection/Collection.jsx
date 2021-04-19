@@ -224,7 +224,7 @@ const Collections = (props) => {
                         >
                             {actor
                                 ? actor.map((item) => (
-                                    <GridListTile key={item.id}>
+                                    <GridListTile key={item.id} itemScope itemType="http://schema.org/Movie">
                                         <Link href={`/movie/${item.id}`}>
                                             <Card
                                                 elevation={6}
@@ -234,6 +234,7 @@ const Collections = (props) => {
 
 
                                                 <CardMedia
+                                                    itemProp="image"
                                                     key={item.id}
                                                     classes={{
                                                         img: classes.image,
@@ -248,6 +249,7 @@ const Collections = (props) => {
                                         </Link>
 
                                         <Typography
+                                            itemProp="name"
                                             variant={mobile ? "body2" : "h6"}
                                             key={item.name}
                                             className={classes.title}

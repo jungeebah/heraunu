@@ -257,6 +257,7 @@ const Movie = ({ movie_key, movie }) => {
         <div className={classes.streaming}>
             <Grid item xs={12} lg={12}>
                 <Chip
+                    itemProp="rating"
                     avatar={<Avatar>{movie.imdb_rating}</Avatar>}
                     label="IMDB Rating"
                     size={large ? "medium" : "small"} />
@@ -312,7 +313,7 @@ const Movie = ({ movie_key, movie }) => {
                 }
             </Box>
             <Box>
-                <Typography variant="caption" display="block" gutterBottom>
+                <Typography variant="caption" display="block" gutterBottom itemProp="duration" itemscope itemtype="http://schema.org/Duration">
                     {movie.length ? movie.length : 'NA'}
                 </Typography>
             </Box>
@@ -320,13 +321,14 @@ const Movie = ({ movie_key, movie }) => {
         </Box >
 
     const movieDirector = movie.director ? (
-        <div className={classes.streamingData}>
+        <div className={classes.streamingData} itemProp="director" itemscope itemtype="http://schema.org/Person">
             { movie.director.length > 0 ? movie.director.map((item) =>
             (<Grid container direction="row" key={item.id}>
                 <Grid item xs={6} key={'level1-' + item.id}>
                     <Grid container key={'level2-' + item.id}>
                         <Grid item xs={12} key={'level3-' + item.id}>
                             <Button
+                                itemProp="name"
                                 className={classes.director}
                                 onClick={(e) =>
                                     router.push(`/actor/${item.id}`)}
@@ -353,7 +355,7 @@ const Movie = ({ movie_key, movie }) => {
                     <Typography variant={large ? "h6" : "body1"} display="block" gutterBottom>
                         Overview
                         </Typography>
-                    <Typography variant={large ? "body1" : "caption"} display="block" gutterBottom className={classes.plotItem}>
+                    <Typography variant={large ? "body1" : "caption"} display="block" gutterBottom className={classes.plotItem} itemProp="description">
                         {movie.plot || 'NA'}
                     </Typography>
                 </Box>
@@ -366,7 +368,7 @@ const Movie = ({ movie_key, movie }) => {
             <IconButton className={classes.genreButton} edge="start"
                 size="small" >
                 <Typography variant="caption" >
-                    <Box border={1} borderRadius={5} p='2px' fontWeight={500}>
+                    <Box border={1} borderRadius={5} p='2px' fontWeight={500} itemProp="genre">
                         {item.name}
                     </Box>
                 </Typography>
@@ -394,6 +396,7 @@ const Movie = ({ movie_key, movie }) => {
                             borderRadius={4}
                         >
                             <Image
+                                itemProp="image"
                                 className={classes.image}
                                 key={movie.key}
                                 src={movie.image}
@@ -404,11 +407,11 @@ const Movie = ({ movie_key, movie }) => {
                         </Box>
                     </Grid>
                     <Grid item xs={12} sm={8} lg={8}>
-                        <Typography variant='h6'>
+                        <Typography variant='h6' itemProp="name">
                             {movie.name}
                         </Typography>
                         {movieInfo}
-                        <Box display="flex" flexDirection="row">
+                        <Box display="flex" flexDirection="row" itemProp="genre">
                             {genre.map(item => item)}
                         </Box>
                         {moviePlot}
@@ -422,7 +425,7 @@ const Movie = ({ movie_key, movie }) => {
                 {movieStreaming}
             </Grid>
             <Grid item xs={12}>
-                <div className={classes.casting}>
+                <div className={classes.casting} itemScope itemType="http://schema.org/Person">
                     {!movie.actor?.length > 0 ? <div></div> : < Cast
                         actor={movie.actor}
                     />}
@@ -436,7 +439,7 @@ const Movie = ({ movie_key, movie }) => {
                     <Grid container >
                         {movie.collection.map(items =>
                         (
-                            <Grid item xs={3} sm={2} md={3} lg={2} key={items.id} >
+                            <Grid item xs={3} sm={2} md={3} lg={2} key={items.id} itemScope itemType="http://schema.org/Movie">
                                 <DisplayCard movie={items} individual={`/movies/${items.id}`} key={items.id} />
                             </Grid>
                         ))}

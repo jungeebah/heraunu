@@ -89,6 +89,7 @@ const Person = (props) => {
                             boxShadow={3}
                             borderRadius={16}>
                             <Image
+                                itemProp="image"
                                 className={classes.image}
                                 key={actor_key}
                                 src={image || '/image.jpg'}
@@ -104,8 +105,8 @@ const Person = (props) => {
                             direction="row"
                         >
                             <Grid item xs={12}>
-                                <Typography variant='h6'>
-                                    {person.name}
+                                <Typography variant='h6' itemscope itemtype="http://schema.org/Person">
+                                <p itemProp="name"> {person.name}</p>
                                 </Typography>
                             </Grid>
                         </Grid>

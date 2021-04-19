@@ -93,6 +93,7 @@ const DisplayCard = (props) => {
                             >
 
                                 <Image
+                                    itemProp="image"
                                     className={classes.image}
                                     src={image || '/image.jpg'}
                                     alt={movie.name}
@@ -111,7 +112,7 @@ const DisplayCard = (props) => {
                     </Grid>
 
                     <Grid item>
-                        <Typography className={classes.text} align="left">
+                        <Typography className={classes.text} align="left" itemProp="name">
                             {name.length > 20 ? name.substring(0, 20) + "..." : name}
                         </Typography>
                     </Grid>

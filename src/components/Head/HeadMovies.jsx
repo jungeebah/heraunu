@@ -49,7 +49,7 @@ const HeadMovie = ({ movie, movie_key }) => {
             <title>{movie.name + '- Heraunu'}</title>
             <meta name="description" content={`Nepali movie  ${movie.name}`}></meta>
             <meta name="keywords" content={`${movie.name},Nepali Actor`}></meta>
-            <meta charset="UTF-8" />
+            <meta charSet="UTF-8" />
             <meta name="viewport" content="width=device-width, initial-scale=1.0" />
             <meta name='robots' content='index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1' />
 
