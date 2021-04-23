@@ -1,5 +1,5 @@
 module.exports = {
-    siteUrl: 'https://heraunu.com',
+    siteUrl: 'https://herauna.com',
     generateRobotsTxt: true,
     sitemapSize: 6629,
 }
