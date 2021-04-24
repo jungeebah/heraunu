@@ -225,16 +225,17 @@ const Movie = ({ movie_key, movie }) => {
             modestbranding: 1,
         },
     };
-    const openYoutube = (e, item) => {
+    const openYoutube = (e, item, name) => {
+        let nameLower = name.toLowerCase().replace(/ /g,"-")
         switch (item) {
             case ('Youtube'):
                 window.open(e, "_blank")
                 break;
             case ('Hamro Movie'):
-                window.open('https://hamromovie.com/', "_blank")
+                window.open(`https://hamromovie.com/`, "_blank")
                 break;
             case ('Cinemaghar'):
-                window.open('https://cinema-ghar.com/', "_blank")
+                window.open(`https://cinema-ghar.com/`, "_blank")
                 break;
             case ('itune'):
                 window.open('https://itunes.apple.com/', "_blank")
@@ -283,7 +284,7 @@ const Movie = ({ movie_key, movie }) => {
                             key={item}
                             rel="noopener noreferrer"
                             className={classes.chip}
-                            onClick={() => openYoutube(youtubeLocation, item)}
+                            onClick={() => openYoutube(youtubeLocation, item, movie.name)}
                             icon={<OndemandVideoIcon fontSize="small" />}
                             label={item}
                             clickable

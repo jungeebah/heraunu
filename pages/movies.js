@@ -5,7 +5,7 @@ import { getFilterMovies, filterMovieSelector, invalidateFilterMovie } from '../
 import { updateFilters, updatePage, movieDataSelector, updateIsFiltering, updateFilterChip } from '../lib/slice/moviesDataSlice';
 import { useDispatch, useSelector } from 'react-redux';
 import React from 'react';
-import SkeletonDisplay from '../src/components/SkeletonDisplay/SkeletonDisplay';
+import SkeletonDisplay from '../src/components/SkeletonDisplay/SkeletonActor';
 import SvgIcon from '@material-ui/core/SvgIcon';
 import Collapse from '@material-ui/core/Collapse';
 import IconButton from '@material-ui/core/IconButton'
