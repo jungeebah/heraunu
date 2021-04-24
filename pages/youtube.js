@@ -2,7 +2,7 @@ import { getallYoutube, allYoutubeSelector, invalidateAllYoutube } from '../lib/
 import { updatePageNumber, updateSorting, youtubeDataSelector } from '../lib/slice/youtubeDataSlice'
 import { useDispatch, useSelector } from 'react-redux';
 import React, { useState } from 'react';
-import SkeletonDisplay from '../src/components/SkeletonDisplay/SkeletonDisplay';
+import SkeletonDisplay from '../src/components/SkeletonDisplay/SkeletonActor';
 import Typography from '@material-ui/core/Typography'
 import { makeStyles, useTheme } from "@material-ui/core/styles";
 import DisplayCard from '../src/components/DisplayCard/DisplayCard';

@@ -1,6 +1,6 @@
 import { getAllActor, allPersonSelector } from '../lib/slice/allPerson';
 import { useDispatch, useSelector } from 'react-redux';
-import SkeletonDisplay from '../src/components/SkeletonDisplay/SkeletonDisplay';
+import SkeletonDisplay from '../src/components/SkeletonDisplay/SkeletonActor';
 import React, { useState } from 'react'
 import Typography from '@material-ui/core/Typography'
 import { makeStyles } from "@material-ui/core/styles";
