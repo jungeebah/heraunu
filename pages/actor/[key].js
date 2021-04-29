@@ -148,7 +148,7 @@ export async function getStaticProps(context) {
     // By returning { props: { posts } }, the Blog component
     // will receive `posts` as a prop at build time
     return {
-        revalidate: 3600,
+        revalidate: 36000,
         props: {
             person,
             actor_key,
