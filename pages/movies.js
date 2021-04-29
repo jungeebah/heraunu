@@ -328,7 +328,6 @@ const movies = () => {
 
     React.useEffect(() => {
         setTotalMovies(movie.allmovies.length)
-        console.log(movie.allmovies.length)
     }, [filterChipList])
 
     React.useEffect(() => {

@@ -203,6 +203,7 @@ function get_id(url) {
     return video_id
 }
 
+
 const Movie = ({ movie_key, movie }) => {
     const theme = useTheme();
     const youtubeLocation = movie.location || null
@@ -210,6 +211,10 @@ const Movie = ({ movie_key, movie }) => {
         event.target.pauseVideo();
     }
     const router = useRouter()
+
+    const streamingLocation = ['VideoPasal', 'Prime', 'CinemaGhar', 'Iflix', 'HamroMovie', 'Youtube']
+    const playingLocation = streamingLocation.filter(location => movie[location] !== "")
+
 
     const classes = useStyles()
     const mobile = useMediaQuery(theme.breakpoints.down("xs"));
@@ -225,38 +230,10 @@ const Movie = ({ movie_key, movie }) => {
             modestbranding: 1,
         },
     };
-    const openYoutube = (e, item, name) => {
-        let nameLower = name.toLowerCase().replace(/ /g,"-")
-        switch (item) {
-            case ('Youtube'):
-                window.open(e, "_blank")
-                break;
-            case ('Hamro Movie'):
-                window.open(`https://hamromovie.com/`, "_blank")
-                break;
-            case ('Cinemaghar'):
-                window.open(`https://cinema-ghar.com/`, "_blank")
-                break;
-            case ('itune'):
-                window.open('https://itunes.apple.com/', "_blank")
-                break;
-            case ('Netflix'):
-                window.open('https://www.netflix.com/', "_blank")
-                break;
-            case ('Prime'):
-                window.open('https://www.amazon.com/Movies-Nepali-Prime-Video/s?rh=n%3A2858905011%2Cp_n_feature_ten_browse-bin%3A13413562011', '_blank')
-                break;
-            case ('Video Pasal'):
-                window.open('https://videopasal.com/', '_blank')
-                break;
-            case ('Iflix'):
-                window.open('https://www.iflix.com/np/en/browse', '_blank')
-                break;
-            default:
-                break;
-        }
-
+    const openLocation = (item) => {
+        window.open(item, "_blank")
     }
+
     const imdbRating = movie.imdb_rating > 0 ? (
         <div className={classes.streaming}>
             <Grid item xs={12} lg={12}>
@@ -278,13 +255,13 @@ const Movie = ({ movie_key, movie }) => {
             <Box display="flex"
                 flexWrap="wrap"
                 className={classes.streamingData}>
-                {movie.playing ? movie.playing.map((item) => (
+                {playingLocation ? playingLocation.map((item) => (
                     <Box mr={2}>
                         <Chip
                             key={item}
                             rel="noopener noreferrer"
                             className={classes.chip}
-                            onClick={() => openYoutube(youtubeLocation, item, movie.name)}
+                            onClick={() => openLocation(movie[item])}
                             icon={<OndemandVideoIcon fontSize="small" />}
                             label={item}
                             clickable
