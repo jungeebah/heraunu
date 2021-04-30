@@ -206,7 +206,6 @@ function get_id(url) {
 
 const Movie = ({ movie_key, movie }) => {
     const theme = useTheme();
-    const youtubeLocation = movie.location || null
     const onStart = (event) => {
         event.target.pauseVideo();
     }
