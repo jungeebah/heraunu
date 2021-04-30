@@ -212,9 +212,9 @@ const Movie = ({ movie_key, movie }) => {
     const router = useRouter()
 
     const streamingLocation = ['VideoPasal', 'Prime', 'CinemaGhar', 'Iflix', 'HamroMovie', 'Youtube']
-    const playingLocation = streamingLocation.filter(location => movie[location] !== "")
+    const playingLocation = streamingLocation.filter(location =>  movie[location] !== null)
 
-
+    console.log(playingLocation)
     const classes = useStyles()
     const mobile = useMediaQuery(theme.breakpoints.down("xs"));
     const large = useMediaQuery(theme.breakpoints.up("md"));
