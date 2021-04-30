@@ -110,12 +110,12 @@ const SimpleTabs = (props) => {
                 indicatorColor="primary"
             >
                 {tabs.map((item, index) => (
-                    <Tab classes={tabItemStyles} label={item} {...a11yProps(index)} />
+                    <Tab classes={tabItemStyles} label={item} {...a11yProps(index)} key={index}/>
                 ))}
             </Tabs>
             {tabs.map((role, index) => (
-                <TabPanel value={value} index={index}>
-                    <Grid container >
+                <TabPanel value={value} index={index} key={index}>
+                    <Grid container key={index}>
                         {displayData.map(item =>
                             <Grid item xs={4} sm={2} md={3} xl={2} key={item.movie_id}>
                                 <DisplayCard movie={item} individual={`/movie/${item.movie_id}`} />

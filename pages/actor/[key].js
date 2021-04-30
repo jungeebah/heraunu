@@ -105,7 +105,7 @@ const Person = (props) => {
                             direction="row"
                         >
                             <Grid item xs={12}>
-                                <Typography variant='h6' itemscope itemtype="http://schema.org/Person">
+                                <Typography variant='h6' itemScope itemType="http://schema.org/Person">
                                     <p itemProp="name"> {person.name}</p>
                                 </Typography>
                             </Grid>
