@@ -8,13 +8,6 @@ import { Typography } from '@material-ui/core';
 import Grid from '@material-ui/core/Grid';
 import useMediaQuery from "@material-ui/core/useMediaQuery";
 import { makeStyles, useTheme } from "@material-ui/core/styles";
-import { invalidateYoutubeUserSetting } from '../../../lib/slice/youtubeDataSlice';
-import { invalidateMovieUserSetting } from '../../../lib/slice/moviesDataSlice';
-import { invalidatePersonUserSetting } from '../../../lib/slice/personUserSlice';
-import { getallMovie, invalidateAllMovie } from '../../../lib/slice/allMovies';
-import { getAllActor, invalidateAllActor } from '../../../lib/slice/allPerson';
-import { getallYoutube, invalidateAllYoutube } from '../../../lib/slice/allYoutube';
-import { useDispatch } from 'react-redux';
 
 const useStyles = makeStyles((theme) => ({
     title: {
@@ -63,28 +56,9 @@ const useStyles = makeStyles((theme) => ({
 
 const Section = (props) => {
     const theme = useTheme();
-    const dispatch = useDispatch()
     const medium = useMediaQuery(theme.breakpoints.up("md"));
     const { displayData, name, url, individual } = props
     const classes = useStyles()
-    const seeall_reset = (url) => {
-        if (url === '/youtube') {
-            console.log('here')
-            dispatch(invalidateAllYoutube())
-            dispatch(invalidateYoutubeUserSetting())
-            dispatch(getallYoutube('-youtube__views'))
-        }
-        else if (url === '/movies') {
-            dispatch(invalidateAllMovie())
-            dispatch(invalidateMovieUserSetting())
-            dispatch(getallMovie())
-        }
-        else if (url === '/actors') {
-            dispatch(invalidateAllActor())
-            dispatch(invalidatePersonUserSetting())
-            dispatch(getAllActor())
-        }
-    }
 
     return (
         <div>
@@ -97,7 +71,7 @@ const Section = (props) => {
                     {name}
                 </Typography>
                 <Link href={url} passHref={true} shallow={true}>
-                    <IconButton onClick={() => seeall_reset(url)}>
+                    <IconButton onClick={() => {}}>
                         <Typography className={classes.seeAll}>
                             <Paper variant="outlined" className={classes.seeAllPaper}>
                                 <Box border={1} borderRadius={5} p='2px' fontWeight={600}>
@@ -125,5 +99,6 @@ const Section = (props) => {
 
     )
 };
+
 
 export default Section

@@ -1,4 +1,3 @@
-import { getAllActor, allPersonSelector } from '../lib/slice/allPerson';
 import { useDispatch, useSelector } from 'react-redux';
 import SkeletonDisplay from '../src/components/SkeletonDisplay/SkeletonActor';
 import React, { useState } from 'react'
@@ -8,7 +7,17 @@ import DisplayCard from '../src/components/DisplayCard/DisplayCard';
 import Grid from '@material-ui/core/Grid';
 import Pagination from '@material-ui/lab/Pagination';
 import { updatePageNumber, personDataSelector } from '../lib/slice/personUserSlice';
-import Box from '@material-ui/core/Box'
+import Box from '@material-ui/core/Box';
+
+const token = process.env.NEXT_PUBLIC_Token
+
+var myHeaders = new Headers();
+myHeaders.append("Authorization", `Token ${token}`);
+
+var requestOptions = {
+    method: 'GET',
+    headers: myHeaders,
+};
 
 const useStyles = makeStyles((theme) => ({
     persons: {
@@ -32,32 +41,32 @@ const useStyles = makeStyles((theme) => ({
     }
 }))
 
-const actors = () => {
+const actors = ({ actor }) => {
+    const totalMovies = actor.count
+    const personsList = actor.results
     const skeletonItem = [...Array(10).keys()]
-    const person = useSelector(allPersonSelector);
     const userData = useSelector(personDataSelector)
     const dispatch = useDispatch();
     const classes = useStyles();
-    const [personList, setPersonList] = useState(person.allActors)
-    const [displayData, setDisplayData] = useState(personList.slice((userData.pageNumber - 1) * 10, userData.pageNumber * 10))
-    const [totalPerson, setTotalPerson] = useState(personList.length)
+    const [displayData, setDisplayData] = useState(personsList.slice((userData.pageNumber - 1) * 10, userData.pageNumber * 10))
+
     const nextPage = (e, v) => {
         dispatch(updatePageNumber(v))
-        setDisplayData(personList.slice((v - 1) * 10, v * 10))
+        setDisplayData(personsList.slice((v - 1) * 10, v * 10))
     }
-    React.useEffect(() => {
-        if (!person.allActors?.length) {
-            dispatch(getAllActor())
-        }
-    }, [])
-    React.useEffect(() => {
-        setPersonList(person.allActors)
-    }, [person])
+    // React.useEffect(() => {
+    //     if (!person.allActors?.length) {
+    //         dispatch(getAllActor())
+    //     }
+    // }, [])
+    // React.useEffect(() => {
+    //     setPersonList(person.allActors)
+    // }, [person])
 
-    React.useEffect(() => {
-        setDisplayData(personList.slice((userData.pageNumber - 1) * 10, userData.pageNumber * 10))
-        setTotalPerson(personList.length)
-    }, [personList])
+    // React.useEffect(() => {
+    //     setDisplayData(personList.slice((userData.pageNumber - 1) * 10, userData.pageNumber * 10))
+    //     setTotalPerson(personList.length)
+    // }, [personList])
 
     const skeleton = <div>
         {skeletonItem.map((item) => (
@@ -89,7 +98,7 @@ const actors = () => {
                 justifyContent="center"
                 display="flex">
                 <Pagination
-                    count={totalPerson % 10 === 0 ? totalPerson / 10 : Math.floor(totalPerson / 10) + 1}
+                    count={totalMovies % 10 === 0 ? totalMovies / 10 : Math.floor(totalMovies / 10) + 1}
                     variant="outlined"
                     shape="rounded"
                     size="small"
@@ -98,5 +107,16 @@ const actors = () => {
             </Box>
         </div >
     )
+}
+
+export async function getStaticProps() {
+    const result = await fetch(`https://api.heraunu.com/api/allPerson/`, requestOptions)
+    const actor = await result.json()
+    return {
+        revalidate: 36000,
+        props: {
+            actor
+        },
+    }
 }
 export default actors
