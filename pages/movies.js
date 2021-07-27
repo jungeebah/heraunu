@@ -287,11 +287,10 @@ const movies = ({ allMovies, genreList, streamList }) => {
 
     React.useEffect(() => {
         const filters = moviesUserSetting.filters.map(a => a === 'All' ? 0 : 1)
-        console.log(moviesUserSetting.filters[2])
         setSortedData(totalMoviesList
             .filter(a => filters[0] === 0 ? a : a.genre.some(g => g.name === moviesUserSetting.filters[0]))
             .filter(b => filters[1] === 0 ? b : b[moviesUserSetting.filters[1].replace(' ', '').toLowerCase()])
-            .filter(c => filters[2] === 0 ? c : moviesUserSetting.filters[2] === 'Upcoming' ? c.release_date.split('-')[0] === '2050' : c.release_date ? c.release_date.split('-')[0] === moviesUserSetting.filters[2] : c.release_date === moviesUserSetting.filters[2])
+            .filter(c => filters[2] === 0 ? c :c.release_date ? moviesUserSetting.filters[2] === 'Upcoming' ? c.release_date.split('-')[0] === '2050' :  c.release_date.split('-')[0] === moviesUserSetting.filters[2] : c.release_date === moviesUserSetting.filters[2])
             .filter(d => filters[3] === 0 ? d : d.imdb_rating > moviesUserSetting.filters[3])
         )
     }, [filterChipList])
