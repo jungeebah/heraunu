@@ -78,9 +78,9 @@ const yearList = ["All", "Upcoming", ...rangeYear];
 const imdb = Array.from(new Array(10), (x, i) => i + 1);
 const imdbRating = ['All', ...imdb]
 
-const movies = ({ moviesList, genreList, streamList }) => {
-    const moviesTotal = moviesList.count
-    const totalMoviesList = moviesList.results
+const movies = ({ allMovies, genreList, streamList }) => {
+    const moviesTotal = allMovies.count
+    const totalMoviesList = allMovies.results
     const skeletonItem = [...Array(10).keys()]
     const theme = useTheme();
     const mobile = useMediaQuery(theme.breakpoints.down("xs"));
@@ -469,7 +469,9 @@ export async function getStaticProps() {
     const result = await fetch(`https://api.heraunu.com/api/allMovie/`, requestOptions)
     const resultGenre = await fetch(`https://api.heraunu.com/api/allGenres/`, requestOptions)
     const resultStream = await fetch(`https://api.heraunu.com/api/streamKey/`, requestOptions)
-    const moviesList = await result.json()
+    const resultAllPersons = await fetch(`https://api.heraunu.com/api/allPerson/`, requestOptions)
+    const allPersons = await resultAllPersons.json()
+    const allMovies = await result.json()
     const genList = await resultGenre.json()
     const streamJson = await resultStream.json()
     const streamList = streamJson.results.map(s => s.site)
@@ -478,7 +480,8 @@ export async function getStaticProps() {
         revalidate: 36000,
         props: {
             genreList,
-            moviesList,
+            allMovies,
+            allPersons,
             streamList,
         },
     }

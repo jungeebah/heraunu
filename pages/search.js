@@ -8,6 +8,16 @@ import Box from '@material-ui/core/Box'
 import { allSearchSelection } from '../lib/slice/search';
 import { useSelector } from 'react-redux';
 
+const token = process.env.NEXT_PUBLIC_Token
+
+var myHeaders = new Headers();
+myHeaders.append("Authorization", `Token ${token}`);
+
+var requestOptions = {
+    method: 'GET',
+    headers: myHeaders,
+};
+
 const useStyles = makeStyles((theme) => ({
     search: {
         [theme.breakpoints.down('xs')]: {
@@ -91,6 +101,22 @@ const search = () => {
 
         </div >
     )
+}
+export async function getStaticProps() {
+    // Call an external API endpoint to get posts
+    const resultAllMovies = await fetch(`https://api.heraunu.com/api/allMovie/`, requestOptions)
+    const allMovies = await resultAllMovies.json()
+    const resultAllPersons = await fetch(`https://api.heraunu.com/api/allPerson/`, requestOptions)
+    const allPersons = await resultAllPersons.json()
+    // By returning { props: { posts } }, the Blog component
+    // will receive `posts` as a prop at build time
+    return {
+        revalidate: 36000,
+        props: {
+            allMovies,
+            allPersons,
+        },
+    }
 }
 
 export default search

@@ -254,11 +254,17 @@ const youtube = ({ youtube }) => {
 
 export async function getStaticProps() {
     const result = await fetch(`https://api.heraunu.com/api/allY/?ordering=`, requestOptions)
+    const resultAllMovies = await fetch(`https://api.heraunu.com/api/allMovie/`, requestOptions)
+    const allMovies = await resultAllMovies.json()
+    const resultAllPersons = await fetch(`https://api.heraunu.com/api/allPerson/`, requestOptions)
+    const allPersons = await resultAllPersons.json()
     const youtube = await result.json()
     return {
         revalidate: 36000,
         props: {
-            youtube
+            youtube,
+            allPersons,
+            allMovies,
         },
     }
 }

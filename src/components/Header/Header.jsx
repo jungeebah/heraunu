@@ -16,16 +16,6 @@ import { allPersonSelector } from '../../../lib/slice/allPerson';
 import MenuIcon from '@material-ui/icons/Menu';
 
 
-const token = process.env.NEXT_PUBLIC_Token
-
-var myHeaders = new Headers();
-myHeaders.append("Authorization", `Token ${token}`);
-
-var requestOptions = {
-    method: 'GET',
-    headers: myHeaders,
-};
-
 
 
 const useStyles = makeStyles((theme) => ({
@@ -124,13 +114,13 @@ const useStyles = makeStyles((theme) => ({
     }
 }));
 
-export default function Header({  setDarkTheme, darkTheme, handleDrawerClose }) {
+export default function Header({ allMovies, allPersons, setDarkTheme, darkTheme, handleDrawerClose }) {
     const keyArtist = useSelector(allPersonSelector);
     const keyMovie = useSelector(allmovieSelector);
     const [movies, setMovies] = React.useState([]);
     const [artist, setArtist] = React.useState([]);
-    React.useEffect(() => { setMovies(keyMovie.allmovies) }, [keyMovie])
-    React.useEffect(() => { setArtist(keyArtist.allActors) }, [keyArtist])
+    React.useEffect(() => { setMovies(allMovies.results) }, [keyMovie])
+    React.useEffect(() => { setArtist(allPersons.results) }, [keyArtist])
     const allPersonsData = artist
     const allMoviesData = movies
     const [openLabel, setOpenLabel] = React.useState(false);
@@ -211,19 +201,4 @@ export default function Header({  setDarkTheme, darkTheme, handleDrawerClose }) 
     );
 }
 
-// export async function getStaticProps() {
-//     // Call an external API endpoint to get posts
-//     const resultAllMovies = await fetch(`https://api.heraunu.com/api/allMovie/`, requestOptions)
-//     const allMovies = await resultAllMovies.json()
-//     const resultAllPersons = await fetch(`https://api.heraunu.com/api/allPerson/`, requestOptions)
-//     const allPersons = await resultAllPersons.json()
-//     // By returning { props: { posts } }, the Blog component
-//     // will receive `posts` as a prop at build time
-//     return {
-//         revalidate: 36000,
-//         props: {
-//             allMovies,
-//             allPersons,
-//         },
-//     }
-// }
+
