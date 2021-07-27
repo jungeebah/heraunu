@@ -1,12 +1,9 @@
 import React from 'react';
 import Link from 'next/link';
-import Image from 'next/image'
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import IconButton from '@material-ui/core/IconButton';
-import SvgIcon from '@material-ui/core/SvgIcon';
 import Logo from './Logo';
-import Icon from '@material-ui/core/Icon';
 import { fade, makeStyles, useTheme } from '@material-ui/core/styles';
 import Brightness5Icon from "@material-ui/icons/Brightness5";
 import Brightness4Icon from "@material-ui/icons/Brightness4";
@@ -19,6 +16,15 @@ import { allPersonSelector } from '../../../lib/slice/allPerson';
 import MenuIcon from '@material-ui/icons/Menu';
 
 
+const token = process.env.NEXT_PUBLIC_Token
+
+var myHeaders = new Headers();
+myHeaders.append("Authorization", `Token ${token}`);
+
+var requestOptions = {
+    method: 'GET',
+    headers: myHeaders,
+};
 
 
 
@@ -118,14 +124,13 @@ const useStyles = makeStyles((theme) => ({
     }
 }));
 
-export default function Header(props) {
+export default function Header({  setDarkTheme, darkTheme, handleDrawerClose }) {
     const keyArtist = useSelector(allPersonSelector);
     const keyMovie = useSelector(allmovieSelector);
     const [movies, setMovies] = React.useState([]);
     const [artist, setArtist] = React.useState([]);
     React.useEffect(() => { setMovies(keyMovie.allmovies) }, [keyMovie])
     React.useEffect(() => { setArtist(keyArtist.allActors) }, [keyArtist])
-    const { switchName } = props
     const allPersonsData = artist
     const allMoviesData = movies
     const [openLabel, setOpenLabel] = React.useState(false);
@@ -144,7 +149,7 @@ export default function Header(props) {
 
     // const [mobileSearchGrow, setMobileSearchGrow] = React.useState(true);
     const handleChangeTheme = (e) => {
-        props.setDarkTheme(!props.darkTheme)
+        setDarkTheme(!darkTheme)
     }
 
     const selected = (e, v) => {
@@ -161,7 +166,7 @@ export default function Header(props) {
                                     edge="start"
                                     color="inherit"
                                     aria-label="menu"
-                                    onClick={props.handleDrawerClose}
+                                    onClick={handleDrawerClose}
                                 >
                                     <MenuIcon />
                                 </IconButton>
@@ -171,7 +176,7 @@ export default function Header(props) {
                             <Tooltip title="Home">
                                 <Link href="/" shallow={true}>
                                     <IconButton classes={{ label: classes.iconButton }}>
-                                        <Logo className={classes.Logo} theme={props.darkTheme} />
+                                        <Logo className={classes.Logo} theme={darkTheme} />
                                     </IconButton>
                                 </Link>
                             </Tooltip>
@@ -195,7 +200,7 @@ export default function Header(props) {
                                     aria-label="theme"
                                     onClick={handleChangeTheme}
                                 >
-                                    {props.darkTheme ? < Brightness5Icon /> : <Brightness4Icon />}
+                                    {darkTheme ? < Brightness5Icon /> : <Brightness4Icon />}
                                 </IconButton>
                             </Tooltip>
                         </div>
@@ -205,3 +210,20 @@ export default function Header(props) {
         </div >
     );
 }
+
+// export async function getStaticProps() {
+//     // Call an external API endpoint to get posts
+//     const resultAllMovies = await fetch(`https://api.heraunu.com/api/allMovie/`, requestOptions)
+//     const allMovies = await resultAllMovies.json()
+//     const resultAllPersons = await fetch(`https://api.heraunu.com/api/allPerson/`, requestOptions)
+//     const allPersons = await resultAllPersons.json()
+//     // By returning { props: { posts } }, the Blog component
+//     // will receive `posts` as a prop at build time
+//     return {
+//         revalidate: 36000,
+//         props: {
+//             allMovies,
+//             allPersons,
+//         },
+//     }
+// }
