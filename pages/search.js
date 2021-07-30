@@ -6,6 +6,7 @@ import Typography from '@material-ui/core/Typography'
 import Grid from "@material-ui/core/Grid";
 import Box from '@material-ui/core/Box'
 import { allSearchSelection } from '../lib/slice/search';
+import { searchResultSelector } from '../lib/slice/searchResult';
 import { useSelector } from 'react-redux';
 
 const token = process.env.NEXT_PUBLIC_Token
@@ -40,6 +41,7 @@ const search = () => {
     const classes = useStyles();
     const router = useRouter();
     const result = useSelector(allSearchSelection)
+    const searchResults = useSelector(searchResultSelector)
     const [searchResult, setSearchResult] = React.useState([])
     const [type, setType] = React.useState(null)
     const movie = router.query
@@ -48,7 +50,7 @@ const search = () => {
         if (router.query.type) {
             setType(router.query.type)
         } else {
-            setSearchResult(result.allResult)
+            setSearchResult(searchResults.results)
         }
     }, [])
 
@@ -59,8 +61,8 @@ const search = () => {
     }, [router.query])
 
     React.useEffect(() => {
-        setSearchResult(result.allResult)
-    }, [result])
+        setSearchResult(searchResults.results)
+    }, [searchResults])
 
     const optionSelect = movie ? (
         <DisplayCard movie={movie} individual={movie.type} />

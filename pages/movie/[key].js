@@ -459,8 +459,7 @@ export async function getStaticProps(context) {
     const res = await fetch(`https://api.heraunu.com/api/movies/${key}/?release_date=&genre=&streaming=&imdb_rating=`, requestOptions)
     const movie = await res.json()
     const movie_key = key
-    // By returning { props: { posts } }, the Blog component
-    // will receive `posts` as a prop at build time
+    
     return {
         revalidate: 36000,
         props: {

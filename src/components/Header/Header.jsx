@@ -11,12 +11,7 @@ import Tooltip from '@material-ui/core/Tooltip';
 import { useSelector } from 'react-redux';
 import useMediaQuery from "@material-ui/core/useMediaQuery";
 import Autocomplete from '../Autocomplete/Autocomplete'
-import { allmovieSelector } from '../../../lib/slice/allMovies';
-import { allPersonSelector } from '../../../lib/slice/allPerson';
 import MenuIcon from '@material-ui/icons/Menu';
-
-
-
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -115,12 +110,22 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function Header({ allMovies, allPersons, setDarkTheme, darkTheme, handleDrawerClose }) {
-    const keyArtist = useSelector(allPersonSelector);
-    const keyMovie = useSelector(allmovieSelector);
     const [movies, setMovies] = React.useState([]);
     const [artist, setArtist] = React.useState([]);
-    React.useEffect(() => { setMovies(allMovies.results) }, [keyMovie])
-    React.useEffect(() => { setArtist(allPersons.results) }, [keyArtist])
+    React.useEffect(() => {
+        if (allMovies ) {
+            setMovies(allMovies.results)
+        }
+        else {
+            setMovies([])
+        }
+        if (allPersons) {
+            setArtist(allPersons.results)
+        }
+        else {
+            setArtist([])
+        }
+    }, [])
     const allPersonsData = artist
     const allMoviesData = movies
     const [openLabel, setOpenLabel] = React.useState(false);
@@ -173,8 +178,8 @@ export default function Header({ allMovies, allPersons, setDarkTheme, darkTheme,
                         </div>
                         <div className={classes.search}>
                             <Autocomplete
-                                allPersonsData={allPersonsData}
-                                allMoviesData={allMoviesData}
+                                allPersonsData={artist}
+                                allMoviesData={movies}
                                 setOpenLabel={setOpenLabel}
                                 selected={selected}
                                 openLabel={openLabel}

@@ -7,3 +7,4 @@ Host: https://herauna.com
 
 # Sitemaps
 Sitemap: https://herauna.com/sitemap.xml
+Sitemap: https://herauna.com/sitemap-1.xml

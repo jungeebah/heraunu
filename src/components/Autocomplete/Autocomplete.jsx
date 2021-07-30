@@ -4,7 +4,9 @@ import TextField from "@material-ui/core/TextField";
 import Autocomplete from "@material-ui/lab/Autocomplete";
 import { makeStyles } from "@material-ui/core/styles";
 import { useRouter } from 'next/router';
+import stringSimilarity from "string-similarity";
 import { getSearch, invalidateSearch } from '../../../lib/slice/search';
+import { updateSearchResult, invalidateSearchResult } from '../../../lib/slice/searchResult'
 
 const useStyles = makeStyles(
     (theme) => ({
@@ -49,6 +51,8 @@ const AutoComplete = (props) => {
     const dispatch = useDispatch()
     const { openLabel, setOpenLabel, allPersonsData, allMoviesData } = props;
     const classes = useStyles();
+    const allData = [...allPersonsData, ...allMoviesData]
+    const allSearchData = allData.map(a => a.name)
 
     const selected = (e, v) => {
         if (v) {
@@ -59,15 +63,23 @@ const AutoComplete = (props) => {
             } else {
                 var type = `/actor/${v.key}`
             }
-           
+
             router.push({ pathname: '/search', query: { name: v.name, image: image, type: type, youtube_url: youtube_url } })
         }
     }
 
     const pressedEnter = (e) => {
         if (e.target.value) {
-            dispatch(invalidateSearch())
-            dispatch(getSearch(e.target.value))
+            var matches = stringSimilarity.findBestMatch(e.target.value, allSearchData);
+            const matchedNames = matches.ratings.filter(a => a.rating > 0.4).map(a => a.target)
+            var matchedResult = []
+            if (matchedNames) {
+                matchedResult = allData.filter(a => matchedNames.includes(a.name))
+            } else {
+                matchedResult = []
+            }
+            dispatch(invalidateSearchResult())
+            dispatch(updateSearchResult(matchedResult))
             router.push({ pathname: '/search' })
             setOpenLabel(!openLabel)
         }
