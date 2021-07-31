@@ -249,7 +249,7 @@ const Movie = ({ movie_key, movie }) => {
         <Box className={classes.streaming} key='streamingTop'>
             <Typography variant={large ? "h6" : "body1"} display="block" gutterBottom key='watchNow'>
                 Watch Now
-                </Typography>
+            </Typography>
 
             <Box display="flex"
                 flexWrap="wrap"
@@ -286,10 +286,10 @@ const Movie = ({ movie_key, movie }) => {
                         </IconButton> :
                         <Typography variant="caption" display="block" gutterBottom className={classes.noDataYear} key='Year'>
                             NA
-                    </Typography> :
+                        </Typography> :
                     <Typography variant="caption" display="block" gutterBottom className={classes.noDataYear} key='Year'>
                         NA
-                        </Typography>
+                    </Typography>
                 }
             </Box>
             <Box key='length'>
@@ -302,7 +302,7 @@ const Movie = ({ movie_key, movie }) => {
 
     const movieDirector = movie.director ? (
         <div className={classes.streamingData} itemProp="director" itemScope itemType="http://schema.org/Person" key='movieDirector'>
-            { movie.director.length > 0 ? movie.director.map((item) =>
+            {movie.director.length > 0 ? movie.director.map((item) =>
             (<Grid container direction="row" key={item.id}>
                 <Grid item xs={6} key={'level1-' + item.id}>
                     <Grid container key={'level2-' + item.id}>
@@ -335,7 +335,7 @@ const Movie = ({ movie_key, movie }) => {
                 <Box key='moviePlotTopBox'>
                     <Typography variant={large ? "h6" : "body1"} display="block" gutterBottom key='moviePlotOverview'>
                         Overview
-                        </Typography>
+                    </Typography>
                     <Typography variant={large ? "body1" : "caption"} display="block" gutterBottom className={classes.plotItem} itemProp="description" key='moviePlotData'>
                         {movie.plot || 'NA'}
                     </Typography>
@@ -349,7 +349,7 @@ const Movie = ({ movie_key, movie }) => {
             <IconButton className={classes.genreButton} edge="start"
                 size="small" key={item.name}>
                 <Typography variant="caption" key={item.name}>
-                    <Box border={1} borderRadius={5} p='2px' fontWeight={500} itemProp="genre" key={item.name+'second'}>
+                    <Box border={1} borderRadius={5} p='2px' fontWeight={500} itemProp="genre" key={item.name + 'second'}>
                         {item.name}
                     </Box>
                 </Typography>
@@ -383,7 +383,7 @@ const Movie = ({ movie_key, movie }) => {
                                 itemProp="image"
                                 className={classes.image}
                                 key={movie.key}
-                                src={movie.image}
+                                src={movie.image || movie.video_thumbnail || '/image.jpg'}
                                 alt={movie.name}
                                 height={xlarge ? 545 : 323}
                                 width={xlarge ? 367 : 216}
@@ -419,7 +419,7 @@ const Movie = ({ movie_key, movie }) => {
                 <div className={classes.casting} key='castingss'>
                     <Typography variant='h6' key='collection' >
                         Collections
-                </Typography>
+                    </Typography>
                     <Grid container key='collectionContainer'>
                         {movie.collection.map(items =>
                         (
@@ -435,7 +435,7 @@ const Movie = ({ movie_key, movie }) => {
                 <Grid item xs={12} key='movieTrailer'>
                     <Typography variant={large ? "h6" : "body1"} display="block" gutterBottom key='movieTrailerText'>
                         Trailer
-                </Typography>
+                    </Typography>
                     <Box className={classes.video} key='youtubeVideo'>
                         <YouTube className={classes.frame} videoId={get_id(movie.trailer)} opts={opts} onReady={onStart} />
                     </Box>
@@ -459,7 +459,7 @@ export async function getStaticProps(context) {
     const res = await fetch(`https://api.heraunu.com/api/movies/${key}/?release_date=&genre=&streaming=&imdb_rating=`, requestOptions)
     const movie = await res.json()
     const movie_key = key
-    
+
     return {
         revalidate: 36000,
         props: {
