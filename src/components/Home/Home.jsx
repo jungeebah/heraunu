@@ -1,7 +1,7 @@
 import React from 'react';
 import Grid from '@material-ui/core/Grid'
 import Section from '../Section/Section'
-import { useTheme, makeStyles } from "@material-ui/core/styles";
+import {  makeStyles } from "@material-ui/core/styles";
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -23,7 +23,6 @@ const Home = (props) => {
     const displayData = movies['results'].slice(0, 10)
     const displayPerson = persons['results'].slice(0, 10)
     const displayYoutube = youtube['results'].slice(0, 10)
-    const theme = useTheme();
     const classes = useStyles();
     return (
         <div className={classes.root}>

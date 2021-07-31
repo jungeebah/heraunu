@@ -106,7 +106,7 @@ const Person = (props) => {
                         >
                             <Grid item xs={12}>
                                 <Typography variant='h6' itemScope itemType="http://schema.org/Person">
-                                    <p itemProp="name"> {person.name}</p>
+                                    <span itemProp="name"> {person.name}</span>
                                 </Typography>
                             </Grid>
                         </Grid>
@@ -157,7 +157,7 @@ export async function getStaticProps(context) {
 }
 
 export async function getStaticPaths() {
-    const response = await fetch('https://api.heraunu.com/api/allPerson/', requestOptions)
+    const response = await fetch('https://api.heraunu.com/api/allPerso/', requestOptions)
     const data = await response.json()
     const movies = Object.values(data['results']).map(x => x.key).filter(n => n)
     return {

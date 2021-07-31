@@ -84,7 +84,7 @@ const youtube = ({ youtube }) => {
     const [displayData, setDisplayData] = useState(sortedData.slice(0, 10))
     const sort_item = ['Upload date', 'View Count'];
     const trend_item = ['Weekly', 'Monthly']
-    
+
     const nextPage = (e, v) => {
         dispatch(updatePageNumber(v))
         setDisplayData(sortedData.slice((v - 1) * 10, v * 10))
@@ -254,9 +254,9 @@ const youtube = ({ youtube }) => {
 
 export async function getStaticProps() {
     const result = await fetch(`https://api.heraunu.com/api/allY/?ordering=`, requestOptions)
-    const resultAllMovies = await fetch(`https://api.heraunu.com/api/allMovie/`, requestOptions)
+    const resultAllMovies = await fetch(`https://api.heraunu.com/api/allMov/`, requestOptions)
     const allMovies = await resultAllMovies.json()
-    const resultAllPersons = await fetch(`https://api.heraunu.com/api/allPerson/`, requestOptions)
+    const resultAllPersons = await fetch(`https://api.heraunu.com/api/allPerso/`, requestOptions)
     const allPersons = await resultAllPersons.json()
     const youtube = await result.json()
     return {

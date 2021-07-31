@@ -41,9 +41,9 @@ const useStyles = makeStyles((theme) => ({
     }
 }))
 
-const actors = ({ actor }) => {
-    const totalMovies = actor.count
-    const personsList = actor.results
+const actors = ({ allPersons }) => {
+    const totalMovies = allPersons.count
+    const personsList = allPersons.results
     const skeletonItem = [...Array(10).keys()]
     const userData = useSelector(personDataSelector)
     const dispatch = useDispatch();
@@ -54,19 +54,7 @@ const actors = ({ actor }) => {
         dispatch(updatePageNumber(v))
         setDisplayData(personsList.slice((v - 1) * 10, v * 10))
     }
-    // React.useEffect(() => {
-    //     if (!person.allActors?.length) {
-    //         dispatch(getAllActor())
-    //     }
-    // }, [])
-    // React.useEffect(() => {
-    //     setPersonList(person.allActors)
-    // }, [person])
-
-    // React.useEffect(() => {
-    //     setDisplayData(personList.slice((userData.pageNumber - 1) * 10, userData.pageNumber * 10))
-    //     setTotalPerson(personList.length)
-    // }, [personList])
+    
 
     const skeleton = <div>
         {skeletonItem.map((item) => (
@@ -110,16 +98,13 @@ const actors = ({ actor }) => {
 }
 
 export async function getStaticProps() {
-    const result = await fetch(`https://api.heraunu.com/api/allPerso/`, requestOptions)
-    const resultAllMovies = await fetch(`https://api.heraunu.com/api/allMovie/`, requestOptions)
+    const resultAllMovies = await fetch(`https://api.heraunu.com/api/allMov/`, requestOptions)
     const allMovies = await resultAllMovies.json()
-    const resultAllPersons = await fetch(`https://api.heraunu.com/api/allPerson/`, requestOptions)
+    const resultAllPersons = await fetch(`https://api.heraunu.com/api/allPerso/`, requestOptions)
     const allPersons = await resultAllPersons.json()
-    const actor = await result.json()
     return {
         revalidate: 36000,
         props: {
-            actor,
             allMovies,
             allPersons,
         },

@@ -470,7 +470,7 @@ export async function getStaticProps(context) {
 }
 
 export async function getStaticPaths() {
-    const response = await fetch('https://api.heraunu.com/api/allMovie/', requestOptions)
+    const response = await fetch('https://api.heraunu.com/api/allMov/', requestOptions)
     const data = await response.json()
     const movies = Object.values(data['results']).map(x => x.key).filter(n => n)
     return {

@@ -1,10 +1,9 @@
 import React from "react";
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import TextField from "@material-ui/core/TextField";
 import Autocomplete from "@material-ui/lab/Autocomplete";
 import { makeStyles } from "@material-ui/core/styles";
 import { useRouter } from 'next/router';
-import lunr from 'lunr';
 import { storedAllPerson, storedAllMovie } from './data';
 import { updateSearchResult, invalidateSearchResult } from '../../../lib/slice/searchResult'
 
@@ -67,7 +66,8 @@ const AutoComplete = (props) => {
         }
     }
 
-    const pressedEnter = (e) => {
+    const pressedEnter = async (e) => {
+        const lunr = (await import('lunr')).default
         if (e.target.value) {
             var idx = lunr(function () {
                 this.ref('key')

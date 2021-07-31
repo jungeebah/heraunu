@@ -465,10 +465,10 @@ const movies = ({ allMovies, genreList, streamList }) => {
 }
 
 export async function getStaticProps() {
-    const result = await fetch(`https://api.heraunu.com/api/allMovie/`, requestOptions)
+    const result = await fetch(`https://api.heraunu.com/api/allMov/`, requestOptions)
     const resultGenre = await fetch(`https://api.heraunu.com/api/allGenres/`, requestOptions)
     const resultStream = await fetch(`https://api.heraunu.com/api/streamKey/`, requestOptions)
-    const resultAllPersons = await fetch(`https://api.heraunu.com/api/allPerson/`, requestOptions)
+    const resultAllPersons = await fetch(`https://api.heraunu.com/api/allPerso/`, requestOptions)
     const allPersons = await resultAllPersons.json()
     const allMovies = await result.json()
     const genList = await resultGenre.json()

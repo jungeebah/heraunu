@@ -1,11 +1,8 @@
 import React from "react";
 import Grid from '@material-ui/core/Grid';
-import Paper from '@material-ui/core/Paper'
 import Button from '@material-ui/core/Button';
 import Opinion from './opinion'
 import Dialog from '@material-ui/core/Dialog';
-import useMediaQuery from "@material-ui/core/useMediaQuery";
-import Typography from '@material-ui/core/Typography';
 // import './contactForm.css';
 import { makeStyles, useTheme } from "@material-ui/core/styles";
 import emailjs from 'emailjs-com';
@@ -51,8 +48,6 @@ const useStyles = makeStyles((theme) => ({
 
 const ContactForm = () => {
     const classes = useStyles();
-    const theme = useTheme();
-    const mobile = useMediaQuery(theme.breakpoints.down("xs"));
     const [open, setOpen] = React.useState(false);
 
     const handleClickOpen = () => {
