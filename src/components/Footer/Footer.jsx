@@ -61,14 +61,14 @@ const Footer = () => {
     return (
         <Paper className={classes.footer} elevation={0}>
             <Typography variant="h6">
-                Herauna
+                Heraunu
             </Typography>
             <Link href="/about">
                 <IconButton className={classes.button}>
                     <div >
                         <Typography variant="caption">
                             About Us
-            </Typography>
+                        </Typography>
                     </div>
                 </IconButton>
             </Link>
@@ -79,8 +79,8 @@ const Footer = () => {
                 alignItems="center">
                 <Grid item>
                     <Typography variant="caption">
-                        &copy; {new Date().getFullYear()} Copyright: Herauna
-            </Typography>
+                        &copy; {new Date().getFullYear()} Copyright: Heraunu
+                    </Typography>
                 </Grid>
                 <Grid item>
                     <Box className={classes.media} display="flex">
