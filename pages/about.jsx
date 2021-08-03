@@ -91,7 +91,7 @@ const About = () => {
                             <Typography variant={large ? 'h6' : 'body1'} className={classes.des}>
                                 A web app born out of covid and love for Nepali movies. Herauna is designed to be a one stop center for
                                 viewing information on Nepali movies. We collect data from different sites and aggregated them to this website
-                                for viewing ease. As of now it's just a side project therefore many things are whacky, some stuff are hacked in place and
+                                for viewing ease. As of now it&#39;s just a side project therefore many things are whacky, some stuff are hacked in place and
                                 the data needs a lot more care and love. If the platform survives than we intend to slowly work on creating a better nepali movie consuming site.
                     </Typography>
                         </Grid>

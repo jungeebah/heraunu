@@ -41,7 +41,7 @@ const useStyles = makeStyles((theme) => ({
     }
 }))
 
-const actors = ({ allPersons }) => {
+const Actors = ({ allPersons }) => {
     const totalMovies = allPersons.count
     const personsList = allPersons.results
     const skeletonItem = [...Array(10).keys()]
@@ -110,4 +110,4 @@ export async function getStaticProps() {
         },
     }
 }
-export default actors
+export default Actors

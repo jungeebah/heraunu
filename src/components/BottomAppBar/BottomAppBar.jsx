@@ -43,7 +43,7 @@ export default function BottomAppBar() {
                         alignItems="center">
                         <Grid item>
                             <Grid item xs container direction="row" spacing={3}>
-                                <Link href="/">
+                                <Link href="/" passHref>
                                     <IconButton edge="start" color="inherit" aria-label="open drawer">
                                         <Grid item xs>
                                             <HomeIcon />
@@ -57,7 +57,7 @@ export default function BottomAppBar() {
                         </Grid>
                         <Grid item>
                             <Grid item xs container direction="row" spacing={3}>
-                                <Link href="/movies">
+                                <Link href="/movies" passHref>
                                     <IconButton edge="start" color="inherit" aria-label="open drawer">
                                         <Grid item xs>
                                             <MovieIcon />
@@ -71,7 +71,7 @@ export default function BottomAppBar() {
                         </Grid>
                         <Grid item>
                             <Grid item xs container direction="row" spacing={3}>
-                                <Link href="/actors">
+                                <Link href="/actors" passHref>
                                     <IconButton edge="start" color="inherit" aria-label="open drawer">
                                         <Grid item xs>
                                             <PersonIcon />
@@ -85,7 +85,7 @@ export default function BottomAppBar() {
                         </Grid>
                         <Grid item>
                             <Grid item xs container direction="row" spacing={3}>
-                                <Link href="/youtube">
+                                <Link href="/youtube" passHref>
                                     <IconButton color="inherit">
                                         <Grid item xs>
                                             <YouTubeIcon />

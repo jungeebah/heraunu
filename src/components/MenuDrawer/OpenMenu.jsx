@@ -51,10 +51,10 @@ const OpenMenu = (props) => {
     const menuItems = ["Home", "Movies", "Actors", "Youtube"];
     const menuLinks = ['/', '/movies', '/actors', '/youtube']
     const menuIcons = [
-        <HomeIcon />,
-        <MovieIcon />,
-        <PersonIcon />,
-        <YouTubeIcon />
+        <HomeIcon key="home" />,
+        <MovieIcon key="movie" />,
+        <PersonIcon key="person" />,
+        <YouTubeIcon key="youtube" />
     ];
     const classes = useStyles();
 
@@ -69,10 +69,10 @@ const OpenMenu = (props) => {
             </div>
             <List>
                 {menuItems.map((text, index) => (
-                    <Link href={menuLinks[index]} key={text+'1'}>
-                        <ListItem button key={text+'2'}>
-                            <ListItemIcon key={text+'4'}>{menuIcons[index]}</ListItemIcon>
-                            <ListItemText primary={text} key={text+'3'} />
+                    <Link href={menuLinks[index]} key={text + '1'} passHref>
+                        <ListItem button key={text + '2'}>
+                            <ListItemIcon key={text + '4'}>{menuIcons[index]}</ListItemIcon>
+                            <ListItemText primary={text} key={text + '3'} />
                         </ListItem>
                     </Link>
                 ))}

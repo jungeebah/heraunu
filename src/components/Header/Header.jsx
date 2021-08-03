@@ -4,7 +4,7 @@ import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import IconButton from '@material-ui/core/IconButton';
 import Logo from './Logo';
-import { fade, makeStyles} from '@material-ui/core/styles';
+import { fade, makeStyles } from '@material-ui/core/styles';
 import Brightness5Icon from "@material-ui/icons/Brightness5";
 import Brightness4Icon from "@material-ui/icons/Brightness4";
 import Tooltip from '@material-ui/core/Tooltip';
@@ -111,7 +111,7 @@ export default function Header({ allMovies, allPersons, setDarkTheme, darkTheme,
     const [movies, setMovies] = React.useState([]);
     const [artist, setArtist] = React.useState([]);
     React.useEffect(() => {
-        if (allMovies ) {
+        if (allMovies) {
             setMovies(allMovies.results)
         }
         else {
@@ -123,12 +123,12 @@ export default function Header({ allMovies, allPersons, setDarkTheme, darkTheme,
         else {
             setArtist([])
         }
-    }, [])
+    }, [allPersons, allMovies])
     const [openLabel, setOpenLabel] = React.useState(false);
     const [input, setInput] = React.useState('')
     const classes = useStyles();
-   
-  
+
+
 
     // const LogoIcon = (props) => {
     //     return (
@@ -165,7 +165,7 @@ export default function Header({ allMovies, allPersons, setDarkTheme, darkTheme,
                         </Tooltip>
                         <div className={classes.title}>
                             <Tooltip title="Home">
-                                <Link href="/" shallow={true}>
+                                <Link href="/" shallow={true} passHref>
                                     <IconButton classes={{ label: classes.iconButton }}>
                                         <Logo className={classes.Logo} theme={darkTheme} />
                                     </IconButton>

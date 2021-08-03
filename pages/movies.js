@@ -78,7 +78,7 @@ const yearList = ["All", "Upcoming", ...rangeYear];
 const imdb = Array.from(new Array(10), (x, i) => i + 1);
 const imdbRating = ['All', ...imdb]
 
-const movies = ({ allMovies, genreList, streamList }) => {
+const Movies = ({ allMovies, genreList, streamList }) => {
     const moviesTotal = allMovies.count
     const totalMoviesList = allMovies.results
     const skeletonItem = [...Array(10).keys()]
@@ -485,4 +485,4 @@ export async function getStaticProps() {
         },
     }
 }
-export default movies
+export default Movies

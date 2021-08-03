@@ -63,7 +63,7 @@ const Footer = () => {
             <Typography variant="h6">
                 Herauna
             </Typography>
-            <Link href="/about">
+            <Link href="/about" passHref>
                 <IconButton className={classes.button}>
                     <div >
                         <Typography variant="caption">

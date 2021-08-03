@@ -71,7 +71,7 @@ const Section = (props) => {
                     {name}
                 </Typography>
                 <Link href={url} passHref={true} shallow={true}>
-                    <IconButton onClick={() => {}}>
+                    <IconButton onClick={() => { }}>
                         <Typography className={classes.seeAll}>
                             <Paper variant="outlined" className={classes.seeAllPaper}>
                                 <Box border={1} borderRadius={5} p='2px' fontWeight={600}>
@@ -88,7 +88,7 @@ const Section = (props) => {
 
                 >
                     {displayData.map(items =>
-                        <Grid item item xs={3} sm={2} xl={2} key={items.key}>
+                        <Grid item xs={3} sm={2} xl={2} key={items.key}>
                             <DisplayCard movie={items} individual={individual + `/${items.key}`} key={items.key} />
                         </Grid>
                     )}

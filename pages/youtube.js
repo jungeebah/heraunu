@@ -70,7 +70,7 @@ function Filter_alt(props) {
     );
 }
 
-const youtube = ({ youtube }) => {
+const Youtube = ({ youtube }) => {
     const totalMovies = youtube.count
     const moviesList = youtube.results
     const userData = useSelector(youtubeDataSelector);
@@ -269,4 +269,4 @@ export async function getStaticProps() {
     }
 }
 
-export default youtube
+export default Youtube

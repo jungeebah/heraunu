@@ -255,7 +255,7 @@ const Movie = ({ movie_key, movie }) => {
                 flexWrap="wrap"
                 className={classes.streamingData} key='streaming'>
                 {playingLocation ? playingLocation.map((item) => (
-                    <Box mr={2}>
+                    <Box mr={2} key={item}>
                         <Chip
                             key={item}
                             rel="noopener noreferrer"
@@ -355,7 +355,7 @@ const Movie = ({ movie_key, movie }) => {
                 </Typography>
             </IconButton>
         </Box>
-    )) : [<div></div>]
+    )) : [<div key="empty"></div>]
 
     const renderMovie =
         <Grid container
@@ -423,7 +423,7 @@ const Movie = ({ movie_key, movie }) => {
                     <Grid container key='collectionContainer'>
                         {movie.collection.map(items =>
                         (
-                            <Grid item xs={3} sm={2} md={3} lg={2} key={items.id} itemScope itemType="http://schema.org/Movie" key={items.id}>
+                            <Grid item xs={3} sm={2} md={3} lg={2} itemScope itemType="http://schema.org/Movie" key={items.id}>
                                 <DisplayCard movie={items} individual={`/movie/${items.id}`} key={items.id} />
                             </Grid>
                         ))}

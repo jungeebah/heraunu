@@ -37,7 +37,11 @@ const useStyles = makeStyles((theme) => ({
     }
 }))
 
-const search = () => {
+const searchComponent=()=>{
+    
+}
+
+const Search = () => {
     const classes = useStyles();
     const router = useRouter();
     const result = useSelector(allSearchSelection)
@@ -52,7 +56,7 @@ const search = () => {
         } else {
             setSearchResult(searchResults.results)
         }
-    }, [])
+    }, [router, searchResults])
 
     React.useEffect(() => {
         if (router.query.type) {
@@ -71,7 +75,7 @@ const search = () => {
     const apiSearchResult = searchResult ? (
         <Grid container >
             {searchResult.map((item) => (
-                <Grid item item xs={3} sm={2} md={2} lg={2} xl={1} key={item.key}>
+                <Grid item xs={3} sm={2} md={2} lg={2} xl={1} key={item.key}>
                     <DisplayCard movie={item}
                         individual={item.item === 'Actor' ? `/actor/${item.key}` : `/movie/${item.key}`}
                         key={item.item} />
@@ -121,4 +125,4 @@ export async function getStaticProps() {
     }
 }
 
-export default search
+export default Search
