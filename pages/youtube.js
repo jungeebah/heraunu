@@ -260,7 +260,7 @@ export async function getStaticProps() {
     const allPersons = await resultAllPersons.json()
     const youtube = await result.json()
     return {
-        revalidate: 36000,
+
         props: {
             youtube,
             allPersons,

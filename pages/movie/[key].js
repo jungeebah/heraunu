@@ -461,7 +461,7 @@ export async function getStaticProps(context) {
     const movie_key = key
 
     return {
-        revalidate: 36000,
+
         props: {
             movie,
             movie_key

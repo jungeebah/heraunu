@@ -54,7 +54,7 @@ const actors = ({ allPersons }) => {
         dispatch(updatePageNumber(v))
         setDisplayData(personsList.slice((v - 1) * 10, v * 10))
     }
-    
+
 
     const skeleton = <div>
         {skeletonItem.map((item) => (
@@ -103,7 +103,7 @@ export async function getStaticProps() {
     const resultAllPersons = await fetch(`https://api.heraunu.com/api/allPerso/`, requestOptions)
     const allPersons = await resultAllPersons.json()
     return {
-        revalidate: 36000,
+
         props: {
             allMovies,
             allPersons,
