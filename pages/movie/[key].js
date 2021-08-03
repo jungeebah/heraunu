@@ -28,10 +28,6 @@ var requestOptions = {
     headers: myHeaders,
 };
 
-const token = process.env.NEXT_PUBLIC_Token
-
-var myHeaders = new Headers();
-myHeaders.append("Authorization", `Token ${token}`);
 
 var requestOptions = {
     method: 'GET',
