@@ -20,11 +20,7 @@ export default class MyDocument extends Document {
                     <link rel="manifest" href="/manifest.json" />
                     <meta name="theme-color" content={LightTheme.palette.primary.main} />
                     <script data-ad-client="ca-pub-5851312120123981" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
-<<<<<<< HEAD
-                    <script async src="https://www.googletagmanager.com/gtag/js?id=G-PVQ3RNYL4H"></script>
-=======
                     <script async src="https://www.googletagmanager.com/gtag/js?id=UA-193514445-1"></script>
->>>>>>> herauna
                     <script
                         dangerouslySetInnerHTML={{
                             __html: `

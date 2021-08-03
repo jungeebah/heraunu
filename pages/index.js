@@ -1,12 +1,6 @@
 import Home from '../src/components/Home/Home';
 import React from 'react';
 import Head from 'next/head'
-<<<<<<< HEAD
-import { getallMovie, allmovieSelector } from '../lib/slice/allMovies';
-import { getAllActor } from '../lib/slice/allPerson'
-import { useDispatch, useSelector } from 'react-redux';
-=======
->>>>>>> herauna
 
 
 function Index(props) {
@@ -14,8 +8,6 @@ function Index(props) {
   return (
     <div>
       <Head>
-<<<<<<< HEAD
-=======
         <meta property="og:locale" content="en_US" />
         <meta property="og:type" content="website" key="ogtype" />
         <meta property="og:title" content="Complete Nepali movie Engine" key="ogtitle" />
@@ -34,7 +26,6 @@ function Index(props) {
         <meta name="twitter:site" content="@herauuna" />
         <meta name="twitter:image" content="https://herauna.com/favicon.ico" />
         <meta name="twitter:creator" content="@herauuna" />
->>>>>>> herauna
         <link rel="icon" href="/favicon.ico" />
         <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
         <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
@@ -42,27 +33,16 @@ function Index(props) {
 
         <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
         <link rel="manifest" href="/manifest.json" />
-<<<<<<< HEAD
-        <title>A Complete Nepali Movie Engine - Heraunu</title>
-        <meta
-          name="description"
-          content="Heraunu is a movie engine to provide complete information on Nepali Movie."
-=======
 
         <title>A Complete Nepali Movie Engine - Herauna</title>
         <meta
           name="description"
           content="Herauna is a movie engine to provide complete information on Nepali Movie."
->>>>>>> herauna
         />
         <meta name="viewport" content="minimum-scale=1, initial-scale=1, width=device-width user-scalable=no" />
         {/* <script async defer data-pin-hover="true" data-pin-round="true" src="//assets.pinterest.com/js/pinit.js"></script> */}
       </Head>
-<<<<<<< HEAD
-      <Home movies={movies} persons={persons} youtube={youtube} />
-=======
       <Home movies={allMovies} persons={allPersons} youtube={youtube} />
->>>>>>> herauna
     </div>
   );
 }

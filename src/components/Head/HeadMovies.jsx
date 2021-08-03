@@ -30,17 +30,10 @@ const HeadMovie = ({ movie, movie_key }) => {
         <Head>
             <meta property="og:locale" content="en_US" />
             <meta property="og:type" content="video.movie" />
-<<<<<<< HEAD
-            <meta property="og:title" content={`${movie.name} - Heraunu`} key="ogtitle" />
-            <meta property="og:description" content={`Nepali Movie  ${movie.name}`} key="ogdesc" />
-            <meta property="og:url" content={`https://heraunu.com/movie/${movie_key}`} key="ogurl" />
-            <meta property="og:site_name" content="Heraunu" key="ogsitename" />
-=======
             <meta property="og:title" content={`${movie.name} - Herauna`} key="ogtitle" />
             <meta property="og:description" content={`Nepali Movie  ${movie.name}`} key="ogdesc" />
             <meta property="og:url" content={`https://herauna.com/movie/${movie_key}`} key="ogurl" />
             <meta property="og:site_name" content="Herauna" key="ogsitename" />
->>>>>>> herauna
             <meta property="article:publisher" content="https://www.facebook.com/heraunasite/" />
 
             <meta property="og:image" content={movie.image} key="ogimage" />
@@ -53,26 +46,14 @@ const HeadMovie = ({ movie, movie_key }) => {
             <meta name="twitter:site" content="@herauuna" />
             <meta name="twitter:image" content={movie.image} />
             <meta name="twitter:creator" content="@herauuna" />
-<<<<<<< HEAD
-            <title>{movie.name + '- Heraunu'}</title>
-            <meta name="description" content={`Nepali movie  ${movie.name}`}></meta>
-            <meta name="keywords" content={`${movie.name},Nepali Actor`}></meta>
-=======
             <title>{movie.name + '- Herauna'}</title>
             <meta name="description" content={`Nepali movie  ${movie.name}`}></meta>
             <meta name="keywords" content={`${movie.name},Nepali movies,Nepali full movies, nepali Imdb`}></meta>
->>>>>>> herauna
             <meta charSet="UTF-8" />
             <meta name="viewport" content="width=device-width, initial-scale=1.0" />
             <meta name='robots' content='index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1' />
 
-<<<<<<< HEAD
-            <link rel="icon" type="image/png" href="image/png" />
-
-            <link rel="canonical" href={`https://heraunu.com/movie/${movie_key}`} />
-=======
             <link rel="canonical" href={`https://herauna.com/movie/${movie_key}`} />
->>>>>>> herauna
 
             <script
                 type="application/ld+json"

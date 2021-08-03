@@ -105,13 +105,8 @@ const Person = (props) => {
                             direction="row"
                         >
                             <Grid item xs={12}>
-<<<<<<< HEAD:pages/actor/[key].js
-                                <Typography variant='h6' itemscope itemtype="http://schema.org/Person">
-                                <p itemProp="name"> {person.name}</p>
-=======
                                 <Typography variant='h6' itemScope itemType="http://schema.org/Person">
                                     <span itemProp="name"> {person.name}</span>
->>>>>>> herauna:pages/person.js
                                 </Typography>
                             </Grid>
                         </Grid>
@@ -153,10 +148,6 @@ export async function getStaticProps(context) {
     // By returning { props: { posts } }, the Blog component
     // will receive `posts` as a prop at build time
     return {
-<<<<<<< HEAD:pages/actor/[key].js
-=======
-
->>>>>>> herauna:pages/person.js
         props: {
             person,
             actor_key,
@@ -165,11 +156,7 @@ export async function getStaticProps(context) {
 }
 
 export async function getStaticPaths() {
-<<<<<<< HEAD:pages/actor/[key].js
-    const response = await fetch('https://api.heraunu.com/api/allPerson/', requestOptions)
-=======
     const response = await fetch('https://api.heraunu.com/api/allPerso/', requestOptions)
->>>>>>> herauna:pages/person.js
     const data = await response.json()
     const movies = Object.values(data['results']).map(x => x.key).filter(n => n)
     return {

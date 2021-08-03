@@ -92,11 +92,7 @@ const Footer = () => {
                             </Link>
                         </Box>
                         <Box ml={1}>
-<<<<<<< HEAD
-                            <Link href="https://twitter.com/Herauna" passHref={true}>
-=======
                             <Link href="https://twitter.com/herauuna" passHref={true}>
->>>>>>> herauna
                                 <IconButton className={classes.mediaIcon}>
                                     <TwitterIcon />
                                 </IconButton>

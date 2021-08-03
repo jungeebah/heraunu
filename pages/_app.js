@@ -48,11 +48,6 @@ const MyApp = (props) => {
 
     return (
         <React.Fragment>
-<<<<<<< HEAD
-            
-=======
-
->>>>>>> herauna
             <Provider store={store}>
                 <ThemeProvider theme={darkTheme ? DarkTheme : LightTheme}>
                     <CssBaseline />

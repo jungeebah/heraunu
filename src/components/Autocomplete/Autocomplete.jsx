@@ -61,11 +61,6 @@ const AutoComplete = (props) => {
             } else {
                 var type = `/actor/${v.key}`
             }
-<<<<<<< HEAD
-           
-=======
-
->>>>>>> herauna
             router.push({ pathname: '/search', query: { name: v.name, image: image, type: type, youtube_url: youtube_url } })
         }
     }
