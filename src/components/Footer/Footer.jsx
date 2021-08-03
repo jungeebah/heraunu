@@ -61,7 +61,7 @@ const Footer = () => {
     return (
         <Paper className={classes.footer} elevation={0}>
             <Typography variant="h6">
-                Heraunu
+                Herauna
             </Typography>
             <Link href="/about">
                 <IconButton className={classes.button}>
@@ -79,7 +79,7 @@ const Footer = () => {
                 alignItems="center">
                 <Grid item>
                     <Typography variant="caption">
-                        &copy; {new Date().getFullYear()} Copyright: Heraunu
+                        &copy; {new Date().getFullYear()} Copyright: Herauna
             </Typography>
                 </Grid>
                 <Grid item>
@@ -92,7 +92,11 @@ const Footer = () => {
                             </Link>
                         </Box>
                         <Box ml={1}>
+<<<<<<< HEAD
                             <Link href="https://twitter.com/Herauna" passHref={true}>
+=======
+                            <Link href="https://twitter.com/herauuna" passHref={true}>
+>>>>>>> herauna
                                 <IconButton className={classes.mediaIcon}>
                                     <TwitterIcon />
                                 </IconButton>

@@ -15,6 +15,18 @@ import IconButton from '@material-ui/core/IconButton'
 import Box from '@material-ui/core/Box';
 import Typography from '@material-ui/core/Typography';
 import useMediaQuery from "@material-ui/core/useMediaQuery";
+import { useRouter } from 'next/router';
+
+
+const token = process.env.NEXT_PUBLIC_Token
+
+var myHeaders = new Headers();
+myHeaders.append("Authorization", `Token ${token}`);
+
+var requestOptions = {
+    method: 'GET',
+    headers: myHeaders,
+};
 
 const token = process.env.NEXT_PUBLIC_Token
 
@@ -201,12 +213,22 @@ function get_id(url) {
     return video_id
 }
 
+<<<<<<< HEAD:pages/movie/[key].js
 const Movie = ({ movie_key, movie }) => {
     const theme = useTheme();
     const youtubeLocation = movie.location || null
+=======
+
+const Movie = ({ movie_key, movie }) => {
+    const theme = useTheme();
+>>>>>>> herauna:pages/movie.js
     const onStart = (event) => {
         event.target.pauseVideo();
     }
+    const router = useRouter()
+
+    const streamingLocation = ['VideoPasal', 'Prime', 'CinemaGhar', 'Iflix', 'HamroMovie', 'Youtube']
+    const playingLocation = streamingLocation.filter(location => movie[location] !== null)
 
     const classes = useStyles()
     const mobile = useMediaQuery(theme.breakpoints.down("xs"));
@@ -222,41 +244,21 @@ const Movie = ({ movie_key, movie }) => {
             modestbranding: 1,
         },
     };
-    const openYoutube = (e, item) => {
-        switch (item) {
-            case ('Youtube'):
-                window.open(e, "_blank")
-                break;
-            case ('Hamro Movie'):
-                window.open('https://hamromovie.com/', "_blank")
-                break;
-            case ('Cinemaghar'):
-                window.open('https://cinema-ghar.com/', "_blank")
-                break;
-            case ('itune'):
-                window.open('https://itunes.apple.com/', "_blank")
-                break;
-            case ('Netflix'):
-                window.open('https://www.netflix.com/', "_blank")
-                break;
-            case ('Prime'):
-                window.open('https://www.amazon.com/Movies-Nepali-Prime-Video/s?rh=n%3A2858905011%2Cp_n_feature_ten_browse-bin%3A13413562011', '_blank')
-                break;
-            case ('Video Pasal'):
-                window.open('https://videopasal.com/', '_blank')
-                break;
-            case ('Iflix'):
-                window.open('https://www.iflix.com/np/en/browse', '_blank')
-                break;
-            default:
-                break;
-        }
-
+    const openLocation = (item) => {
+        window.open(item, "_blank")
     }
+<<<<<<< HEAD:pages/movie/[key].js
+=======
+
+>>>>>>> herauna:pages/movie.js
     const imdbRating = movie.imdb_rating > 0 ? (
         <div className={classes.streaming}>
-            <Grid item xs={12} lg={12}>
+            <Grid item xs={12} lg={12} key={movie.imdb_rating}>
                 <Chip
+<<<<<<< HEAD:pages/movie/[key].js
+=======
+                    key={movie.imdb_rating}
+>>>>>>> herauna:pages/movie.js
                     itemProp="rating"
                     avatar={<Avatar>{movie.imdb_rating}</Avatar>}
                     label="IMDB Rating"
@@ -266,21 +268,28 @@ const Movie = ({ movie_key, movie }) => {
     ) : <div></div>
 
     const movieStreaming =
+<<<<<<< HEAD:pages/movie/[key].js
         <Box className={classes.streaming}>
             <Typography variant={large ? "h6" : "body1"} display="block" gutterBottom>
                 Streaming
                 </Typography>
+=======
+        <Box className={classes.streaming} key='streamingTop'>
+            <Typography variant={large ? "h6" : "body1"} display="block" gutterBottom key='watchNow'>
+                Watch Now
+            </Typography>
+>>>>>>> herauna:pages/movie.js
 
             <Box display="flex"
                 flexWrap="wrap"
-                className={classes.streamingData}>
-                {movie.playing ? movie.playing.map((item) => (
+                className={classes.streamingData} key='streaming'>
+                {playingLocation ? playingLocation.map((item) => (
                     <Box mr={2}>
                         <Chip
                             key={item}
                             rel="noopener noreferrer"
                             className={classes.chip}
-                            onClick={() => openYoutube(youtubeLocation, item)}
+                            onClick={() => openLocation(movie[item])}
                             icon={<OndemandVideoIcon fontSize="small" />}
                             label={item}
                             clickable
@@ -292,6 +301,7 @@ const Movie = ({ movie_key, movie }) => {
         </Box>
 
     const movieInfo =
+<<<<<<< HEAD:pages/movie/[key].js
         <Box display="flex" flexDirection="row">
             <Box >
                 {movie.release_date ? new Date(movie.release_date).getFullYear() === 2050 ?
@@ -314,6 +324,30 @@ const Movie = ({ movie_key, movie }) => {
             </Box>
             <Box>
                 <Typography variant="caption" display="block" gutterBottom itemProp="duration" itemscope itemtype="http://schema.org/Duration">
+=======
+        <Box display="flex" flexDirection="row" key='movieInfoTop'>
+            <Box key='movieInfoSecond'>
+                {movie.release_date ? new Date(movie.release_date).getFullYear() === 2050 ?
+                    <Typography variant="caption" display="block" gutterBottom className={classes.noDataYear} key='Year'>
+                        Upcoming
+                    </Typography> :
+                    new Date(movie.release_date).getFullYear() < 2030 ?
+                        <IconButton edge="start" className={classes.buttonYear} key='Year'>
+                            <Typography variant="caption" color="textPrimary" key='Year'>
+                                {new Date(movie.release_date).getFullYear()}
+                            </Typography>
+                        </IconButton> :
+                        <Typography variant="caption" display="block" gutterBottom className={classes.noDataYear} key='Year'>
+                            NA
+                        </Typography> :
+                    <Typography variant="caption" display="block" gutterBottom className={classes.noDataYear} key='Year'>
+                        NA
+                    </Typography>
+                }
+            </Box>
+            <Box key='length'>
+                <Typography variant="caption" display="block" gutterBottom itemProp="duration" itemScope itemType="http://schema.org/Duration" key='movieLength'>
+>>>>>>> herauna:pages/movie.js
                     {movie.length ? movie.length : 'NA'}
                 </Typography>
             </Box>
@@ -321,13 +355,22 @@ const Movie = ({ movie_key, movie }) => {
         </Box >
 
     const movieDirector = movie.director ? (
+<<<<<<< HEAD:pages/movie/[key].js
         <div className={classes.streamingData} itemProp="director" itemscope itemtype="http://schema.org/Person">
             { movie.director.length > 0 ? movie.director.map((item) =>
+=======
+        <div className={classes.streamingData} itemProp="director" itemScope itemType="http://schema.org/Person" key='movieDirector'>
+            {movie.director.length > 0 ? movie.director.map((item) =>
+>>>>>>> herauna:pages/movie.js
             (<Grid container direction="row" key={item.id}>
                 <Grid item xs={6} key={'level1-' + item.id}>
                     <Grid container key={'level2-' + item.id}>
                         <Grid item xs={12} key={'level3-' + item.id}>
                             <Button
+<<<<<<< HEAD:pages/movie/[key].js
+=======
+                                key={item.id}
+>>>>>>> herauna:pages/movie.js
                                 itemProp="name"
                                 className={classes.director}
                                 onClick={(e) =>
@@ -336,7 +379,7 @@ const Movie = ({ movie_key, movie }) => {
                             </Button>
                         </Grid>
                         <Grid item xs={12} key={'level4-' + item.id}>
-                            <Typography varaint="caption" className={classes.directorTag}>
+                            <Typography varaint="caption" className={classes.directorTag} key={item.id}>
                                 Director
                             </Typography>
                         </Grid>
@@ -349,6 +392,7 @@ const Movie = ({ movie_key, movie }) => {
     ) : <div></div>
 
     const moviePlot =
+<<<<<<< HEAD:pages/movie/[key].js
         <Grid item xs={12} lg={12}>
             <div className={classes.plot}>
                 <Box>
@@ -356,6 +400,15 @@ const Movie = ({ movie_key, movie }) => {
                         Overview
                         </Typography>
                     <Typography variant={large ? "body1" : "caption"} display="block" gutterBottom className={classes.plotItem} itemProp="description">
+=======
+        <Grid item xs={12} lg={12} key='moviePlot'>
+            <div className={classes.plot} key='moviePlotSecond'>
+                <Box key='moviePlotTopBox'>
+                    <Typography variant={large ? "h6" : "body1"} display="block" gutterBottom key='moviePlotOverview'>
+                        Overview
+                    </Typography>
+                    <Typography variant={large ? "body1" : "caption"} display="block" gutterBottom className={classes.plotItem} itemProp="description" key='moviePlotData'>
+>>>>>>> herauna:pages/movie.js
                         {movie.plot || 'NA'}
                     </Typography>
                 </Box>
@@ -364,11 +417,19 @@ const Movie = ({ movie_key, movie }) => {
         </Grid>
 
     const genre = movie.genre ? movie.genre.slice(0, 3).map((item) => (
+<<<<<<< HEAD:pages/movie/[key].js
         <Box p={0} key={item}>
             <IconButton className={classes.genreButton} edge="start"
                 size="small" >
                 <Typography variant="caption" >
                     <Box border={1} borderRadius={5} p='2px' fontWeight={500} itemProp="genre">
+=======
+        <Box p={0} key={item.name}>
+            <IconButton className={classes.genreButton} edge="start"
+                size="small" key={item.name}>
+                <Typography variant="caption" key={item.name}>
+                    <Box border={1} borderRadius={5} p='2px' fontWeight={500} itemProp="genre" key={item.name + 'second'}>
+>>>>>>> herauna:pages/movie.js
                         {item.name}
                     </Box>
                 </Typography>
@@ -380,67 +441,99 @@ const Movie = ({ movie_key, movie }) => {
         <Grid container
             direction="column"
             justify="space-between"
+            key='top'
         >
             <Grid item xs={12} >
                 <Grid container
                     direction="row"
                     justify="flex-start"
                     alignItems="flex-end"
+                    key='second'
                 >
-                    <Grid item xs={6} sm={4} lg={4}>
+                    <Grid item xs={6} sm={4} lg={4} key='third'>
                         <Box
                             height={xlarge ? 545 : 323}
                             width={xlarge ? 367 : 216}
                             // className={classes.information}
                             boxShadow={3}
                             borderRadius={4}
+                            key='imageBox'
                         >
                             <Image
                                 itemProp="image"
                                 className={classes.image}
                                 key={movie.key}
+<<<<<<< HEAD:pages/movie/[key].js
                                 src={movie.image}
+=======
+                                src={movie.image || movie.video_thumbnail || '/image.jpg'}
+>>>>>>> herauna:pages/movie.js
                                 alt={movie.name}
                                 height={xlarge ? 545 : 323}
                                 width={xlarge ? 367 : 216}
                             />
                         </Box>
                     </Grid>
+<<<<<<< HEAD:pages/movie/[key].js
                     <Grid item xs={12} sm={8} lg={8}>
                         <Typography variant='h6' itemProp="name">
                             {movie.name}
                         </Typography>
                         {movieInfo}
                         <Box display="flex" flexDirection="row" itemProp="genre">
+=======
+                    <Grid item xs={12} sm={8} lg={8} key='fourth'>
+                        <Typography variant='h6' itemProp="name" key={movie.name}>
+                            {movie.name}
+                        </Typography>
+                        {movieInfo}
+                        <Box display="flex" flexDirection="row" itemProp="genre" key='genreMapping'>
+>>>>>>> herauna:pages/movie.js
                             {genre.map(item => item)}
                         </Box>
                         {moviePlot}
                     </Grid>
                 </Grid>
             </Grid>
-            <Grid item xs={12}>
+            <Grid item xs={12} key='imdbRating'>
                 {imdbRating}
             </Grid>
-            <Grid item xs={12}>
+            <Grid item xs={12} key='streamingGrid'>
                 {movieStreaming}
             </Grid>
+<<<<<<< HEAD:pages/movie/[key].js
             <Grid item xs={12}>
                 <div className={classes.casting} itemScope itemType="http://schema.org/Person">
+=======
+            <Grid item xs={12} key='castingGrid'>
+                <div className={classes.casting} itemScope itemType="http://schema.org/Person" key='casting'>
+>>>>>>> herauna:pages/movie.js
                     {!movie.actor?.length > 0 ? <div></div> : < Cast
-                        actor={movie.actor}
+                        actor={movie.actor} key={movie.actor}
                     />}
                 </div>
             </Grid>
+<<<<<<< HEAD:pages/movie/[key].js
             {movie.collection ? movie.collection.length > 1 ? <Grid item xs={12}>
                 <div className={classes.casting}>
                     <Typography variant='h6' >
+=======
+            {movie.collection ? movie.collection.length > 1 ? <Grid item xs={12} key='collection'>
+                <div className={classes.casting} key='castingss'>
+                    <Typography variant='h6' key='collection' >
+>>>>>>> herauna:pages/movie.js
                         Collections
-                </Typography>
-                    <Grid container >
+                    </Typography>
+                    <Grid container key='collectionContainer'>
                         {movie.collection.map(items =>
                         (
+<<<<<<< HEAD:pages/movie/[key].js
                             <Grid item xs={3} sm={2} md={3} lg={2} key={items.id} itemScope itemType="http://schema.org/Movie">
                                 <DisplayCard movie={items} individual={`/movies/${items.id}`} key={items.id} />
+=======
+                            <Grid item xs={3} sm={2} md={3} lg={2} key={items.id} itemScope itemType="http://schema.org/Movie" key={items.id}>
+                                <DisplayCard movie={items} individual={`/movie/${items.id}`} key={items.id} />
+>>>>>>> herauna:pages/movie.js
                             </Grid>
                         ))}
                     </Grid>
@@ -448,11 +541,11 @@ const Movie = ({ movie_key, movie }) => {
             </Grid> : <div></div> : <div></div>
             }
             {movie.trailer ?
-                <Grid item xs={12}>
-                    <Typography variant={large ? "h6" : "body1"} display="block" gutterBottom>
+                <Grid item xs={12} key='movieTrailer'>
+                    <Typography variant={large ? "h6" : "body1"} display="block" gutterBottom key='movieTrailerText'>
                         Trailer
-                </Typography>
-                    <Box className={classes.video}>
+                    </Typography>
+                    <Box className={classes.video} key='youtubeVideo'>
                         <YouTube className={classes.frame} videoId={get_id(movie.trailer)} opts={opts} onReady={onStart} />
                     </Box>
                 </Grid> :
@@ -475,9 +568,15 @@ export async function getStaticProps(context) {
     const res = await fetch(`https://api.heraunu.com/api/movies/${key}/?release_date=&genre=&streaming=&imdb_rating=`, requestOptions)
     const movie = await res.json()
     const movie_key = key
+<<<<<<< HEAD:pages/movie/[key].js
     // By returning { props: { posts } }, the Blog component
     // will receive `posts` as a prop at build time
     return {
+=======
+
+    return {
+
+>>>>>>> herauna:pages/movie.js
         props: {
             movie,
             movie_key
@@ -486,7 +585,11 @@ export async function getStaticProps(context) {
 }
 
 export async function getStaticPaths() {
+<<<<<<< HEAD:pages/movie/[key].js
     const response = await fetch('https://api.heraunu.com/api/allMovie/', requestOptions)
+=======
+    const response = await fetch('https://api.heraunu.com/api/allMov/', requestOptions)
+>>>>>>> herauna:pages/movie.js
     const data = await response.json()
     const movies = Object.values(data['results']).map(x => x.key).filter(n => n)
     return {

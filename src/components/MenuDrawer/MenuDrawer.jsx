@@ -62,13 +62,13 @@ const MenuDrawer = (props) => {
                 justify="center"
                 style={{ minHeight: '10vh' }}
             >
-                <List>
+                <List key='list'>
                     {menuItems.map((text, index) => (
-                        <Grid item>
-                            <Link href={menuLinks[index]}>
-                                <ListItem button key={text}>
-                                    <ListItemIcon>{menuIcons[index]}</ListItemIcon>
-                                    <ListItemText primary={text} />
+                        <Grid item key={index}>
+                            <Link href={menuLinks[index]} key={text+'1'}>
+                                <ListItem button key={text+'2'}>
+                                    <ListItemIcon key={text+'3'}>{menuIcons[index]}</ListItemIcon>
+                                    <ListItemText primary={text} key={text} />
                                 </ListItem>
                             </Link>
                         </Grid>

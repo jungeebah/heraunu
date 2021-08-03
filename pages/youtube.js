@@ -1,8 +1,7 @@
-import { getallYoutube, allYoutubeSelector, invalidateAllYoutube } from '../lib/slice/allYoutube';
 import { updatePageNumber, updateSorting, youtubeDataSelector } from '../lib/slice/youtubeDataSlice'
 import { useDispatch, useSelector } from 'react-redux';
 import React, { useState } from 'react';
-import SkeletonDisplay from '../src/components/SkeletonDisplay/SkeletonDisplay';
+import SkeletonDisplay from '../src/components/SkeletonDisplay/SkeletonActor';
 import Typography from '@material-ui/core/Typography'
 import { makeStyles, useTheme } from "@material-ui/core/styles";
 import DisplayCard from '../src/components/DisplayCard/DisplayCard';
@@ -16,6 +15,16 @@ import List from '@material-ui/core/List';
 import ListItemText from '@material-ui/core/ListItemText';
 import ListItem from '@material-ui/core/ListItem';
 import useMediaQuery from "@material-ui/core/useMediaQuery";
+
+const token = process.env.NEXT_PUBLIC_Token
+
+var myHeaders = new Headers();
+myHeaders.append("Authorization", `Token ${token}`);
+
+var requestOptions = {
+    method: 'GET',
+    headers: myHeaders,
+};
 
 const useStyles = makeStyles((theme) => ({
     youtube: {
@@ -61,8 +70,9 @@ function Filter_alt(props) {
     );
 }
 
-const youtube = () => {
-    const youtubeData = useSelector(allYoutubeSelector);
+const youtube = ({ youtube }) => {
+    const totalMovies = youtube.count
+    const moviesList = youtube.results
     const userData = useSelector(youtubeDataSelector);
     const skeletonItem = [...Array(10).keys()]
     const dispatch = useDispatch();
@@ -70,30 +80,35 @@ const youtube = () => {
     const theme = useTheme();
     const mobile = useMediaQuery(theme.breakpoints.down("xs"));
     const [filterOpen, setFilterOpen] = React.useState(false);
-    const [youtubeList, setYoutubeList] = useState(youtubeData.allmovies)
-    const [displayData, setDisplayData] = useState(youtubeList.slice(0, 10))
-    const [totalYoutube, setTotalYoutube] = useState(youtubeList.length);
+    const [sortedData, setSortedData] = useState(moviesList)
+    const [displayData, setDisplayData] = useState(sortedData.slice(0, 10))
     const sort_item = ['Upload date', 'View Count'];
     const trend_item = ['Weekly', 'Monthly']
+
     const nextPage = (e, v) => {
         dispatch(updatePageNumber(v))
-        setDisplayData(youtubeList.slice((v - 1) * 10, v * 10))
+        setDisplayData(sortedData.slice((v - 1) * 10, v * 10))
     }
+
 
     const sortPressed = (e, item) => {
         dispatch(updateSorting(item))
-        dispatch(invalidateAllYoutube())
+        dispatch(updatePageNumber(1))
         setFilterOpen(false)
         if (item === 'Upload date') {
-            dispatch(getallYoutube('-youtube__video_date'))
+            setSortedData(moviesList.sort(function (a, b) {
+                var aa = a.youtube.video_date.split('-').join(),
+                    bb = b.youtube.video_date.split('-').join();
+                return aa > bb ? -1 : (aa < bb ? 1 : 0);
+            }))
         } else if (item === 'View Count') {
-            dispatch(getallYoutube('-youtube__views'))
+            setSortedData(moviesList.sort((a, b) => b.youtube.views - a.youtube.views))
         } else if (item === 'Weekly') {
-            dispatch(getallYoutube('-youtube__weekly'))
-        }else if (item === 'Monthly'){
-            dispatch(getallYoutube('-youtube__monthly'))
+            setSortedData(moviesList.sort((a, b) => b.youtube.weekly - a.youtube.weekly))
+        } else if (item === 'Monthly') {
+            setSortedData(moviesList.sort((a, b) => b.youtube.monthly - a.youtube.monthly))
         }
-
+        setDisplayData(sortedData.slice(0, 10))
     }
 
     const skeleton = <div>
@@ -118,7 +133,7 @@ const youtube = () => {
                         <Filter_alt />
                         <Typography varaint={mobile ? "subtitle1" : "body1"}>
                             Filter
-                            </Typography>
+                        </Typography>
                     </IconButton>
                 </Box>
             </Box>
@@ -128,13 +143,13 @@ const youtube = () => {
                         <Typography
                             variant={mobile ? 'subtitle1' : 'body1'}>
                             SORT BY
-                    </Typography>
+                        </Typography>
                     </Box>
                     <Box ml={5}>
                         <Typography
                             variant={mobile ? 'subtitle1' : 'body1'}>
                             TREND
-                    </Typography>
+                        </Typography>
                     </Box>
                 </Box>
                 <Box>
@@ -201,22 +216,7 @@ const youtube = () => {
             </Collapse>
         </div >
 
-    React.useEffect(() => {
-        if (!youtubeData.allmovies?.length) {
-            dispatch(getallYoutube())
-        }
-    }
-        , [])
 
-    React.useEffect(() => {
-        setYoutubeList(youtubeData.allmovies)
-    }, [youtubeData])
-
-    React.useEffect(() => {
-        setDisplayData(youtubeList.slice((userData.pageNumber - 1) * 10, userData.pageNumber * 10))
-        setTotalYoutube(youtubeList.length)
-    }
-        , [youtubeList])
     return (
         <div className={classes.youtube}>
             <div >
@@ -227,10 +227,14 @@ const youtube = () => {
                     Youtube
                 </Typography>
                 <Grid container >
-                    {youtubeData.allmovies ?
+                    {moviesList ?
                         displayData.map(items => (
                             <Grid item xs={3} sm={2} md={3} lg={2} key={items.key} >
+<<<<<<< HEAD
                                 <DisplayCard movie={items} individual={`/movies/${items.key}`} />
+=======
+                                <DisplayCard movie={items} individual={`/movie/${items.key}`} />
+>>>>>>> herauna
                             </Grid>
                         ))
                         :
@@ -241,7 +245,7 @@ const youtube = () => {
                 justifyContent="center"
                 display="flex">
                 <Pagination
-                    count={totalYoutube % 10 === 0 ? totalYoutube / 10 : Math.floor(totalYoutube / 10) + 1}
+                    count={totalMovies % 10 === 0 ? totalMovies / 10 : Math.floor(totalMovies / 10) + 1}
                     variant="outlined"
                     shape="rounded"
                     size="small"
@@ -251,4 +255,22 @@ const youtube = () => {
         </div >
     )
 }
+
+export async function getStaticProps() {
+    const result = await fetch(`https://api.heraunu.com/api/allY/?ordering=`, requestOptions)
+    const resultAllMovies = await fetch(`https://api.heraunu.com/api/allMov/`, requestOptions)
+    const allMovies = await resultAllMovies.json()
+    const resultAllPersons = await fetch(`https://api.heraunu.com/api/allPerso/`, requestOptions)
+    const allPersons = await resultAllPersons.json()
+    const youtube = await result.json()
+    return {
+
+        props: {
+            youtube,
+            allPersons,
+            allMovies,
+        },
+    }
+}
+
 export default youtube

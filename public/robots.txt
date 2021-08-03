@@ -3,7 +3,15 @@ User-agent: *
 Allow: /
 
 # Host
+<<<<<<< HEAD
 Host: https://heraunu.com
 
 # Sitemaps
 Sitemap: https://heraunu.com/sitemap.xml
+=======
+Host: https://herauna.com
+
+# Sitemaps
+Sitemap: https://herauna.com/sitemap.xml
+Sitemap: https://herauna.com/sitemap-1.xml
+>>>>>>> herauna

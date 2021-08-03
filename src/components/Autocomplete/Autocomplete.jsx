@@ -1,10 +1,11 @@
 import React from "react";
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import TextField from "@material-ui/core/TextField";
 import Autocomplete from "@material-ui/lab/Autocomplete";
 import { makeStyles } from "@material-ui/core/styles";
 import { useRouter } from 'next/router';
-import { getSearch, invalidateSearch } from '../../../lib/slice/search';
+import { storedAllPerson, storedAllMovie } from './data';
+import { updateSearchResult, invalidateSearchResult } from '../../../lib/slice/searchResult'
 
 const useStyles = makeStyles(
     (theme) => ({
@@ -49,6 +50,7 @@ const AutoComplete = (props) => {
     const dispatch = useDispatch()
     const { openLabel, setOpenLabel, allPersonsData, allMoviesData } = props;
     const classes = useStyles();
+    const allData = (allPersonsData.length && allMoviesData.length) ? [...allPersonsData, ...allMoviesData] : [...storedAllMovie, ...storedAllPerson]
 
     const selected = (e, v) => {
         if (v) {
@@ -59,15 +61,36 @@ const AutoComplete = (props) => {
             } else {
                 var type = `/actor/${v.key}`
             }
+<<<<<<< HEAD
            
+=======
+
+>>>>>>> herauna
             router.push({ pathname: '/search', query: { name: v.name, image: image, type: type, youtube_url: youtube_url } })
         }
     }
 
-    const pressedEnter = (e) => {
+    const pressedEnter = async (e) => {
+        const lunr = (await import('lunr')).default
         if (e.target.value) {
-            dispatch(invalidateSearch())
-            dispatch(getSearch(e.target.value))
+            var idx = lunr(function () {
+                this.ref('key')
+                this.field('name')
+
+                allData.forEach(function (doc) {
+                    this.add(doc)
+                }, this)
+            })
+            const search = idx.search(`${e.target.value}~1`)
+            const totalResults = search ?
+                allData.filter(item =>
+                    search
+                        .map(a => a.ref)
+                        .map(Number)
+                        .includes(item.key)
+                ) : []
+            dispatch(invalidateSearchResult())
+            dispatch(updateSearchResult(totalResults))
             router.push({ pathname: '/search' })
             setOpenLabel(!openLabel)
         }
@@ -75,13 +98,14 @@ const AutoComplete = (props) => {
     }
 
     const defaultProps = {
-        options: [...allMoviesData, ...allPersonsData],
+        options: allData,
         getOptionLabel: (option) => option.name.toLowerCase()
             .split(' ')
             .map((s) => s.charAt(0).toUpperCase() + s.substring(1))
             .join(' '),
     };
     return (
+
         <div className={classes.root}>
             <Autocomplete
                 classes={{

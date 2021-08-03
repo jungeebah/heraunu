@@ -1,6 +1,6 @@
 import React from "react";
-import { makeStyles, useTheme } from '@material-ui/core/styles';
-const useStyles = makeStyles((theme) => ({
+import { makeStyles } from '@material-ui/core/styles';
+const useStyles = makeStyles(() => ({
     root: {
         marginTop: '40px',
         width: '156px',

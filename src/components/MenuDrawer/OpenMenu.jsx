@@ -69,10 +69,10 @@ const OpenMenu = (props) => {
             </div>
             <List>
                 {menuItems.map((text, index) => (
-                    <Link href={menuLinks[index]}>
-                        <ListItem button key={text}>
-                            <ListItemIcon>{menuIcons[index]}</ListItemIcon>
-                            <ListItemText primary={text} />
+                    <Link href={menuLinks[index]} key={text+'1'}>
+                        <ListItem button key={text+'2'}>
+                            <ListItemIcon key={text+'4'}>{menuIcons[index]}</ListItemIcon>
+                            <ListItemText primary={text} key={text+'3'} />
                         </ListItem>
                     </Link>
                 ))}

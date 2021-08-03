@@ -30,6 +30,7 @@ const useStyles = makeStyles((theme) => ({
 const MyApp = (props) => {
     const [open, setOpen] = React.useState(false)
     const { Component, pageProps } = props
+    const { allMovies, allPersons } = pageProps
     const theme = useTheme();
     const classes = useStyles();
     const medium = useMediaQuery(theme.breakpoints.up("lg"));
@@ -47,7 +48,11 @@ const MyApp = (props) => {
 
     return (
         <React.Fragment>
+<<<<<<< HEAD
             
+=======
+
+>>>>>>> herauna
             <Provider store={store}>
                 <ThemeProvider theme={darkTheme ? DarkTheme : LightTheme}>
                     <CssBaseline />
@@ -56,6 +61,8 @@ const MyApp = (props) => {
                             handleDrawerClose={handleDrawerClose}
                             setDarkTheme={setDarkTheme}
                             darkTheme={darkTheme}
+                            allMovies={allMovies}
+                            allPersons={allPersons}
                         />
                     </div>
                     {medium &&

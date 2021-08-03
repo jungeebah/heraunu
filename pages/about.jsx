@@ -6,6 +6,15 @@ import { makeStyles, useTheme } from "@material-ui/core/styles";
 import useMediaQuery from "@material-ui/core/useMediaQuery";
 import ContactForm from '../src/components/ContactForm/ContactForm';
 
+const token = process.env.NEXT_PUBLIC_Token
+
+var myHeaders = new Headers();
+myHeaders.append("Authorization", `Token ${token}`);
+
+var requestOptions = {
+    method: 'GET',
+    headers: myHeaders,
+};
 
 const useStyles = makeStyles((theme) => ({
     about: {
@@ -80,7 +89,7 @@ const About = () => {
                         </Grid>
                         <Grid item xs={12}>
                             <Typography variant={large ? 'h6' : 'body1'} className={classes.des}>
-                                A web app born out of covid and love for Nepali movies. Heraunu is designed to be a one stop center for
+                                A web app born out of covid and love for Nepali movies. Herauna is designed to be a one stop center for
                                 viewing information on Nepali movies. We collect data from different sites and aggregated them to this website
                                 for viewing ease. As of now it's just a side project therefore many things are whacky, some stuff are hacked in place and
                                 the data needs a lot more care and love. If the platform survives than we intend to slowly work on creating a better nepali movie consuming site.
@@ -94,6 +103,21 @@ const About = () => {
             </Grid>
         </div >
     )
+}
+export async function getStaticProps() {
+    // Call an external API endpoint to get posts
+    const resultAllMovies = await fetch(`https://api.heraunu.com/api/allMov/`, requestOptions)
+    const allMovies = await resultAllMovies.json()
+    const resultAllPersons = await fetch(`https://api.heraunu.com/api/allPerso/`, requestOptions)
+    const allPersons = await resultAllPersons.json()
+    // By returning { props: { posts } }, the Blog component
+    // will receive `posts` as a prop at build time
+    return {
+        props: {
+            allMovies,
+            allPersons,
+        },
+    }
 }
 
 export default About

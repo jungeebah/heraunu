@@ -6,7 +6,18 @@ import Typography from '@material-ui/core/Typography'
 import Grid from "@material-ui/core/Grid";
 import Box from '@material-ui/core/Box'
 import { allSearchSelection } from '../lib/slice/search';
+import { searchResultSelector } from '../lib/slice/searchResult';
 import { useSelector } from 'react-redux';
+
+const token = process.env.NEXT_PUBLIC_Token
+
+var myHeaders = new Headers();
+myHeaders.append("Authorization", `Token ${token}`);
+
+var requestOptions = {
+    method: 'GET',
+    headers: myHeaders,
+};
 
 const useStyles = makeStyles((theme) => ({
     search: {
@@ -30,6 +41,7 @@ const search = () => {
     const classes = useStyles();
     const router = useRouter();
     const result = useSelector(allSearchSelection)
+    const searchResults = useSelector(searchResultSelector)
     const [searchResult, setSearchResult] = React.useState([])
     const [type, setType] = React.useState(null)
     const movie = router.query
@@ -38,7 +50,7 @@ const search = () => {
         if (router.query.type) {
             setType(router.query.type)
         } else {
-            setSearchResult(result.allResult)
+            setSearchResult(searchResults.results)
         }
     }, [])
 
@@ -49,8 +61,8 @@ const search = () => {
     }, [router.query])
 
     React.useEffect(() => {
-        setSearchResult(result.allResult)
-    }, [result])
+        setSearchResult(searchResults.results)
+    }, [searchResults])
 
     const optionSelect = movie ? (
         <DisplayCard movie={movie} individual={movie.type} />
@@ -91,6 +103,22 @@ const search = () => {
 
         </div >
     )
+}
+export async function getStaticProps() {
+    // Call an external API endpoint to get posts
+    const resultAllMovies = await fetch(`https://api.heraunu.com/api/allMov/`, requestOptions)
+    const allMovies = await resultAllMovies.json()
+    const resultAllPersons = await fetch(`https://api.heraunu.com/api/allPerso/`, requestOptions)
+    const allPersons = await resultAllPersons.json()
+    // By returning { props: { posts } }, the Blog component
+    // will receive `posts` as a prop at build time
+    return {
+
+        props: {
+            allMovies,
+            allPersons,
+        },
+    }
 }
 
 export default search

@@ -1,26 +1,15 @@
 import React from 'react';
 import Link from 'next/link';
-import Image from 'next/image'
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import IconButton from '@material-ui/core/IconButton';
-import SvgIcon from '@material-ui/core/SvgIcon';
 import Logo from './Logo';
-import Icon from '@material-ui/core/Icon';
-import { fade, makeStyles, useTheme } from '@material-ui/core/styles';
+import { fade, makeStyles} from '@material-ui/core/styles';
 import Brightness5Icon from "@material-ui/icons/Brightness5";
 import Brightness4Icon from "@material-ui/icons/Brightness4";
 import Tooltip from '@material-ui/core/Tooltip';
-import { useSelector } from 'react-redux';
-import useMediaQuery from "@material-ui/core/useMediaQuery";
 import Autocomplete from '../Autocomplete/Autocomplete'
-import { allmovieSelector } from '../../../lib/slice/allMovies';
-import { allPersonSelector } from '../../../lib/slice/allPerson';
 import MenuIcon from '@material-ui/icons/Menu';
-
-
-
-
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -118,21 +107,28 @@ const useStyles = makeStyles((theme) => ({
     }
 }));
 
-export default function Header(props) {
-    const keyArtist = useSelector(allPersonSelector);
-    const keyMovie = useSelector(allmovieSelector);
+export default function Header({ allMovies, allPersons, setDarkTheme, darkTheme, handleDrawerClose }) {
     const [movies, setMovies] = React.useState([]);
     const [artist, setArtist] = React.useState([]);
-    React.useEffect(() => { setMovies(keyMovie.allmovies) }, [keyMovie])
-    React.useEffect(() => { setArtist(keyArtist.allActors) }, [keyArtist])
-    const { switchName } = props
-    const allPersonsData = artist
-    const allMoviesData = movies
+    React.useEffect(() => {
+        if (allMovies ) {
+            setMovies(allMovies.results)
+        }
+        else {
+            setMovies([])
+        }
+        if (allPersons) {
+            setArtist(allPersons.results)
+        }
+        else {
+            setArtist([])
+        }
+    }, [])
     const [openLabel, setOpenLabel] = React.useState(false);
     const [input, setInput] = React.useState('')
     const classes = useStyles();
-    const theme = useTheme();
-    const large = useMediaQuery(theme.breakpoints.down("lg"));
+   
+  
 
     // const LogoIcon = (props) => {
     //     return (
@@ -144,7 +140,7 @@ export default function Header(props) {
 
     // const [mobileSearchGrow, setMobileSearchGrow] = React.useState(true);
     const handleChangeTheme = (e) => {
-        props.setDarkTheme(!props.darkTheme)
+        setDarkTheme(!darkTheme)
     }
 
     const selected = (e, v) => {
@@ -161,7 +157,7 @@ export default function Header(props) {
                                     edge="start"
                                     color="inherit"
                                     aria-label="menu"
-                                    onClick={props.handleDrawerClose}
+                                    onClick={handleDrawerClose}
                                 >
                                     <MenuIcon />
                                 </IconButton>
@@ -171,15 +167,15 @@ export default function Header(props) {
                             <Tooltip title="Home">
                                 <Link href="/" shallow={true}>
                                     <IconButton classes={{ label: classes.iconButton }}>
-                                        <Logo className={classes.Logo} theme={props.darkTheme} />
+                                        <Logo className={classes.Logo} theme={darkTheme} />
                                     </IconButton>
                                 </Link>
                             </Tooltip>
                         </div>
                         <div className={classes.search}>
                             <Autocomplete
-                                allPersonsData={allPersonsData}
-                                allMoviesData={allMoviesData}
+                                allPersonsData={artist}
+                                allMoviesData={movies}
                                 setOpenLabel={setOpenLabel}
                                 selected={selected}
                                 openLabel={openLabel}
@@ -195,7 +191,7 @@ export default function Header(props) {
                                     aria-label="theme"
                                     onClick={handleChangeTheme}
                                 >
-                                    {props.darkTheme ? < Brightness5Icon /> : <Brightness4Icon />}
+                                    {darkTheme ? < Brightness5Icon /> : <Brightness4Icon />}
                                 </IconButton>
                             </Tooltip>
                         </div>
@@ -205,3 +201,5 @@ export default function Header(props) {
         </div >
     );
 }
+
+

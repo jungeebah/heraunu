@@ -22,10 +22,17 @@ const HeadMovie = ({ person, actor_key }) => {
         <Head>
             <meta property="og:locale" content="en_US" />
             <meta property="og:type" content="video:actor:role" />
+<<<<<<< HEAD
             <meta property="og:title" content={`${person.name} - Heraunu`} key="ogtitle" />
             <meta property="og:description" content={`Nepali Movie Personal ${person.name}`} key="ogdesc" />
             <meta property="og:url" content={`https://heraunu.com/actor/${actor_key}`} key="ogurl" />
             <meta property="og:site_name" content="Heraunu" key="ogsitename" />
+=======
+            <meta property="og:title" content={`${person.name} - Herauna`} key="ogtitle" />
+            <meta property="og:description" content={`Nepali Movie Personal ${person.name}`} key="ogdesc" />
+            <meta property="og:url" content={`https://herauna.com/actor/${actor_key}`} key="ogurl" />
+            <meta property="og:site_name" content="Herauna" key="ogsitename" />
+>>>>>>> herauna
             <meta property="article:publisher" content="https://www.facebook.com/heraunasite/" />
 
             <meta property="og:image" content={person.image} key="ogimage" />
@@ -39,16 +46,24 @@ const HeadMovie = ({ person, actor_key }) => {
             <meta name="twitter:image" content={person.image} />
             <meta name="twitter:creator" content="@herauuna" />
 
+<<<<<<< HEAD
             <title>{person.name + '- Heraunu'}</title>
+=======
+            <title>{person.name + '- Herauna'}</title>
+>>>>>>> herauna
             <meta name="description" content={`Nepali movie personal ${person.name}`}></meta>
             <meta name="keywords" content={`${person.name},Nepali Actor`}></meta>
             <meta charSet="UTF-8" />
             <meta name="viewport" content="width=device-width, initial-scale=1.0" />
             <meta name='robots' content='index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1' />
 
+<<<<<<< HEAD
             <link rel="icon" type="image/png" href="image/png" />
 
             <link rel="canonical" href={`https://heraunu.com/actor/${actor_key}`} />
+=======
+            <link rel="canonical" href={`https://herauna.com/actor/${actor_key}`} />
+>>>>>>> herauna
 
             <script
                 type="application/ld+json"
