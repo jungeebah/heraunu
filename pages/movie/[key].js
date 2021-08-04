@@ -347,7 +347,9 @@ const Movie = ({ movie_key, movie }) => {
     const genre = movie.genre ? movie.genre.slice(0, 3).map((item) => (
         <Box p={0} key={item.name}>
             <IconButton className={classes.genreButton} edge="start"
-                size="small" key={item.name}>
+                size="small" key={item.name}
+                onClick={(e) =>
+                    router.push(`/genre/${item.id}`)}>
                 <Typography variant="caption" key={item.name}>
                     <Box border={1} borderRadius={5} p='2px' fontWeight={500} itemProp="genre" key={item.name + 'second'}>
                         {item.name}
