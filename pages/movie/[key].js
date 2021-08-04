@@ -28,12 +28,6 @@ var requestOptions = {
     headers: myHeaders,
 };
 
-
-var requestOptions = {
-    method: 'GET',
-    headers: myHeaders,
-};
-
 const useStyles = makeStyles((theme) => ({
     movie: {
         [theme.breakpoints.down('xs')]: {
@@ -237,6 +231,7 @@ const Movie = ({ movie_key, movie }) => {
     const openLocation = (item) => {
         window.open(item, "_blank")
     }
+
     const imdbRating = movie.imdb_rating > 0 ? (
         <div className={classes.streaming}>
             <Grid item xs={12} lg={12} key={movie.imdb_rating}>
