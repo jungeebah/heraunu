@@ -65,6 +65,7 @@ const useStyles = makeStyles((theme) => ({
 }))
 const Person = (props) => {
     const { actor_key, person } = props
+    if (person.movies) { person.movies.sort((a, b) => (a.weighted_point < b.weighted_point) ? 1 : -1) }
     const classes = useStyles()
     const theme = useTheme();
     const image = person.image === 'None' ? '/image.jpg' : person.image
