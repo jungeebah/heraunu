@@ -217,7 +217,7 @@ const Movie = ({ movie_key, movie }) => {
     }
     const router = useRouter()
 
-    const streamingLocation = ['VideoPasal', 'Prime', 'CinemaGhar', 'Iflix', 'HamroMovie', 'Youtube']
+    const streamingLocation = ['VideoPasal', 'Prime', 'CinemaGhar', 'Iflix', 'Youtube']
     const playingLocation = streamingLocation.filter(location => movie[location] !== null)
 
     const classes = useStyles()
@@ -260,7 +260,7 @@ const Movie = ({ movie_key, movie }) => {
                 flexWrap="wrap"
                 className={classes.streamingData} key='streaming'>
                 {playingLocation ? playingLocation.map((item) => (
-                    <Box mr={2}>
+                    <Box mr={2} key={item}>
                         <Chip
                             key={item}
                             rel="noopener noreferrer"
@@ -352,7 +352,9 @@ const Movie = ({ movie_key, movie }) => {
     const genre = movie.genre ? movie.genre.slice(0, 3).map((item) => (
         <Box p={0} key={item.name}>
             <IconButton className={classes.genreButton} edge="start"
-                size="small" key={item.name}>
+                size="small" key={item.name}
+                onClick={(e) =>
+                    router.push(`/genre/${item.id}`)}>
                 <Typography variant="caption" key={item.name}>
                     <Box border={1} borderRadius={5} p='2px' fontWeight={500} itemProp="genre" key={item.name + 'second'}>
                         {item.name}
@@ -360,7 +362,7 @@ const Movie = ({ movie_key, movie }) => {
                 </Typography>
             </IconButton>
         </Box>
-    )) : [<div></div>]
+    )) : [<div key="empty"></div>]
 
     const renderMovie =
         <Grid container
@@ -428,7 +430,7 @@ const Movie = ({ movie_key, movie }) => {
                     <Grid container key='collectionContainer'>
                         {movie.collection.map(items =>
                         (
-                            <Grid item xs={3} sm={2} md={3} lg={2} key={items.id} itemScope itemType="http://schema.org/Movie" key={items.id}>
+                            <Grid item xs={3} sm={2} md={3} lg={2} itemScope itemType="http://schema.org/Movie" key={items.id}>
                                 <DisplayCard movie={items} individual={`/movie/${items.id}`} key={items.id} />
                             </Grid>
                         ))}

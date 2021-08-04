@@ -70,7 +70,7 @@ function Filter_alt(props) {
     );
 }
 
-const youtube = ({ youtube }) => {
+const Youtube = ({ youtube }) => {
     const totalMovies = youtube.count
     const moviesList = youtube.results
     const userData = useSelector(youtubeDataSelector);
@@ -254,7 +254,7 @@ const youtube = ({ youtube }) => {
 
 export async function getStaticProps() {
     const result = await fetch(`https://api.heraunu.com/api/allY/?ordering=`, requestOptions)
-    const resultAllMovies = await fetch(`https://api.heraunu.com/api/allMov/`, requestOptions)
+    const resultAllMovies = await fetch(`https://api.heraunu.com/api/allMovie/`, requestOptions)
     const allMovies = await resultAllMovies.json()
     const resultAllPersons = await fetch(`https://api.heraunu.com/api/allPerso/`, requestOptions)
     const allPersons = await resultAllPersons.json()
@@ -269,4 +269,4 @@ export async function getStaticProps() {
     }
 }
 
-export default youtube
+export default Youtube

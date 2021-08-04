@@ -126,7 +126,7 @@ const ContactForm = () => {
                                 <Grid item xs={12}>
                                     <Grid container >
                                         <Grid item xs={12}>
-                                            <label className={classes.label} for="message">Message</label>
+                                            <label className={classes.label} htmlFor="message">Message</label>
                                         </Grid>
                                         <Grid item xs={12}>
                                             <textarea

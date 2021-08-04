@@ -113,6 +113,7 @@ const AutoComplete = (props) => {
                 {...defaultProps}
                 open={openLabel}
                 id="search-box"
+                getOptionSelected={(option, value) => option.key === value.key}
                 onChange={selected}
                 clearOnEscape
                 onClose={(e, r) => {
