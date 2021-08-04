@@ -66,7 +66,7 @@ const SimpleTabs = (props) => {
         if (totalMovies > 10) {
             setDisplayPagination(true)
         }
-    }, [])
+    }, [totalMovies])
 
     React.useEffect(() => {
         setDisplayData(movies.filter(item => item.role.includes(tabs[value])).slice(0, 10))
@@ -79,7 +79,7 @@ const SimpleTabs = (props) => {
             setTotalMovies(defaultMovie.length)
             setDisplayPagination(true)
         }
-    }, [tabs])
+    }, [tabs, movies])
 
     React.useEffect(() => {
         setTabs(roleTypes.filter(item => movies.filter(a => a.role.includes(item)).length > 0))
@@ -110,7 +110,7 @@ const SimpleTabs = (props) => {
                 indicatorColor="primary"
             >
                 {tabs.map((item, index) => (
-                    <Tab classes={tabItemStyles} label={item} {...a11yProps(index)} key={index}/>
+                    <Tab classes={tabItemStyles} label={item} {...a11yProps(index)} key={index} />
                 ))}
             </Tabs>
             {tabs.map((role, index) => (

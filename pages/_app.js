@@ -48,6 +48,7 @@ const MyApp = (props) => {
 
     return (
         <React.Fragment>
+
             <Provider store={store}>
                 <ThemeProvider theme={darkTheme ? DarkTheme : LightTheme}>
                     <CssBaseline />

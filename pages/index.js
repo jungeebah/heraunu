@@ -23,7 +23,7 @@ function Index(props) {
         <meta name="twitter:card" content="summary" />
         <meta name="twitter:description" content="Complete Nepali movie Database for information and viewing" />
         <meta name="twitter:title" content="Complete Nepali movie Engine - Heraunu" />
-        <meta name="twitter:site" content="@heraunu" />
+        <meta name="twitter:site" content="@herauuna" />
         <meta name="twitter:image" content="https://heraunu.com/favicon.ico" />
         <meta name="twitter:creator" content="@heraunu" />
         <link rel="icon" href="/favicon.ico" />
@@ -58,7 +58,7 @@ export async function getStaticProps() {
     method: 'GET',
     headers: myHeaders,
   };
-  const res = await fetch('https://api.heraunu.com/api/allMov/', requestOptions)
+  const res = await fetch('https://api.heraunu.com/api/allMovie/', requestOptions)
   const personRes = await fetch('https://api.heraunu.com/api/allPerso/', requestOptions)
   const youtubeRes = await fetch('https://api.heraunu.com/api/allYoutube/', requestOptions)
   const youtube = await youtubeRes.json()

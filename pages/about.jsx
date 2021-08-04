@@ -91,7 +91,7 @@ const About = () => {
                             <Typography variant={large ? 'h6' : 'body1'} className={classes.des}>
                                 A web app born out of covid and love for Nepali movies. Heraunu is designed to be a one stop center for
                                 viewing information on Nepali movies. We collect data from different sites and aggregated them to this website
-                                for viewing ease. As of now it's just a side project therefore many things are whacky, some stuff are hacked in place and
+                                for viewing ease. As of now it&#39;s just a side project therefore many things are whacky, some stuff are hacked in place and
                                 the data needs a lot more care and love. If the platform survives than we intend to slowly work on creating a better nepali movie consuming site.
                     </Typography>
                         </Grid>
@@ -106,7 +106,7 @@ const About = () => {
 }
 export async function getStaticProps() {
     // Call an external API endpoint to get posts
-    const resultAllMovies = await fetch(`https://api.heraunu.com/api/allMov/`, requestOptions)
+    const resultAllMovies = await fetch(`https://api.heraunu.com/api/allMovie/`, requestOptions)
     const allMovies = await resultAllMovies.json()
     const resultAllPersons = await fetch(`https://api.heraunu.com/api/allPerso/`, requestOptions)
     const allPersons = await resultAllPersons.json()

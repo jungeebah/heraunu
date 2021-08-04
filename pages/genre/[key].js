@@ -1,12 +1,12 @@
 import { useDispatch, useSelector } from 'react-redux';
-import SkeletonDisplay from '../src/components/SkeletonDisplay/SkeletonActor';
+import SkeletonDisplay from '../../src/components/SkeletonDisplay/SkeletonActor';
 import React, { useState } from 'react'
 import Typography from '@material-ui/core/Typography'
 import { makeStyles } from "@material-ui/core/styles";
-import DisplayCard from '../src/components/DisplayCard/DisplayCard';
+import DisplayCard from '../../src/components/DisplayCard/DisplayCard';
 import Grid from '@material-ui/core/Grid';
 import Pagination from '@material-ui/lab/Pagination';
-import { updatePageNumber, personDataSelector } from '../lib/slice/personUserSlice';
+import { updatePageNumber, genreDataSelector } from '../../lib/slice/genreDataSlice';
 import Box from '@material-ui/core/Box';
 
 const token = process.env.NEXT_PUBLIC_Token
@@ -41,18 +41,19 @@ const useStyles = makeStyles((theme) => ({
     }
 }))
 
-const Actors = ({ allPersons }) => {
-    const totalMovies = allPersons.count
-    const personsList = allPersons.results
+
+const Genre = ({ genre }) => {
+    const totalMovies = genre.movies ? genre.movies.length : 0
+    const genreList = genre.movies ? genre.movies : []
     const skeletonItem = [...Array(10).keys()]
-    const userData = useSelector(personDataSelector)
+    const userData = useSelector(genreDataSelector)
     const dispatch = useDispatch();
     const classes = useStyles();
-    const [displayData, setDisplayData] = useState(personsList.slice((userData.pageNumber - 1) * 10, userData.pageNumber * 10))
+    const [displayData, setDisplayData] = useState(genreList ? genreList.slice((userData.pageNumber - 1) * 10, userData.pageNumber * 10) : [])
 
     const nextPage = (e, v) => {
         dispatch(updatePageNumber(v))
-        setDisplayData(personsList.slice((v - 1) * 10, v * 10))
+        setDisplayData(genreList.slice((v - 1) * 10, v * 10))
     }
 
 
@@ -69,17 +70,18 @@ const Actors = ({ allPersons }) => {
         <div className={classes.persons}>
             <div >
                 <Typography variant='h6' color="secondary" className={classes.title}>
-                    Actors
+                    {genre.name}
                 </Typography>
                 <Grid container>
-                    {displayData ?
+                    {genre.movies ? displayData ?
                         displayData.map(items => (
-                            <Grid item xs={3} sm={2} md={3} lg={2} key={items.key} >
-                                <DisplayCard movie={items} individual={`/actor/${items.key}`} />
+                            <Grid item xs={3} sm={2} md={3} lg={2} key={items.movie_id} >
+                                <DisplayCard movie={items} individual={`/movie/${items.movie_id}`} />
                             </Grid>
                         ))
                         :
-                        skeleton}
+                        skeleton :
+                        <div></div>}
                 </Grid>
             </div>
             <Box className={classes.pagination}
@@ -97,17 +99,28 @@ const Actors = ({ allPersons }) => {
     )
 }
 
-export async function getStaticProps() {
-    const resultAllMovies = await fetch(`https://api.heraunu.com/api/allMovie/`, requestOptions)
-    const allMovies = await resultAllMovies.json()
-    const resultAllPersons = await fetch(`https://api.heraunu.com/api/allPerso/`, requestOptions)
-    const allPersons = await resultAllPersons.json()
+export async function getStaticProps(context) {
+    // Call an external API endpoint to get posts
+    const { key } = context.params
+    const res = await fetch(`https://api.heraunu.com/api/genres/${key}`, requestOptions)
+    const genre = await res.json()
     return {
-
         props: {
-            allMovies,
-            allPersons,
+            genre,
         },
     }
 }
-export default Actors
+
+export async function getStaticPaths() {
+    const response = await fetch('https://api.heraunu.com/api/allGenres/', requestOptions)
+    const data = await response.json()
+    const genre = Object.values(data['results']).map(x => x.key).filter(n => n)
+    return {
+        paths: genre.map(key => ({
+            params: { key: key.toString() },
+        })),
+        fallback: false,
+    }
+}
+
+export default Genre
