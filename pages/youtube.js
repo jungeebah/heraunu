@@ -254,7 +254,7 @@ const Youtube = ({ youtube }) => {
 
 export async function getStaticProps() {
     const result = await fetch(`https://api.heraunu.com/api/allY/?ordering=`, requestOptions)
-    const resultAllMovies = await fetch(`https://api.heraunu.com/api/allMov/`, requestOptions)
+    const resultAllMovies = await fetch(`https://api.heraunu.com/api/allMovie/`, requestOptions)
     const allMovies = await resultAllMovies.json()
     const resultAllPersons = await fetch(`https://api.heraunu.com/api/allPerso/`, requestOptions)
     const allPersons = await resultAllPersons.json()

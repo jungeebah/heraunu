@@ -165,11 +165,13 @@ export default function Header({ allMovies, allPersons, setDarkTheme, darkTheme,
                         </Tooltip>
                         <div className={classes.title}>
                             <Tooltip title="Home">
-                                <Link href="/" shallow={true} passHref>
-                                    <IconButton classes={{ label: classes.iconButton }}>
-                                        <Logo className={classes.Logo} theme={darkTheme} />
-                                    </IconButton>
-                                </Link>
+                                <div>
+                                    <Link href="/" shallow={true} passHref>
+                                        <IconButton classes={{ label: classes.iconButton }}>
+                                            <Logo className={classes.Logo} theme={darkTheme} />
+                                        </IconButton>
+                                    </Link>
+                                </div>
                             </Tooltip>
                         </div>
                         <div className={classes.search}>
@@ -184,15 +186,17 @@ export default function Header({ allMovies, allPersons, setDarkTheme, darkTheme,
                         </div>
                         <div className={classes.icons}>
                             <Tooltip title="Theme">
-                                <IconButton
-                                    edge="end"
-                                    // className={classes.menuButton}
-                                    color="inherit"
-                                    aria-label="theme"
-                                    onClick={handleChangeTheme}
-                                >
-                                    {darkTheme ? < Brightness5Icon /> : <Brightness4Icon />}
-                                </IconButton>
+                                <div>
+                                    <IconButton
+                                        edge="end"
+                                        // className={classes.menuButton}
+                                        color="inherit"
+                                        aria-label="theme"
+                                        onClick={handleChangeTheme}
+                                    >
+                                        {darkTheme ? < Brightness5Icon /> : <Brightness4Icon />}
+                                    </IconButton>
+                                </div>
                             </Tooltip>
                         </div>
                     </Toolbar>

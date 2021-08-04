@@ -465,7 +465,7 @@ const Movies = ({ allMovies, genreList, streamList }) => {
 }
 
 export async function getStaticProps() {
-    const result = await fetch(`https://api.heraunu.com/api/allMov/`, requestOptions)
+    const result = await fetch(`https://api.heraunu.com/api/allMovie/`, requestOptions)
     const resultGenre = await fetch(`https://api.heraunu.com/api/allGenres/`, requestOptions)
     const resultStream = await fetch(`https://api.heraunu.com/api/streamKey/`, requestOptions)
     const resultAllPersons = await fetch(`https://api.heraunu.com/api/allPerso/`, requestOptions)
@@ -474,6 +474,10 @@ export async function getStaticProps() {
     const genList = await resultGenre.json()
     const streamJson = await resultStream.json()
     const streamList = streamJson.results.map(s => s.site)
+    const hamroMovie = streamList.indexOf('Hamro Movie');
+    if (hamroMovie !== -1) {
+        streamList.splice(hamroMovie, 1);
+    }
     const genreList = genList.results.map(g => g.name)
     return {
 

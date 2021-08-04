@@ -72,13 +72,13 @@ const Section = (props) => {
                 </Typography>
                 <Link href={url} passHref={true} shallow={true}>
                     <IconButton onClick={() => { }}>
-                        <Typography className={classes.seeAll}>
+                        <div className={classes.seeAll}>
                             <Paper variant="outlined" className={classes.seeAllPaper}>
                                 <Box border={1} borderRadius={5} p='2px' fontWeight={600}>
                                     SEE ALL
                                 </Box>
                             </Paper>
-                        </Typography>
+                        </div>
                     </IconButton>
                 </Link>
             </Grid>

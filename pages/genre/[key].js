@@ -41,7 +41,8 @@ const useStyles = makeStyles((theme) => ({
     }
 }))
 
-const Actors = ({ allPersons }) => {
+
+const Genre = ({ genre, genre_key }) => {
     const totalMovies = allPersons.count
     const personsList = allPersons.results
     const skeletonItem = [...Array(10).keys()]
@@ -97,17 +98,32 @@ const Actors = ({ allPersons }) => {
     )
 }
 
-export async function getStaticProps() {
-    const resultAllMovies = await fetch(`https://api.heraunu.com/api/allMovie/`, requestOptions)
-    const allMovies = await resultAllMovies.json()
-    const resultAllPersons = await fetch(`https://api.heraunu.com/api/allPerso/`, requestOptions)
-    const allPersons = await resultAllPersons.json()
+export async function getStaticProps(context) {
+    // Call an external API endpoint to get posts
+    const { key } = context.params
+    const res = await fetch(`https://api.heraunu.com/api/genres/${key}`, requestOptions)
+    const genre = await res.json()
+    const genre_key = key
+
     return {
 
         props: {
-            allMovies,
-            allPersons,
+            genre,
+            genre_key
         },
     }
 }
-export default Actors
+
+export async function getStaticPaths() {
+    const response = await fetch('https://api.heraunu.com/api/allGenres/', requestOptions)
+    const data = await response.json()
+    const genre = Object.values(data['results']).map(x => x.key).filter(n => n)
+    return {
+        paths: genre.map(key => ({
+            params: { key: key.toString() },
+        })),
+        fallback: false,
+    }
+}
+
+export default Genre
