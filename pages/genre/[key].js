@@ -43,13 +43,13 @@ const useStyles = makeStyles((theme) => ({
 
 
 const Genre = ({ genre }) => {
-    const totalMovies = genre.movies.length
-    const genreList = genre.movies
+    const totalMovies = genre.movies ? genre.movies.length : 0
+    const genreList = genre.movies ? genre.movies : []
     const skeletonItem = [...Array(10).keys()]
     const userData = useSelector(genreDataSelector)
     const dispatch = useDispatch();
     const classes = useStyles();
-    const [displayData, setDisplayData] = useState(genreList.slice((userData.pageNumber - 1) * 10, userData.pageNumber * 10))
+    const [displayData, setDisplayData] = useState(genreList ? genreList.slice((userData.pageNumber - 1) * 10, userData.pageNumber * 10) : [])
 
     const nextPage = (e, v) => {
         dispatch(updatePageNumber(v))
@@ -73,14 +73,15 @@ const Genre = ({ genre }) => {
                     {genre.name}
                 </Typography>
                 <Grid container>
-                    {displayData ?
+                    {genre.movies ? displayData ?
                         displayData.map(items => (
                             <Grid item xs={3} sm={2} md={3} lg={2} key={items.movie_id} >
                                 <DisplayCard movie={items} individual={`/movie/${items.movie_id}`} />
                             </Grid>
                         ))
                         :
-                        skeleton}
+                        skeleton :
+                        <div></div>}
                 </Grid>
             </div>
             <Box className={classes.pagination}
@@ -104,7 +105,6 @@ export async function getStaticProps(context) {
     const res = await fetch(`https://api.heraunu.com/api/genres/${key}`, requestOptions)
     const genre = await res.json()
     return {
-
         props: {
             genre,
         },
