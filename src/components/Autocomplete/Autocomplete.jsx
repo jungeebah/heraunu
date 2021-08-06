@@ -61,7 +61,6 @@ const AutoComplete = (props) => {
             } else {
                 var type = `/actor/${v.key}`
             }
-
             router.push({ pathname: '/search', query: { name: v.name, image: image, type: type, youtube_url: youtube_url } })
         }
     }
@@ -94,7 +93,7 @@ const AutoComplete = (props) => {
     }
 
     const defaultProps = {
-        options: allData,
+        options: allData.sort((a, b) => a.weighted_point < b.weighted_point),
         getOptionLabel: (option) => option.name.toLowerCase()
             .split(' ')
             .map((s) => s.charAt(0).toUpperCase() + s.substring(1))
