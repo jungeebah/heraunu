@@ -78,7 +78,7 @@ const yearList = ["All", "Upcoming", ...rangeYear];
 const imdb = Array.from(new Array(10), (x, i) => i + 1);
 const imdbRating = ['All', ...imdb]
 
-const Movies = ({ allMovies, genreList, streamList }) => {
+const Movies = ({ allMovies, genreList }) => {
     const moviesTotal = allMovies.count
     const totalMoviesList = allMovies.results
     const skeletonItem = [...Array(10).keys()]
@@ -91,7 +91,7 @@ const Movies = ({ allMovies, genreList, streamList }) => {
     const classes = useStyles();
 
     const genres = ['All'].concat(genreList)
-    const streams = ['All'].concat(streamList)
+    const streams = ['All'].concat(['videopasal', 'prime', 'cinemaghar', 'iflix', 'itune', 'play'])
     const [genreFilter, setGenreFilter] = React.useState(moviesUserSetting.filters[0])
     const [streamFilter, setStreamFilter] = React.useState(moviesUserSetting.filters[1])
     const [yearFilter, setYearFilter] = React.useState(moviesUserSetting.filters[2])
@@ -394,7 +394,7 @@ const Movies = ({ allMovies, genreList, streamList }) => {
                                 >
                                     {streams.map((option, index) => (
                                         <option key={index} value={option}>
-                                            {option}
+                                            {option ==="play"? "Google Play" :option[0].toUpperCase() + option.substring(1)}
                                         </option>
                                     ))}
                                 </TextField>
@@ -467,25 +467,17 @@ const Movies = ({ allMovies, genreList, streamList }) => {
 export async function getStaticProps() {
     const result = await fetch(`https://api.heraunu.com/api/allMovie/`, requestOptions)
     const resultGenre = await fetch(`https://api.heraunu.com/api/allGenres/`, requestOptions)
-    const resultStream = await fetch(`https://api.heraunu.com/api/streamKey/`, requestOptions)
     const resultAllPersons = await fetch(`https://api.heraunu.com/api/allPerso/`, requestOptions)
     const allPersons = await resultAllPersons.json()
     const allMovies = await result.json()
     const genList = await resultGenre.json()
-    const streamJson = await resultStream.json()
-    const streamList = streamJson.results.map(s => s.site)
-    const hamroMovie = streamList.indexOf('Hamro Movie');
-    if (hamroMovie !== -1) {
-        streamList.splice(hamroMovie, 1);
-    }
     const genreList = genList.results.map(g => g.name)
     return {
 
         props: {
             genreList,
             allMovies,
-            allPersons,
-            streamList,
+            allPersons
         },
     }
 }
