@@ -458,7 +458,7 @@ const Movie = ({ movie_key, movie }) => {
 export async function getStaticProps(context) {
     // Call an external API endpoint to get posts
     const { key } = context.params
-    const res = await fetch(`https://api.heraunu.com/api/movies/${key}/?release_date=&genre=&streaming=&imdb_rating=`, requestOptions)
+    const res = await fetch(`https://api.heraunu.com/api/movies/${key}`, requestOptions)
     const movie = await res.json()
     const movie_key = key
 
