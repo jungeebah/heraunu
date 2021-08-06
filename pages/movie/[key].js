@@ -211,7 +211,7 @@ const Movie = ({ movie_key, movie }) => {
     }
     const router = useRouter()
 
-    const streamingLocation = ['VideoPasal', 'Prime', 'CinemaGhar', 'Iflix', 'Youtube']
+    const streamingLocation = ['videopasal', 'prime', 'cinemaghar', 'iflix', 'youtube', 'itune']
     const playingLocation = streamingLocation.filter(location => movie[location] !== null)
 
     const classes = useStyles()
@@ -260,9 +260,9 @@ const Movie = ({ movie_key, movie }) => {
                             key={item}
                             rel="noopener noreferrer"
                             className={classes.chip}
-                            onClick={() => openLocation(movie[item])}
+                            onClick={() => openLocation(movie[item]['url'])}
                             icon={<OndemandVideoIcon fontSize="small" />}
-                            label={item}
+                            label={item[0].toUpperCase() + item.substring(1)}
                             clickable
                         />
                     </Box>
@@ -345,13 +345,13 @@ const Movie = ({ movie_key, movie }) => {
         </Grid>
 
     const genre = movie.genre ? movie.genre.slice(0, 3).map((item) => (
-        <Box p={0} key={item.name}>
+        <Box p={0} key={item.key}>
             <IconButton className={classes.genreButton} edge="start"
                 size="small" key={item.name}
                 onClick={(e) =>
-                    router.push(`/genre/${item.id}`)}>
-                <Typography variant="caption" key={item.name}>
-                    <Box border={1} borderRadius={5} p='2px' fontWeight={500} itemProp="genre" key={item.name + 'second'}>
+                    router.push(`/genre/${item.key}`)}>
+                <Typography variant="caption" key={item.key}>
+                    <Box border={1} borderRadius={5} p='2px' fontWeight={500} itemProp="genre" key={item.key + 'second'}>
                         {item.name}
                     </Box>
                 </Typography>
@@ -439,7 +439,7 @@ const Movie = ({ movie_key, movie }) => {
                         Trailer
                     </Typography>
                     <Box className={classes.video} key='youtubeVideo'>
-                        <YouTube className={classes.frame} videoId={get_id(movie.trailer)} opts={opts} onReady={onStart} />
+                        <YouTube className={classes.frame} videoId={get_id(movie.trailer.url)} opts={opts} onReady={onStart} />
                     </Box>
                 </Grid> :
                 <div></div>}
