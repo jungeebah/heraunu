@@ -1,16 +1,16 @@
 import Head from 'next/head'
 
 const HeadMovie = ({ movie, movie_key }) => {
-
-    const actorsObject = movie.actor ?
-        movie.actor.map(actor => [{
+    const movieActors = movie.role.filter(a => a.role.includes('cast'))
+    const actorsObject = movieActors?.length > 0 ?
+        movieActors[0].person.map(actor => [{
             "@type": "Person",
             "name": actor.name
         }]) : [];
     const actors = actorsObject ? Object.keys(actorsObject).map(key => actorsObject[key]).flat(1) : ""
-
-    const directorObject = movie.director.length > 0 ?
-        movie.director.map(director => [{
+    const castDirector = movie.role.filter(a => a.role.includes('director'))
+    const directorObject = castDirector?.length > 0 ?
+        castDirector[0].person.map(director => [{
             "@type": "Person",
             "name": director.name
         }]) : []

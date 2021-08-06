@@ -205,13 +205,17 @@ function get_id(url) {
 
 
 const Movie = ({ movie_key, movie }) => {
+    const actors = movie.role.filter(a => a.role.includes('cast'))
+    const casts = actors?.length > 0 ? actors[0].person.sort((a, b) => a.weighted_point < b.weighted_point && 1 || -1) : []
+    const director = movie.role.filter(a => a.role.includes('director'))
+    const castDirector = director?.length > 0 ? director[0].person : []
     const theme = useTheme();
     const onStart = (event) => {
         event.target.pauseVideo();
     }
     const router = useRouter()
 
-    const streamingLocation = ['videopasal', 'prime', 'cinemaghar', 'iflix', 'youtube', 'itune','play']
+    const streamingLocation = ['videopasal', 'prime', 'cinemaghar', 'iflix', 'youtube', 'itune', 'play']
     const playingLocation = streamingLocation.filter(location => movie[location] !== null)
 
     const classes = useStyles()
@@ -300,9 +304,9 @@ const Movie = ({ movie_key, movie }) => {
 
         </Box >
 
-    const movieDirector = movie.director ? (
+    const movieDirector =
         <div className={classes.streamingData} itemProp="director" itemScope itemType="http://schema.org/Person" key='movieDirector'>
-            {movie.director.length > 0 ? movie.director.map((item) =>
+            {castDirector.map((item) =>
             (<Grid container direction="row" key={item.id}>
                 <Grid item xs={6} key={'level1-' + item.id}>
                     <Grid container key={'level2-' + item.id}>
@@ -324,10 +328,9 @@ const Movie = ({ movie_key, movie }) => {
                     </Grid>
                 </Grid>
             </Grid>
-            )) : <div></div>
+            ))
             }
         </div >
-    ) : <div></div>
 
     const moviePlot =
         <Grid item xs={12} lg={12} key='moviePlot'>
@@ -340,7 +343,7 @@ const Movie = ({ movie_key, movie }) => {
                         {movie.plot || 'NA'}
                     </Typography>
                 </Box>
-                {movie.director ? movie.director.length > 0 ? movieDirector : <div></div> : <div></div>}
+                {castDirector?.length > 0 ? movieDirector : <div></div>}
             </div>
         </Grid>
 
@@ -412,8 +415,8 @@ const Movie = ({ movie_key, movie }) => {
             </Grid>
             <Grid item xs={12} key='castingGrid'>
                 <div className={classes.casting} itemScope itemType="http://schema.org/Person" key='casting'>
-                    {!movie.actor?.length > 0 ? <div></div> : < Cast
-                        actor={movie.actor} key={movie.actor}
+                    {!casts?.length > 0 ? <div></div> : < Cast
+                        actor={casts} key={casts}
                     />}
                 </div>
             </Grid>
