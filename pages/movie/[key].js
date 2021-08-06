@@ -211,7 +211,7 @@ const Movie = ({ movie_key, movie }) => {
     }
     const router = useRouter()
 
-    const streamingLocation = ['videopasal', 'prime', 'cinemaghar', 'iflix', 'youtube', 'itune']
+    const streamingLocation = ['videopasal', 'prime', 'cinemaghar', 'iflix', 'youtube', 'itune','play']
     const playingLocation = streamingLocation.filter(location => movie[location] !== null)
 
     const classes = useStyles()
