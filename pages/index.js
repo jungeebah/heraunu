@@ -25,7 +25,7 @@ function Index(props) {
         <meta name="twitter:title" content="Complete Nepali movie Engine - Heraunu" />
         <meta name="twitter:site" content="@herauuna" />
         <meta name="twitter:image" content="https://heraunu.com/favicon.ico" />
-        <meta name="twitter:creator" content="@heraunu" />
+        <meta name="twitter:creator" content="@herauuna" />
         <link rel="icon" href="/favicon.ico" />
         <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
         <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
