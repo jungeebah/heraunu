@@ -51,8 +51,9 @@ function TabPanel(props) {
 const SimpleTabs = (props) => {
     const classes = useStyles();
     const { movies } = props
+    const movie_cast = movies?.length > 0 ? movies.filter(item => item.role.includes('cast')) : []
     const [totalMovies, setTotalMovies] = useState(movies.length)
-    const [displayData, setDisplayData] = useState([])
+    const [displayData, setDisplayData] = useState(totalMovies > 10 ? movie_cast.slice(0, 10) : movie_cast)
     const [displayPagination, setDisplayPagination] = useState(movies?.length > 10 ? true : false)
     const roleTypes = ['cast', 'producer', 'director', 'writer']
     const [value, setValue] = React.useState(0);
@@ -61,20 +62,6 @@ const SimpleTabs = (props) => {
     const nextPage = (e, v) => {
         setDisplayData(movies.filter(item => item.role.includes(roleTypes[value])).slice((v - 1) * 10, v * 10))
     }
-
-    React.useEffect(() => {
-        setDisplayData(movies.filter(item => item.role.includes(tabs[value])).slice(0, 10))
-        const defaultMovie = movies.filter(items => items.role.includes(tabs[value]))
-        if (defaultMovie.length < 10) {
-            setDisplayPagination(false)
-            setDisplayData(defaultMovie)
-        } else {
-            setDisplayData(defaultMovie.slice(0, 10))
-            setTotalMovies(defaultMovie.length)
-            setDisplayPagination(true)
-        }
-    }, [tabs, movies])
-
 
     const handleChange = (event, newValue) => {
         setValue(newValue);
