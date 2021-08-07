@@ -65,7 +65,13 @@ const useStyles = makeStyles((theme) => ({
 }))
 const Person = (props) => {
     const { actor_key, person } = props
-    if (person.movies) { person.movies.sort((a, b) => (a.weighted_point < b.weighted_point) ? 1 : -1) }
+    const roles = person.role?.length > 0 ? person.role : []
+    if (roles) { roles.sort((a, b) => (a.movie_role[0].weighted_point < b.movie_role[0].weighted_point) ? 1 : -1) }
+    const roles_movies = roles ? roles.map(a => {
+        a.movie_role[0].role = a.name
+        return a.movie_role[0]
+    }
+    ) : []
     const classes = useStyles()
     const theme = useTheme();
     const image = person.image === 'None' ? '/image.jpg' : person.image
@@ -115,14 +121,14 @@ const Person = (props) => {
                 </Grid>
             </Grid>
             <Grid item xs={12}>
-                {person.movies ?
+                {roles ?
                     <Box className={classes.actorMovie} elevation={0}>
                         <Grid container
                             direction="row"
                             alignItems="flex-end"
                         >
                             <Grid item xs={12}>
-                                <SimpleTabs movies={person.movies} />
+                                <SimpleTabs movies={roles_movies} />
                             </Grid>
                         </Grid>
                     </Box> : <div></div>

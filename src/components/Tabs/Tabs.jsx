@@ -52,21 +52,15 @@ const SimpleTabs = (props) => {
     const classes = useStyles();
     const { movies } = props
     const [totalMovies, setTotalMovies] = useState(movies.length)
-    const [displayData, setDisplayData] = useState(movies)
-    const [displayPagination, setDisplayPagination] = useState(false)
+    const [displayData, setDisplayData] = useState([])
+    const [displayPagination, setDisplayPagination] = useState(movies?.length > 10 ? true : false)
     const roleTypes = ['cast', 'producer', 'director', 'writer']
     const [value, setValue] = React.useState(0);
-    const [tabs, setTabs] = React.useState([]);
+    const tabs = roleTypes.filter(item => movies.filter(a => a.role.includes(item)).length > 0);
 
     const nextPage = (e, v) => {
         setDisplayData(movies.filter(item => item.role.includes(roleTypes[value])).slice((v - 1) * 10, v * 10))
     }
-
-    React.useEffect(() => {
-        if (totalMovies > 10) {
-            setDisplayPagination(true)
-        }
-    }, [totalMovies])
 
     React.useEffect(() => {
         setDisplayData(movies.filter(item => item.role.includes(tabs[value])).slice(0, 10))
@@ -81,9 +75,6 @@ const SimpleTabs = (props) => {
         }
     }, [tabs, movies])
 
-    React.useEffect(() => {
-        setTabs(roleTypes.filter(item => movies.filter(a => a.role.includes(item)).length > 0))
-    }, [movies])
 
     const handleChange = (event, newValue) => {
         setValue(newValue);
