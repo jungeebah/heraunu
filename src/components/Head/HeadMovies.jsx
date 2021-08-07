@@ -1,16 +1,16 @@
 import Head from 'next/head'
 
 const HeadMovie = ({ movie, movie_key }) => {
-
-    const actorsObject = movie.actor ?
-        movie.actor.map(actor => [{
+    const movieActors = movie.role.filter(a => a.role.includes('cast'))
+    const actorsObject = movieActors?.length > 0 ?
+        movieActors[0].person.map(actor => [{
             "@type": "Person",
             "name": actor.name
         }]) : [];
     const actors = actorsObject ? Object.keys(actorsObject).map(key => actorsObject[key]).flat(1) : ""
-
-    const directorObject = movie.director.length > 0 ?
-        movie.director.map(director => [{
+    const castDirector = movie.role.filter(a => a.role.includes('director'))
+    const directorObject = castDirector?.length > 0 ?
+        castDirector[0].person.map(director => [{
             "@type": "Person",
             "name": director.name
         }]) : []
@@ -30,10 +30,10 @@ const HeadMovie = ({ movie, movie_key }) => {
         <Head>
             <meta property="og:locale" content="en_US" />
             <meta property="og:type" content="video.movie" />
-            <meta property="og:title" content={`${movie.name} - Herauna`} key="ogtitle" />
+            <meta property="og:title" content={`${movie.name} - Heraunu`} key="ogtitle" />
             <meta property="og:description" content={`Nepali Movie  ${movie.name}`} key="ogdesc" />
-            <meta property="og:url" content={`https://herauna.com/movie/${movie_key}`} key="ogurl" />
-            <meta property="og:site_name" content="Herauna" key="ogsitename" />
+            <meta property="og:url" content={`https://heraunu.com/movie/${movie_key}`} key="ogurl" />
+            <meta property="og:site_name" content="Heraunu" key="ogsitename" />
             <meta property="article:publisher" content="https://www.facebook.com/heraunasite/" />
 
             <meta property="og:image" content={movie.image} key="ogimage" />
@@ -46,14 +46,14 @@ const HeadMovie = ({ movie, movie_key }) => {
             <meta name="twitter:site" content="@herauuna" />
             <meta name="twitter:image" content={movie.image} />
             <meta name="twitter:creator" content="@herauuna" />
-            <title>{movie.name + '- Herauna'}</title>
+            <title>{movie.name + '- Heraunu'}</title>
             <meta name="description" content={`Nepali movie  ${movie.name}`}></meta>
             <meta name="keywords" content={`${movie.name},Nepali movies,Nepali full movies, nepali Imdb`}></meta>
             <meta charSet="UTF-8" />
             <meta name="viewport" content="width=device-width, initial-scale=1.0" />
             <meta name='robots' content='index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1' />
 
-            <link rel="canonical" href={`https://herauna.com/movie/${movie_key}`} />
+            <link rel="canonical" href={`https://heraunu.com/movie/${movie_key}`} />
 
             <script
                 type="application/ld+json"
