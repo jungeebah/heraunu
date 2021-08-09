@@ -394,7 +394,7 @@ const Movies = ({ allMovies, genreList }) => {
                                 >
                                     {streams.map((option, index) => (
                                         <option key={index} value={option}>
-                                            {option ==="play"? "Google Play" :option[0].toUpperCase() + option.substring(1)}
+                                            {option === "play" ? "Google Play" : option[0].toUpperCase() + option.substring(1)}
                                         </option>
                                     ))}
                                 </TextField>
@@ -465,9 +465,9 @@ const Movies = ({ allMovies, genreList }) => {
 }
 
 export async function getStaticProps() {
-    const result = await fetch(`https://api.heraunu.com/api/allMovie/`, requestOptions)
-    const resultGenre = await fetch(`https://api.heraunu.com/api/allGenres/`, requestOptions)
-    const resultAllPersons = await fetch(`https://api.heraunu.com/api/allPerso/`, requestOptions)
+    const result = await fetch(`https://api.herauna.com/api/allMovie/`, requestOptions)
+    const resultGenre = await fetch(`https://api.herauna.com/api/allGenres/`, requestOptions)
+    const resultAllPersons = await fetch(`https://api.herauna.com/api/allPerso/`, requestOptions)
     const allPersons = await resultAllPersons.json()
     const allMovies = await result.json()
     const genList = await resultGenre.json()

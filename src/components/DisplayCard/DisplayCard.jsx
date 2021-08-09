@@ -1,7 +1,6 @@
 import React from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
-import Fab from '@material-ui/core/Fab';
 import YouTubeIcon from '@material-ui/icons/YouTube';
 import Box from '@material-ui/core/Box'
 import IconButton from '@material-ui/core/IconButton';

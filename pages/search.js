@@ -37,8 +37,8 @@ const useStyles = makeStyles((theme) => ({
     }
 }))
 
-const searchComponent=()=>{
-    
+const searchComponent = () => {
+
 }
 
 const Search = () => {
@@ -110,9 +110,9 @@ const Search = () => {
 }
 export async function getStaticProps() {
     // Call an external API endpoint to get posts
-    const resultAllMovies = await fetch(`https://api.heraunu.com/api/allMovie/`, requestOptions)
+    const resultAllMovies = await fetch(`https://api.herauna.com/api/allMovie/`, requestOptions)
     const allMovies = await resultAllMovies.json()
-    const resultAllPersons = await fetch(`https://api.heraunu.com/api/allPerso/`, requestOptions)
+    const resultAllPersons = await fetch(`https://api.herauna.com/api/allPerso/`, requestOptions)
     const allPersons = await resultAllPersons.json()
     // By returning { props: { posts } }, the Blog component
     // will receive `posts` as a prop at build time

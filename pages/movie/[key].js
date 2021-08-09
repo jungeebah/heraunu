@@ -461,7 +461,7 @@ const Movie = ({ movie_key, movie }) => {
 export async function getStaticProps(context) {
     // Call an external API endpoint to get posts
     const { key } = context.params
-    const res = await fetch(`https://api.heraunu.com/api/movies/${key}`, requestOptions)
+    const res = await fetch(`https://api.herauna.com/api/movies/${key}`, requestOptions)
     const movie = await res.json()
     const movie_key = key
 
@@ -475,7 +475,7 @@ export async function getStaticProps(context) {
 }
 
 export async function getStaticPaths() {
-    const response = await fetch('https://api.heraunu.com/api/allMov/', requestOptions)
+    const response = await fetch('https://api.herauna.com/api/allMov/', requestOptions)
     const data = await response.json()
     const movies = Object.values(data['results']).map(x => x.key).filter(n => n)
     return {
