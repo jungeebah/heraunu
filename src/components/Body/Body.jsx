@@ -32,14 +32,14 @@ const Body = (props) => {
                         varaint={mobile ? "subtitle1" : "body1"}
                     >
                         Filter
-            </Typography>
+                    </Typography>
                 </IconButton>
             </Grid>
             <Grid container spacing={2}>
                 {displayData.map((item) => (
                     <Grid item xs={6} sm={4} md={3} xl={2} key={'level1' + item.key} >
                         <DisplayCard
-                            url={`https://api.heraunu.com/api/movies/${item.key}/`}
+                            url={`https://api.herauna.com/api/movies/${item.key}/`}
                             key={item.key}
                             movie={item}
                         // changeBody={changeBody}

@@ -102,7 +102,7 @@ const Genre = ({ genre }) => {
 export async function getStaticProps(context) {
     // Call an external API endpoint to get posts
     const { key } = context.params
-    const res = await fetch(`https://api.heraunu.com/api/genres/${key}`, requestOptions)
+    const res = await fetch(`https://api.herauna.com/api/genres/${key}`, requestOptions)
     const genre = await res.json()
     return {
         props: {
@@ -112,7 +112,7 @@ export async function getStaticProps(context) {
 }
 
 export async function getStaticPaths() {
-    const response = await fetch('https://api.heraunu.com/api/allGenres/', requestOptions)
+    const response = await fetch('https://api.herauna.com/api/allGenres/', requestOptions)
     const data = await response.json()
     const genre = Object.values(data['results']).map(x => x.key).filter(n => n)
     return {

@@ -58,9 +58,9 @@ export async function getStaticProps() {
     method: 'GET',
     headers: myHeaders,
   };
-  const res = await fetch('https://api.heraunu.com/api/allMovie/', requestOptions)
-  const personRes = await fetch('https://api.heraunu.com/api/allPerso/', requestOptions)
-  const youtubeRes = await fetch('https://api.heraunu.com/api/allYoutube/', requestOptions)
+  const res = await fetch('https://api.herauna.com/api/allMovie/', requestOptions)
+  const personRes = await fetch('https://api.herauna.com/api/allPerso/', requestOptions)
+  const youtubeRes = await fetch('https://api.herauna.com/api/allYoutube/', requestOptions)
   const youtube = await youtubeRes.json()
   const allPersons = await personRes.json()
   const allMovies = await res.json()
